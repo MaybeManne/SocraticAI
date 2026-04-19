@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GateSpec",
+  "description": "Worker agent output: specification for one interactive gate. NOTE: gate_id is NOT in the required fields — it is injected by the pipeline from the lesson plan node. Do not include it in LLM output.",
+  "type": "object",
+  "required": ["gate_type", "after_act"],
+  "properties": {
+    "gate_type": { "type": "string", "enum": ["quiz", "fill-in", "proof-builder", "interactive"] },
+    "after_act": { "type": "string" },
+    "label":     { "type": ["string", "null"] },
+
+    "question":     { "type": "string", "description": "For quiz type" },
+    "options":      { "type": "array", "items": { "type": "string" } },
+    "correct":      { "type": ["integer", "string"] },
+    "explanations": { "type": "object", "additionalProperties": { "type": "string" } },
+
+    "prompt":         { "type": "string", "description": "For fill-in type" },
+    "blank":          {
+      "type": "object",
+      "properties": {
+        "answer":      { "type": "array", "items": { "type": "string" } },
+        "width":       { "type": "number" },
+        "placeholder": { "type": "string" }
+      }
+    },
+    "hint":           { "type": "string" },
+    "successMessage": { "type": "string" },
+
+    "instruction":      { "type": "string", "description": "For proof-builder type" },
+    "availablePieces":  { "type": "array" },
+    "correctOrder":     { "type": "array" },
+    "slots":            { "type": "integer" },
+
+    "title":        { "type": "string", "description": "For interactive type" },
+    "description":  { "type": "string", "description": "Subheading for interactive gate" },
+    "slider":       { "type": "object" },
+    "compute":      { "type": "string", "description": "JS function body for interactive compute" },
+    "displays":     { "type": "array" },
+    "challenge":    { "type": "string" },
+
+    "wrong_path_acts": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Act IDs of branch acts for wrong answers"
+    }
+  }
+}

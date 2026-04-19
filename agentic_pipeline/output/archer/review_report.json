@@ -1,0 +1,62 @@
+[
+  {
+    "severity": "error",
+    "location": "act:act_setup:beat_2",
+    "description": "Visual-narration desynchronization: Narration says 'With an initial speed of forty meters per second, where will this arrow land?' but the .do() action 'calculateComponents' shows numerical components (34.6, 20.0) that haven't been calculated yet in the story.",
+    "fix": "Move the calculateComponents action to after the velocity decomposition explanation, or change the narration to reference the visible components."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_independence:beat_1",
+    "description": "Orphan animation: The splitVelocityVector action lacks specific narration context. Student sees velocity decomposition but narration doesn't guide them through what they're seeing visually.",
+    "fix": "Add narration like 'Watch as we break this single velocity vector into its horizontal and vertical components' to connect the visual action."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_motion:beat_2",
+    "description": "Ghost reference: Narration says 'Notice how the horizontal velocity stays perfectly constant at 34.6 m/s' but there's no visual emphasis or highlighting of the horizontal component during motion.",
+    "fix": "Add a .do() action to highlight or emphasize the horizontal velocity vector, or modify updateVelocityVector to make the constant horizontal component visually obvious."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_motion:beat_4",
+    "description": "Orphan animation: Narration mentions 'The velocity vector rotates and shrinks vertically while staying constant horizontally' but there's no corresponding .do() action to show this vector behavior.",
+    "fix": "Add .do('updateVelocityVector', {showRotation: true}) or similar to visualize the vector rotation during flight."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_peak:beat_2",
+    "description": "Visual-narration mismatch: Narration says 'The arrow is momentarily moving purely horizontally at 34.6 m/s' with a LaTeX card, but the updateVelocityVector action shows vx: 34.6, vy: 0 without visual emphasis on the purely horizontal direction.",
+    "fix": "Modify the action to emphasize the horizontal-only velocity visually, or add a separate action to highlight this special moment."
+  },
+  {
+    "severity": "warning",
+    "location": "act:act_parabola:beat_2",
+    "description": "Missing visual connection: Narration says 'There it is — the elegant parabolic curve' but drawFullTrajectory happens simultaneously with narration rather than being revealed as narration builds to this moment.",
+    "fix": "Add offset to drawFullTrajectory action (e.g., '+0.5') to create a reveal moment that matches the narration timing."
+  },
+  {
+    "severity": "warning",
+    "location": "act:act_calculation:beat_4",
+    "description": "Timing issue: The calculation steps in narration and the solveEquation/highlightTimeOfFlight actions happen too quickly without allowing time to absorb each step.",
+    "fix": "Add offsets to space out the equation solving steps: solveEquation at '+0.5', highlightTimeOfFlight at '+1.5'."
+  },
+  {
+    "severity": "warning",
+    "location": "act:act_payoff:beat_2",
+    "description": "Abrupt transition: Narration jumps to 'If we tried different launch angles' but showMultipleTrajectories has no offset, making the transition too sudden.",
+    "fix": "Add offset '+1.0' to showMultipleTrajectories to allow the previous narration to land before showing multiple trajectories."
+  },
+  {
+    "severity": "suggestion",
+    "location": "act:act_independence:beat_4",
+    "description": "Enhancement opportunity: The split screen creation could be more dramatically timed with narration 'Let's see both motions side by side' for better visual impact.",
+    "fix": "Change createSplitScreen offset to '+0.0' and showMotionGraphs to '+1.0' to create a more dramatic reveal sequence."
+  },
+  {
+    "severity": "suggestion",
+    "location": "act:act_payoff:beat_3",
+    "description": "Visual emphasis opportunity: The narration about complementary angles (30° and 60°) producing identical ranges could be supported by highlighting those specific trajectories.",
+    "fix": "Add a .do() action to highlight the 30° and 60° trajectories when this symmetry is mentioned."
+  }
+]

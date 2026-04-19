@@ -1,0 +1,99 @@
+{
+  "act_id": "act_decompose",
+  "title": "Splitting the Arrow — Horizontal & Vertical",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "That single gold arrow is hiding two independent stories. Watch what happens when we pull it apart.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "decomposeVelocity",
+          "params": {
+            "speed": 20,
+            "angle": 45,
+            "horizontalLabel": "v₀cos45° = 10√2 ≈ 14.1 m/s",
+            "verticalLabel": "v₀sin45° = 10√2 ≈ 14.1 m/s"
+          },
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "The green arrow is the horizontal piece — pure sideways speed. Nothing in this problem ever pushes the ball left or right, so this length never changes. Not once during the entire flight.",
+      "card": {
+        "type": "latex",
+        "content": "v_x = v_0 \\cos 45° = 10\\sqrt{2} \\approx 14.1 \\ \\text{m/s} \\ (\\text{constant})"
+      },
+      "viz_actions": [
+        {
+          "method": "pulseArrow",
+          "params": {
+            "component": "horizontal",
+            "color": "#4CAF50"
+          },
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "The blue arrow is the vertical piece — the upward speed. Gravity fights this one relentlessly. It will shrink to zero at the peak, then flip downward on the way back to earth.",
+      "card": {
+        "type": "latex",
+        "content": "v_y = v_0 \\sin 45° = 10\\sqrt{2} \\approx 14.1 \\ \\text{m/s} \\ (\\text{decreasing})"
+      },
+      "viz_actions": [
+        {
+          "method": "pulseArrow",
+          "params": {
+            "component": "vertical",
+            "color": "#2196F3"
+          },
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Both components come from the same launch — cosine gives the horizontal, sine gives the vertical. At exactly 45°, cosine and sine are equal, so the two pieces are perfectly matched: both $10\\sqrt{2}$ meters per second.",
+      "card": {
+        "type": "derivation",
+        "title": "Decomposing $v_0 = 20$ m/s at $\\theta = 45°$",
+        "steps": [
+          {
+            "latex": "v_x = v_0 \\cos\\theta = 20 \\cos 45° = 20 \\cdot \\frac{\\sqrt{2}}{2} = 10\\sqrt{2} \\ \\text{m/s}"
+          },
+          {
+            "latex": "v_y = v_0 \\sin\\theta = 20 \\sin 45° = 20 \\cdot \\frac{\\sqrt{2}}{2} = 10\\sqrt{2} \\ \\text{m/s}"
+          },
+          {
+            "latex": "v_x = v_y \\approx 14.1 \\ \\text{m/s} \\quad (\\text{unique to } 45°)",
+            "highlight": true
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "dimAllExcept",
+          "params": {
+            "exceptIds": [
+              "horizontalArrow",
+              "verticalArrow",
+              "goldArrow",
+              "triangle"
+            ],
+            "opacity": 0.15
+          },
+          "offset": "0"
+        }
+      ],
+      "inline_viz": "svg",
+      "duration": null
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "gate_type": "quiz",
+  "after_act": "act_independence",
+  "question": "What happens to the horizontal component of velocity as the arrow flies through the air?",
+  "options": [
+    "It stays constant at 34.6 m/s throughout the flight",
+    "It gradually decreases due to gravity",
+    "It increases as the arrow accelerates forward",
+    "It changes direction when the arrow reaches its peak"
+  ],
+  "correct": 0,
+  "explanations": {
+    "correct": "Exactly — gravity only acts vertically, so the horizontal velocity remains constant at 34.6 m/s throughout the entire flight.",
+    "1": "That's a common gravity misconception. Gravity only pulls downward (vertically) and cannot affect horizontal motion.",
+    "2": "That's confusing horizontal motion with acceleration. There's no horizontal force acting on the arrow after it leaves the bow.",
+    "3": "That's mixing up the components. The horizontal component stays the same — only the vertical component changes direction at the peak."
+  },
+  "wrong_path_acts": [
+    "act_gravity_clarification"
+  ],
+  "gate_id": "gate_components"
+}

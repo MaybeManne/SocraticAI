@@ -1,0 +1,124 @@
+{
+  "act_id": "act_wrong_landing",
+  "title": "Apex vs. Landing — Two Very Different Moments",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "That answer is one of the most common mix-ups in all of projectile motion — and it's worth pausing to really see why it's wrong. There are two dramatic moments in the ball's flight, and they are completely different things.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "dimAllExcept",
+          "params": {
+            "exceptIds": [
+              "trajectoryArc"
+            ],
+            "opacity": 0.15
+          },
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "The first moment is the apex — the very top of the arc. Up here, the vertical velocity has drained away to zero. $v_y = 0$. But look: the ball is still very much in the air. It hasn't landed. $y$ is at its maximum, not zero.",
+      "card": {
+        "type": "text",
+        "content": "**At the apex:** $v_y = 0$, but $y = y_{\\max}$. The ball is airborne and still moving horizontally."
+      },
+      "viz_actions": [
+        {
+          "method": "markApex",
+          "params": {},
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Now notice the green horizontal arrow is still glowing at the apex. The ball is coasting sideways the whole time — $v_x$ never changes. $v_y = 0$ only means the ball stopped going *up*. It does not mean the ball stopped.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "pulseArrow",
+          "params": {
+            "component": "horizontal",
+            "color": "#4caf50"
+          },
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "The second moment is landing. Here, $y = 0$ — the ball is back on the ground, at the same height it started. The velocity is definitely *not* zero. It points downward at an angle, just as fast as it was at launch.",
+      "card": {
+        "type": "latex",
+        "content": "\\text{Landing condition: } y(t) = 0",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "placeBall",
+          "params": {
+            "x": 40.8,
+            "y": 0
+          },
+          "offset": "0"
+        },
+        {
+          "method": "drawVelocityArrow",
+          "params": {
+            "speed": 20,
+            "angle": -45,
+            "color": "#2196F3",
+            "label": "v at landing",
+            "durationMs": 600
+          },
+          "offset": "+0.8"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "So the two conditions are: $v_y = 0$ finds the apex, and $y = 0$ finds the landing. Setting velocity to zero would give you the height of the peak — not the range. That's why we set $y(t) = 0$ when we want to know *when* and *where* the ball touches down.",
+      "card": {
+        "type": "derivation",
+        "title": "Two Conditions — One Confused With the Other",
+        "steps": [
+          {
+            "latex": "v_y = 0 \\quad \\Rightarrow \\quad \\text{apex (max height)}",
+            "highlight": false,
+            "wrong": false
+          },
+          {
+            "latex": "y(t) = 0 \\quad \\Rightarrow \\quad \\text{landing (range)}",
+            "highlight": true,
+            "wrong": false
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "dimAllExcept",
+          "params": {
+            "exceptIds": [
+              "trajectoryArc",
+              "apexMarker",
+              "landingBall",
+              "landingArrow"
+            ],
+            "opacity": 0.2
+          },
+          "offset": "0"
+        }
+      ],
+      "inline_viz": "svg",
+      "duration": null
+    }
+  ]
+}

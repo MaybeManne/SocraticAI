@@ -1,0 +1,20 @@
+{
+  "gate_type": "fill-in",
+  "after_act": "act_independence",
+  "prompt": "If the initial speed is 50 m/s at 30°, what is the horizontal component of velocity? (Give your answer to 1 decimal place)",
+  "blank": {
+    "answer": [
+      "43.3",
+      "43.30",
+      "43.301"
+    ],
+    "width": 60,
+    "placeholder": "? m/s"
+  },
+  "hint": "Use $v_{0x} = v_0 \\cos(\\theta)$ with the cosine of 30°.",
+  "successMessage": "Excellent! $v_{0x} = 50 \\cos(30°) = 50 \\times \\frac{\\sqrt{3}}{2} = 43.3$ m/s.",
+  "wrong_path_acts": [
+    "act_trig_review"
+  ],
+  "gate_id": "gate_components"
+}

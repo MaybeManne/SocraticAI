@@ -1,0 +1,111 @@
+{
+  "act_id": "act_range_calc",
+  "title": "Computing the Range — Time Meets Distance",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "We have the clock — $t = \\frac{10\\sqrt{2}}{4.9} \\approx 2.89$ seconds, glowing gold. Now the horizontal equation. No acceleration, no drag — just constant speed times time.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "resetSegment",
+          "params": {
+            "keepIds": [
+              "trajectoryArc",
+              "apexDot",
+              "axes"
+            ]
+          },
+          "offset": "0"
+        },
+        {
+          "method": "showEquation",
+          "params": {
+            "step": "horizontal",
+            "position": "center"
+          },
+          "offset": "+0.8"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "The horizontal component of our launch speed is $v_0 \\cos 45° = 10\\sqrt{2}$ m/s. So $x(t) = 10\\sqrt{2} \\cdot t$ — clean and linear all the way to landing.",
+      "card": {
+        "type": "latex",
+        "content": "x(t) = v_0 \\cos\\theta \\cdot t = 10\\sqrt{2}\\cdot t",
+        "highlight": false
+      },
+      "viz_actions": [
+        {
+          "method": "dimAllExcept",
+          "params": {
+            "exceptIds": [
+              "trajectoryArc",
+              "axes",
+              "equationBlock"
+            ],
+            "opacity": 0.2
+          },
+          "offset": "+0.5"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Now substitute. The flight time $t = \\frac{10\\sqrt{2}}{4.9}$ slides straight in — and watch what happens to those square roots.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "substituteTime",
+          "params": {
+            "t": 2.887
+          },
+          "offset": "+0.6"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "The two $\\sqrt{2}$ factors multiply: $10\\sqrt{2} \\times 10\\sqrt{2} = 100 \\times 2 = 200$. The roots vanish completely, leaving just $\\frac{200}{4.9}$.",
+      "card": {
+        "type": "derivation",
+        "title": "Range Calculation",
+        "steps": [
+          {
+            "latex": "R = 10\\sqrt{2} \\cdot \\dfrac{10\\sqrt{2}}{4.9}"
+          },
+          {
+            "latex": "= \\dfrac{10\\sqrt{2} \\times 10\\sqrt{2}}{4.9} = \\dfrac{200}{4.9}",
+            "highlight": false
+          },
+          {
+            "latex": "\\approx 40.8 \\text{ m}",
+            "highlight": true
+          }
+        ]
+      },
+      "viz_actions": [],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Forty-point-eight meters. Watch it land — the bracket stretches from launch to exactly where the arc touches down. That gold label is your answer.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "drawRangeBracket",
+          "params": {
+            "range": 40.8
+          },
+          "offset": "0"
+        }
+      ],
+      "inline_viz": "svg",
+      "duration": null
+    }
+  ]
+}

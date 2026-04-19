@@ -1,0 +1,22 @@
+{
+  "gate_type": "quiz",
+  "after_act": "act_flight_time",
+  "question": "An arrow is shot straight up with initial vertical velocity 25 m/s. How long until it returns to the starting height?",
+  "options": [
+    "5.1 seconds",
+    "2.5 seconds",
+    "12.3 seconds",
+    "10.2 seconds"
+  ],
+  "correct": 0,
+  "explanations": {
+    "correct": "Exactly! Using 0 = 25t - 4.9t², we get t(25 - 4.9t) = 0, so t = 25/4.9 ≈ 5.1 seconds for the return trip.",
+    "1": "That's the time to reach maximum height. The total flight time is twice this because the motion is symmetric.",
+    "2": "That's confusing velocity with time. Remember to use the kinematic equation y = v₀t - ½gt² and set y = 0.",
+    "3": "That's using the wrong formula. For vertical motion, use y = v₀t - ½gt² where v₀ = 25 m/s and g = 9.8 m/s²."
+  },
+  "wrong_path_acts": [
+    "act_vertical_symmetry"
+  ],
+  "gate_id": "gate_flight_time"
+}

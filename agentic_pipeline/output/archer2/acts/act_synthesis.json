@@ -1,0 +1,109 @@
+{
+  "act_id": "act_synthesis",
+  "title": "The Complete Picture",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "And there's the complete story — two simple motions creating one elegant arc. Watch as the horizontal motion stays perfectly steady while gravity pulls the vertical component through its rise and fall.",
+      "card": {
+        "type": "recap",
+        "title": "Projectile Motion Synthesis",
+        "content": [
+          {
+            "type": "text",
+            "value": "Initial velocity: 40 m/s at 30°"
+          },
+          {
+            "type": "text",
+            "value": "Horizontal component: 34.6 m/s (constant)"
+          },
+          {
+            "type": "text",
+            "value": "Vertical component: 20 m/s → 0 → -20 m/s"
+          },
+          {
+            "type": "text",
+            "value": "Flight time: 4.08 seconds"
+          },
+          {
+            "type": "text",
+            "value": "Range: 141.4 meters"
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "replayTrajectory",
+          "params": {
+            "speed": 0.8,
+            "showComponents": true
+          },
+          "offset": 0
+        },
+        {
+          "method": "updateVelocityComponents",
+          "params": {
+            "time": "dynamic",
+            "showVectors": true
+          },
+          "offset": "+0.5"
+        }
+      ]
+    },
+    {
+      "say": "This distance makes perfect sense — about one and a half football fields for a skilled archer's shot. The mathematics transforms an ancient skill into precise prediction.",
+      "card": {
+        "type": "text",
+        "content": "Range = 141.4 meters ≈ 1.5 football fields"
+      },
+      "viz_actions": [
+        {
+          "method": "addRealWorldScale",
+          "params": {
+            "scaleType": "football",
+            "opacity": 0.7
+          },
+          "offset": 0
+        },
+        {
+          "method": "pulseObject",
+          "params": {
+            "objectId": "arrow_landing",
+            "intensity": 1.2,
+            "duration": 2
+          },
+          "offset": "+1.0"
+        }
+      ]
+    },
+    {
+      "say": "The general formula emerges naturally from our work. Range equals initial speed squared, times sine of twice the angle, divided by gravity. Beautiful physics hiding in elegant mathematics.",
+      "card": {
+        "type": "latex",
+        "content": "\\text{Range} = \\frac{v_0^2 \\sin(2\\theta)}{g}",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "equation": "range_formula",
+            "position": "center",
+            "style": "highlight"
+          },
+          "offset": 0
+        },
+        {
+          "method": "celebrateResult",
+          "params": {
+            "position": "arrow_landing",
+            "value": "141.4 m",
+            "effect": "sparkle"
+          },
+          "offset": "+1.5"
+        }
+      ],
+      "inline_viz": "svg"
+    }
+  ]
+}

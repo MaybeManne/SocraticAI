@@ -1,0 +1,21 @@
+{
+  "gate_type": "fill-in",
+  "after_act": "act_calculation",
+  "prompt": "If the initial vertical velocity is 20 m/s and gravity is 9.8 m/s², the time to reach peak height is [___] seconds.",
+  "blank": {
+    "answer": [
+      "2.04",
+      "2.041",
+      "2.0",
+      "2"
+    ],
+    "width": 80,
+    "placeholder": "?"
+  },
+  "hint": "At the peak, the vertical velocity becomes zero. Use $v_y = v_{0y} - gt$.",
+  "successMessage": "Correct! The arrow reaches peak height at t = 2.04 seconds, which is exactly half the total flight time.",
+  "wrong_path_acts": [
+    "act_time_to_peak"
+  ],
+  "gate_id": "gate_calculation"
+}

@@ -1,0 +1,59 @@
+{
+  "act_id": "act_5_gauntlet",
+  "title": "The Gauntlet",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "We have exactly three possibilities left. Let's run them through the gauntlet. First, if $r = 3$, our equation says $a^2 + 1$ must be a multiple of three. But think about perfect squares: they are never one less than a multiple of three. The modular arithmetic clock strikes it down.",
+      "card": {},
+      "viz_actions": [
+        {
+          "method": "run_gauntlet",
+          "params": {},
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "viz_panel_override": null
+    },
+    {
+      "say": "What if $r = 2$? A little algebra gives us $(a-1)^2 = 2m^2$. If we take the square root of both sides, we get the square root of two equals a fraction of integers. But the square root of two is famously irrational! The logic shatters.",
+      "card": {},
+      "viz_actions": [
+        {
+          "method": "run_gauntlet",
+          "params": {},
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "viz_panel_override": null
+    },
+    {
+      "say": "Finally, if $r = 1$, the equation simplifies to $m^2 = a^2 - a + 1$. But look at the number line of perfect squares. This value drops exactly into the uncrossable gap between $(a-1)^2$ and $a^2$. It can never be an integer squared.",
+      "card": {},
+      "viz_actions": [
+        {
+          "method": "run_gauntlet",
+          "params": {},
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "viz_panel_override": null
+    },
+    {
+      "say": "All three possibilities fail. The interval we started with is completely empty. For any $m$ greater than two, there are exactly zero divisors hidden here.",
+      "card": {},
+      "viz_actions": [
+        {
+          "method": "zoom_number_line",
+          "params": {},
+          "offset": "0"
+        }
+      ],
+      "inline_viz": "svg",
+      "viz_panel_override": null
+    }
+  ]
+}

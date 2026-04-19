@@ -1,0 +1,109 @@
+{
+  "act_id": "act_vertical",
+  "title": "Vertical Motion Story",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Now for vertical motion — here gravity constantly pulls downward at 9.8 meters per second squared. Let's isolate the vertical component to see how it behaves.",
+      "card": {
+        "type": "text",
+        "content": "Vertical motion is governed by constant downward acceleration due to gravity: $g = 9.8 \\text{ m/s}^2$"
+      },
+      "viz_actions": [
+        {
+          "method": "isolateMotion",
+          "params": {
+            "motionType": "vertical",
+            "dimOpacity": 0.3
+          },
+          "offset": 0
+        },
+        {
+          "method": "highlightComponent",
+          "params": {
+            "component": "vertical",
+            "intensity": 1.2
+          },
+          "offset": "+0.5"
+        }
+      ]
+    },
+    {
+      "say": "The vertical velocity starts at 20 meters per second upward, decreases due to gravity, becomes zero at the peak, then increases downward. Watch how the velocity vector changes direction.",
+      "viz_actions": [
+        {
+          "method": "updateVelocityComponents",
+          "params": {
+            "time": 0,
+            "showVectors": true
+          },
+          "offset": 0
+        },
+        {
+          "method": "createMotionGraph",
+          "params": {
+            "type": "velocity",
+            "axis": "vertical",
+            "realTime": true
+          },
+          "offset": "+1.0"
+        }
+      ]
+    },
+    {
+      "say": "Vertical position follows the kinematic equation: y equals v naught y times t minus one half g t squared. That's 20t minus 4.9t squared.",
+      "card": {
+        "type": "latex",
+        "content": "y = v_{0y} \\cdot t - \\frac{1}{2}gt^2 = 20t - 4.9t^2",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "equation": "y = 20t - 4.9t²",
+            "position": "top-right",
+            "style": "physics"
+          },
+          "offset": 0
+        },
+        {
+          "method": "markTimeInstant",
+          "params": {
+            "time": 2.04,
+            "event": "peak",
+            "color": "#f59e0b"
+          },
+          "offset": "+1.5"
+        }
+      ]
+    },
+    {
+      "say": "Notice the beautiful symmetry — the upward journey mirrors the downward journey. The arrow takes the same time to rise as it does to fall.",
+      "card": {
+        "type": "text",
+        "content": "Projectile motion is symmetric: time to reach maximum height equals time to fall back down."
+      },
+      "viz_actions": [
+        {
+          "method": "pulseObject",
+          "params": {
+            "objectId": "trajectory_peak",
+            "intensity": 1.5,
+            "duration": 1.0
+          },
+          "offset": 0
+        },
+        {
+          "method": "markTimeInstant",
+          "params": {
+            "time": 4.08,
+            "event": "landing",
+            "color": "#818cf8"
+          },
+          "offset": "+1.0"
+        }
+      ]
+    }
+  ]
+}

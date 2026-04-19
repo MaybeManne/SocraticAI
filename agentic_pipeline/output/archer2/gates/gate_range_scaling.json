@@ -1,0 +1,22 @@
+{
+  "gate_type": "quiz",
+  "after_act": "act_synthesis",
+  "question": "Looking at the range formula $R = \\frac{v_0^2 \\sin(2\\theta)}{g}$, what would happen to the range if we doubled the initial speed from 40 m/s to 80 m/s (keeping the same 30° angle)?",
+  "options": [
+    "The range would double (about 283 meters)",
+    "The range would quadruple (about 566 meters)",
+    "The range would increase by √2 (about 200 meters)",
+    "The range would triple (about 424 meters)"
+  ],
+  "correct": 1,
+  "explanations": {
+    "correct": "Exactly! Since range depends on $v_0^2$, doubling the speed quadruples the range: $(2v_0)^2 = 4v_0^2$. The archer's shot would travel four times as far.",
+    "0": "That's linear thinking, but range depends on speed squared. Doubling the speed gives $(2v_0)^2 = 4v_0^2$, so the range quadruples.",
+    "2": "That's mixing up with the factor for kinetic energy scaling. Range scales with $v_0^2$, so doubling speed gives 4× the range.",
+    "3": "That would be true if range scaled as $v_0^3$, but it scales as $v_0^2$. Doubling speed quadruples the range."
+  },
+  "wrong_path_acts": [
+    "act_range_formula"
+  ],
+  "gate_id": "gate_range_scaling"
+}

@@ -1,0 +1,104 @@
+{
+  "title": "The Independence Revelation",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "But here's the beautiful secret that transforms projectile motion from intimidating to elegant: this complex curved path is actually two simple, independent motions happening simultaneously.",
+      "card": {
+        "type": "text",
+        "content": "The key insight: Horizontal and vertical motions are completely independent"
+      },
+      "viz_actions": [
+        {
+          "method": "splitVelocityVector",
+          "params": {
+            "horizontal": 34.6,
+            "vertical": 20,
+            "animationDuration": 2.0
+          },
+          "offset": "+1.0"
+        }
+      ]
+    },
+    {
+      "say": "Watch as we decompose that diagonal velocity vector into its horizontal and vertical components using trigonometry. The horizontal component points purely to the right, while the vertical component points straight up.",
+      "card": {
+        "type": "latex",
+        "content": "v_{0x} = v_0 \\cos(\\theta) \\quad v_{0y} = v_0 \\sin(\\theta)",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "equation": "trigComponents",
+            "position": "topRight",
+            "style": "highlighted"
+          },
+          "offset": 0
+        },
+        {
+          "method": "highlightComponent",
+          "params": {
+            "component": "horizontal",
+            "intensity": 0.8
+          },
+          "offset": "+1.5"
+        },
+        {
+          "method": "highlightComponent",
+          "params": {
+            "component": "vertical",
+            "intensity": 0.8
+          },
+          "offset": "+2.5"
+        }
+      ]
+    },
+    {
+      "say": "Let's calculate the actual numbers. Horizontal component: forty times cosine of thirty degrees equals forty times square root three over two, which gives us about thirty-four point six meters per second. Vertical component: forty times sine of thirty degrees equals twenty meters per second exactly.",
+      "card": {
+        "type": "derivation",
+        "title": "Component Calculation",
+        "steps": [
+          {
+            "latex": "v_{0x} = 40 \\cos(30°) = 40 \\times \\frac{\\sqrt{3}}{2}"
+          },
+          {
+            "latex": "v_{0x} = 20\\sqrt{3} \\approx 34.6 \\text{ m/s}",
+            "highlight": true
+          },
+          {
+            "latex": "v_{0y} = 40 \\sin(30°) = 40 \\times \\frac{1}{2}"
+          },
+          {
+            "latex": "v_{0y} = 20 \\text{ m/s}",
+            "highlight": true
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "animateCalculation",
+          "params": {
+            "steps": [
+              "horizontal",
+              "vertical"
+            ],
+            "timing": "sequential"
+          },
+          "offset": "+0.5"
+        },
+        {
+          "method": "updateVelocityComponents",
+          "params": {
+            "time": 0,
+            "showVectors": true
+          },
+          "offset": "+3.0"
+        }
+      ]
+    }
+  ],
+  "act_id": "act_independence"
+}

@@ -1,0 +1,22 @@
+{
+  "gate_type": "quiz",
+  "after_act": "act_decomposition",
+  "question": "At a launch angle of 45°, which statement about the horizontal and vertical speed components is true?",
+  "options": [
+    "Both components are equal: $v_{0x} = v_{0y} = 10\\sqrt{2}$ m/s",
+    "The horizontal component is larger: $v_{0x} = 20$ m/s, $v_{0y} = 0$ m/s",
+    "The vertical component is larger: $v_{0y} = 20$ m/s, $v_{0x} = 0$ m/s",
+    "They add to $v_0$: $v_{0x} + v_{0y} = 20$ m/s"
+  ],
+  "correct": 0,
+  "explanations": {
+    "correct": "Exactly — because $\\cos 45° = \\sin 45° = \\frac{\\sqrt{2}}{2}$, both components equal $20 \\cdot \\frac{\\sqrt{2}}{2} = 10\\sqrt{2} \\approx 14.14$ m/s. This perfect symmetry is what makes 45° special.",
+    "1": "That's the flat-launch misconception (θ = 0°). At 0°, all the speed is horizontal and the ball goes nowhere vertically. At 45°, both components share the speed equally via cos 45° and sin 45°.",
+    "2": "That's the straight-up launch misconception (θ = 90°). At 90°, all the speed is vertical and the ball goes straight up. At 45°, cos and sin are equal, so neither component dominates.",
+    "3": "That's a component-addition error. Components combine as vectors, not scalars — the correct relationship is $v_0 = \\sqrt{v_{0x}^2 + v_{0y}^2}$, not $v_{0x} + v_{0y} = v_0$."
+  },
+  "wrong_path_acts": [
+    "act_wp_unit_circle"
+  ],
+  "gate_id": "gate_components"
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "severity": "error",
+    "location": "act:act_setup:beat_2",
+    "description": "Narration says 'while gravity pulls it down and forward motion continues' but no trajectory visualization is triggered. The .do() actions launch the arrow and draw the path, but the narration describes motion that isn't visually demonstrated.",
+    "fix": "Add .do('updateVelocityComponents', {time: 1.0, showVectors: true}, '+2.0') to show the arrow moving with visible component vectors as described."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_independence:beat_1",
+    "description": "Narration says 'Watch as we decompose that diagonal velocity vector' but the splitVelocityVector action happens 1.0 second after the narration starts. This creates a disconnect where the student is told to watch something that hasn't happened yet.",
+    "fix": "Change the offset to '+0.5' or add connecting narration like 'In just a moment, watch as we decompose...' to bridge the timing gap."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_independence:beat_2",
+    "description": "Narration says 'Watch as we decompose that diagonal velocity vector' and 'The horizontal component points purely to the right, while the vertical component points straight up' but the highlightComponent actions happen 1.5 and 2.5 seconds later. The visual demonstration is completely disconnected from the description.",
+    "fix": "Move highlightComponent actions to '+0.8' and '+1.2' respectively, or adjust narration to 'In a moment you'll see the horizontal component... followed by the vertical component...'"
+  },
+  {
+    "severity": "error",
+    "location": "act:act_vertical:beat_2",
+    "description": "Narration says 'Watch how the velocity vector changes direction' but the updateVelocityComponents and createMotionGraph actions start immediately (offset 0) and +1.0 second respectively. The narration implies the student should be observing a change, but the visual doesn't show the change happening.",
+    "fix": "Add a timeline that shows the velocity vector changing over time, or adjust narration to 'Let me show you how the velocity vector changes direction over the course of the flight.'"
+  },
+  {
+    "severity": "warning",
+    "location": "act:act_horizontal:beat_3",
+    "description": "Narration says 'Watch how the arrow moves sideways at this steady pace' but no visual action accompanies this. The pulseObject action highlights the arrow but doesn't demonstrate the steady horizontal motion.",
+    "fix": "Add .do('highlightComponent', {component: 'horizontal', intensity: 1.2}, '+0.5') to emphasize the horizontal motion being described."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_range_calculation:beat_3",
+    "description": "Narration says 'Let's watch our arrow complete its journey and land exactly where our calculation predicted' but the replayTrajectory action happens immediately (offset 0), not giving the student time to prepare for observation.",
+    "fix": "Change offset to '+0.5' and adjust narration to 'Now let's watch our arrow complete its journey...' to create proper anticipation."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_synthesis:beat_1",
+    "description": "Narration says 'Watch as the horizontal motion stays perfectly steady while gravity pulls the vertical component through its rise and fall' but the replayTrajectory and updateVelocityComponents actions start immediately. No buildup or preparation for observation.",
+    "fix": "Add '+0.8' offset to replayTrajectory and '+1.3' to updateVelocityComponents to allow narration to set up the observation."
+  },
+  {
+    "severity": "warning",
+    "location": "gate:gate_components",
+    "description": "The fill-in gate asks for horizontal component with 50 m/s at 30°, but the lesson has been using 40 m/s consistently. This sudden change in initial speed could confuse students who are focused on the specific example.",
+    "fix": "Change to use the same 40 m/s value: 'If we verify our calculation, what is the horizontal component with initial speed 40 m/s at 30°?' with answer '34.6'."
+  },
+  {
+    "severity": "suggestion",
+    "location": "act:act_flight_time:beat_3",
+    "description": "The derivation card shows mathematical steps but narration doesn't guide through each step with appropriate pauses. Mathematical derivations benefit from step-by-step narration synchronization.",
+    "fix": "Add timing cues in narration: 'Factor out t... [pause] ...to solve this quadratic. We get t times the quantity... [pause] ...giving us two solutions...' or use multiple .say() chains."
+  },
+  {
+    "severity": "warning",
+    "location": "viz",
+    "description": "The viz plugin has several methods that don't fully match the expected behavior. For example, 'showEquation' creates new text elements each time it's called, potentially causing visual clutter, and 'timeMarkers' object could accumulate unused markers.",
+    "fix": "Add cleanup logic in showEquation to remove previous equations of the same type, and implement a clearTimeMarker method to prevent accumulation."
+  }
+]

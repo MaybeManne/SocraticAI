@@ -1,0 +1,22 @@
+{
+  "gate_type": "quiz",
+  "after_act": "act_peak",
+  "question": "At the peak of the trajectory, the arrow's velocity is:",
+  "options": [
+    "Zero (the arrow momentarily stops)",
+    "34.6 m/s horizontally only",
+    "40 m/s at 30° above horizontal",
+    "34.6 m/s vertically only"
+  ],
+  "correct": 1,
+  "explanations": {
+    "correct": "Exactly — at the peak, vertical velocity is zero while horizontal velocity remains constant at 34.6 m/s.",
+    "0": "That's the 'projectile stops' misconception. Only the vertical component becomes zero — horizontal motion continues unchanged.",
+    "2": "That's the initial velocity. At the peak, the vertical component has decreased to zero due to gravity's effect.",
+    "3": "That's confusing the components. At the peak, vertical velocity is zero and horizontal velocity is 34.6 m/s."
+  },
+  "wrong_path_acts": [
+    "act_peak_clarification"
+  ],
+  "gate_id": "gate_peak"
+}

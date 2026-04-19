@@ -1,0 +1,113 @@
+{
+  "act_id": "act_payoff",
+  "title": "The Universe Chose 45° — The Visual Climax",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Here's the secret hiding inside the formula. Range is proportional to $\\sin(2\\theta)$ — and a sine function reaches its peak, the value $1$, exactly when its argument hits $90°$. So maximum range demands $2\\theta = 90°$, which means $\\theta = 45°$. Our problem didn't just pick a convenient angle — it picked the *optimal* one.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "resetSegment",
+          "params": {
+            "keepIds": [
+              "axes",
+              "rangeBracket"
+            ]
+          },
+          "offset": "0"
+        },
+        {
+          "method": "showFanOfTrajectories",
+          "params": {
+            "angles": [
+              15,
+              30,
+              45,
+              60,
+              75,
+              90
+            ],
+            "speed": 20,
+            "g": 9.8
+          },
+          "offset": "+1.2"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Watch every arc — same launch speed, every angle. The $45°$ arc in gold clears the farthest distance. Notice the symmetric pairs: $30°$ and $60°$ land at exactly the same spot, and so do $15°$ and $75°$. The parabola is balanced around $45°$.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "dimAllExcept",
+          "params": {
+            "exceptIds": [
+              "arc_45",
+              "landingDot_45",
+              "fanArcs"
+            ],
+            "opacity": 0.35
+          },
+          "offset": "+1.0"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Now let's connect each arc to a number. A graph slides in on the right — the horizontal axis is launch angle, the vertical axis is range. Watch as each landing dot maps to a point on the $\\sin(2\\theta)$ curve, one by one.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "showRangeVsAngleGraph",
+          "params": {},
+          "offset": "+0.5"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "The peak of that curve sits exactly at $45°$, crowned by a gold star. The answer to 'how far?' was $40.8$ m. But the deeper answer — 'what angle goes farthest?' — is $45°$. Not by accident. Not by coincidence. The mathematics demanded it.",
+      "card": {
+        "type": "recap",
+        "title": "The 45° Payoff",
+        "content": [
+          {
+            "type": "text",
+            "value": "The range formula $R = \\dfrac{v_0^2 \\sin(2\\theta)}{g}$ is maximized when $\\sin(2\\theta) = 1$."
+          },
+          {
+            "type": "text",
+            "value": "$\\sin(2\\theta) = 1 \\implies 2\\theta = 90° \\implies \\theta = 45°$"
+          },
+          {
+            "type": "text",
+            "value": "At $\\theta = 45°$, the maximum range is:"
+          },
+          {
+            "type": "text",
+            "value": "$R_{\\max} = \\dfrac{v_0^2}{g} = \\dfrac{(20)^2}{9.8} \\approx 40.8 \\text{ m}$"
+          },
+          {
+            "type": "text",
+            "value": "Symmetric pairs like $30°$ and $60°$ always share the same range — the sine curve is symmetric about its peak at $45°$."
+          }
+        ],
+        "figure": "<svg viewBox='0 0 340 180' xmlns='http://www.w3.org/2000/svg' style='background:transparent'><defs><marker id='arr' markerWidth='8' markerHeight='8' refX='6' refY='3' orient='auto'><path d='M0,0 L0,6 L8,3 z' fill='#818cf8'/></marker></defs><!-- Axes --><line x1='30' y1='150' x2='310' y2='150' stroke='#818cf8' stroke-width='1.5' marker-end='url(#arr)'/><line x1='30' y1='150' x2='30' y2='20' stroke='#818cf8' stroke-width='1.5' marker-end='url(#arr)'/><text x='315' y='154' fill='#818cf8' font-size='11' font-family='serif'>θ</text><text x='22' y='16' fill='#818cf8' font-size='11' font-family='serif'>R</text><!-- sin(2θ) curve approx with quadratic bezier --><path d='M30,150 Q100,10 170,22 Q240,10 310,150' stroke='#6366f1' stroke-width='2.5' fill='none'/><path d='M30,150 Q100,80 170,22 Q240,80 310,150' stroke='none' fill='#6366f140'/><path d='M30,150 Q100,10 170,22 Q240,10 310,150' stroke='none' fill='#6366f130'/><!-- Symmetric pair dots --><circle cx='83' cy='112' r='5' fill='#818cf8' opacity='0.7'/><circle cx='257' cy='112' r='5' fill='#818cf8' opacity='0.7'/><line x1='83' y1='112' x2='257' y2='112' stroke='#818cf8' stroke-width='1' stroke-dasharray='4,3' opacity='0.5'/><text x='60' y='108' fill='#818cf8' font-size='9' font-family='serif'>30°</text><text x='258' y='108' fill='#818cf8' font-size='9' font-family='serif'>60°</text><!-- Peak at 45° --><circle cx='170' cy='22' r='7' fill='#f59e0b' stroke='#fbbf24' stroke-width='2'/><polygon points='170,8 174,18 184,18 176,24 179,34 170,28 161,34 164,24 156,18 166,18' fill='#f59e0b' opacity='0.9' transform='scale(0.6) translate(113,-2)'/><line x1='170' y1='22' x2='170' y2='150' stroke='#f59e0b' stroke-width='1.5' stroke-dasharray='5,3'/><text x='162' y='162' fill='#f59e0b' font-size='10' font-weight='bold' font-family='serif'>45°</text><!-- Label --><text x='140' y='13' fill='#f59e0b' font-size='10' font-family='serif' font-weight='bold'>R_max</text></svg>"
+      },
+      "viz_actions": [
+        {
+          "method": "zoomOutFinalShot",
+          "params": {},
+          "offset": "+1.0"
+        }
+      ],
+      "inline_viz": "svg",
+      "duration": null
+    }
+  ]
+}

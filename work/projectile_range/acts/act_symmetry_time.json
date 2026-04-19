@@ -1,0 +1,94 @@
+{
+  "act_id": "act_symmetry_time",
+  "title": "Symmetry & the Landing Clock",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Look at this arc. The left half and right half are perfect mirror images — whatever the ball does climbing up, it undoes on the way back down. Same shape, same time, just reversed.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "reflectArcSymmetry",
+          "params": {},
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "That symmetry gives us a clean question: when does the ball return to ground level? In other words, when does $y(t) = 0$?",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "step": "yOfT",
+            "position": "top"
+          },
+          "offset": "0"
+        },
+        {
+          "method": "showEquation",
+          "params": {
+            "step": "setZero",
+            "position": "top"
+          },
+          "offset": "+1.2"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Set $y(t) = 10\\sqrt{2}\\,t - 4.9t^2 = 0$ and factor out $t$. You get $t\\,(10\\sqrt{2} - 4.9t) = 0$ — two solutions appear immediately.",
+      "card": {
+        "type": "derivation",
+        "title": "Solving for Flight Time",
+        "steps": [
+          {
+            "latex": "y(t) = 10\\sqrt{2}\\,t - 4.9t^2 = 0"
+          },
+          {
+            "latex": "t\\,(10\\sqrt{2} - 4.9t) = 0",
+            "highlight": true
+          },
+          {
+            "latex": "t = 0 \\quad \\text{or} \\quad t = \\frac{10\\sqrt{2}}{4.9}"
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "step": "factored",
+            "position": "top"
+          },
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "$t = 0$ is just the launch — not useful. The second solution is what we're after: $t = \\dfrac{10\\sqrt{2}}{4.9} \\approx 2.89$ seconds. That's our landing clock.",
+      "card": {
+        "type": "latex",
+        "content": "T_{\\text{flight}} = \\frac{10\\sqrt{2}}{4.9} \\approx 2.89 \\text{ s}",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "highlightSolution",
+          "params": {
+            "solution": "nonzero"
+          },
+          "offset": "0"
+        }
+      ],
+      "inline_viz": true,
+      "duration": null
+    }
+  ]
+}

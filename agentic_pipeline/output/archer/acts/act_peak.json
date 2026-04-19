@@ -1,0 +1,65 @@
+{
+  "title": "The Peak and Symmetry",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Watch what happens at the highest point of the trajectory. Something magical occurs — the vertical velocity hits exactly zero.",
+      "card": {
+        "type": "text",
+        "content": "At the peak, $v_y = 0$ while $v_x$ remains constant"
+      },
+      "viz_actions": [
+        {
+          "method": "highlightPeak",
+          "params": {
+            "pulse": true
+          },
+          "offset": "+0.5"
+        }
+      ]
+    },
+    {
+      "say": "At this instant, the arrow moves purely horizontally at thirty-four point six meters per second. No vertical motion at all — just smooth horizontal gliding.",
+      "card": {
+        "type": "latex",
+        "content": "v_{peak} = v_x = 40\\cos(30°) = 34.6\\text{ m/s}",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "updateVelocityVector",
+          "params": {
+            "vx": 34.6,
+            "vy": 0
+          },
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "say": "Here's the beautiful symmetry of projectile motion: the time it takes to reach the peak equals the time to fall back down. What goes up must come down, and it takes exactly the same duration.",
+      "card": {
+        "type": "text",
+        "content": "Time symmetry: $t_{up} = t_{down}$, so total flight time is $2t_{peak}$"
+      },
+      "viz_actions": [
+        {
+          "method": "drawSymmetryLines",
+          "params": {
+            "style": "dashed"
+          },
+          "offset": 0
+        },
+        {
+          "method": "markTimeIntervals",
+          "params": {
+            "up": "t₁",
+            "down": "t₁"
+          },
+          "offset": "+1.0"
+        }
+      ]
+    }
+  ],
+  "act_id": "act_peak"
+}

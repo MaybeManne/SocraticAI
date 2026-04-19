@@ -1,0 +1,69 @@
+{
+  "act_id": "act_drawing_circles",
+  "title": "Drawing the Circles",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Let's build up the picture. We start with a common point at the bottom and draw circles of increasing radius \u2014 all tangent at that single point.",
+      "card": null,
+      "viz_actions": [
+        { "method": "showGrid", "params": {} },
+        { "method": "showGlow", "params": {}, "offset": "+0.5" },
+        { "method": "showDot", "params": {}, "offset": "+1.0" }
+      ]
+    },
+    {
+      "say": "The smallest circle has radius one.",
+      "card": null,
+      "viz_actions": [
+        { "method": "drawCircle", "params": { "r": 1 } }
+      ]
+    },
+    {
+      "say": "Then radius two. Notice the region between them \u2014 that's our first shaded ring.",
+      "card": null,
+      "viz_actions": [
+        { "method": "drawCircle", "params": { "r": 2 } }
+      ]
+    },
+    {
+      "say": "Radius three \u2014 this ring stays unshaded.",
+      "card": null,
+      "viz_actions": [
+        { "method": "drawCircle", "params": { "r": 3 } }
+      ]
+    },
+    {
+      "say": "Radius four \u2014 shaded again. The pattern alternates: shaded, unshaded, shaded, unshaded.",
+      "card": null,
+      "viz_actions": [
+        { "method": "drawCircle", "params": { "r": 4 } }
+      ]
+    },
+    {
+      "say": "Five and six.",
+      "card": null,
+      "viz_actions": [
+        { "method": "drawCircle", "params": { "r": 5 } },
+        { "method": "drawCircle", "params": { "r": 6 }, "offset": "+1.0" }
+      ]
+    },
+    {
+      "say": "Seven and eight complete our example with four shaded rings.",
+      "card": null,
+      "viz_actions": [
+        { "method": "drawCircle", "params": { "r": 7 } },
+        { "method": "drawCircle", "params": { "r": 8 }, "offset": "+1.0" }
+      ]
+    },
+    {
+      "say": "With eight circles we get four shaded rings, labeled k equals one through four.",
+      "card": {
+        "type": "text",
+        "content": "With $2n$ circles, there are exactly $n$ shaded rings.\n\n**Shaded ring $k$:** between radii $(2k{-}1)$ and $2k$\n\n$8$ circles \u2192 $n = 4$ shaded rings."
+      },
+      "viz_actions": [],
+      "inline_viz": "svg"
+    }
+  ]
+}

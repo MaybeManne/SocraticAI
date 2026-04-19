@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LessonPlan",
+  "description": "Planner agent output: high-level lesson DAG with acts, gates, and viz requirements",
+  "type": "object",
+  "required": ["meta", "problem", "viz_requirements", "nodes"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["title", "source"],
+      "properties": {
+        "title":  { "type": "string" },
+        "source": { "type": "string" },
+        "answer": { "type": "string" },
+        "estimated_duration_minutes": { "type": "number" }
+      }
+    },
+    "problem": {
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "text":      { "type": "string", "description": "LaTeX-enabled problem statement" },
+        "highlight": { "type": "string", "description": "Short restatement for the pinned bar" }
+      }
+    },
+    "viz_requirements": {
+      "type": "object",
+      "required": ["type", "description", "actions"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["custom", "preset_number_line", "preset_coord_plane", "preset_unit_circle", "none"]
+        },
+        "description": { "type": "string" },
+        "config": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Static config passed to the viz plugin init()"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["method", "description"],
+            "properties": {
+              "method":        { "type": "string" },
+              "description":   { "type": "string" },
+              "params_schema": {
+                "type": "object",
+                "additionalProperties": { "type": "string" }
+              }
+            }
+          }
+        },
+        "viewBox": { "type": "string", "default": "0 0 500 500" }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "description": "Ordered sequence of acts, gates, and markers forming the lesson DAG",
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/act_node" },
+          { "$ref": "#/$defs/gate_node" },
+          { "$ref": "#/$defs/marker_node" }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "act_node": {
+      "type": "object",
+      "required": ["type", "id", "title", "objective", "beat_outline", "viz_panel"],
+      "properties": {
+        "type":  { "const": "act" },
+        "id":    { "type": "string", "pattern": "^act_[a-z0-9_]+$" },
+        "title": { "type": "string" },
+        "objective": { "type": "string", "description": "What the student should understand after this act" },
+        "depends_on": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "IDs of acts that must precede this one"
+        },
+        "context_from_previous": {
+          "type": "string",
+          "description": "Key facts established before this act that the worker needs"
+        },
+        "beat_outline": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["narration_hint"],
+            "properties": {
+              "narration_hint": { "type": "string" },
+              "card_type": {
+                "type": "string",
+                "enum": ["text", "latex", "derivation", "recap", "bar-chart", "figure", "title", "plot-2d", "split", "none"]
+              },
+              "viz_actions": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "inline_at_end": { "type": "boolean" }
+            }
+          }
+        },
+        "viz_panel": {
+          "type": ["string", "null"],
+          "enum": ["svg", "figure", "chart", null]
+        }
+      }
+    },
+    "gate_node": {
+      "type": "object",
+      "required": ["type", "id", "gate_type", "after_act"],
+      "properties": {
+        "type":      { "const": "gate" },
+        "id":        { "type": "string", "pattern": "^gate_[a-z0-9_]+$" },
+        "gate_type": { "type": "string", "enum": ["quiz", "fill-in", "proof-builder", "interactive"] },
+        "after_act": { "type": "string" },
+        "question_hint":   { "type": "string", "description": "What concept this gate tests" },
+        "wrong_path_hint": { "type": ["string", "null"], "description": "What the remedial branch should cover" },
+        "wrong_path_acts": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/act_node" }
+        }
+      }
+    },
+    "marker_node": {
+      "type": "object",
+      "required": ["type", "label", "after_act"],
+      "properties": {
+        "type":      { "const": "marker" },
+        "label":     { "type": "string" },
+        "after_act": { "type": "string" }
+      }
+    }
+  }
+}

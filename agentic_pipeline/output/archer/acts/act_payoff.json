@@ -1,0 +1,96 @@
+{
+  "title": "The Bigger Picture",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Our answer: 141 meters! But here's something beautiful — our 30-degree shot was just one note in a larger symphony of possibilities.",
+      "card": {
+        "type": "recap",
+        "title": "The Solution",
+        "content": [
+          {
+            "type": "text",
+            "value": "Initial conditions:"
+          },
+          {
+            "type": "text",
+            "value": "• Speed: 40 m/s"
+          },
+          {
+            "type": "text",
+            "value": "• Angle: 30°"
+          },
+          {
+            "type": "text",
+            "value": "• Components: 34.6 m/s horizontal, 20 m/s vertical"
+          },
+          {
+            "type": "text",
+            "value": ""
+          },
+          {
+            "type": "text",
+            "value": "Time of flight: 4.08 seconds"
+          },
+          {
+            "type": "text",
+            "value": "Range: 141 meters"
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "emphasizeOurAnswer",
+          "params": {
+            "highlight": true
+          }
+        }
+      ]
+    },
+    {
+      "say": "If we tried different launch angles with the same initial speed of 40 meters per second, watch what emerges. Each angle traces its own arc through space.",
+      "viz_actions": [
+        {
+          "method": "showMultipleTrajectories",
+          "params": {
+            "angles": [
+              15,
+              30,
+              45,
+              60,
+              75
+            ]
+          },
+          "offset": "+1.0"
+        }
+      ]
+    },
+    {
+      "say": "Maximum range occurs at 45 degrees — creating this fountain-like pattern. Notice how trajectories at 30 and 60 degrees reach the same distance, just through different paths.",
+      "card": {
+        "type": "text",
+        "content": "Complementary angles (30° and 60°) produce identical ranges"
+      },
+      "viz_actions": [
+        {
+          "method": "highlightOptimalAngle",
+          "params": {
+            "angle": 45,
+            "maxRange": true
+          },
+          "offset": "+0.5"
+        }
+      ]
+    },
+    {
+      "say": "Projectile motion reveals elegant mathematical principles hidden in everyday physics. From throwing a ball to launching satellites, the same beautiful parabolas govern motion through space.",
+      "card": {
+        "type": "text",
+        "content": "Every projectile follows nature's perfect parabola"
+      },
+      "viz_actions": [],
+      "inline_viz": "svg"
+    }
+  ],
+  "act_id": "act_payoff"
+}

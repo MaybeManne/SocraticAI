@@ -1,0 +1,21 @@
+{
+  "gate_id": "gate_which_shaded",
+  "gate_type": "quiz",
+  "after_act": "act_drawing_circles",
+  "label": null,
+  "question": "Which rings are shaded in this pattern?",
+  "options": [
+    "Odd \u2192 even radius (1\u21922, 3\u21924, 5\u21926, ...)",
+    "Even \u2192 odd radius (2\u21923, 4\u21925, 6\u21927, ...)",
+    "Every ring",
+    "Only the outermost ring"
+  ],
+  "correct": 0,
+  "explanations": {
+    "correct": "Correct! Shading goes from each odd radius to the next even radius: 1\u21922, 3\u21924, 5\u21926, and so on.",
+    "1": "Close, but shading starts between radius 1 (odd) and 2 (even), not between 2 and 3.",
+    "2": "Not every ring \u2014 the pattern alternates between shaded and unshaded.",
+    "3": "There are multiple shaded rings, not just one."
+  },
+  "wrong_path_acts": []
+}

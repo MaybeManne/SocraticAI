@@ -1,0 +1,61 @@
+{
+  "act_id": "act_motion",
+  "title": "Motion in Real-Time",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Let's watch our arrow fly in real time. The split screen merges into a single view as the arrow begins its journey through the air.",
+      "viz_actions": [
+        {
+          "method": "mergeSplitScreens",
+          "params": {},
+          "offset": 0
+        },
+        {
+          "method": "startArrowMotion",
+          "params": {
+            "realTimeSpeed": 0.8
+          },
+          "offset": "+1.0"
+        },
+        {
+          "method": "showPositionDot",
+          "params": {
+            "color": "#f59e0b",
+            "trailLength": 30
+          },
+          "offset": "+1.2"
+        }
+      ]
+    },
+    {
+      "say": "Notice how the horizontal velocity stays perfectly constant at 34.6 m/s throughout the entire flight. No forces act horizontally, so this component never changes.",
+      "card": {
+        "type": "text",
+        "content": "Horizontal velocity: $v_x = 34.6$ m/s (constant)"
+      },
+      "viz_actions": [
+        {
+          "method": "updateVelocityVector",
+          "params": {
+            "vx": 34.6,
+            "vy": "current"
+          },
+          "offset": "+0.5"
+        }
+      ]
+    },
+    {
+      "say": "Meanwhile, gravity steadily reduces the vertical velocity from its initial 20 m/s. Watch how it slows down, stops, then accelerates downward.",
+      "card": {
+        "type": "text",
+        "content": "Vertical velocity: $v_y = 20 - 9.8t$ m/s (decreasing)"
+      },
+      "viz_actions": []
+    },
+    {
+      "say": "The velocity vector tells the whole story — it rotates and shrinks vertically while staying constant horizontally. This combination creates the curved path we see.",
+      "viz_actions": []
+    }
+  ]
+}

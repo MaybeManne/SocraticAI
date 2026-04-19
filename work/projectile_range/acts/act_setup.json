@@ -1,0 +1,126 @@
+{
+  "act_id": "act_setup",
+  "title": "The Setup — A Simple Question",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Imagine throwing a ball at exactly 45 degrees. It arcs through the air and lands somewhere on flat ground. The question is simple to ask — but surprisingly rich to answer: how far away does it land?",
+      "card": {
+        "type": "title",
+        "heading": "How Far Does It Go?",
+        "subheading": "Projectile motion at $\\theta = 45°$, $v_0 = 20$ m/s"
+      },
+      "viz_actions": [
+        {
+          "method": "initScene",
+          "params": {
+            "xRange": [
+              0,
+              52
+            ],
+            "yRange": [
+              0,
+              32
+            ],
+            "xLabel": "horizontal distance (m)",
+            "yLabel": "height (m)"
+          },
+          "offset": "0"
+        },
+        {
+          "method": "placeBall",
+          "params": {
+            "x": 0,
+            "y": 0
+          },
+          "offset": "+0.6"
+        },
+        {
+          "method": "showQuestionMark",
+          "params": {
+            "x": 3,
+            "y": 4
+          },
+          "offset": "+1.2"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "We launch the ball with an initial speed of 20 meters per second — that golden arrow — at an angle of exactly 45 degrees above the ground.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "drawVelocityArrow",
+          "params": {
+            "speed": 20,
+            "angle": 45,
+            "color": "#FFD700",
+            "label": "v₀ = 20 m/s",
+            "durationMs": 900
+          },
+          "offset": "0"
+        },
+        {
+          "method": "drawAngleArc",
+          "params": {
+            "angle": 45,
+            "label": "45°"
+          },
+          "offset": "+1.1"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "That arrow is pointing diagonally — not purely sideways, not purely upward, but both at once. It has a horizontal push and a vertical lift baked into a single velocity. That tension is exactly what makes projectile motion interesting.",
+      "card": {
+        "type": "text",
+        "content": "One velocity arrow. Two independent stories.\n\n$v_0 = 20$ m/s at $\\theta = 45°$ carries both a **horizontal component** and a **vertical component** — and gravity will act on only one of them."
+      },
+      "viz_actions": [
+        {
+          "method": "dimAllExcept",
+          "params": {
+            "exceptIds": [
+              "velocityArrow",
+              "angleArc",
+              "ball"
+            ],
+            "opacity": 0.2
+          },
+          "offset": "+0.4"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Gravity doesn't care about the horizontal. It only pulls down. So the ball's horizontal speed stays constant throughout the flight, while the vertical speed changes every instant. Separating those two stories is the key to finding the range.",
+      "card": {
+        "type": "text",
+        "content": "**The Core Insight:**\n\n- Horizontal: $a_x = 0$ — constant speed\n- Vertical: $a_y = -g$ — gravity acts the whole way\n\nTwo independent motions. One ball."
+      },
+      "viz_actions": [
+        {
+          "method": "dimAllExcept",
+          "params": {
+            "exceptIds": [
+              "velocityArrow",
+              "angleArc",
+              "ball",
+              "axes",
+              "grid"
+            ],
+            "opacity": 0.5
+          },
+          "offset": "+0.8"
+        }
+      ],
+      "inline_viz": true,
+      "duration": null
+    }
+  ]
+}

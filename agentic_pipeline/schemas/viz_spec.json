@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VizSpec",
+  "description": "Viz agent output: visualization plugin specification",
+  "type": "object",
+  "required": ["mode"],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["preset", "custom_code", "mobject_plugin", "three_js"]
+    },
+    "preset": {
+      "type": "string",
+      "enum": ["numberLine", "coordPlane", "unitCircle"],
+      "description": "Only if mode=preset"
+    },
+    "preset_options": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "config": {
+      "type": "object",
+      "description": "The vizConfig object for L.viz()",
+      "properties": {
+        "plugin": { "type": "string" },
+        "config": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "code": {
+      "type": "string",
+      "description": "Full JS source for window.EXPLAINER_VIZ IIFE (custom_code mode)"
+    },
+    "mobject_plugin_code": {
+      "type": "string",
+      "description": "JS source using MX.vizPlugin(fn) pattern (mobject_plugin mode)"
+    },
+    "three_js_code": {
+      "type": "string",
+      "description": "Full JS source for window.EXPLAINER_VIZ_3D IIFE (three_js mode)"
+    },
+    "actions_implemented": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of action method names this plugin implements"
+    }
+  }
+}

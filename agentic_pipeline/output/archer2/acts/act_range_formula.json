@@ -1,0 +1,64 @@
+{
+  "act_id": "act_range_formula",
+  "title": "Range Formula Analysis",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "The range formula reveals something powerful about projectile motion. Range equals v-naught squared times sine of two theta, all divided by g.",
+      "card": {
+        "type": "latex",
+        "content": "R = \\frac{v_0^2 \\sin(2\\theta)}{g}",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "equation": "range_formula",
+            "position": "center",
+            "style": "highlighted"
+          },
+          "offset": 0
+        },
+        {
+          "method": "highlightComponent",
+          "params": {
+            "component": "v0_squared",
+            "intensity": "high"
+          },
+          "offset": "+1.0"
+        }
+      ]
+    },
+    {
+      "say": "Notice that range depends on v-naught squared — the initial speed squared. This creates a powerful scaling relationship that surprises many students.",
+      "card": {
+        "type": "text",
+        "content": "Key insight: Range ∝ v₀² (quadratic dependence)"
+      },
+      "viz_actions": [
+        {
+          "method": "animateCalculation",
+          "params": {
+            "steps": [
+              "v₀",
+              "v₀²",
+              "R ∝ v₀²"
+            ],
+            "timing": "sequential"
+          },
+          "offset": "+0.5"
+        },
+        {
+          "method": "pulseObject",
+          "params": {
+            "objectId": "v0_squared_term",
+            "intensity": "medium",
+            "duration": 1.5
+          },
+          "offset": "+2.0"
+        }
+      ]
+    }
+  ]
+}

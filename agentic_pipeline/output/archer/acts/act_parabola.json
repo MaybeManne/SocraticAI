@@ -1,0 +1,44 @@
+{
+  "title": "The Parabolic Path Emerges",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "When we combine constant horizontal motion with uniformly accelerated vertical motion, something beautiful happens. Watch as these two independent motions weave together to create the trajectory.",
+      "card": {
+        "type": "text",
+        "content": "The parabolic path emerges from combining two simple motions: constant velocity horizontally, constant acceleration vertically."
+      },
+      "viz_actions": [
+        {
+          "method": "animateGraphCombination",
+          "params": {
+            "sequence": "merge"
+          },
+          "offset": "+1.0"
+        }
+      ]
+    },
+    {
+      "say": "There it is — the elegant parabolic curve. This graceful arc is the signature of all projectile motion, from arrows to basketballs to water from a fountain.",
+      "viz_actions": [
+        {
+          "method": "drawFullTrajectory",
+          "params": {
+            "style": "smooth"
+          },
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "say": "Every projectile follows this same mathematical shape. The parabola isn't just beautiful — it's universal. From cannonballs to comets, nature writes this equation across the sky.",
+      "card": {
+        "type": "latex",
+        "content": "y = x \\tan \\theta - \\frac{g x^2}{2 v_0^2 \\cos^2 \\theta}",
+        "highlight": true
+      },
+      "inline_viz": "svg"
+    }
+  ],
+  "act_id": "act_parabola"
+}

@@ -1,0 +1,100 @@
+{
+  "act_id": "act_flight_time",
+  "title": "Finding Flight Time",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "To find how far the arrow travels, we need one crucial piece: how long does it stay in the air? The answer lies in when it returns to the ground.",
+      "card": {
+        "type": "text",
+        "content": "Flight time = when the arrow returns to ground level (y = 0)"
+      },
+      "viz_actions": [
+        {
+          "method": "showGroundCondition",
+          "params": {
+            "emphasis": true
+          },
+          "offset": 0
+        },
+        {
+          "method": "highlightComponent",
+          "params": {
+            "component": "vertical",
+            "intensity": 0.8
+          },
+          "offset": "+1.0"
+        }
+      ]
+    },
+    {
+      "say": "Here's the key insight: set y equals zero in our vertical equation. The arrow hits the ground when twenty t minus four point nine t squared equals zero.",
+      "card": {
+        "type": "latex",
+        "content": "0 = 20t - 4.9t^2",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "equation": "y = 20t - 4.9t²",
+            "position": "center",
+            "style": "large"
+          },
+          "offset": 0
+        },
+        {
+          "method": "pulseObject",
+          "params": {
+            "objectId": "ground_line",
+            "intensity": 0.6,
+            "duration": 1.5
+          },
+          "offset": "+1.2"
+        }
+      ]
+    },
+    {
+      "say": "Factor out t to solve this quadratic. We get t times the quantity twenty minus four point nine t equals zero. This gives us two solutions: t equals zero when the arrow launches, or t equals twenty divided by four point nine, which is about four point zero eight seconds.",
+      "card": {
+        "type": "derivation",
+        "title": "Solving for Flight Time",
+        "steps": [
+          {
+            "latex": "0 = 20t - 4.9t^2"
+          },
+          {
+            "latex": "0 = t(20 - 4.9t)"
+          },
+          {
+            "latex": "t = 0 \\text{ or } t = \\frac{20}{4.9}"
+          },
+          {
+            "latex": "t = 4.08 \\text{ seconds}",
+            "highlight": true
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "animateCalculation",
+          "params": {
+            "steps": 4,
+            "timing": "staggered"
+          },
+          "offset": 0
+        },
+        {
+          "method": "markTimeInstant",
+          "params": {
+            "time": 4.08,
+            "event": "landing",
+            "color": "#f59e0b"
+          },
+          "offset": "+2.5"
+        }
+      ]
+    }
+  ]
+}

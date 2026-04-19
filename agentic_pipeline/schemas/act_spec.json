@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ActSpec",
+  "description": "Worker agent output: full beat specification for one act",
+  "type": "object",
+  "required": ["act_id", "title", "viz_panel", "beats"],
+  "properties": {
+    "act_id":    { "type": "string" },
+    "title":     { "type": "string" },
+    "viz_panel": { "type": ["string", "null"], "enum": ["svg", "figure", "chart", null] },
+    "beats": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["say"],
+        "properties": {
+          "say": { "type": "string", "description": "Narration text (LaTeX via $...$)" },
+          "duration": { "type": ["number", "null"] },
+          "card": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "required": ["type"],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": ["text", "latex", "derivation", "recap", "bar-chart", "figure", "title", "plot-2d", "split", "graph", "code-runner"]
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
+          },
+          "viz_actions": {
+            "type": "array",
+            "default": [],
+            "items": {
+              "type": "object",
+              "required": ["method"],
+              "properties": {
+                "method": { "type": "string" },
+                "params": { "type": "object", "additionalProperties": true, "default": {} },
+                "offset": { "type": ["string", "number"], "default": 0 }
+              }
+            }
+          },
+          "inline_viz": {
+            "type": ["string", "boolean", "null"],
+            "description": "'svg', 'figure', 'chart', or true for auto-detect"
+          },
+          "viz_panel_override": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

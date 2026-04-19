@@ -1,0 +1,87 @@
+{
+  "act_id": "act_horizontal",
+  "title": "Horizontal Motion Story",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Let's zoom in on the horizontal motion. Notice something crucial — once the arrow leaves the bow, no forces push or pull it sideways.",
+      "card": {
+        "type": "text",
+        "content": "Key insight: Air resistance ignored, gravity acts only downward. No horizontal forces during flight."
+      },
+      "viz_actions": [
+        {
+          "method": "isolateMotion",
+          "params": {
+            "motionType": "horizontal",
+            "dimOpacity": 0.3
+          },
+          "offset": 0
+        },
+        {
+          "method": "highlightComponent",
+          "params": {
+            "component": "horizontal",
+            "intensity": 1.2
+          },
+          "offset": "+0.8"
+        }
+      ]
+    },
+    {
+      "say": "This means the horizontal velocity stays rock-steady at 34.6 meters per second. Not speeding up, not slowing down — constant throughout the entire flight.",
+      "card": {
+        "type": "latex",
+        "content": "v_x = 34.6 \\text{ m/s} = \\text{constant}",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "updateVelocityComponents",
+          "params": {
+            "time": 2.0,
+            "showVectors": true
+          },
+          "offset": 0
+        },
+        {
+          "method": "createMotionGraph",
+          "params": {
+            "type": "velocity",
+            "axis": "horizontal",
+            "realTime": false
+          },
+          "offset": "+1.0"
+        }
+      ]
+    },
+    {
+      "say": "For horizontal position, it's simple multiplication. Distance equals velocity times time: x equals 34.6t. Watch how the arrow moves sideways at this steady pace.",
+      "card": {
+        "type": "latex",
+        "content": "x(t) = v_x \\cdot t = 34.6t \\text{ meters}",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "equation": "x = 34.6t",
+            "position": "top-right",
+            "style": "highlight"
+          },
+          "offset": 0
+        },
+        {
+          "method": "pulseObject",
+          "params": {
+            "objectId": "arrow",
+            "intensity": 1.1,
+            "duration": 0.6
+          },
+          "offset": "+1.2"
+        }
+      ]
+    }
+  ]
+}

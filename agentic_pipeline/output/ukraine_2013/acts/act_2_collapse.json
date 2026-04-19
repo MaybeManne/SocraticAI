@@ -1,0 +1,25 @@
+{
+  "act_id": "act_2_collapse",
+  "title": "The Degree Collapse",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Testing every single number in this window is impossible. Instead, let's represent any potential divisor in this interval as $m^2 + a$, where $a$ is a small integer between $-2m$ and $2m$. If $m^2 + a$ really does divide $m^4 + 1$, we can use a clever trick.",
+      "card": {},
+      "inline_viz": null,
+      "viz_panel_override": null
+    },
+    {
+      "say": "Let's look at this through the lens of modular arithmetic. In the world modulo $m^2 + a$, the term $m^2$ is simply equivalent to $-a$. Watch what happens to $m^4$. Since it's just $m^2$ squared, it becomes $-a$ squared, or simply $a^2$.",
+      "card": {},
+      "inline_viz": null,
+      "viz_panel_override": null
+    },
+    {
+      "say": "Suddenly, our massive dividend $m^4 + 1$ collapses down to just $a^2 + 1$. The problem transforms from impossible arithmetic into beautifully manageable algebra. We now only need to check if $m^2 + a$ divides $a^2 + 1$.",
+      "card": {},
+      "inline_viz": "svg",
+      "viz_panel_override": null
+    }
+  ]
+}

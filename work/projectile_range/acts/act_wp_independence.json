@@ -1,0 +1,138 @@
+{
+  "act_id": "act_wp_independence",
+  "title": "Two Balls, Same Clock: Proving Axis Independence",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Here's a thought experiment that cuts right to the heart of the confusion. Imagine two balls launched at the exact same moment — both with an upward speed of $10\\sqrt{2}$ m/s — but one travels horizontally at 10 m/s while the other charges ahead at 30 m/s.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "drawGround",
+          "params": {},
+          "offset": "0"
+        },
+        {
+          "method": "placeBall",
+          "params": {
+            "x": 0,
+            "y": 0
+          },
+          "offset": "+0.4"
+        },
+        {
+          "method": "drawLaunchArrow",
+          "params": {
+            "angle": 55,
+            "v0": 10,
+            "scale": 1
+          },
+          "offset": "+0.8"
+        },
+        {
+          "method": "drawLaunchArrow",
+          "params": {
+            "angle": 25,
+            "v0": 30,
+            "scale": 1
+          },
+          "offset": "+1.4"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Both arrows are split into components. The horizontal components are very different — but look at the red vertical arrows. They are identical. Both balls climb and fall under the exact same gravitational story.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "splitArrowIntoComponents",
+          "params": {
+            "angle": 55,
+            "v0": 10,
+            "scale": 1
+          },
+          "offset": "0"
+        },
+        {
+          "method": "splitArrowIntoComponents",
+          "params": {
+            "angle": 25,
+            "v0": 30,
+            "scale": 1
+          },
+          "offset": "+0.6"
+        },
+        {
+          "method": "labelComponents",
+          "params": {
+            "vx_label": "v_x = 10 m/s",
+            "vy_label": "v_y = 10√2 m/s"
+          },
+          "offset": "+1.4"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Watch both trajectories unfold. The slow ball arcs steeply and lands close. The fast ball stretches far out across the ground. But keep your eye on the vertical rhythm — they rise together, they fall together.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "animateTrajectory",
+          "params": {
+            "v0": 14.14,
+            "angle": 55,
+            "duration": 3
+          },
+          "offset": "0"
+        },
+        {
+          "method": "animateTrajectory",
+          "params": {
+            "v0": 31.62,
+            "angle": 25,
+            "duration": 3
+          },
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "They touch down at the same instant. Different distances, same clock. This is the core of the independence principle — horizontal speed is irrelevant to when gravity wins.",
+      "card": {
+        "type": "text",
+        "content": "**Axis Independence:** Time of flight $T$ depends only on $v_{0y}$, not $v_{0x}$.\n\n$$T = \\frac{2\\,v_{0y}}{g}$$\n\nHorizontal speed changes *where* the ball lands, never *when*."
+      },
+      "viz_actions": [
+        {
+          "method": "showRangeBracket",
+          "params": {
+            "value": "10√2 × T",
+            "show": true
+          },
+          "offset": "0"
+        },
+        {
+          "method": "showRangeBracket",
+          "params": {
+            "value": "30√2 × T",
+            "show": true
+          },
+          "offset": "+0.8"
+        },
+        {
+          "method": "focusVerticalStrip",
+          "params": {},
+          "offset": "+1.6"
+        }
+      ],
+      "inline_viz": "svg",
+      "duration": null
+    }
+  ]
+}

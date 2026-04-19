@@ -1,0 +1,137 @@
+{
+  "act_id": "act_time_of_flight",
+  "title": "How Long Is the Ball in the Air?",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "When does the ball land? That's a vertical question — horizontal motion has absolutely no say in the matter. So let's dim the horizontal strip and zoom in on what gravity is doing.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "focusVerticalStrip",
+          "params": {},
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "The vertical position at any moment is $y(t) = v_{0y}\\,t - \\tfrac{1}{2}g\\,t^2$. Constant upward kick from the launch, fighting a steadily growing downward pull from gravity.",
+      "card": {
+        "type": "latex",
+        "content": "y(t) = v_{0y}\\,t - \\tfrac{1}{2}g\\,t^2"
+      },
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "step": "y_of_t"
+          },
+          "offset": "0"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Landing means $y = 0$. Set the whole expression to zero — and now factor out a $t$. Two solutions appear immediately: $t = 0$ and $t = \\tfrac{2v_{0y}}{g}$.",
+      "card": {
+        "type": "derivation",
+        "title": "Finding When the Ball Lands",
+        "steps": [
+          {
+            "latex": "0 = v_{0y}\\,t - \\tfrac{1}{2}g\\,t^2"
+          },
+          {
+            "latex": "0 = t\\!\\left(v_{0y} - \\tfrac{1}{2}g\\,t\\right)"
+          },
+          {
+            "latex": "t = 0 \\quad \\text{or} \\quad t = \\dfrac{2v_{0y}}{g}",
+            "highlight": true
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "step": "set_zero"
+          },
+          "offset": "0"
+        },
+        {
+          "method": "showEquation",
+          "params": {
+            "step": "factor"
+          },
+          "offset": "+1.2"
+        },
+        {
+          "method": "showEquation",
+          "params": {
+            "step": "t_flight"
+          },
+          "offset": "+2.4"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "$t = 0$ is just the launch instant — trivial, not what we want. The meaningful solution is $t = \\tfrac{2v_{0y}}{g}$: exactly the time gravity needs to pull the ball all the way back to earth.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "highlightSolution",
+          "params": {
+            "t_expression": "2v_{0y}/g",
+            "label": "time of flight"
+          },
+          "offset": "+0.5"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Plugging in $v_{0y} = 10\\sqrt{2}$ m/s and $g = 9.8$ m/s² gives $t = \\tfrac{2 \\times 10\\sqrt{2}}{9.8} \\approx 2.887$ seconds. Watch the clock tick — the dot rises for the first half, then falls back down symmetrically.",
+      "card": {
+        "type": "latex",
+        "content": "t = \\frac{2 \\times 10\\sqrt{2}}{9.8} \\approx 2.887\\text{ s}",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "step": "t_flight"
+          },
+          "offset": "0"
+        },
+        {
+          "method": "showClockOnVerticalStrip",
+          "params": {
+            "duration": 2.887
+          },
+          "offset": "+0.8"
+        }
+      ],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Now bring back the horizontal strip. For those same $2.887$ seconds, the ball was also gliding rightward at $10\\sqrt{2}$ m/s — steady, uninterrupted. The range is simply how far that constant drift carried it.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "restoreHorizontalStrip",
+          "params": {},
+          "offset": "0"
+        }
+      ],
+      "inline_viz": "svg",
+      "duration": null
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "act_id": "act_trig_review",
+  "title": "Trigonometry Review",
+  "viz_panel": "figure",
+  "beats": [
+    {
+      "say": "Let's step back and clarify the trigonometry. When you see an angle in a right triangle, remember: cosine gives us the adjacent side — that's horizontal. Sine gives us the opposite side — that's vertical.",
+      "card": {
+        "type": "figure",
+        "svg": "<svg viewBox=\"0 0 400 300\" xmlns=\"http://www.w3.org/2000/svg\" style=\"background: transparent;\"><defs><marker id=\"arrowhead\" markerWidth=\"10\" markerHeight=\"7\" refX=\"10\" refY=\"3.5\" orient=\"auto\"><polygon points=\"0 0, 10 3.5, 0 7\" fill=\"#818cf8\" /></marker></defs><g transform=\"translate(50, 200)\"><line x1=\"0\" y1=\"0\" x2=\"200\" y2=\"0\" stroke=\"#ffffff\" stroke-width=\"2\" /><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"-100\" stroke=\"#ffffff\" stroke-width=\"2\" /><line x1=\"0\" y1=\"0\" x2=\"200\" y2=\"-100\" stroke=\"#818cf8\" stroke-width=\"3\" marker-end=\"url(#arrowhead)\" /><text x=\"100\" y=\"15\" text-anchor=\"middle\" fill=\"#f59e0b\" font-family=\"Arial, sans-serif\" font-size=\"14\" font-weight=\"bold\">adjacent (horizontal)</text><text x=\"-35\" y=\"-50\" text-anchor=\"middle\" fill=\"#f59e0b\" font-family=\"Arial, sans-serif\" font-size=\"14\" font-weight=\"bold\" transform=\"rotate(-90, -35, -50)\">opposite (vertical)</text><text x=\"105\" y=\"-45\" text-anchor=\"middle\" fill=\"#818cf8\" font-family=\"Arial, sans-serif\" font-size=\"14\" font-weight=\"bold\">hypotenuse</text><path d=\"M 20 0 A 20 20 0 0 0 20 -10\" stroke=\"#ffffff\" stroke-width=\"2\" fill=\"none\" /><text x=\"30\" y=\"-5\" fill=\"#ffffff\" font-family=\"Arial, sans-serif\" font-size=\"12\">θ</text><text x=\"220\" y=\"15\" fill=\"#f59e0b\" font-family=\"Arial, sans-serif\" font-size=\"16\" font-weight=\"bold\">cos θ</text><text x=\"-60\" y=\"-50\" fill=\"#f59e0b\" font-family=\"Arial, sans-serif\" font-size=\"16\" font-weight=\"bold\">sin θ</text></g></svg>",
+        "caption": "In a right triangle: cos θ gives horizontal, sin θ gives vertical"
+      },
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "equation": "cos θ = adjacent/hypotenuse",
+            "position": "bottom-left",
+            "style": "highlight"
+          },
+          "offset": "+1.0"
+        },
+        {
+          "method": "highlightComponent",
+          "params": {
+            "component": "horizontal",
+            "intensity": 0.8
+          },
+          "offset": "+1.5"
+        }
+      ]
+    },
+    {
+      "say": "For our projectile motion, the velocity vector is the hypotenuse. So horizontal component equals velocity times cosine of angle. Vertical component equals velocity times sine of angle.",
+      "card": {
+        "type": "recap",
+        "title": "Velocity Components",
+        "content": [
+          {
+            "type": "text",
+            "value": "Initial speed: 40 m/s at 30°"
+          },
+          {
+            "type": "equation",
+            "value": "v_x = v_0 \\cos θ = 40 \\cos 30° = 40 × 0.866 = 34.6 \\text{ m/s}"
+          },
+          {
+            "type": "equation",
+            "value": "v_y = v_0 \\sin θ = 40 \\sin 30° = 40 × 0.5 = 20.0 \\text{ m/s}"
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "animateCalculation",
+          "params": {
+            "steps": [
+              "horizontal",
+              "vertical"
+            ],
+            "timing": "sequential"
+          },
+          "offset": "+0.5"
+        }
+      ]
+    }
+  ]
+}

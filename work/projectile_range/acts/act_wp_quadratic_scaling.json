@@ -1,0 +1,73 @@
+{
+  "act_id": "act_wp_quadratic_scaling",
+  "title": "Range Scales with v₀ Squared",
+  "viz_panel": "null",
+  "beats": [
+    {
+      "say": "Here's why the answer is quadruple, not double. Look at the general range formula: $R = \\dfrac{v_0^2 \\sin(2\\theta)}{g}$. The initial speed isn't just $v_0$ — it appears as $v_0^2$. That exponent changes everything.",
+      "card": {
+        "type": "latex",
+        "content": "R = \\frac{v_0^2 \\sin(2\\theta)}{g}",
+        "highlight": true
+      },
+      "viz_actions": [],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "When you double $v_0$, you're replacing it with $2v_0$. Squaring that gives $(2v_0)^2 = 4v_0^2$ — a factor of four, not two. The range doesn't scale with speed, it scales with speed squared.",
+      "card": {
+        "type": "derivation",
+        "title": "Doubling v₀",
+        "steps": [
+          {
+            "latex": "R \\propto v_0^2"
+          },
+          {
+            "latex": "(2v_0)^2 = 4v_0^2",
+            "highlight": true
+          },
+          {
+            "latex": "\\Rightarrow R_{\\text{new}} = 4 \\times R_{\\text{old}}"
+          }
+        ]
+      },
+      "viz_actions": [],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "Let's put real numbers on it. At $v_0 = 20$ m/s, the range is $\\frac{400 \\times 1}{9.8} \\approx 40.8$ m. At $v_0 = 40$ m/s, it's $\\frac{1600 \\times 1}{9.8} \\approx 163.3$ m. That second number is exactly four times the first.",
+      "card": {
+        "type": "bar-chart",
+        "title": "Range vs. Launch Speed (θ = 45°)",
+        "bars": [
+          {
+            "label": "v₀ = 20 m/s",
+            "value": 40.8,
+            "display": "40.8 m"
+          },
+          {
+            "label": "v₀ = 40 m/s",
+            "value": 163.3,
+            "display": "163.3 m"
+          }
+        ],
+        "maxValue": 180
+      },
+      "viz_actions": [],
+      "inline_viz": null,
+      "duration": null
+    },
+    {
+      "say": "This is the signature of a quadratic relationship. Every time you double the speed, the range grows by a factor of four. Triple the speed? Nine times the range. The bar on the right isn't just taller — it's four bars stacked into one.",
+      "card": {
+        "type": "text",
+        "content": "**Quadratic scaling:** $R \\propto v_0^2$\n\n$\\times 2$ speed → $\\times 4$ range\n\n$\\times 3$ speed → $\\times 9$ range"
+      },
+      "viz_actions": [],
+      "inline_viz": true,
+      "duration": null
+    }
+  ]
+}

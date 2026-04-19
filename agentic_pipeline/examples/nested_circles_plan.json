@@ -1,0 +1,196 @@
+{
+  "meta": {
+    "title": "Nested Circles \u2014 The 2023\u03c0 Threshold",
+    "source": "AMC 10A 2023 #15 (Modified)",
+    "answer": "64",
+    "estimated_duration_minutes": 8
+  },
+  "problem": {
+    "text": "An even number of circles are nested, starting with a radius of $1$ and increasing by $1$ each time, all sharing a common point. The region between every other circle is shaded, starting with the region inside the circle of radius $2$ but outside the circle of radius $1.$ An example showing $8$ circles is displayed below. What is the **least number of circles** needed to make the total shaded area at least $2023\\pi$?",
+    "highlight": "Find the least number of circles for shaded area \u2265 2023\u03c0."
+  },
+  "viz_requirements": {
+    "type": "custom",
+    "description": "Nested concentric circles sharing a common tangent point at the bottom. Circles drawn back-to-front with alternating shaded/unshaded fills. Supports progressive circle drawing, ring focusing/pulsing, and a final zoomed-out view with many circles.",
+    "config": {
+      "cx": 250, "baseY": 450, "scale": 32,
+      "circleCount": 8, "darkColor": "#0f0e17",
+      "strokeColor": "#818cf8",
+      "finalCount": 40, "finalScale": 5.5
+    },
+    "actions": [
+      { "method": "showGrid",      "description": "Fade in background grid pattern",            "params_schema": {} },
+      { "method": "showGlow",      "description": "Fade in radial glow behind circles",         "params_schema": {} },
+      { "method": "showDot",       "description": "Show the common tangent point dot",           "params_schema": {} },
+      { "method": "drawCircle",    "description": "Animate drawing a circle of given radius",    "params_schema": { "r": "number" } },
+      { "method": "focusRing",     "description": "Dim all rings except ring k",                 "params_schema": { "k": "number" } },
+      { "method": "unfocusRings",  "description": "Restore all rings to normal opacity",         "params_schema": {} },
+      { "method": "pulseRings",    "description": "Sequentially pulse a list of rings",          "params_schema": { "rings": "number[]", "stagger": "number" } },
+      { "method": "hideKLabels",   "description": "Hide all k-labels",                           "params_schema": {} },
+      { "method": "hideLabelAndDot","description": "Hide last radius label and common point label","params_schema": {} },
+      { "method": "showFinal",     "description": "Transition to final zoomed-out view",         "params_schema": {} }
+    ],
+    "viewBox": "0 0 500 500"
+  },
+  "nodes": [
+    {
+      "type": "act",
+      "id": "act_drawing_circles",
+      "title": "Drawing the Circles",
+      "objective": "Student understands the geometric setup: nested circles sharing a common point, with alternating shaded rings.",
+      "context_from_previous": "None \u2014 this is the first act.",
+      "beat_outline": [
+        { "narration_hint": "Introduce the common point and explain we will draw circles of increasing radius, all tangent at that point.", "card_type": "none", "viz_actions": ["showGrid", "showGlow", "showDot"] },
+        { "narration_hint": "Draw circles radius 1 through 8, one or two at a time. Point out shaded vs unshaded as each pair appears.", "card_type": "none", "viz_actions": ["drawCircle"] },
+        { "narration_hint": "Summarize: with 2n circles we get n shaded rings, each labeled k=1..n.", "card_type": "text", "viz_actions": [], "inline_at_end": true }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "gate",
+      "id": "gate_which_shaded",
+      "gate_type": "quiz",
+      "after_act": "act_drawing_circles",
+      "question_hint": "Which rings are shaded in this pattern? (Test understanding of the alternating odd\u2192even pattern.)",
+      "wrong_path_hint": null,
+      "wrong_path_acts": []
+    },
+    {
+      "type": "act",
+      "id": "act_area_formula",
+      "title": "The Area Formula",
+      "objective": "Student recalls/learns that the area of a circle is \u03c0r\u00b2.",
+      "context_from_previous": "Student has seen the nested circles and understands which rings are shaded.",
+      "beat_outline": [
+        { "narration_hint": "Remind student of the circle area formula A=\u03c0r\u00b2 with examples at r=1,2,3.", "card_type": "recap", "viz_actions": [], "inline_at_end": true }
+      ],
+      "viz_panel": "figure"
+    },
+    {
+      "type": "gate",
+      "id": "gate_circle_area",
+      "gate_type": "quiz",
+      "after_act": "act_area_formula",
+      "question_hint": "What is the area of a circle with radius r? (Multiple choice: 2\u03c0r, \u03c0r\u00b2, \u03c0r, 2\u03c0r\u00b2)",
+      "wrong_path_hint": "Explain the difference between area (\u03c0r\u00b2) and circumference (2\u03c0r). Use a visual comparison.",
+      "wrong_path_acts": [
+        {
+          "type": "act",
+          "id": "act_area_vs_circumference",
+          "title": "Area vs. Circumference",
+          "objective": "Student distinguishes area from circumference.",
+          "context_from_previous": "Student confused area with circumference on the quiz.",
+          "beat_outline": [
+            { "narration_hint": "Compare circumference (1D, 2\u03c0r) vs area (2D, \u03c0r\u00b2). Memory trick: dimension matches the exponent.", "card_type": "recap", "viz_actions": [], "inline_at_end": true }
+          ],
+          "viz_panel": "figure"
+        }
+      ]
+    },
+    {
+      "type": "act",
+      "id": "act_ring_anatomy",
+      "title": "Anatomy of a Shaded Ring",
+      "objective": "Student can compute a single ring's area by subtracting inner circle from outer circle.",
+      "context_from_previous": "Student knows A=\u03c0r\u00b2 and which rings are shaded (odd\u2192even radius pairs).",
+      "beat_outline": [
+        { "narration_hint": "Focus on ring k=1 (between r=1 and r=2). Show the subtraction: outer area minus inner area.", "card_type": "recap", "viz_actions": ["focusRing"] },
+        { "narration_hint": "Compute: \u03c0(2)\u00b2 - \u03c0(1)\u00b2 = 4\u03c0 - \u03c0 = 3\u03c0.", "card_type": "none", "viz_actions": [] }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "gate",
+      "id": "gate_outer_area",
+      "gate_type": "fill-in",
+      "after_act": "act_ring_anatomy",
+      "question_hint": "Fill in the outer circle area (\u03c0(2)\u00b2 = ?) and inner circle area, then the ring area.",
+      "wrong_path_hint": null,
+      "wrong_path_acts": []
+    },
+    {
+      "type": "act",
+      "id": "act_general_formula",
+      "title": "The General Formula",
+      "objective": "Student derives A_k = \u03c0(4k-1) for the k-th shaded ring.",
+      "context_from_previous": "Student computed ring k=1 area = 3\u03c0 by subtraction.",
+      "beat_outline": [
+        { "narration_hint": "For ring k: inner radius = 2k-1, outer radius = 2k. Set up the subtraction.", "card_type": "derivation", "viz_actions": ["unfocusRings"] },
+        { "narration_hint": "Expand (2k)\u00b2 and (2k-1)\u00b2, subtract, simplify to 4k-1.", "card_type": "latex", "viz_actions": [] },
+        { "narration_hint": "Final formula: A_k = \u03c0(4k-1).", "card_type": "latex", "viz_actions": [] }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "gate",
+      "id": "gate_verify_ring_2",
+      "gate_type": "fill-in",
+      "after_act": "act_general_formula",
+      "question_hint": "Verify ring k=2: \u03c0(4\u00b72-1) = ?",
+      "wrong_path_hint": null,
+      "wrong_path_acts": []
+    },
+    {
+      "type": "marker",
+      "label": "visualization",
+      "after_act": "act_drawing_circles"
+    },
+    {
+      "type": "act",
+      "id": "act_pattern",
+      "title": "The Pattern Emerges",
+      "objective": "Student sees that ring areas form an arithmetic sequence with common difference 4\u03c0.",
+      "context_from_previous": "Student has the formula A_k = \u03c0(4k-1) and verified it for k=1,2.",
+      "beat_outline": [
+        { "narration_hint": "List ring areas: 3\u03c0, 7\u03c0, 11\u03c0, 15\u03c0. Observe +4\u03c0 difference.", "card_type": "bar-chart", "viz_actions": ["pulseRings"], "inline_at_end": true }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "gate",
+      "id": "gate_sequence_type",
+      "gate_type": "quiz",
+      "after_act": "act_pattern",
+      "question_hint": "What type of sequence is 3\u03c0, 7\u03c0, 11\u03c0, 15\u03c0? (arithmetic, geometric, fibonacci, neither)",
+      "wrong_path_hint": "Review arithmetic sequences: constant difference between consecutive terms. Sum formula: n/2 * (first + last).",
+      "wrong_path_acts": [
+        {
+          "type": "act",
+          "id": "act_arithmetic_review",
+          "title": "Arithmetic Sequences Review",
+          "objective": "Student understands arithmetic sequences and their sum formula.",
+          "context_from_previous": "Student didn't identify the ring areas as an arithmetic sequence.",
+          "beat_outline": [
+            { "narration_hint": "Define arithmetic sequence (constant difference). Show our sequence fits. Introduce sum formula S = n/2 * (a1 + an).", "card_type": "recap", "viz_actions": [], "inline_at_end": true }
+          ],
+          "viz_panel": "figure"
+        }
+      ]
+    },
+    {
+      "type": "act",
+      "id": "act_gauss_sum",
+      "title": "Adding It All Up",
+      "objective": "Student sums the first n ring areas using the Gauss trick to get S = n(2n+1)\u03c0.",
+      "context_from_previous": "Ring areas are arithmetic: 3\u03c0, 7\u03c0, 11\u03c0, ..., (4n-1)\u03c0.",
+      "beat_outline": [
+        { "narration_hint": "Write the sum S = 3 + 7 + 11 + ... + (4n-1).", "card_type": "text", "viz_actions": [] },
+        { "narration_hint": "Apply the Gauss pairing trick: write sum forwards and backwards, add columns. Each pair = 4n+2.", "card_type": "recap", "viz_actions": [] },
+        { "narration_hint": "Result: 2S = n(4n+2), so S = n(2n+1). Total shaded area = n(2n+1)\u03c0.", "card_type": "latex", "viz_actions": [] }
+      ],
+      "viz_panel": "figure"
+    },
+    {
+      "type": "act",
+      "id": "act_solve_inequality",
+      "title": "Solving the Inequality",
+      "objective": "Student solves n(2n+1) \u2265 2023 to find n=32, so 2n=64 circles.",
+      "context_from_previous": "Total shaded area = n(2n+1)\u03c0. Need area \u2265 2023\u03c0.",
+      "beat_outline": [
+        { "narration_hint": "Set up: n(2n+1) \u2265 2023. Try n=31: 31\u00d763=1953 < 2023. Try n=32: 32\u00d765=2080 \u2265 2023.", "card_type": "recap", "viz_actions": [] },
+        { "narration_hint": "So n=32, and the number of circles is 2n=64.", "card_type": "latex", "viz_actions": ["showFinal"] }
+      ],
+      "viz_panel": "svg"
+    }
+  ]
+}

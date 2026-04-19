@@ -1,0 +1,47 @@
+{
+  "title": "Understanding Gravity's Effect",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Let's clear up a crucial point about gravity. Gravity is a force that always points straight down toward Earth's center — never sideways, never at an angle.",
+      "card": {
+        "type": "figure",
+        "svg": "<svg viewBox='0 0 400 300' xmlns='http://www.w3.org/2000/svg'><defs><linearGradient id='earthGrad' x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' style='stop-color:#4338ca;stop-opacity:1' /><stop offset='100%' style='stop-color:#1e1b4b;stop-opacity:1' /></linearGradient></defs><rect width='400' height='300' fill='#0f0e17'/><circle cx='200' cy='400' r='150' fill='url(#earthGrad)' stroke='#6366f1' stroke-width='2'/><text x='200' y='30' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>Earth's Center</text><g stroke='#f59e0b' stroke-width='3' marker-end='url(#arrowhead)'><defs><marker id='arrowhead' markerWidth='10' markerHeight='7' refX='9' refY='3.5' orient='auto'><polygon points='0 0, 10 3.5, 0 7' fill='#f59e0b'/></marker></defs><line x1='100' y1='180' x2='100' y2='220'/><line x1='200' y1='140' x2='200' y2='180'/><line x1='300' y1='180' x2='300' y2='220'/><line x1='150' y1='200' x2='150' y2='240'/><line x1='250' y1='200' x2='250' y2='240'/></g><text x='200' y='280' text-anchor='middle' fill='#f59e0b' font-size='14'>Gravity always points toward Earth's center</text></svg>",
+        "caption": "Gravity acts uniformly downward everywhere on Earth's surface"
+      },
+      "viz_actions": [
+        {
+          "method": "drawArcher",
+          "params": {
+            "position": "origin"
+          }
+        }
+      ]
+    },
+    {
+      "say": "This means gravity can only change the vertical component of velocity — it has absolutely no effect on horizontal motion. Watch how the velocity vector changes during flight.",
+      "card": {
+        "type": "text",
+        "content": "Key insight: Gravity only affects vertical motion. The horizontal velocity component remains constant throughout the entire flight."
+      },
+      "viz_actions": [
+        {
+          "method": "updateVelocityVector",
+          "params": {
+            "vx": "constant",
+            "vy": "decreasing"
+          }
+        }
+      ]
+    },
+    {
+      "say": "Think of it this way: if you drop a ball while walking forward, it falls straight down relative to the ground, but keeps moving horizontally with you. The arrow behaves exactly the same — gravity pulls it down while it coasts horizontally at constant speed.",
+      "card": {
+        "type": "text",
+        "content": "Analogy: A ball dropped from a moving train falls straight down relative to the ground, but continues moving horizontally at the train's speed. Gravity doesn't slow down the horizontal motion."
+      },
+      "viz_actions": []
+    }
+  ],
+  "act_id": "act_gravity_clarification"
+}

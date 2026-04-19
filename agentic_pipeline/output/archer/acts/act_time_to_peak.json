@@ -1,0 +1,69 @@
+{
+  "act_id": "act_time_to_peak",
+  "title": "Finding Time to Peak",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "At the peak of the trajectory, something special happens. The vertical component of velocity becomes exactly zero — the arrow stops climbing and is about to fall.",
+      "card": {
+        "type": "latex",
+        "content": "v_y = v_{0y} - gt = 0",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "highlightPeak",
+          "params": {
+            "pulse": true
+          },
+          "offset": "0"
+        }
+      ]
+    },
+    {
+      "say": "Now we can solve for the time to reach peak height. Rearranging our equation gives us t equals v naught y over g. With our initial vertical velocity of 20 meters per second and gravity at 9.8, that's 2.04 seconds.",
+      "card": {
+        "type": "derivation",
+        "title": "Time to Peak",
+        "steps": [
+          {
+            "latex": "v_y = v_{0y} - gt = 0"
+          },
+          {
+            "latex": "gt = v_{0y}"
+          },
+          {
+            "latex": "t = \\frac{v_{0y}}{g} = \\frac{20}{9.8} = 2.04\\text{ s}",
+            "highlight": true
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "markTimeIntervals",
+          "params": {
+            "up": 2.04,
+            "down": 2.04
+          },
+          "offset": "+1.0"
+        }
+      ]
+    },
+    {
+      "say": "Notice something beautiful here — this peak time is exactly half the total flight time. The trajectory is perfectly symmetric. What goes up must come down, and it takes the same time for each half of the journey.",
+      "card": {
+        "type": "text",
+        "content": "Peak time = ½ × Total flight time\nSymmetry: up time = down time"
+      },
+      "viz_actions": [
+        {
+          "method": "drawSymmetryLines",
+          "params": {
+            "style": "dotted"
+          },
+          "offset": "+0.5"
+        }
+      ]
+    }
+  ]
+}

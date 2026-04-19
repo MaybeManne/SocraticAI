@@ -1,0 +1,104 @@
+[
+  {
+    "severity": "error",
+    "location": "act:act_setup:beat_4",
+    "description": "The fourth beat calls `.inline()` without the 'svg' argument, but the viz panel is 'svg'. All other acts use `.inline('svg')` for SVG panels. This will produce inconsistent or broken inline rendering.",
+    "fix": "Change `.inline()` to `.inline('svg')` at the end of the fourth beat in act_setup."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_trajectory:beat_5",
+    "description": "The final `.inline()` call is missing the 'svg' argument. All other SVG-panel acts use `.inline('svg')`.",
+    "fix": "Change `.inline()` to `.inline('svg')` on the last beat of act_trajectory."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_setup:beat_4",
+    "description": "The fourth beat in act_setup does not appear in the plan's beat_outline (plan only lists 3 beats). The plan's third beat has inline_at_end: false, but the code adds a fourth .say() beat with gravity independence content. This isn't a structural error per se, but the extra beat breaks the 'show-before-tell' rule: the `.do('dimAllExcept', ..., '+0.8')` fires well after the narration begins, meaning the visual dimming does NOT precede the narration it's supposed to focus.",
+    "fix": "Move the dimAllExcept offset to '0' or '-0.5' on the fourth beat so the dim fires before or at the start of narration, consistent with the show-before-tell requirement."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_decompose:beat_4",
+    "description": "The fourth beat says 'Both components come from the same launch — cosine for horizontal, sine for vertical. At 45°, they're equal: both 10√2 meters per second.' but the only `.do()` is `dimAllExcept` which fades everything including the gold arrow and triangle. The narration references the right-triangle decomposition being 'visible' (per plan context) but `dimAllExcept` with opacity 0.15 fades it. The plan says `inline_at_end: true` for this beat (the derivation card shows it), which is correct — but the `.inline('svg')` call is correct.",
+    "fix": "No change needed here — minor sync concern only (suggestion level). The dimAllExcept here is consistent with the plan's 'between segments' fade-to-15% instruction."
+  },
+  {
+    "severity": "warning",
+    "location": "act:act_trajectory:beat_2",
+    "description": "Beat 2 narration says 'the blue vertical arrow is shrinking' and pulses the vertical arrow, but `pulseArrow` draws attention by pulsing — not by showing shrinking. The `animateLaunch` action already animates the shrinking. The pulse here is slightly redundant or misleading since it calls pulseArrow on the vertical arrow while it should already be in mid-shrink from animateLaunch. More importantly, the pulse uses color '#818cf8' (indigo/purple) instead of the established vertical blue '#2196F3', inconsistent with the color map.",
+    "fix": "Change color to '#2196F3' to match the established vertical component color. Consider replacing pulseArrow with a dimAllExcept to refocus attention on the shrinking vertical arrow instead."
+  },
+  {
+    "severity": "warning",
+    "location": "act:act_trajectory:beat_4",
+    "description": "Beat 4 narration says 'the green horizontal arrow has stayed perfectly constant' and pulses it with color '#4ade80' (a slightly different green than the colorMap's '#4CAF50'). The colorMap defines horizontal as '#4CAF50'. Using '#4ade80' could create a subtle color inconsistency between the drawn arrow (green) and the pulsed state.",
+    "fix": "Change pulseArrow color to '#4CAF50' to match the colorMap definition for horizontal components."
+  },
+  {
+    "severity": "warning",
+    "location": "gate:gate_decomp_check / wrongPath act_wrong_decomp:beat_1",
+    "description": "The wrong-path act uses `drawVelocityArrow` with color '#f59e0b' (amber) and `pulseArrow` with color '#4ade80', but the main lesson uses '#FFD700' (gold) for the velocity arrow and '#4CAF50' for the horizontal arrow. While slightly different shades are acceptable in a corrective context, the '#4ade80' vs '#4CAF50' inconsistency for horizontal is worth noting.",
+    "fix": "Optionally standardize to '#4CAF50' for horizontal component color to maintain visual consistency, though this is low priority."
+  },
+  {
+    "severity": "warning",
+    "location": "act:act_wrong_landing:beat_4 (wrongPath of gate_landing_condition)",
+    "description": "The wrong-path beat 4 calls `.do('dimAllExcept', {exceptIds: ['trajectoryArc', 'apexMarker', 'landingBall', 'landingArrow']}, '0')` — but the IDs 'apexMarker', 'landingBall', 'landingArrow' are not the canonical IDs used elsewhere (plan uses 'apexDot', 'ball'). This could result in those elements being faded instead of preserved.",
+    "fix": "Use consistent IDs: replace 'apexMarker' with 'apexDot', and 'landingBall'/'landingArrow' with 'ball' and 'velocityArrow' respectively."
+  },
+  {
+    "severity": "warning",
+    "location": "act:act_symmetry_time:beat_3",
+    "description": "Beat 3 calls `.do('showEquation', {step:'factored', position:'top'}, '0')` at offset '0', but it's part of a `.card('derivation', ...)` beat. The narration says 'factor out t: we get t times...' — the visual fires at offset 0 (immediately when narration starts), but the factored equation is the *conclusion* of the reasoning. Per show-before-tell, the equation appearing simultaneously with the narration describing it is borderline acceptable, but it would be stronger at '+0.5' after the narration sets up the factoring.",
+    "fix": "Change offset to '+0.8' so the factored equation fires slightly after the narration introduces the factoring step."
+  },
+  {
+    "severity": "warning",
+    "location": "act:act_range_calc:beat_3",
+    "description": "Beat 3 narration says 'The two √2 factors multiply: 10√2 × 10√2 = 200' and includes a derivation card, but there is NO `.do()` action accompanying it — only the `.card()` call. The `substituteTime` animation is in beat 2. Beat 3 should have a visual action reinforcing the '200/4.9' result. The `drawRangeBracket` is in beat 4. This beat is visually orphaned.",
+    "fix": "Add a `.do('dimAllExcept', {exceptIds:['equationBlock','trajectoryArc','axes'], opacity: 0.2}, '0')` or similar focusing action to beat 3 so the screen emphasizes the algebraic simplification step."
+  },
+  {
+    "severity": "warning",
+    "location": "act:act_general_formula:beat_4",
+    "description": "Beat 4 narration says 'The result is clean and golden: R = v₀²sin(2θ)/g' and shows a latex card, but the `collapseToSin2Theta()` action already showed this formula in beat 3. The `.show()` in beat 4 is redundant. Additionally, the `.do('dimAllExcept', {exceptIds:['generalFormula','rangeBracket'], opacity:0.2}, '+0.6')` fires 0.6 seconds into a narration beat that references looking at the formula — the formula should still be visible, not dimming other things mid-sentence.",
+    "fix": "This is acceptable as a 'settle into focus' dimming after a reveal. No critical change needed, but consider moving the dimAllExcept to beat 5 or delaying to '+1.5' to not interrupt the formula reading."
+  },
+  {
+    "severity": "warning",
+    "location": "act:act_payoff:beat_2",
+    "description": "Narration says '30° and 60° land at the same spot' — this is a correct application of the sin(2θ) symmetry property. However, for θ=90°, the range formula gives R = v₀²·sin(180°)/g = 0 (the ball goes straight up and comes straight down). The fan includes 90° and the narration doesn't mention this edge case. Students may be confused seeing the 90° arc landing at x=0.",
+    "fix": "Either remove 90° from the fan angles array, or add a brief narration note: 'and 90° — straight up — lands right back at the origin.' This is a pedagogical suggestion, not a code error."
+  },
+  {
+    "severity": "warning",
+    "location": "gate:gate_formula_apply",
+    "description": "The gate answer array includes '35.3' and '35.4'. The exact value is R = 400·sin(60°)/9.8 = 400·(√3/2)/9.8 = 200√3/9.8 ≈ 200·1.7321/9.8 ≈ 346.41/9.8 ≈ 35.35 m. Both '35.3' and '35.4' round correctly to one decimal depending on rounding convention (35.35 rounds to 35.4 with standard rounding). The successMessage says '≈ 35.3 m' but the corrected value should be '≈ 35.4 m'. The wrong-path act also correctly states '35.4 m'. The successMessage is inconsistent.",
+    "fix": "Change the successMessage to say '≈ 35.4 m' to match the mathematically correct rounded value and the wrong-path act's value."
+  },
+  {
+    "severity": "suggestion",
+    "location": "act:act_setup:beat_2",
+    "description": "The `.do('drawVelocityArrow', ...)` fires at offset '0' and `.do('drawAngleArc', ...)` at '+1.1'. The plan specifies 'show-before-tell' (visual fires 0.5–1s before narrator names it). The narration in beat 2 says 'We launch with a speed of 20 meters per second' — the arrow fires simultaneously with the narration starting (offset '0'). Consider firing the arrow at '-0.5' or using a pre-beat delay so the arrow is already visible when the narration begins.",
+    "fix": "Consider using a small pre-delay by putting initScene/placeBall at the end of beat 1 with a longer offset, and starting beat 2 narration slightly after the arrow begins drawing."
+  },
+  {
+    "severity": "suggestion",
+    "location": "act:act_symmetry_time:beat_1",
+    "description": "The `reflectArcSymmetry` action fires at offset '0' — simultaneously with narration 'Look at this arc. The left half and right half are perfect mirror images.' Per show-before-tell, the reflection animation should ideally start 0.5–1s before the narration begins so students see it first.",
+    "fix": "Change the offset of reflectArcSymmetry from '0' to '-0.8' or add a brief pause beat before this beat to let the visual fire first."
+  },
+  {
+    "severity": "suggestion",
+    "location": "act:act_general_formula:beat_2",
+    "description": "The `groupTrigTerms` action fires at offset '+1.0' which is good show-before-tell. However the narration says 'Watch that cluster — it has a name' but doesn't say what the name is in beat 2 — the name (double-angle identity) only comes in beat 3. This creates a nice one-beat cliffhanger which is actually excellent for engagement. No change needed, flagged as a positive pattern.",
+    "fix": "No fix needed — this is good tension-building narration."
+  },
+  {
+    "severity": "suggestion",
+    "location": "gate:gate_landing_condition",
+    "description": "The wrong-path branch in the quiz's `wrongPath` function uses `B.act(...)` correctly. The explain for option index '1' says '$v_y = 0$ is true only at the top of the arc — the midpoint of the flight'. Technically the apex is the midpoint *in time* only because the arc is symmetric; calling it 'the midpoint of the flight' is accurate but could be confused with the midpoint in distance (which it also happens to be). This is clear enough but could be slightly more precise.",
+    "fix": "Minor: change 'midpoint of the flight' to 'midpoint *in time* of the flight' for precision."
+  }
+]

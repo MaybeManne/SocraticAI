@@ -1,0 +1,96 @@
+{
+  "act_id": "act_range_calculation",
+  "title": "Calculating the Range",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Now we combine what we know. The horizontal component stays steady throughout the flight — that's our key insight.",
+      "viz_actions": [
+        {
+          "method": "highlightComponent",
+          "params": {
+            "component": "horizontal",
+            "intensity": "high"
+          },
+          "offset": "0"
+        },
+        {
+          "method": "showEquation",
+          "params": {
+            "equation": "Range = v_x \\times t_{flight}",
+            "position": "top-right",
+            "style": "bold"
+          },
+          "offset": "+1.0"
+        }
+      ],
+      "card": {
+        "type": "text",
+        "content": "Range formula: horizontal velocity × flight time"
+      }
+    },
+    {
+      "say": "Plug in our numbers: thirty-four point six meters per second times four point zero eight seconds equals one hundred forty-one point four meters.",
+      "viz_actions": [
+        {
+          "method": "animateCalculation",
+          "params": {
+            "steps": [
+              "Range = 34.6 × 4.08",
+              "Range = 141.4 m"
+            ],
+            "timing": "sequential"
+          },
+          "offset": "0"
+        },
+        {
+          "method": "measureDistance",
+          "params": {
+            "from": "archer",
+            "to": "landing",
+            "label": "141.4 m"
+          },
+          "offset": "+2.0"
+        }
+      ],
+      "card": {
+        "type": "derivation",
+        "title": "Range Calculation",
+        "steps": [
+          {
+            "latex": "Range = v_x \\times t_{flight}"
+          },
+          {
+            "latex": "Range = 34.6 \\text{ m/s} \\times 4.08 \\text{ s}"
+          },
+          {
+            "latex": "Range = 141.4 \\text{ meters}",
+            "highlight": true
+          }
+        ]
+      }
+    },
+    {
+      "say": "Let's watch our arrow complete its journey and land exactly where our calculation predicted — physics in perfect harmony.",
+      "viz_actions": [
+        {
+          "method": "replayTrajectory",
+          "params": {
+            "speed": "dramatic",
+            "showComponents": true
+          },
+          "offset": "0"
+        },
+        {
+          "method": "celebrateResult",
+          "params": {
+            "position": "landing",
+            "value": "141.4 m",
+            "effect": "golden_burst"
+          },
+          "offset": "+3.0"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Engine Test Suite</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'SF Mono','Fira Code',monospace;font-size:13px;background:#0f0e17;color:#e2e8f0;padding:20px}
+h1{font-size:1.3rem;margin-bottom:4px;color:#c4b5fd}
+.subtitle{color:rgba(255,255,255,0.4);margin-bottom:20px;font-size:.85rem}
+.suite{margin-bottom:24px}
+.suite-name{font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#818cf8;margin-bottom:8px}
+.test{display:flex;align-items:flex-start;gap:10px;padding:6px 10px;border-radius:6px;margin-bottom:3px}
+.test.pass{background:rgba(52,211,153,0.08)}
+.test.fail{background:rgba(248,113,113,0.08)}
+.test.warn{background:rgba(245,158,11,0.08)}
+.badge{width:42px;flex-shrink:0;font-size:.78rem;font-weight:700;padding:2px 0;border-radius:4px;text-align:center}
+.badge.pass{background:rgba(52,211,153,0.2);color:#34d399}
+.badge.fail{background:rgba(248,113,113,0.2);color:#f87171}
+.badge.warn{background:rgba(245,158,11,0.2);color:#f59e0b}
+.test-name{flex:1;color:#e2e8f0}
+.test-detail{color:rgba(255,255,255,0.4);font-size:.78rem;margin-left:52px;margin-top:-1px;margin-bottom:4px;word-break:break-all}
+.summary{padding:12px 16px;border-radius:8px;margin-top:16px;font-weight:600}
+.summary.ok{background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.2)}
+.summary.errors{background:rgba(248,113,113,0.12);color:#f87171;border:1px solid rgba(248,113,113,0.2)}
+/* hidden engine DOM */
+#engine-dom{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden}
+</style>
+</head>
+<body>
+
+<h1>code2html_v2 — Engine Test Suite</h1>
+<p class="subtitle">Open browser DevTools console for detailed error output · Refresh to rerun</p>
+
+<div id="results"></div>
+
+<!-- Hidden minimal DOM that the engine needs -->
+<div id="engine-dom">
+  <div id="problem-bar"></div>
+  <div id="title-overlay"><div class="title-content"></div></div>
+  <div id="viz-wrap" style="width:500px;height:500px;position:relative">
+    <svg id="viz" aria-label="viz"></svg>
+  </div>
+  <div id="notebook"></div>
+  <div id="subtitle-track"></div>
+  <div id="controls">
+    <button id="playBtn">&#9654;</button>
+    <div class="scrubber-wrap">
+      <input type="range" id="scrubber" min="0" max="1000" value="0">
+      <div id="milestone-dots"></div>
+    </div>
+    <span id="timeD">0:00 / 0:00</span>
+    <button id="speedBtn" class="ctrl-btn">1x</button>
+    <button id="subToggle" class="ctrl-btn">CC</button>
+    <button id="narToggle" class="ctrl-btn">&#x1f50a;</button>
+    <button id="themeToggle" class="ctrl-btn"></button>
+    <button id="printBtn" class="ctrl-btn"></button>
+  </div>
+  <div id="progress-bar"><div id="progress-fill"></div></div>
+</div>
+
+<!-- External libs -->
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<!-- Engine source (loaded from parent directory) -->
+<script src="../mobject/mobject.js"></script>
+<script src="../mobject/anim.js"></script>
+<script src="../mobject/dsl.js"></script>
+<script src="../engine/core.js"></script>
+<script src="../engine/notebook.js"></script>
+<script src="../engine/viz-panel.js"></script>
+<script src="../engine/audio.js"></script>
+<script src="../engine/subtitles.js"></script>
+<script src="../engine/cards.js"></script>
+<script src="../engine/graph-card.js"></script>
+<script src="../engine/viz-3d.js"></script>
+<script src="../engine/gates.js"></script>
+<script src="../engine/controls.js"></script>
+<script src="../engine/scroll-sync.js"></script>
+
+<!-- Test runner -->
+<script>
+(function() {
+"use strict";
+
+/* ── Test runner ─────────────────────────────────────────────────── */
+var suites = [];
+var currentSuite = null;
+
+function suite(name) {
+  currentSuite = { name: name, tests: [] };
+  suites.push(currentSuite);
+}
+
+function test(name, fn) {
+  var result = { name: name, status: "pass", detail: "" };
+  try {
+    var msg = fn();
+    if (msg) { result.status = "warn"; result.detail = msg; }
+  } catch(e) {
+    result.status = "fail";
+    result.detail = e.message || String(e);
+    console.error("[FAIL]", name, e);
+  }
+  currentSuite.tests.push(result);
+}
+
+function assert(cond, msg) {
+  if (!cond) throw new Error(msg || "Assertion failed");
+}
+
+function assertEq(a, b, msg) {
+  if (a !== b) throw new Error((msg || "Expected equality") + ": got " + JSON.stringify(a) + ", expected " + JSON.stringify(b));
+}
+
+function assertHas(obj, key, msg) {
+  if (obj == null || !(key in obj)) throw new Error((msg || "Missing key") + ": " + key);
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SUITE 1: External library availability
+   ════════════════════════════════════════════════════════════════════ */
+suite("External Libraries");
+
+test("GSAP is available", function() {
+  assert(typeof gsap !== "undefined", "gsap is not defined — CDN may be unreachable");
+  assert(typeof gsap.timeline === "function", "gsap.timeline is not a function");
+});
+
+test("KaTeX is available", function() {
+  assert(typeof katex !== "undefined", "katex is not defined — CDN may be unreachable");
+  assert(typeof katex.render === "function", "katex.render is not a function");
+});
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SUITE 2: MX module exports
+   ════════════════════════════════════════════════════════════════════ */
+suite("MX Module Exports");
+
+test("window.MX exists", function() {
+  assert(typeof window.MX !== "undefined", "window.MX not defined — mobject.js failed to load");
+});
+
+test("MX.lesson is a function", function() {
+  assert(typeof MX.lesson === "function", "MX.lesson not defined — dsl.js failed to load");
+});
+
+test("MX colors palette present", function() {
+  assertHas(MX, "C", "MX.C (colors) not defined");
+  assertHas(MX.C, "INDIGO", "MX.C.INDIGO missing");
+});
+
+test("MX animation functions present", function() {
+  var needed = ["fadeIn", "fadeOut", "growFromCenter", "write", "drawBorder"];
+  needed.forEach(function(fn) {
+    assert(typeof MX[fn] === "function", "MX." + fn + " not defined — anim.js failed to load");
+  });
+});
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SUITE 3: Engine module exports
+   ════════════════════════════════════════════════════════════════════ */
+suite("Engine Module Exports");
+
+test("window.EX exists", function() {
+  assert(typeof window.EX !== "undefined", "window.EX not defined — core.js failed to load");
+});
+
+test("EX.EventBus present", function() {
+  assertHas(EX, "EventBus", "EX.EventBus missing");
+  assert(typeof EX.EventBus.emit === "function", "EventBus.emit missing");
+  assert(typeof EX.EventBus.on === "function", "EventBus.on missing");
+});
+
+test("EX.LessonGraph present", function() {
+  assert(typeof EX.LessonGraph === "function", "EX.LessonGraph missing");
+});
+
+test("EX.PlaybackState present", function() {
+  assert(typeof EX.PlaybackState === "function", "EX.PlaybackState missing");
+});
+
+test("EX.ActRunner present", function() {
+  assertHas(EX, "ActRunner", "EX.ActRunner missing");
+  assert(typeof EX.ActRunner.loadAct === "function", "ActRunner.loadAct missing");
+  assert(typeof EX.ActRunner.play === "function", "ActRunner.play missing");
+});
+
+test("EX.Orchestrator present", function() {
+  assertHas(EX, "Orchestrator", "EX.Orchestrator missing");
+  assert(typeof EX.Orchestrator.start === "function", "Orchestrator.start missing");
+  assert(typeof EX.Orchestrator.init === "function", "Orchestrator.init missing");
+});
+
+test("EX.K (KaTeX helper) present", function() {
+  assertHas(EX, "K", "EX.K missing — notebook.js failed or loaded out of order");
+  assert(typeof EX.K.mixed === "function", "EX.K.mixed missing");
+  assert(typeof EX.K.display === "function", "EX.K.display missing");
+});
+
+test("EX.Notebook present", function() {
+  assertHas(EX, "Notebook", "EX.Notebook missing");
+  assert(typeof EX.Notebook.init === "function", "Notebook.init missing");
+});
+
+test("EX.VizPanel present", function() {
+  assertHas(EX, "VizPanel", "EX.VizPanel missing");
+  assert(typeof EX.VizPanel.init === "function", "VizPanel.init missing");
+});
+
+test("EX.CardSystem present", function() {
+  assertHas(EX, "CardSystem", "EX.CardSystem missing");
+  assertHas(EX.CardSystem, "factories", "CardSystem.factories missing");
+});
+
+test("EX.PlayerControls present", function() {
+  assertHas(EX, "PlayerControls", "EX.PlayerControls missing — controls.js failed to load");
+  assert(typeof EX.PlayerControls.init === "function", "PlayerControls.init missing");
+  assert(typeof EX.PlayerControls.toggle === "function", "PlayerControls.toggle missing");
+  assert(typeof EX.PlayerControls.start === "function", "PlayerControls.start missing");
+});
+
+test("EX.GateSystem present", function() {
+  assertHas(EX, "GateSystem", "EX.GateSystem missing");
+});
+
+test("EX.AudioManager present", function() {
+  assertHas(EX, "AudioManager", "EX.AudioManager missing");
+});
+
+test("EX.ScrollSync present", function() {
+  assertHas(EX, "ScrollSync", "EX.ScrollSync missing");
+});
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SUITE 4: Card factory registrations
+   ════════════════════════════════════════════════════════════════════ */
+suite("Card Factory Registrations");
+
+var EXPECTED_FACTORIES = ["text", "latex", "derivation", "title", "figure", "recap",
+                          "bar-chart", "split", "plot-2d", "graph", "code-runner"];
+EXPECTED_FACTORIES.forEach(function(type) {
+  test("factory registered: " + type, function() {
+    assert(typeof EX.CardSystem.factories[type] === "function",
+           "CardSystem.factories['" + type + "'] not registered");
+  });
+});
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SUITE 5: DSL — MX.lesson() output
+   ════════════════════════════════════════════════════════════════════ */
+suite("DSL — MX.lesson() output");
+
+var testLesson = null;
+test("MX.lesson() runs without error", function() {
+  // Build a simple lesson using the same API as the examples
+  testLesson = MX.lesson("Test Lesson", function(L) {
+    L.source("Test Suite");
+    L.problem("This is a test problem.");
+    L.act("Act One", function(A) {
+      A.vizPanel("hidden");
+      A.say("Hello world.").show("**Bold** text with $x^2$");
+    });
+    L.act("Act Two", function(A) {
+      A.say("Second act.").card("derivation", {
+        title: "Test Derivation",
+        steps: [{ expr: "a^2 + b^2", note: "Start" }]
+      });
+    });
+    L.ask({
+      question: "What is $1 + 1$?",
+      options: ["$1$", "$2$", "$3$"],
+      correct: 1,
+      explain: { correct: "Correct!", 0: "Too small." }
+    });
+  });
+});
+
+test("window.LESSON is set after MX.lesson()", function() {
+  assert(window.LESSON != null, "window.LESSON is null/undefined after MX.lesson() call");
+});
+
+test("LESSON.meta is populated", function() {
+  assertHas(LESSON, "meta", "LESSON.meta missing");
+  assertHas(LESSON.meta, "title", "LESSON.meta.title missing");
+  assertEq(LESSON.meta.title, "Test Lesson", "LESSON.meta.title wrong value");
+  assertEq(LESSON.meta.source, "Test Suite", "LESSON.meta.source wrong value");
+});
+
+test("LESSON.problem is set", function() {
+  assertHas(LESSON, "problem", "LESSON.problem missing");
+  assert(LESSON.problem.text === "This is a test problem.", "LESSON.problem.text wrong");
+});
+
+test("LESSON.acts has correct count", function() {
+  assertEq(LESSON.acts.length, 2, "Expected 2 main acts");
+});
+
+test("LESSON.mainPath has correct length", function() {
+  assertEq(LESSON.mainPath.length, 2, "Expected 2 act IDs in mainPath");
+});
+
+test("LESSON.milestones has the gate", function() {
+  assertEq(LESSON.milestones.length, 1, "Expected 1 milestone (the gate)");
+  assertEq(LESSON.milestones[0].type, "gate", "Expected gate type");
+  assertEq(LESSON.milestones[0].gate.correct, 1, "Expected correct index 1");
+});
+
+test("Act beats are structured correctly", function() {
+  var act = LESSON.acts[0];
+  assertHas(act, "beats", "act.beats missing");
+  assertEq(act.beats.length, 1, "Act One should have 1 beat");
+  var beat = act.beats[0];
+  assertHas(beat, "id", "beat.id missing");
+  assertHas(beat, "say", "beat.say missing");
+  assertHas(beat, "card", "beat.card missing");
+  assertEq(beat.card.type, "text", "beat.card.type should be 'text'");
+  assertHas(beat.card, "content", "beat.card.content missing");
+});
+
+test("Act durations are estimated", function() {
+  LESSON.acts.forEach(function(act, i) {
+    assert(act.duration > 0, "Act " + i + " has zero/missing duration");
+  });
+});
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SUITE 6: PlaybackState transitions
+   ════════════════════════════════════════════════════════════════════ */
+suite("PlaybackState transitions");
+
+var graph = null, state = null;
+test("LessonGraph builds from LESSON", function() {
+  graph = new EX.LessonGraph(LESSON);
+  assert(graph.defaultPath.length === 2, "defaultPath should have 2 entries");
+  assert(graph.totalDefaultDuration > 0, "totalDefaultDuration should be > 0");
+});
+
+test("PlaybackState initializes in 'idle' phase", function() {
+  state = new EX.PlaybackState(graph);
+  assertEq(state.phase, "idle", "Initial phase should be 'idle'");
+});
+
+test("PlaybackState.start() advances to first act", function() {
+  state.start();
+  assert(state.pathHistory.length === 1, "pathHistory should have 1 entry after start");
+  assert(state.cursorIndex === 0, "cursorIndex should be 0");
+  assert(state.getCurrentActId() === graph.defaultPath[0],
+         "getCurrentActId() should return first act ID");
+});
+
+test("Invalid transition is rejected gracefully", function() {
+  // Try to go back to idle (which would be valid) then try an invalid one
+  var testState = new EX.PlaybackState(graph);
+  // idle → ended is invalid; should not throw
+  testState.transition("ended");
+  assertEq(testState.phase, "idle", "Phase should remain 'idle' after invalid transition");
+});
+
+test("Valid transition succeeds", function() {
+  var testState = new EX.PlaybackState(graph);
+  var ok = testState.transition("playing");
+  assert(ok === true, "transition('playing') from 'idle' should return true");
+  assertEq(testState.phase, "playing", "Phase should be 'playing'");
+});
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SUITE 7: Card factory output
+   ════════════════════════════════════════════════════════════════════ */
+suite("Card factory output");
+
+test("text factory returns element with content", function() {
+  var el = EX.CardSystem.factories.text("test-b1", { type: "text", content: "Hello **world**" });
+  assert(el != null, "text factory returned null");
+  assert(el.classList.contains("beat-card"), "element missing beat-card class");
+  var textDiv = el.querySelector(".slide-text");
+  assert(textDiv != null, ".slide-text div missing");
+  assert(textDiv.textContent.length > 0, ".slide-text has no text content");
+});
+
+test("latex factory returns element", function() {
+  var el = EX.CardSystem.factories.latex("test-b2", { type: "latex", content: "x^2 + y^2 = r^2" });
+  assert(el != null, "latex factory returned null");
+});
+
+test("derivation factory handles 'expr' property (API compat)", function() {
+  var el = EX.CardSystem.factories.derivation("test-b3", {
+    type: "derivation",
+    title: "Test",
+    steps: [
+      { expr: "a^2 + b^2 = c^2", note: "Pythagorean theorem" },
+      { latex: "c = \\sqrt{a^2+b^2}", note: "Solving for c" }
+    ]
+  });
+  assert(el != null, "derivation factory returned null");
+  var steps = el.querySelectorAll(".deriv-step");
+  assert(steps.length === 2, "Expected 2 step rows, got " + steps.length);
+  var katexEl = steps[0].querySelector(".katex, .katex-error, .katex-html");
+  assert(katexEl != null, "step[0] has no KaTeX render — 'expr' property not supported");
+});
+
+test("recap factory handles 'items' array (API compat)", function() {
+  var el = EX.CardSystem.factories.recap("test-b4", {
+    type: "recap",
+    title: "Key Points",
+    items: ["First point with $x^2$", "Second point"]
+  });
+  assert(el != null, "recap factory returned null");
+  var body = el.querySelector(".recap-body");
+  assert(body != null, ".recap-body missing");
+  assert(body.children.length === 2, "Expected 2 items in recap body, got " + body.children.length);
+});
+
+test("bar-chart factory handles labels/values format (API compat)", function() {
+  var el = EX.CardSystem.factories["bar-chart"]("test-b5", {
+    type: "bar-chart",
+    title: "Test Chart",
+    labels: ["A", "B", "C"],
+    values: [1, 2, 3],
+    colors: ["#f87171", "#fbbf24", "#34d399"]
+  });
+  assert(el != null, "bar-chart factory returned null");
+  var bars = el.querySelectorAll(".bar-col");
+  assert(bars.length === 3, "Expected 3 bar columns, got " + bars.length);
+});
+
+test("bar-chart factory handles bars[] format (canonical)", function() {
+  var el = EX.CardSystem.factories["bar-chart"]("test-b5b", {
+    type: "bar-chart",
+    title: "Test Chart",
+    bars: [{ label: "A", value: 1 }, { label: "B", value: 2 }],
+    colors: ["#818cf8", "#34d399"]
+  });
+  assert(el != null, "bar-chart factory returned null");
+  var bars = el.querySelectorAll(".bar-col");
+  assert(bars.length === 2, "Expected 2 bar columns, got " + bars.length);
+});
+
+test("split factory handles left/right format (API compat)", function() {
+  var el = EX.CardSystem.factories.split("test-b6", {
+    type: "split",
+    left:  { type: "latex", content: "a^2 + b^2 = c^2" },
+    right: { type: "text",  content: "Pythagorean theorem" }
+  });
+  assert(el != null, "split factory returned null");
+  var cols = el.querySelectorAll("div[style*='flex:1']");
+  assert(cols.length === 2, "Expected 2 columns in split card, got " + cols.length);
+});
+
+test("plot-2d factory: handles xRange/yRange/functions format", function() {
+  var el = EX.CardSystem.factories["plot-2d"]("test-b7", {
+    type: "plot-2d",
+    title: "Quadratic: $f(x) = x^2 - 2x - 3$",
+    xRange: [-2, 4],
+    yRange: [-5, 5],
+    functions: [
+      { fn: "x*x - 2*x - 3", color: "#818cf8", name: "f(x)" },
+      { fn: "0", color: "#475569", name: "y=0", style: "dashed" }
+    ],
+    points: [
+      { x: -1, y: 0, label: "(-1,0)", color: "#34d399" },
+      { x:  3, y: 0, label: "(3,0)",  color: "#34d399" },
+      { x:  1, y: -4, label: "vertex (1,-4)", color: "#f59e0b", highlight: true }
+    ],
+    note: "Roots at $x=-1$ and $x=3$."
+  });
+  assert(el != null, "plot-2d factory returned null");
+  var svg = el.querySelector("svg");
+  assert(svg != null, "No SVG in plot-2d card");
+  var paths = svg.querySelectorAll("path");
+  // Should have at least 2 function curves + 1 points curve
+  assert(paths.length >= 2, "Expected at least 2 paths (function curves), got " + paths.length);
+});
+
+test("plot-2d factory: no infinite loop when all y-values ≤ 0", function() {
+  // Previously: yMax=0 → yStep=0 → infinite loop, tab freeze
+  var el = EX.CardSystem.factories["plot-2d"]("test-b7b", {
+    type: "plot-2d",
+    title: "Negative y values",
+    points: [
+      { x: -1, y: 0 },
+      { x:  3, y: 0 },
+      { x:  1, y: -4 }
+    ]
+  });
+  assert(el != null, "plot-2d factory returned null — possible hang/crash");
+});
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SUITE 8: Full engine init + play flow (minimal lesson)
+   ════════════════════════════════════════════════════════════════════ */
+suite("Full Engine Init + Play Flow");
+
+// Build a clean minimal lesson for this suite
+var miniLesson = null;
+test("Build minimal lesson", function() {
+  miniLesson = MX.lesson("Mini Lesson", function(L) {
+    L.act("Only Act", function(A) {
+      A.vizPanel("hidden");
+      A.say("Hello.").show("This is a test card.");
+    });
+  });
+  assert(window.LESSON != null, "LESSON not set");
+  assertEq(LESSON.acts.length, 1, "Expected 1 act");
+});
+
+test("Engine initializes without throwing", function() {
+  var threw = false, errMsg = "";
+  try {
+    var g = new EX.LessonGraph(LESSON);
+    var s = new EX.PlaybackState(g);
+    EX.Notebook.init();
+    EX.VizPanel.init(g.vizConfig);
+    EX.Subtitles.init(g);
+    EX.AudioManager.init(g);
+    EX.ScrollSync.init();
+    EX.CardSystem.init();
+    EX.GateSystem.init();
+    EX.Orchestrator.init(g, s);
+    EX.PlayerControls.init(g, s);
+    // Store for next tests
+    window._testGraph = g;
+    window._testState = s;
+  } catch(e) {
+    threw = true;
+    errMsg = e.message;
+  }
+  if (threw) throw new Error("Engine init threw: " + errMsg);
+});
+
+test("Play button has click handler", function() {
+  var pb = document.getElementById("playBtn");
+  assert(pb != null, "#playBtn element missing from DOM");
+  // Simulate a click — should not throw
+  var threw = false, errMsg = "";
+  try {
+    pb.click();
+  } catch(e) {
+    threw = true;
+    errMsg = e.message;
+  }
+  if (threw) throw new Error("Clicking playBtn threw: " + errMsg);
+});
+
+test("State transitions to 'playing' after play click", function() {
+  var s = window._testState;
+  // Give GSAP a tick to let the timeline start
+  assert(s.phase === "playing" || s.phase === "paused" || s.phase === "ended",
+         "State phase is '" + s.phase + "' — expected playing/paused/ended after clicking play. " +
+         "If still 'idle', EX.PlayerControls.init may have failed or the click handler isn't wired.");
+});
+
+test("ActRunner has a live timeline after play", function() {
+  // After clicking play, ActRunner.masterTl should have been created
+  var masterTl = EX.ActRunner.masterTl;
+  if (masterTl == null) {
+    return "WARNING: ActRunner.masterTl is null — loadAct may have thrown. Check console for errors.";
+  }
+});
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SUITE 9: EventBus
+   ════════════════════════════════════════════════════════════════════ */
+suite("EventBus");
+
+test("on() and emit() work correctly", function() {
+  var received = false;
+  var payload = null;
+  EX.EventBus.on("test:ping", function(data) {
+    received = true;
+    payload = data;
+  });
+  EX.EventBus.emit("test:ping", { value: 42 });
+  assert(received, "Handler was not called");
+  assertEq(payload.value, 42, "Payload value wrong");
+});
+
+test("emit() catches handler errors without crashing", function() {
+  EX.EventBus.on("test:boom", function() {
+    throw new Error("intentional test error");
+  });
+  var threw = false;
+  try {
+    EX.EventBus.emit("test:boom", {});
+  } catch(e) {
+    threw = true;
+  }
+  assert(!threw, "EventBus.emit() let an error escape — handler errors should be caught");
+});
+
+test("off() removes handler", function() {
+  var count = 0;
+  var handler = function() { count++; };
+  EX.EventBus.on("test:count", handler);
+  EX.EventBus.emit("test:count", {});
+  EX.EventBus.off("test:count", handler);
+  EX.EventBus.emit("test:count", {});
+  assertEq(count, 1, "Handler should only have fired once (before off())");
+});
+
+
+/* ════════════════════════════════════════════════════════════════════
+   Render results
+   ════════════════════════════════════════════════════════════════════ */
+var totalPass = 0, totalFail = 0, totalWarn = 0;
+
+var html = "";
+suites.forEach(function(s) {
+  html += '<div class="suite">';
+  html += '<div class="suite-name">' + s.name + '</div>';
+  s.tests.forEach(function(t) {
+    totalPass += t.status === "pass" ? 1 : 0;
+    totalFail += t.status === "fail" ? 1 : 0;
+    totalWarn += t.status === "warn" ? 1 : 0;
+    html += '<div class="test ' + t.status + '">';
+    html += '<span class="badge ' + t.status + '">' + t.status.toUpperCase() + '</span>';
+    html += '<span class="test-name">' + t.name + '</span>';
+    html += '</div>';
+    if (t.detail) {
+      html += '<div class="test-detail">' + t.detail + '</div>';
+    }
+  });
+  html += '</div>';
+});
+
+var allOk = totalFail === 0;
+html += '<div class="summary ' + (allOk ? "ok" : "errors") + '">';
+html += totalPass + " passed";
+if (totalWarn > 0) html += " · " + totalWarn + " warning" + (totalWarn > 1 ? "s" : "");
+if (totalFail > 0) html += " · " + totalFail + " FAILED";
+html += "</div>";
+
+document.getElementById("results").innerHTML = html;
+
+})();
+</script>
+</body>
+</html>

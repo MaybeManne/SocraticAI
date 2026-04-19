@@ -1,0 +1,541 @@
+{
+  "meta": {
+    "title": "Projectile Motion - The Archer's Arrow",
+    "source": "Classical mechanics - projectile motion with component analysis",
+    "answer": "The arrow travels approximately 141.4 meters before hitting the ground.",
+    "estimated_duration_minutes": 4.5
+  },
+  "problem": {
+    "text": "An archer shoots an arrow at 30° above horizontal with initial speed 40 m/s. Find how far the arrow travels before hitting the ground.",
+    "highlight": "Find the horizontal range of a projectile launched at 30° with v₀ = 40 m/s"
+  },
+  "viz_requirements": {
+    "type": "custom",
+    "description": "Interactive 2D archery range with coordinate plane, showing projectile motion with real-time component vectors, trajectory path, and synchronized motion graphs",
+    "config": {
+      "viewBox": "0 0 800 400",
+      "coordinateSystem": {
+        "origin": [
+          50,
+          350
+        ],
+        "xScale": 4,
+        "yScale": 8,
+        "maxX": 180,
+        "maxY": 50
+      },
+      "gravity": 9.8,
+      "backgroundStyle": "outdoor_range"
+    },
+    "actions": [
+      {
+        "method": "createArcher",
+        "description": "Draw archer figure at origin with bow",
+        "params_schema": {
+          "position": "object",
+          "bowAngle": "number"
+        }
+      },
+      {
+        "method": "drawInitialVelocity",
+        "description": "Display initial velocity vector from bow",
+        "params_schema": {
+          "magnitude": "number",
+          "angle": "number",
+          "color": "string"
+        }
+      },
+      {
+        "method": "splitVelocityVector",
+        "description": "Animate velocity vector splitting into components",
+        "params_schema": {
+          "horizontal": "number",
+          "vertical": "number",
+          "animationDuration": "number"
+        }
+      },
+      {
+        "method": "launchArrow",
+        "description": "Start arrow projectile motion with physics",
+        "params_schema": {
+          "v0x": "number",
+          "v0y": "number",
+          "gravity": "number"
+        }
+      },
+      {
+        "method": "drawTrajectoryPath",
+        "description": "Show golden trail following arrow",
+        "params_schema": {
+          "color": "string",
+          "opacity": "number",
+          "realTime": "boolean"
+        }
+      },
+      {
+        "method": "updateVelocityComponents",
+        "description": "Update component vector sizes based on time",
+        "params_schema": {
+          "time": "number",
+          "showVectors": "boolean"
+        }
+      },
+      {
+        "method": "highlightComponent",
+        "description": "Emphasize horizontal or vertical motion",
+        "params_schema": {
+          "component": "string",
+          "intensity": "number"
+        }
+      },
+      {
+        "method": "isolateMotion",
+        "description": "Dim other components to focus on one",
+        "params_schema": {
+          "motionType": "string",
+          "dimOpacity": "number"
+        }
+      },
+      {
+        "method": "showEquation",
+        "description": "Display physics equation at position",
+        "params_schema": {
+          "equation": "string",
+          "position": "object",
+          "style": "string"
+        }
+      },
+      {
+        "method": "animateCalculation",
+        "description": "Step-by-step calculation reveal",
+        "params_schema": {
+          "steps": "array",
+          "timing": "array"
+        }
+      },
+      {
+        "method": "createMotionGraph",
+        "description": "Build position or velocity graph",
+        "params_schema": {
+          "type": "string",
+          "axis": "string",
+          "realTime": "boolean"
+        }
+      },
+      {
+        "method": "measureDistance",
+        "description": "Unfurl measuring tape between points",
+        "params_schema": {
+          "from": "object",
+          "to": "object",
+          "label": "string"
+        }
+      },
+      {
+        "method": "markTimeInstant",
+        "description": "Highlight specific moment in flight",
+        "params_schema": {
+          "time": "number",
+          "event": "string",
+          "color": "string"
+        }
+      },
+      {
+        "method": "pulseObject",
+        "description": "Draw attention to object with pulse",
+        "params_schema": {
+          "objectId": "string",
+          "intensity": "number",
+          "duration": "number"
+        }
+      },
+      {
+        "method": "showGroundCondition",
+        "description": "Highlight y=0 landing condition",
+        "params_schema": {
+          "emphasis": "boolean"
+        }
+      },
+      {
+        "method": "celebrateResult",
+        "description": "Visual flourish for final answer",
+        "params_schema": {
+          "position": "object",
+          "value": "string",
+          "effect": "string"
+        }
+      },
+      {
+        "method": "replayTrajectory",
+        "description": "Complete motion replay with all components",
+        "params_schema": {
+          "speed": "number",
+          "showComponents": "boolean"
+        }
+      },
+      {
+        "method": "addRealWorldScale",
+        "description": "Overlay football field or other scale reference",
+        "params_schema": {
+          "scaleType": "string",
+          "opacity": "number"
+        }
+      },
+      {
+        "method": "dimAllObjects",
+        "description": "Fade all objects for transition",
+        "params_schema": {
+          "opacity": "number",
+          "excludeIds": "array"
+        }
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "type": "act",
+      "id": "act_setup",
+      "title": "The Archer's Challenge",
+      "objective": "Establish the problem and build intuition for projectile motion complexity",
+      "context_from_previous": "Starting fresh - no prior context needed",
+      "beat_outline": [
+        {
+          "narration_hint": "An archer takes aim at 30 degrees above horizontal, initial speed 40 m/s. This shot looks simple, but how far will the arrow actually travel?",
+          "card_type": "title",
+          "viz_actions": [
+            "createArcher",
+            "drawInitialVelocity"
+          ]
+        },
+        {
+          "narration_hint": "At first glance, this seems complex - the arrow curves through space while gravity pulls it down and forward motion continues",
+          "card_type": "text",
+          "viz_actions": [
+            "launchArrow",
+            "drawTrajectoryPath"
+          ]
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "act",
+      "id": "act_independence",
+      "title": "The Independence Revelation",
+      "objective": "Introduce the key insight that horizontal and vertical motions are independent",
+      "context_from_previous": "Student has seen the problem setup with archer shooting at 30° with v₀ = 40 m/s, and observed the complex curved trajectory",
+      "beat_outline": [
+        {
+          "narration_hint": "But here's the beautiful secret: this complex curved motion is actually two simple, independent motions happening simultaneously",
+          "card_type": "text",
+          "viz_actions": [
+            "splitVelocityVector"
+          ]
+        },
+        {
+          "narration_hint": "We can decompose the initial velocity into horizontal and vertical components using trigonometry",
+          "card_type": "latex",
+          "viz_actions": [
+            "showEquation",
+            "highlightComponent"
+          ]
+        },
+        {
+          "narration_hint": "Horizontal component: 40 cos(30°) = 40 × (√3/2) = 20√3 ≈ 34.6 m/s. Vertical component: 40 sin(30°) = 40 × (1/2) = 20 m/s",
+          "card_type": "derivation",
+          "viz_actions": [
+            "animateCalculation",
+            "updateVelocityComponents"
+          ]
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "gate",
+      "id": "gate_components",
+      "gate_type": "fill-in",
+      "after_act": "act_independence",
+      "question_hint": "If the initial speed is 50 m/s at 30°, what is the horizontal component of velocity? (Give your answer to 1 decimal place)",
+      "wrong_path_hint": "Let's review trigonometry in projectile motion - which trig function gives us the horizontal component?",
+      "wrong_path_acts": [
+        {
+          "type": "act",
+          "id": "act_trig_review",
+          "title": "Trigonometry Review",
+          "objective": "Clarify which trigonometric function to use for horizontal vs vertical components",
+          "context_from_previous": "Student struggled with component calculation",
+          "beat_outline": [
+            {
+              "narration_hint": "Remember: cosine gives us the adjacent side (horizontal), sine gives us the opposite side (vertical)",
+              "card_type": "figure",
+              "viz_actions": [
+                "showEquation",
+                "highlightComponent"
+              ]
+            },
+            {
+              "narration_hint": "For horizontal component: velocity × cos(angle). For vertical component: velocity × sin(angle)",
+              "card_type": "recap",
+              "viz_actions": [
+                "animateCalculation"
+              ]
+            }
+          ],
+          "viz_panel": "figure"
+        }
+      ]
+    },
+    {
+      "type": "act",
+      "id": "act_horizontal",
+      "title": "Horizontal Motion Story",
+      "objective": "Establish that horizontal motion is uniform with constant velocity",
+      "context_from_previous": "Student has learned velocity components: horizontal = 34.6 m/s, vertical = 20 m/s, and understands they are independent",
+      "beat_outline": [
+        {
+          "narration_hint": "Let's focus on horizontal motion first. No forces act horizontally on the arrow during flight",
+          "card_type": "text",
+          "viz_actions": [
+            "isolateMotion",
+            "highlightComponent"
+          ]
+        },
+        {
+          "narration_hint": "This means horizontal velocity stays constant at 34.6 m/s throughout the entire flight",
+          "card_type": "latex",
+          "viz_actions": [
+            "updateVelocityComponents",
+            "createMotionGraph"
+          ]
+        },
+        {
+          "narration_hint": "Horizontal position increases linearly: x = v_x × t = 34.6t",
+          "card_type": "latex",
+          "viz_actions": [
+            "showEquation",
+            "pulseObject"
+          ]
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "act",
+      "id": "act_vertical",
+      "title": "Vertical Motion Story",
+      "objective": "Show that vertical motion follows standard gravity pattern with symmetric rise and fall",
+      "context_from_previous": "Student understands horizontal motion is uniform at 34.6 m/s and has seen the linear x vs t relationship",
+      "beat_outline": [
+        {
+          "narration_hint": "Now for vertical motion - here gravity constantly pulls downward at 9.8 m/s²",
+          "card_type": "text",
+          "viz_actions": [
+            "isolateMotion",
+            "highlightComponent"
+          ]
+        },
+        {
+          "narration_hint": "The vertical velocity starts at 20 m/s upward, decreases due to gravity, becomes zero at the peak, then increases downward",
+          "card_type": "none",
+          "viz_actions": [
+            "updateVelocityComponents",
+            "createMotionGraph"
+          ]
+        },
+        {
+          "narration_hint": "Vertical position follows: y = v₀y×t - ½gt² = 20t - 4.9t²",
+          "card_type": "latex",
+          "viz_actions": [
+            "showEquation",
+            "markTimeInstant"
+          ]
+        },
+        {
+          "narration_hint": "Notice the beautiful symmetry - the upward journey mirrors the downward journey",
+          "card_type": "text",
+          "viz_actions": [
+            "pulseObject",
+            "markTimeInstant"
+          ]
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "act",
+      "id": "act_flight_time",
+      "title": "Finding Flight Time",
+      "objective": "Calculate the total time the arrow stays in the air using the vertical motion equation",
+      "context_from_previous": "Student has seen both motion components: horizontal uniform motion and vertical motion with gravity creating symmetric parabolic path y = 20t - 4.9t²",
+      "beat_outline": [
+        {
+          "narration_hint": "To find the range, we need the total flight time. When does the arrow return to ground level?",
+          "card_type": "text",
+          "viz_actions": [
+            "showGroundCondition",
+            "highlightComponent"
+          ]
+        },
+        {
+          "narration_hint": "Set y = 0 in our equation: 0 = 20t - 4.9t²",
+          "card_type": "latex",
+          "viz_actions": [
+            "showEquation",
+            "pulseObject"
+          ]
+        },
+        {
+          "narration_hint": "Factor out t: 0 = t(20 - 4.9t), giving us t = 0 (launch) or t = 20/4.9 ≈ 4.08 seconds",
+          "card_type": "derivation",
+          "viz_actions": [
+            "animateCalculation",
+            "markTimeInstant"
+          ]
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "gate",
+      "id": "gate_flight_time",
+      "gate_type": "quiz",
+      "after_act": "act_flight_time",
+      "question_hint": "If an arrow is shot straight up with initial vertical velocity 25 m/s, how long until it returns to the starting height?",
+      "wrong_path_hint": "Remember that for symmetric projectile motion, we can use the fact that vertical velocity becomes zero at the peak",
+      "wrong_path_acts": [
+        {
+          "type": "act",
+          "id": "act_vertical_symmetry",
+          "title": "Vertical Motion Symmetry",
+          "objective": "Reinforce understanding of symmetric projectile motion timing",
+          "context_from_previous": "Student needs clarification on projectile motion timing",
+          "beat_outline": [
+            {
+              "narration_hint": "For vertical motion under gravity, the time to reach maximum height equals the time to fall back down",
+              "card_type": "text",
+              "viz_actions": [
+                "createMotionGraph",
+                "markTimeInstant"
+              ]
+            },
+            {
+              "narration_hint": "Total flight time is always 2 × (time to peak) = 2 × (v₀y/g)",
+              "card_type": "latex",
+              "viz_actions": [
+                "showEquation",
+                "animateCalculation"
+              ]
+            }
+          ],
+          "viz_panel": "svg"
+        }
+      ]
+    },
+    {
+      "type": "act",
+      "id": "act_range_calculation",
+      "title": "Calculating the Range",
+      "objective": "Combine horizontal motion with flight time to find the final answer",
+      "context_from_previous": "Student has calculated flight time as 4.08 seconds using vertical motion equation and understands horizontal velocity is constant at 34.6 m/s",
+      "beat_outline": [
+        {
+          "narration_hint": "Now we multiply: horizontal speed times total flight time gives us the range",
+          "card_type": "text",
+          "viz_actions": [
+            "highlightComponent",
+            "showEquation"
+          ]
+        },
+        {
+          "narration_hint": "Range = vₓ × t = 34.6 × 4.08 = 141.4 meters",
+          "card_type": "derivation",
+          "viz_actions": [
+            "animateCalculation",
+            "measureDistance"
+          ]
+        },
+        {
+          "narration_hint": "Watch as our arrow lands exactly at this calculated distance",
+          "card_type": "none",
+          "viz_actions": [
+            "replayTrajectory",
+            "celebrateResult"
+          ]
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "act",
+      "id": "act_synthesis",
+      "title": "The Complete Picture",
+      "objective": "Show the beautiful synthesis and provide satisfying visual payoff",
+      "context_from_previous": "Student has calculated the range as 141.4 meters and seen the arrow land at this exact distance",
+      "beat_outline": [
+        {
+          "narration_hint": "And there's the complete story - two simple motions creating one elegant arc",
+          "card_type": "recap",
+          "viz_actions": [
+            "replayTrajectory",
+            "updateVelocityComponents"
+          ]
+        },
+        {
+          "narration_hint": "This distance makes sense - about 1.5 football fields for a skilled archer's shot",
+          "card_type": "text",
+          "viz_actions": [
+            "addRealWorldScale",
+            "pulseObject"
+          ]
+        },
+        {
+          "narration_hint": "The general formula emerges naturally: Range = (v₀² sin(2θ))/g",
+          "card_type": "latex",
+          "viz_actions": [
+            "showEquation",
+            "celebrateResult"
+          ],
+          "inline_at_end": true
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "gate",
+      "id": "gate_range_scaling",
+      "gate_type": "quiz",
+      "after_act": "act_synthesis",
+      "question_hint": "What would happen to the range if we doubled the initial speed to 80 m/s (keeping the same angle)?",
+      "wrong_path_hint": "Think about how range depends on initial speed - look at the range formula R = (v₀² sin(2θ))/g",
+      "wrong_path_acts": [
+        {
+          "type": "act",
+          "id": "act_range_formula",
+          "title": "Range Formula Analysis",
+          "objective": "Help student understand quadratic dependence of range on initial speed",
+          "context_from_previous": "Student needs help understanding how range scales with initial speed",
+          "beat_outline": [
+            {
+              "narration_hint": "The range formula shows range is proportional to v₀² - the initial speed squared",
+              "card_type": "latex",
+              "viz_actions": [
+                "showEquation",
+                "highlightComponent"
+              ]
+            },
+            {
+              "narration_hint": "So doubling the speed (×2) makes the range four times larger (×2²)",
+              "card_type": "text",
+              "viz_actions": [
+                "animateCalculation",
+                "pulseObject"
+              ]
+            }
+          ],
+          "viz_panel": "svg"
+        }
+      ]
+    }
+  ]
+}

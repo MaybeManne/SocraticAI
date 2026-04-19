@@ -1,0 +1,44 @@
+[
+  {
+    "severity": "error",
+    "location": "act:act_1_needle",
+    "description": "Missing `.do()` calls for viz actions. Narration references visual elements (zooming, shading a bracket, dropping factors) but the visual actions are not triggered.",
+    "fix": "Add `.do(\"zoom_number_line\")`, `.do(\"draw_bracket\")`, and `.do(\"drop_factorization\")` to the respective `.say()` beats."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_2_collapse",
+    "description": "Missing `.do(\"morph_equation\")` calls for all three beats. The narration describes mathematical transformations that the student cannot see.",
+    "fix": "Append `.do(\"morph_equation\")` to each `.say()` call."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_2_collapse",
+    "description": "Premature use of `.inline(\"svg\")` at the end of Act 2.",
+    "fix": "Remove `.inline(\"svg\")` from Act 2, as the visualization continues to be used in subsequent acts."
+  },
+  {
+    "severity": "error",
+    "location": "gate:gate_1_mod",
+    "description": "The gate `gate_1_mod` is completely missing from the assembled code.",
+    "fix": "Implement `L.ask` for `gate_1_mod` with appropriate distractors and a `wrongPath`."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_3_fold",
+    "description": "The second `.say()` beat is a duplicate of the first one, and the second and third beats from the lesson plan are missing. Additionally, `.do()` calls are missing.",
+    "fix": "Restore the missing narration beats from the plan and add the corresponding `.do(\"draw_codivisor_arc\")` and `.do(\"snap_and_dim\")` actions."
+  },
+  {
+    "severity": "error",
+    "location": "act:act_4_squeeze",
+    "description": "Missing `.do()` calls for the equation morphing and dial sweep visualization.",
+    "fix": "Add `.do(\"morph_equation\")` to the first two beats and `.do(\"sweep_dial\")` to the final beat."
+  },
+  {
+    "severity": "error",
+    "location": "gate:gate_2_bound",
+    "description": "The gate `gate_2_bound` is missing from the assembled code.",
+    "fix": "Implement `L.ask` for `gate_2_bound` with appropriate distractors and a `wrongPath`."
+  }
+]

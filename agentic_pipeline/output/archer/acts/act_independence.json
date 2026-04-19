@@ -1,0 +1,95 @@
+{
+  "title": "The Independence Revelation",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Here's the key insight that makes projectile motion solvable: we can treat horizontal and vertical motions as completely separate problems. Watch as we split the velocity vector into independent components.",
+      "viz_actions": [
+        {
+          "method": "splitVelocityVector",
+          "params": {
+            "mainVector": true
+          },
+          "offset": "+1.0"
+        }
+      ],
+      "card": {
+        "type": "text",
+        "content": "**Independence Principle**: Horizontal and vertical motions are independent — gravity affects only the vertical component."
+      }
+    },
+    {
+      "say": "The horizontal component uses cosine. With our 30-degree angle, that's 40 times cosine of 30 degrees, which equals 40 times root 3 over 2.",
+      "viz_actions": [
+        {
+          "method": "calculateComponents",
+          "params": {
+            "vx": 34.6,
+            "vy": 20
+          },
+          "offset": "+0.5"
+        }
+      ],
+      "card": {
+        "type": "derivation",
+        "title": "Horizontal Component",
+        "steps": [
+          {
+            "latex": "v_x = v_0 \\cos(30°)"
+          },
+          {
+            "latex": "v_x = 40 \\times \\frac{\\sqrt{3}}{2}"
+          },
+          {
+            "latex": "v_x = 34.6 \\text{ m/s}",
+            "highlight": true
+          }
+        ]
+      }
+    },
+    {
+      "say": "The vertical component uses sine. At 30 degrees, sine equals one-half, so we get 40 times one-half, which is exactly 20 meters per second upward.",
+      "card": {
+        "type": "derivation",
+        "title": "Vertical Component",
+        "steps": [
+          {
+            "latex": "v_y = v_0 \\sin(30°)"
+          },
+          {
+            "latex": "v_y = 40 \\times \\frac{1}{2}"
+          },
+          {
+            "latex": "v_y = 20 \\text{ m/s}",
+            "highlight": true
+          }
+        ]
+      }
+    },
+    {
+      "say": "Now here's what makes this beautiful: gravity only affects vertical motion. It pulls the arrow downward but can't slow its horizontal movement. Let's see both motions side by side.",
+      "viz_actions": [
+        {
+          "method": "createSplitScreen",
+          "params": {
+            "layout": "horizontal"
+          },
+          "offset": "+0.8"
+        },
+        {
+          "method": "showMotionGraphs",
+          "params": {
+            "xType": "constant",
+            "yType": "parabolic"
+          },
+          "offset": "+1.5"
+        }
+      ],
+      "card": {
+        "type": "text",
+        "content": "**Key Insight**: Gravity acts only vertically — the horizontal velocity stays constant at 34.6 m/s throughout the entire flight."
+      }
+    }
+  ],
+  "act_id": "act_independence"
+}

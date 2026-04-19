@@ -1,0 +1,564 @@
+{
+  "meta": {
+    "title": "Projectile Motion: The Archer's Arrow",
+    "source": "Classical physics - projectile motion with initial velocity and launch angle",
+    "answer": "141 meters",
+    "estimated_duration_minutes": 6.5
+  },
+  "problem": {
+    "text": "An archer shoots an arrow at 30° above horizontal with initial speed 40 m/s. Find how far the arrow travels before hitting the ground.",
+    "highlight": "Arrow projectile motion: v₀ = 40 m/s, θ = 30°"
+  },
+  "viz_requirements": {
+    "type": "custom",
+    "description": "2D projectile motion visualization with archer, coordinate system, velocity vectors, trajectory path, and motion analysis tools",
+    "config": {
+      "viewBox": "0 0 800 400",
+      "scale": {
+        "x": 5,
+        "y": 15
+      },
+      "origin": {
+        "x": 50,
+        "y": 350
+      }
+    },
+    "actions": [
+      {
+        "method": "drawArcher",
+        "description": "Draw archer figure at origin with bow",
+        "params_schema": {
+          "position": "object"
+        }
+      },
+      {
+        "method": "showInitialVelocityVector",
+        "description": "Display initial velocity vector at launch angle",
+        "params_schema": {
+          "magnitude": "number",
+          "angle": "number",
+          "color": "string"
+        }
+      },
+      {
+        "method": "splitVelocityVector",
+        "description": "Animate velocity decomposition into x and y components",
+        "params_schema": {
+          "mainVector": "object"
+        }
+      },
+      {
+        "method": "createSplitScreen",
+        "description": "Create split view for x(t) and y(t) motion graphs",
+        "params_schema": {
+          "layout": "string"
+        }
+      },
+      {
+        "method": "showMotionGraphs",
+        "description": "Display time-based position graphs",
+        "params_schema": {
+          "xType": "string",
+          "yType": "string"
+        }
+      },
+      {
+        "method": "calculateComponents",
+        "description": "Show numerical component calculations",
+        "params_schema": {
+          "vx": "string",
+          "vy": "string"
+        }
+      },
+      {
+        "method": "startArrowMotion",
+        "description": "Begin real-time projectile animation",
+        "params_schema": {
+          "realTimeSpeed": "number"
+        }
+      },
+      {
+        "method": "showPositionDot",
+        "description": "Display moving position marker with trail",
+        "params_schema": {
+          "color": "string",
+          "trailLength": "number"
+        }
+      },
+      {
+        "method": "updateVelocityVector",
+        "description": "Continuously update velocity vector during motion",
+        "params_schema": {
+          "vx": "string",
+          "vy": "string"
+        }
+      },
+      {
+        "method": "highlightPeak",
+        "description": "Emphasize trajectory peak with pulsing effect",
+        "params_schema": {
+          "pulse": "boolean"
+        }
+      },
+      {
+        "method": "drawSymmetryLines",
+        "description": "Show symmetry of trajectory with dotted lines",
+        "params_schema": {
+          "style": "string"
+        }
+      },
+      {
+        "method": "markTimeIntervals",
+        "description": "Add time annotations for up and down phases",
+        "params_schema": {
+          "up": "string",
+          "down": "string"
+        }
+      },
+      {
+        "method": "mergeSplitScreens",
+        "description": "Smooth transition from split to single view",
+        "params_schema": {}
+      },
+      {
+        "method": "drawFullTrajectory",
+        "description": "Reveal complete parabolic path",
+        "params_schema": {
+          "style": "string"
+        }
+      },
+      {
+        "method": "animateGraphCombination",
+        "description": "Show how x(t) and y(t) combine to create 2D path",
+        "params_schema": {
+          "sequence": "string"
+        }
+      },
+      {
+        "method": "showKinematicEquation",
+        "description": "Display kinematic equation for vertical motion",
+        "params_schema": {
+          "equation": "string"
+        }
+      },
+      {
+        "method": "solveEquation",
+        "description": "Step-by-step equation solving animation",
+        "params_schema": {
+          "steps": "array"
+        }
+      },
+      {
+        "method": "highlightTimeOfFlight",
+        "description": "Emphasize calculated flight time",
+        "params_schema": {
+          "t": "string"
+        }
+      },
+      {
+        "method": "calculateRange",
+        "description": "Show range calculation with formula",
+        "params_schema": {
+          "formula": "string"
+        }
+      },
+      {
+        "method": "drawRangeMeasurement",
+        "description": "Display ground distance with measurement line",
+        "params_schema": {
+          "style": "string"
+        }
+      },
+      {
+        "method": "showMultipleTrajectories",
+        "description": "Display family of trajectories at different angles",
+        "params_schema": {
+          "angles": "array"
+        }
+      },
+      {
+        "method": "highlightOptimalAngle",
+        "description": "Emphasize 45° trajectory for maximum range",
+        "params_schema": {
+          "angle": "number",
+          "maxRange": "boolean"
+        }
+      },
+      {
+        "method": "emphasizeOurAnswer",
+        "description": "Final emphasis on the 30° solution",
+        "params_schema": {
+          "highlight": "string"
+        }
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "type": "act",
+      "id": "act_setup",
+      "title": "Setting the Scene",
+      "objective": "Establish the problem context and build intuition for 2D projectile motion",
+      "context_from_previous": "Student is starting fresh with projectile motion concepts",
+      "beat_outline": [
+        {
+          "narration_hint": "An archer draws back an arrow, aiming 30 degrees above the horizon",
+          "card_type": "title",
+          "viz_actions": [
+            "drawArcher",
+            "showInitialVelocityVector"
+          ]
+        },
+        {
+          "narration_hint": "With an initial speed of 40 meters per second, where will this arrow land?",
+          "card_type": "text",
+          "viz_actions": [
+            "calculateComponents"
+          ],
+          "inline_at_end": true
+        },
+        {
+          "narration_hint": "This is a classic projectile motion problem that requires understanding 2D motion",
+          "card_type": "none",
+          "viz_actions": []
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "act",
+      "id": "act_independence",
+      "title": "The Independence Revelation",
+      "objective": "Introduce velocity decomposition and the independence of horizontal/vertical motions",
+      "context_from_previous": "Student sees archer with arrow aimed at 30°, v₀ = 40 m/s established",
+      "beat_outline": [
+        {
+          "narration_hint": "The key insight: we can treat horizontal and vertical motions separately",
+          "card_type": "text",
+          "viz_actions": [
+            "splitVelocityVector"
+          ]
+        },
+        {
+          "narration_hint": "The horizontal component is v₀ cos(30°) = 40 × (√3/2) = 34.6 m/s",
+          "card_type": "derivation",
+          "viz_actions": [
+            "calculateComponents"
+          ]
+        },
+        {
+          "narration_hint": "The vertical component is v₀ sin(30°) = 40 × (1/2) = 20 m/s",
+          "card_type": "derivation",
+          "viz_actions": []
+        },
+        {
+          "narration_hint": "Gravity only affects vertical motion - it can't slow down horizontal movement",
+          "card_type": "text",
+          "viz_actions": [
+            "createSplitScreen",
+            "showMotionGraphs"
+          ]
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "gate",
+      "id": "gate_components",
+      "gate_type": "quiz",
+      "after_act": "act_independence",
+      "question_hint": "What happens to the horizontal component of velocity as the arrow flies?",
+      "wrong_path_hint": "Let's clarify how gravity affects motion",
+      "wrong_path_acts": [
+        {
+          "type": "act",
+          "id": "act_gravity_clarification",
+          "title": "Understanding Gravity's Effect",
+          "objective": "Clarify that gravity only acts vertically",
+          "context_from_previous": "Student incorrectly thinks gravity affects horizontal motion",
+          "beat_outline": [
+            {
+              "narration_hint": "Gravity is a force that always points straight down toward Earth's center",
+              "card_type": "figure",
+              "viz_actions": [
+                "drawArcher"
+              ]
+            },
+            {
+              "narration_hint": "This means gravity can only change vertical velocity - it has no horizontal component",
+              "card_type": "text",
+              "viz_actions": [
+                "updateVelocityVector"
+              ]
+            },
+            {
+              "narration_hint": "Think of it this way: if you drop a ball while walking, it falls straight down relative to the ground, but keeps moving horizontally with you",
+              "card_type": "text",
+              "viz_actions": []
+            }
+          ],
+          "viz_panel": "svg"
+        }
+      ]
+    },
+    {
+      "type": "act",
+      "id": "act_motion",
+      "title": "Motion in Real-Time",
+      "objective": "Visualize how the arrow moves through space with changing velocity components",
+      "context_from_previous": "Student understands velocity components: vₓ = 34.6 m/s (constant), v₀ᵧ = 20 m/s",
+      "beat_outline": [
+        {
+          "narration_hint": "Let's watch our arrow fly in real time",
+          "card_type": "none",
+          "viz_actions": [
+            "mergeSplitScreens",
+            "startArrowMotion",
+            "showPositionDot"
+          ]
+        },
+        {
+          "narration_hint": "Notice how the horizontal velocity stays perfectly constant at 34.6 m/s",
+          "card_type": "text",
+          "viz_actions": [
+            "updateVelocityVector"
+          ]
+        },
+        {
+          "narration_hint": "Meanwhile, gravity steadily reduces the vertical velocity from 20 m/s downward",
+          "card_type": "text",
+          "viz_actions": []
+        },
+        {
+          "narration_hint": "The velocity vector rotates and shrinks vertically while staying constant horizontally",
+          "card_type": "none",
+          "viz_actions": []
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "act",
+      "id": "act_peak",
+      "title": "The Peak and Symmetry",
+      "objective": "Highlight the trajectory peak and introduce time symmetry concept",
+      "context_from_previous": "Student has seen arrow motion with velocity components changing, horizontal constant, vertical decreasing",
+      "beat_outline": [
+        {
+          "narration_hint": "At the peak, something special happens - vertical velocity hits exactly zero",
+          "card_type": "text",
+          "viz_actions": [
+            "highlightPeak"
+          ]
+        },
+        {
+          "narration_hint": "The arrow is momentarily moving purely horizontally at 34.6 m/s",
+          "card_type": "latex",
+          "viz_actions": [
+            "updateVelocityVector"
+          ]
+        },
+        {
+          "narration_hint": "Beautiful symmetry emerges: time to go up equals time to come down",
+          "card_type": "text",
+          "viz_actions": [
+            "drawSymmetryLines",
+            "markTimeIntervals"
+          ]
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "gate",
+      "id": "gate_peak",
+      "gate_type": "quiz",
+      "after_act": "act_peak",
+      "question_hint": "At the peak of the trajectory, the arrow's velocity is:",
+      "wrong_path_hint": "Let's examine what happens at the peak more carefully",
+      "wrong_path_acts": [
+        {
+          "type": "act",
+          "id": "act_peak_clarification",
+          "title": "Velocity vs Acceleration at Peak",
+          "objective": "Distinguish between velocity and acceleration at the peak",
+          "context_from_previous": "Student confused about velocity/acceleration at peak",
+          "beat_outline": [
+            {
+              "narration_hint": "At the peak, vertical velocity is zero, but acceleration due to gravity is still -9.8 m/s²",
+              "card_type": "split",
+              "viz_actions": [
+                "highlightPeak"
+              ]
+            },
+            {
+              "narration_hint": "Velocity tells us speed and direction right now - acceleration tells us how velocity is changing",
+              "card_type": "text",
+              "viz_actions": []
+            },
+            {
+              "narration_hint": "Even at the peak, gravity keeps pulling down, ready to accelerate the arrow downward",
+              "card_type": "text",
+              "viz_actions": [
+                "updateVelocityVector"
+              ]
+            }
+          ],
+          "viz_panel": "svg"
+        }
+      ]
+    },
+    {
+      "type": "act",
+      "id": "act_parabola",
+      "title": "The Parabolic Path Emerges",
+      "objective": "Show how component motions combine to create the parabolic trajectory",
+      "context_from_previous": "Student has seen motion components, peak behavior, and time symmetry",
+      "beat_outline": [
+        {
+          "narration_hint": "When we combine constant horizontal motion with uniformly accelerated vertical motion",
+          "card_type": "text",
+          "viz_actions": [
+            "animateGraphCombination"
+          ]
+        },
+        {
+          "narration_hint": "We get this elegant parabolic curve - the signature of projectile motion",
+          "card_type": "none",
+          "viz_actions": [
+            "drawFullTrajectory"
+          ]
+        },
+        {
+          "narration_hint": "Every projectile follows this same mathematical shape",
+          "card_type": "latex",
+          "viz_actions": [],
+          "inline_at_end": true
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "act",
+      "id": "act_calculation",
+      "title": "Calculating the Range",
+      "objective": "Work through the mathematics to find the horizontal distance traveled",
+      "context_from_previous": "Student sees complete parabolic trajectory and understands how components combine",
+      "beat_outline": [
+        {
+          "narration_hint": "To find where it lands, we need the total time of flight",
+          "card_type": "text",
+          "viz_actions": []
+        },
+        {
+          "narration_hint": "The arrow returns to ground level when height y equals zero",
+          "card_type": "latex",
+          "viz_actions": [
+            "showKinematicEquation"
+          ]
+        },
+        {
+          "narration_hint": "Using the kinematic equation: y = v₀ᵧt - ½gt² = 0",
+          "card_type": "derivation",
+          "viz_actions": [
+            "solveEquation"
+          ]
+        },
+        {
+          "narration_hint": "Factoring: t(20 - 4.9t) = 0, so t = 0 or t = 20/4.9 = 4.08 seconds",
+          "card_type": "derivation",
+          "viz_actions": [
+            "highlightTimeOfFlight"
+          ]
+        },
+        {
+          "narration_hint": "Range = horizontal velocity × time = 34.6 × 4.08 = 141 meters",
+          "card_type": "derivation",
+          "viz_actions": [
+            "calculateRange",
+            "drawRangeMeasurement"
+          ]
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "gate",
+      "id": "gate_calculation",
+      "gate_type": "fill-in",
+      "after_act": "act_calculation",
+      "question_hint": "If the initial vertical velocity is 20 m/s and gravity is 9.8 m/s², the time to reach peak height is _____ seconds.",
+      "wrong_path_hint": "Let's review how to find the time to reach maximum height",
+      "wrong_path_acts": [
+        {
+          "type": "act",
+          "id": "act_time_to_peak",
+          "title": "Finding Time to Peak",
+          "objective": "Practice calculating time to reach maximum height",
+          "context_from_previous": "Student needs help with time-to-peak calculation",
+          "beat_outline": [
+            {
+              "narration_hint": "At the peak, vertical velocity becomes zero: vᵧ = v₀ᵧ - gt = 0",
+              "card_type": "latex",
+              "viz_actions": [
+                "highlightPeak"
+              ]
+            },
+            {
+              "narration_hint": "Solving for time: t = v₀ᵧ/g = 20/9.8 = 2.04 seconds",
+              "card_type": "derivation",
+              "viz_actions": [
+                "markTimeIntervals"
+              ]
+            },
+            {
+              "narration_hint": "This is exactly half the total flight time due to symmetry",
+              "card_type": "text",
+              "viz_actions": [
+                "drawSymmetryLines"
+              ]
+            }
+          ],
+          "viz_panel": "svg"
+        }
+      ]
+    },
+    {
+      "type": "act",
+      "id": "act_payoff",
+      "title": "The Bigger Picture",
+      "objective": "Connect to broader principles and provide satisfying visual payoff",
+      "context_from_previous": "Student has calculated range = 141 meters using time of flight method",
+      "beat_outline": [
+        {
+          "narration_hint": "Our answer: 141 meters! But here's something beautiful...",
+          "card_type": "recap",
+          "viz_actions": [
+            "emphasizeOurAnswer"
+          ]
+        },
+        {
+          "narration_hint": "If we tried different launch angles with the same initial speed",
+          "card_type": "none",
+          "viz_actions": [
+            "showMultipleTrajectories"
+          ]
+        },
+        {
+          "narration_hint": "Maximum range occurs at 45° - creating this fountain-like pattern",
+          "card_type": "text",
+          "viz_actions": [
+            "highlightOptimalAngle"
+          ]
+        },
+        {
+          "narration_hint": "Projectile motion reveals elegant mathematical principles hidden in everyday physics",
+          "card_type": "text",
+          "viz_actions": [],
+          "inline_at_end": true
+        }
+      ],
+      "viz_panel": "svg"
+    }
+  ]
+}

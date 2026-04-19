@@ -1,0 +1,53 @@
+{
+  "title": "Velocity vs Acceleration at Peak",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Here's the key insight that trips up many students. At the peak of the trajectory, the arrow's vertical velocity is zero — it's neither moving up nor down at that instant. But gravity's acceleration is still pulling down at 9.8 meters per second squared.",
+      "card": {
+        "type": "split",
+        "left": {
+          "type": "text",
+          "content": "**At the Peak:**\n\n• Vertical velocity = 0 m/s\n• Arrow momentarily stops rising"
+        },
+        "right": {
+          "type": "text",
+          "content": "**Gravity Never Stops:**\n\n• Acceleration = -9.8 m/s²\n• Always pulling downward"
+        }
+      },
+      "viz_actions": [
+        {
+          "method": "highlightPeak",
+          "params": {
+            "pulse": true
+          }
+        }
+      ]
+    },
+    {
+      "say": "Think of velocity as what's happening right now — the arrow's speed and direction at this exact moment. Acceleration tells us how that velocity is changing. They're completely different quantities that can have different values at the same time.",
+      "card": {
+        "type": "text",
+        "content": "**Velocity** = speed + direction *right now*\n\n**Acceleration** = how velocity is *changing*"
+      },
+      "viz_actions": []
+    },
+    {
+      "say": "Even though the arrow pauses for an instant at the peak, gravity never takes a break. It's constantly accelerating the arrow downward, which is exactly what turns that zero vertical velocity into downward motion for the descent.",
+      "card": {
+        "type": "text",
+        "content": "Gravity acts continuously — it's what makes the arrow start falling after reaching the peak."
+      },
+      "viz_actions": [
+        {
+          "method": "updateVelocityVector",
+          "params": {
+            "vx": 34.6,
+            "vy": 0
+          }
+        }
+      ]
+    }
+  ],
+  "act_id": "act_peak_clarification"
+}

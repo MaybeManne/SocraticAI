@@ -1,0 +1,15 @@
+{
+  "act_id": "act_3_fold",
+  "title": "The Co-Divisor Fold",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Divisors always come in pairs. If there is a divisor on the left side of $m^2$, its partner must be on the right side.",
+      "card": {}
+    },
+    {
+      "say": "Divisors always come in pairs. If there is a divisor on the left side of $m^2$, its partner must be on the right side.",
+      "card": {}
+    }
+  ]
+}

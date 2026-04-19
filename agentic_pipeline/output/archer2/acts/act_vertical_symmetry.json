@@ -1,0 +1,65 @@
+{
+  "act_id": "act_vertical_symmetry",
+  "title": "Vertical Motion Symmetry",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Here's something beautiful about projectile motion — the vertical motion has perfect symmetry. Watch as we create a graph of the arrow's height over time.",
+      "card": {
+        "type": "text",
+        "content": "Vertical motion under gravity follows a parabolic path with symmetric timing around the peak height."
+      },
+      "viz_actions": [
+        {
+          "method": "createMotionGraph",
+          "params": {
+            "type": "position",
+            "axis": "vertical",
+            "realTime": true
+          },
+          "offset": 0
+        },
+        {
+          "method": "markTimeInstant",
+          "params": {
+            "time": "peak",
+            "event": "maximum height",
+            "color": "#f59e0b"
+          },
+          "offset": "+1.5"
+        }
+      ]
+    },
+    {
+      "say": "Notice the symmetry — the time to reach maximum height equals the time to fall back down. This gives us a powerful formula: total flight time is always two times the time to peak.",
+      "card": {
+        "type": "latex",
+        "content": "t_{\\text{flight}} = 2 \\times t_{\\text{peak}} = 2 \\times \\frac{v_{0y}}{g}",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "showEquation",
+          "params": {
+            "equation": "t_peak = v_0y/g",
+            "position": "upper",
+            "style": "emphasis"
+          },
+          "offset": 0
+        },
+        {
+          "method": "animateCalculation",
+          "params": {
+            "steps": [
+              "t_flight = 2 × t_peak",
+              "t_flight = 2 × (v_0y/g)",
+              "t_flight = 2v_0y/g"
+            ],
+            "timing": "sequential"
+          },
+          "offset": "+1.0"
+        }
+      ]
+    }
+  ]
+}

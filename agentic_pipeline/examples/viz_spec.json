@@ -1,0 +1,18 @@
+{
+  "mode": "custom_code",
+  "config": {
+    "plugin": "nested_circles_v2",
+    "config": {
+      "cx": 250, "baseY": 450, "scale": 32,
+      "circleCount": 8, "darkColor": "#0f0e17",
+      "strokeColor": "#818cf8",
+      "finalCount": 40, "finalScale": 5.5
+    }
+  },
+  "code": "/* Viz plugin placeholder — would contain full EXPLAINER_VIZ IIFE */",
+  "actions_implemented": [
+    "showGrid", "showGlow", "showDot", "drawCircle",
+    "focusRing", "unfocusRings", "pulseRings",
+    "hideKLabels", "hideLabelAndDot", "showFinal"
+  ]
+}

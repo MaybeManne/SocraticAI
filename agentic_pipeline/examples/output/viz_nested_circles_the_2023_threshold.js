@@ -1,0 +1,1 @@
+/* Viz plugin placeholder — would contain full EXPLAINER_VIZ IIFE */

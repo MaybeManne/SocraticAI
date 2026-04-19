@@ -1,0 +1,19 @@
+{
+  "act_id": "act_4_squeeze",
+  "title": "The Squeeze",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Since we only care about positive values of $a$, we know $m^2 + a$ must divide $a^2 + 1$ perfectly. Let's define their ratio as an integer multiple, $r$.",
+      "card": {}
+    },
+    {
+      "say": "Let's look at the extremes. The largest $a$ can be in our interval is $2m$. If we plug that in, the numerator becomes $4m^2 + 1$, and the denominator is $m^2 + 2m$.",
+      "card": {}
+    },
+    {
+      "say": "For any $m$ greater than 2, this ratio is strictly less than 4. And because $r$ must be a whole number, it can only possibly be 1, 2, or 3.",
+      "card": {}
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title id="pageTitle">Math Explainer</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="explainer-lib.css">
+</head>
+<body>
+<div id="app">
+  <div id="problem-bar"></div>
+  <div id="title-overlay"><div class="title-content"></div></div>
+  <div id="stage">
+    <div id="viz-wrap">
+      <!-- v2: viewBox set dynamically by JS from LESSON.viz.viewBox -->
+      <svg id="viz" aria-label="Lesson visualization"></svg>
+    </div>
+    <div id="notebook" role="log" aria-label="Lesson content"></div>
+    <div id="subtitle-track" role="status" aria-live="polite"></div>
+  </div>
+  <div id="controls" role="toolbar" aria-label="Playback controls">
+    <button id="playBtn" aria-label="Play" tabindex="0">&#9654;</button>
+    <div class="scrubber-wrap">
+      <input type="range" id="scrubber" min="0" max="1000" value="0" step="1" aria-label="Lesson progress">
+      <div id="milestone-dots"></div>
+    </div>
+    <span id="timeD">0:00 / 0:00</span>
+    <button id="speedBtn" class="ctrl-btn" aria-label="Playback speed" tabindex="0">1x</button>
+    <button id="subToggle" class="ctrl-btn" aria-label="Toggle subtitles" tabindex="0">CC</button>
+    <button id="narToggle" class="ctrl-btn" aria-label="Toggle narration" tabindex="0">&#x1f50a;</button>
+    <button id="themeToggle" class="ctrl-btn" aria-label="Toggle light mode" tabindex="0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+    <button id="printBtn" class="ctrl-btn" aria-label="Print notebook" tabindex="0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
+  </div>
+</div>
+<div id="progress-bar"><div id="progress-fill"></div></div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<!-- MX modules -->
+<script src="mobject/mobject.js"></script>
+<script src="mobject/anim.js"></script>
+<script src="mobject/dsl.js"></script>
+<!-- Content (replaced by build.sh) -->
+<script src="content/amc10a_2023_p15.js"></script>
+<script src="content/viz_nested_circles.js"></script>
+<!-- Engine modules -->
+<script src="engine/core.js"></script>
+<script src="engine/notebook.js"></script>
+<script src="engine/viz-panel.js"></script>
+<script src="engine/audio.js"></script>
+<script src="engine/subtitles.js"></script>
+<script src="engine/cards.js"></script>
+<script src="engine/gates.js"></script>
+<script src="engine/controls.js"></script>
+<script src="engine/scroll-sync.js"></script>
+<script src="engine/init.js"></script>
+</body>
+</html>

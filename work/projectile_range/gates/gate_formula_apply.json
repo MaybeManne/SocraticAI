@@ -1,0 +1,19 @@
+{
+  "gate_type": "fill-in",
+  "after_act": "act_general_formula",
+  "prompt": "Using $R = \\dfrac{v_0^2\\,\\sin(2\\theta)}{g}$, find the range for a ball launched at $\\theta = 30°$ with $v_0 = 20$ m/s and $g = 9.8$ m/s². Round to one decimal place. $R =$ [___] m.",
+  "blank": {
+    "answer": [
+      "35.3",
+      "35.4"
+    ],
+    "width": 80,
+    "placeholder": "? m"
+  },
+  "hint": "Substitute carefully: $\\sin(2 \\times 30°) = \\sin(60°) \\approx 0.866$, not $\\sin(30°) = 0.5$. Then compute $\\frac{400 \\times 0.866}{9.8}$.",
+  "successMessage": "Correct! $R = \\dfrac{20^2 \\cdot \\sin(60°)}{9.8} = \\dfrac{400 \\times 0.866}{9.8} \\approx 35.3$ m. Notice that's less than the 40.8 m at 45° — the formula already hints that 45° is special.",
+  "wrong_path_acts": [
+    "act_wrong_formula"
+  ],
+  "gate_id": "gate_formula_apply"
+}

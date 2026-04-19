@@ -1,0 +1,122 @@
+{
+  "act_id": "act_calculation",
+  "title": "Calculating the Range",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Now for the final calculation. To find where this arrow lands, we need the total time of flight — how long it stays airborne.",
+      "card": {
+        "type": "text",
+        "content": "Finding the range requires calculating the total flight time first"
+      }
+    },
+    {
+      "say": "The arrow returns to ground level when its height y equals zero. That's our key insight for solving this problem.",
+      "card": {
+        "type": "latex",
+        "content": "y = 0 \\text{ when arrow hits ground}",
+        "highlight": true
+      },
+      "viz_actions": [
+        {
+          "method": "showKinematicEquation",
+          "params": {
+            "equation": "vertical"
+          },
+          "offset": "+0.5"
+        }
+      ]
+    },
+    {
+      "say": "Using the kinematic equation for vertical motion: y equals initial vertical velocity times t, minus one-half g t squared. Set this equal to zero.",
+      "card": {
+        "type": "derivation",
+        "title": "Time of Flight Equation",
+        "steps": [
+          {
+            "latex": "y = v_{0y}t - \\frac{1}{2}gt^2"
+          },
+          {
+            "latex": "0 = 20t - \\frac{1}{2}(9.8)t^2",
+            "highlight": true
+          },
+          {
+            "latex": "0 = 20t - 4.9t^2"
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "solveEquation",
+          "params": {
+            "steps": "setup"
+          },
+          "offset": "+1.0"
+        }
+      ]
+    },
+    {
+      "say": "Factor out t: t times quantity twenty minus four point nine t equals zero. So either t equals zero — that's launch — or twenty minus four point nine t equals zero. Solving: t equals four point zero eight seconds.",
+      "card": {
+        "type": "derivation",
+        "title": "Solving for Time",
+        "steps": [
+          {
+            "latex": "t(20 - 4.9t) = 0"
+          },
+          {
+            "latex": "t = 0 \\text{ or } 20 - 4.9t = 0"
+          },
+          {
+            "latex": "t = \\frac{20}{4.9} = 4.08 \\text{ seconds}",
+            "highlight": true
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "highlightTimeOfFlight",
+          "params": {
+            "t": 4.08
+          },
+          "offset": "+1.2"
+        }
+      ]
+    },
+    {
+      "say": "Range equals horizontal velocity times time. We have thirty-four point six meters per second horizontally, times four point zero eight seconds. That gives us one hundred forty-one meters.",
+      "card": {
+        "type": "derivation",
+        "title": "Final Range Calculation",
+        "steps": [
+          {
+            "latex": "\\text{Range} = v_x \\times t"
+          },
+          {
+            "latex": "= 34.6 \\times 4.08"
+          },
+          {
+            "latex": "= 141 \\text{ meters}",
+            "highlight": true
+          }
+        ]
+      },
+      "viz_actions": [
+        {
+          "method": "calculateRange",
+          "params": {
+            "formula": "distance"
+          },
+          "offset": 0
+        },
+        {
+          "method": "drawRangeMeasurement",
+          "params": {
+            "style": "groundLine"
+          },
+          "offset": "+1.5"
+        }
+      ]
+    }
+  ]
+}

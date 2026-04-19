@@ -1,0 +1,55 @@
+{
+  "title": "Setting the Scene",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "An archer draws back her bow, aiming thirty degrees above the horizon. The arrow sits poised at the perfect angle — not too steep, not too shallow.",
+      "card": {
+        "type": "title",
+        "heading": "Projectile Motion",
+        "subheading": "An archer's challenge"
+      },
+      "viz_actions": [
+        {
+          "method": "drawArcher",
+          "params": {
+            "position": "origin"
+          },
+          "offset": 0
+        },
+        {
+          "method": "showInitialVelocityVector",
+          "params": {
+            "magnitude": 40,
+            "angle": 30,
+            "color": "#f59e0b"
+          },
+          "offset": "+1.0"
+        }
+      ]
+    },
+    {
+      "say": "She releases with an initial speed of forty meters per second. The arrow launches into its curved path. But here's the question that matters: where will this arrow land?",
+      "card": {
+        "type": "text",
+        "content": "**The Challenge:** Find the horizontal distance traveled by an arrow launched at 30° with initial speed 40 m/s."
+      },
+      "viz_actions": [
+        {
+          "method": "calculateComponents",
+          "params": {
+            "vx": 34.6,
+            "vy": 20.0
+          },
+          "offset": "+1.5"
+        }
+      ],
+      "inline_viz": "svg"
+    },
+    {
+      "say": "This is a classic projectile motion problem — one that reveals the beautiful physics of two-dimensional motion. The arrow follows gravity's pull while maintaining its forward momentum.",
+      "viz_actions": []
+    }
+  ],
+  "act_id": "act_setup"
+}

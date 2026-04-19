@@ -1,0 +1,19 @@
+{
+  "act_id": "act_1_needle",
+  "title": "The Needle in the Haystack",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Let's consider the number $m^4 + 1$. If $m$ is 10, this evaluates to 10,001. We want to prove that this massive number has absolutely no divisors in a very specific, tiny window: the interval from $m^2 - 2m$ to $m^2 + 2m$.",
+      "card": {}
+    },
+    {
+      "say": "For $m=10$, that window is the shaded bracket between 80 and 120. Why this specific window? Because $m^2$, which is 100, is roughly the square root of our massive number. We are looking for divisors right near the center.",
+      "card": {}
+    },
+    {
+      "say": "Watch what happens if we drop the actual prime factorization of 10,001 onto the number line. It factors into 73 times 137. Notice how both of these factors land just outside our shaded bracket. Our job is to prove this zone is always completely empty, no matter what $m$ we choose.",
+      "card": {}
+    }
+  ]
+}
