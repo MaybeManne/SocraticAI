@@ -74,6 +74,11 @@ ANTHROPIC_MODELS = {
 
 
 def _is_gemini(model):
+    """Return True if `model` identifies a Gemini model, else False (treated as Anthropic).
+
+    @param model: model id string supplied by the caller / CLI.
+    @returns: bool — routes `call_llm` between Gemini and Anthropic backends.
+    """
     return model.startswith("gemini-") or model in GEMINI_MODELS
 
 
@@ -725,6 +730,14 @@ def stage2b_author_gates(plan, act_specs, model="gemini-2.5-flash"):
         user_msg = _gate_context(plan, node, act_specs)
 
         def _inject(spec):
+            """Overwrite plan-authoritative fields on a gate_spec.
+
+            @param spec: mutable gate_spec dict produced by the gate worker.
+            @effects: forces gate_id, after_act, gate_type, wrong_path_acts to match the
+                plan (LLM values for these fields are discarded — the plan is the source
+                of truth for graph topology).
+            @returns: the same `spec` (mutated in place) for caller convenience.
+            """
             # Authoritative fields overwritten from plan — LLM output discarded.
             spec["gate_id"]   = gate_id
             spec["after_act"] = node["after_act"]
@@ -1366,6 +1379,15 @@ def load_artifacts(work_dir):
 # ─────────────────────────────────────────────────────────────────────
 
 def main():
+    """CLI entrypoint — parse args and dispatch one or more pipeline stages.
+
+    @effects: reads problem / intermediate artifacts from --work-dir, writes stage outputs
+        back to the same directory (plan.json, act_specs/, gate_specs/, viz_spec.json,
+        content.js, viz.js, review.json) and optionally builds the final HTML and
+        screenshot. See --help for the full flag surface.
+    @raises SystemExit: on CLI misuse (argparse) or on unrecoverable stage errors that
+        propagate out of the stage functions.
+    """
     parser = argparse.ArgumentParser(
         description="6-stage agentic lesson authoring pipeline",
         formatter_class=argparse.RawDescriptionHelpFormatter,

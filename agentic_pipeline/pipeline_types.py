@@ -225,6 +225,13 @@ _VALID_VIZ_MODES  = {"preset", "custom_code", "mobject_plugin", "three_js"}
 
 
 def _require(cond, msg):
+    """Raise TypeError(`[pipeline contract] {msg}`) unless `cond` is truthy.
+
+    @param cond: predicate — True to proceed silently, False to raise.
+    @param msg: short explanation shown to the developer (not the end user).
+    @raises TypeError: always, whenever cond is falsy. Used as the single failure
+        mode for every `assert_*_shape` check so callers can catch one exception type.
+    """
     if not cond:
         raise TypeError(f"[pipeline contract] {msg}")
 
@@ -296,6 +303,11 @@ def assert_act_spec_shape(spec, plan_node=None):
 
 
 def _find_duplicate(xs):
+    """Return (first_index, duplicate_index) of the first repeated value in `xs`, or None.
+
+    @param xs: iterable of hashable values (typically beat 'say' strings).
+    @returns: (i, j) with i < j and xs[i] == xs[j], or None if every element is unique.
+    """
     seen = {}
     for i, x in enumerate(xs):
         if x in seen:
@@ -330,6 +342,12 @@ def assert_gate_spec_shape(spec, plan_node=None):
 
 
 def assert_viz_spec_shape(spec):
+    """Raise TypeError unless `spec` matches VizSpec for its declared mode.
+
+    @param spec: viz_spec dict emitted by stage 3 (or loaded from viz_spec.json).
+    @raises TypeError: if `mode` is unknown, or if the mode-specific code field
+        (code / mobject_plugin_code / three_js_code / preset) is missing or empty.
+    """
     _require(isinstance(spec, dict), "viz spec not dict")
     _require(spec.get("mode") in _VALID_VIZ_MODES,
              f"viz spec mode {spec.get('mode')!r} invalid")
