@@ -1,0 +1,28 @@
+{
+  "act_id": "act_correcting_min_k",
+  "title": "Correcting Minimum k Understanding",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Let's go through the steps to find k again. We need to ensure our calculations are precise.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "drawGraph",
+          "params": {
+            "equation": "k*(k + 1)"
+          },
+          "offset": 0
+        },
+        {
+          "method": "highlightIntersection",
+          "params": {
+            "x": 4046
+          },
+          "offset": "+1.0"
+        }
+      ],
+      "inline_viz": null
+    }
+  ]
+}

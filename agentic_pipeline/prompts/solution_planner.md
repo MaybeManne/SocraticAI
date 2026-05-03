@@ -87,7 +87,7 @@ dimTrajectory()                      — fade the path to 20% opacity
 showEquation(params: {step})         — reveal kinematic equation step-by-step
 ```
 
-These exact names become the method names the viz agent implements. Be precise — spelling matters.
+These exact names become the method names the viz agent implements. Be precise — spelling matters. Use `camelCase` only (e.g. `drawCircle`, `highlightRing`, `showFormula`). No spaces, no parentheses in the name itself.
 
 **Physics-specific viz patterns:**
 - Free body diagrams: draw force arrows with magnitude labels

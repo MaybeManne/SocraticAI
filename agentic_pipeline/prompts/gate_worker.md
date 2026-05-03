@@ -108,3 +108,5 @@ Return only the fields relevant to your gate type. No gate_id.
 5. Fill-in answers cover all common equivalent forms.
 6. Wrong path teaches the **missing prerequisite**, not the same content.
 7. NO `gate_id` in output.
+8. **Fill-in prompt contains exactly one `[___]` token.** Search your prompt string — `[___]` must appear once. No input renders without it.
+9. **Wrong path acts**: if a wrong_path contains a nested fill-in gate, that gate's prompt also needs `[___]`. Check recursively.

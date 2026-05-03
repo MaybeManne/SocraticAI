@@ -55,6 +55,11 @@ try:
 except ImportError:
     genai = None
 
+try:
+    import openai
+except ImportError:
+    openai = None
+
 PIPELINE_DIR = Path(__file__).parent
 PROMPTS_DIR = PIPELINE_DIR / "prompts"
 CODE2HTML_DIR = PIPELINE_DIR.parent
@@ -73,12 +78,30 @@ ANTHROPIC_MODELS = {
 }
 
 
+OPENROUTER_PREFIX = "openrouter:"
+
+
+def _is_openrouter(model):
+    """Return True if `model` is routed via OpenRouter (prefix `openrouter:`).
+
+    Use this BEFORE _is_gemini in dispatchers — OpenRouter is its own backend.
+    """
+    return isinstance(model, str) and model.startswith(OPENROUTER_PREFIX)
+
+
+def _strip_openrouter(model):
+    """Strip the `openrouter:` prefix to recover the underlying provider/model slug."""
+    return model[len(OPENROUTER_PREFIX):] if _is_openrouter(model) else model
+
+
 def _is_gemini(model):
     """Return True if `model` identifies a Gemini model, else False (treated as Anthropic).
 
     @param model: model id string supplied by the caller / CLI.
     @returns: bool — routes `call_llm` between Gemini and Anthropic backends.
     """
+    if _is_openrouter(model):
+        return False
     return model.startswith("gemini-") or model in GEMINI_MODELS
 
 
@@ -91,28 +114,30 @@ def load_prompt(name):
 
 def call_llm(system_prompt, user_message, output_schema, model="gemini-2.5-flash"):
     """
-    Call an LLM with structured JSON output. Dispatches to Gemini or Anthropic
-    based on the model name.
+    Call an LLM with structured JSON output. Dispatches to OpenRouter, Gemini,
+    or Anthropic based on the model name.
 
     Returns parsed JSON dict.
     """
+    if _is_openrouter(model):
+        return _call_openrouter(system_prompt, user_message, output_schema, model)
     if _is_gemini(model):
         return _call_gemini(system_prompt, user_message, output_schema, model)
-    else:
-        return _call_anthropic(system_prompt, user_message, output_schema, model)
+    return _call_anthropic(system_prompt, user_message, output_schema, model)
 
 
 def call_llm_text(system_prompt, user_message, model="gemini-2.5-flash"):
     """
-    Call an LLM for plain-text (non-JSON) output. Dispatches to Gemini or
-    Anthropic based on the model name.
+    Call an LLM for plain-text (non-JSON) output. Dispatches to OpenRouter,
+    Gemini, or Anthropic based on the model name.
 
     Returns a string.
     """
+    if _is_openrouter(model):
+        return _call_openrouter_text(system_prompt, user_message, model)
     if _is_gemini(model):
         return _call_gemini_text(system_prompt, user_message, model)
-    else:
-        return _call_anthropic_text(system_prompt, user_message, model)
+    return _call_anthropic_text(system_prompt, user_message, model)
 
 
 def _call_anthropic(system_prompt, user_message, output_schema, model):
@@ -220,6 +245,101 @@ def _call_gemini_text(system_prompt, user_message, model):
     if not text:
         raise ValueError("Empty response from Gemini API")
 
+    return text
+
+
+def _openrouter_client():
+    """Construct an OpenAI-compatible client pointed at OpenRouter."""
+    if openai is None:
+        raise RuntimeError("openai package not installed. Run: pip install openai")
+    api_key = os.environ.get("OPENROUTER_API_KEY")
+    if not api_key:
+        raise RuntimeError(
+            "OPENROUTER_API_KEY not set. Export it before running OpenRouter models."
+        )
+    return openai.OpenAI(
+        base_url="https://openrouter.ai/api/v1",
+        api_key=api_key,
+        default_headers={
+            "HTTP-Referer": "https://github.com/code2html",
+            "X-Title": "code2html agentic pipeline",
+        },
+    )
+
+
+def _call_openrouter(system_prompt, user_message, output_schema, model):
+    """
+    Call OpenRouter (any underlying model) with json_object response format and
+    the cleaned schema injected into the system prompt.
+
+    Deliberately uses json_object (not json_schema strict) so that the comparison
+    measures the model's own schema-following fidelity rather than API-side
+    enforcement. This matches the Anthropic tool_use path conceptually: the
+    schema is presented to the model as a constraint, not a hard barrier.
+    """
+    client = _openrouter_client()
+    real_model = _strip_openrouter(model)
+
+    cleaned_schema = _clean_schema_for_gemini(output_schema)
+    system_with_schema = (
+        f"{system_prompt}\n\n"
+        f"## Output Format (REQUIRED)\n"
+        f"You MUST respond with a single valid JSON object that conforms to this schema. "
+        f"No prose, no markdown fences — just the JSON object.\n\n"
+        f"```json\n{json.dumps(cleaned_schema, indent=2)}\n```\n"
+    )
+
+    response = client.chat.completions.create(
+        model=real_model,
+        messages=[
+            {"role": "system", "content": system_with_schema},
+            {"role": "user", "content": user_message},
+        ],
+        response_format={"type": "json_object"},
+        temperature=0.7,
+        max_tokens=16000,
+    )
+    text = response.choices[0].message.content
+    if not text:
+        raise ValueError(f"Empty response from OpenRouter ({real_model})")
+    # Strip markdown fences if present — DeepSeek and some other providers
+    # leak ```json ... ``` even when response_format=json_object is set.
+    stripped = text.strip()
+    if stripped.startswith("```"):
+        # remove leading ``` or ```json line and the trailing ``` line
+        lines = stripped.splitlines()
+        if lines[0].startswith("```"):
+            lines = lines[1:]
+        if lines and lines[-1].strip() == "```":
+            lines = lines[:-1]
+        stripped = "\n".join(lines).strip()
+    try:
+        return json.loads(stripped)
+    except json.JSONDecodeError as e:
+        snippet = text[:500].replace("\n", " ")
+        raise ValueError(
+            f"OpenRouter ({real_model}) returned non-JSON: {e}. "
+            f"Payload start: {snippet!r}"
+        ) from e
+
+
+def _call_openrouter_text(system_prompt, user_message, model):
+    """Call OpenRouter for plain-text output."""
+    client = _openrouter_client()
+    real_model = _strip_openrouter(model)
+
+    response = client.chat.completions.create(
+        model=real_model,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_message},
+        ],
+        temperature=0.7,
+        max_tokens=8000,
+    )
+    text = response.choices[0].message.content
+    if not text:
+        raise ValueError(f"Empty text response from OpenRouter ({real_model})")
     return text
 
 
@@ -1439,8 +1559,15 @@ Examples:
                              "self-correct visual bugs before assembly. Anthropic models only.")
     parser.add_argument("--model", default="gemini-2.5-flash",
                         help="Model to use (gemini-2.5-flash, gemini-2.5-pro, claude-sonnet-4-20250514, etc.)")
+    parser.add_argument("--viz-model", default=None,
+                        help="Override model for Stage 4 (viz generation) only. "
+                             "Accepts same formats as --model, including openrouter: prefix. "
+                             "If omitted, Stage 4 uses --model. "
+                             "Example: --viz-model openrouter:meta-llama/llama-3.3-70b-instruct")
 
     args = parser.parse_args()
+    # --viz-model defaults to --model when not explicitly specified
+    args.viz_model = args.viz_model or args.model
 
     work_dir = Path(args.work_dir)
     work_dir.mkdir(parents=True, exist_ok=True)
@@ -1527,9 +1654,9 @@ Examples:
 
     # ── Stage 4: Author visualization ──
     if not viz_spec and plan:
-        viz_spec = stage3_author_viz(plan, act_specs, model=args.model)
+        viz_spec = stage3_author_viz(plan, act_specs, model=args.viz_model)
         if args.viz_screenshot_feedback and viz_spec:
-            if _is_gemini(args.model):
+            if _is_gemini(args.viz_model):
                 print("\n  ⚠️  WARNING: --viz-screenshot-feedback requires an "
                       "Anthropic model (multimodal tool-use).")
                 print(f"     Current model: {args.model} (Gemini). "

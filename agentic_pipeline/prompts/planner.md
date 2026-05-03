@@ -31,10 +31,18 @@ Every beat must answer: **"What is the student SEEING while hearing this?"**
 - Each act teaches **one idea**. If you need two, use two acts.
 - Target 3–8 acts for a typical problem (plus 1–3 branch acts for wrong paths).
 - `beat_outline` specifies both the narration intent AND the synchronized visual moment:
-  - `narration_hint`: what the narrator explains
-  - `viz_actions`: what the student SEES at that exact moment (highlight, draw, pulse, dim, zoom)
+  - `narration_hint`: what the narrator explains — be specific ("narrator explains that ring k=1 has area 3π")
+  - `viz_actions`: an array of **bare method names** declared in `viz_requirements.actions`.
+    - **REQUIRED FORMAT — bare method names only.** Each entry is a string identical to the `method` field of a declared action.
+    - ✅ Correct: `["drawCircle", "highlightRing"]`
+    - ❌ Wrong: `["drawCircle(params: {1 to 4})"]` — never decorate with parens or param hints. The downstream act worker fills in params; you only name the method.
+    - ❌ Wrong: `["drawCircle(r=1)"]`, `["drawCircle: radius 1"]` — same reason.
+    - ❌ Wrong: `[]` (empty) for any beat that describes a visual moment. A beat saying "show the circles" MUST have `["drawCircle"]` not `[]`.
+    - ❌ Wrong: vague entries like "show the circles" — `narration_hint` must name the exact visual element ("draw circle r=1 via drawCircle, then dim others via focusRing").
+    - The validator does string equality against bare method names. Any decoration or misspelling causes pipeline failure.
   - `card_type`: what appears in the notebook panel
-- **Every important narration moment must have a matching viz action.** If the narrator says "this ring has area 3π," the viz should pulse/highlight that ring simultaneously.
+- **Every beat that describes a visual moment MUST have at least one viz_action.** If the narrator says "this ring has area 3π," the viz MUST include `highlightRing` (or equivalent). A beat_outline entry with empty viz_actions is only valid for pure narration with zero visual reference.
+- **Specify the dominant visual action per beat.** Every beat_outline entry must include the specific method name that fires on it. "Show the derivation" is vague; "show derivation step via showFormula" is concrete.
 - `context_from_previous` tells the worker what the student already knows. Be specific: "Student has derived A_k = π(4k−1) and seen rings k=1..4 drawn" not "Student knows the formula."
 - `viz_panel`: `"svg"` for live animated viz, `"figure"` for static figures in cards, `null` for no viz.
 

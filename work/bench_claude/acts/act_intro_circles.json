@@ -1,0 +1,75 @@
+{
+  "act_id": "act_intro_circles",
+  "title": "Introduction to Circles",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Let's start by drawing our first circle of radius 1. This circle serves as the foundation for our nested structure.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "drawCircle",
+          "params": {
+            "radius": 1
+          },
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "say": "Now, we'll incrementally add circles with increasing radii. Each new circle will be larger than the previous one, creating a beautiful pattern.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "drawCircle",
+          "params": {
+            "radius": 2
+          },
+          "offset": 0
+        },
+        {
+          "method": "drawCircle",
+          "params": {
+            "radius": 3
+          },
+          "offset": "+1.0"
+        },
+        {
+          "method": "drawCircle",
+          "params": {
+            "radius": 4
+          },
+          "offset": "+2.0"
+        },
+        {
+          "method": "drawCircle",
+          "params": {
+            "radius": 5
+          },
+          "offset": "+3.0"
+        },
+        {
+          "method": "drawCircle",
+          "params": {
+            "radius": 6
+          },
+          "offset": "+4.0"
+        },
+        {
+          "method": "drawCircle",
+          "params": {
+            "radius": 7
+          },
+          "offset": "+5.0"
+        },
+        {
+          "method": "drawCircle",
+          "params": {
+            "radius": 8
+          },
+          "offset": "+6.0"
+        }
+      ]
+    }
+  ]
+}
