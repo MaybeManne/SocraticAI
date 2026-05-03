@@ -1,103 +1,105 @@
 MX.lesson("Finding the Least Number of Nested Circles for Shaded Area", function(L) {
 
-L.source("Custom Problem");
-L.meta({ answer: "64", estimated_duration_minutes: 15 });
+L.source("AMC 10A 2023 \u00b715");
+L.meta({ answer: "64" });
 
-L.problem("An even number of circles are nested, starting with a radius of $1$ and increasing by $1$ each time, all sharing a common point. The region between every other circle is shaded, starting with the region inside the circle of radius $2$ but outside the circle of radius $1$. An example showing $8$ circles is displayed below. What is the **least number of circles** needed to make the total shaded area at least $2023\\pi$?", { highlight: "Find the least number of circles for total shaded area ≥ 2023π." });
+L.problem("An even number of circles are nested, all sharing a common point, with radii $1, 2, 3, \\ldots$ Every other ring is shaded, starting with the ring between radii $1$ and $2$. What is the **least number of circles** so the total shaded area is at least $2023\\pi$?", { highlight: "Least circles: total shaded \u2265 2023\u03c0" });
 
 L.viz({ plugin: "nested_circles_lesson", config: {} });
 
-
-L.act("Introduction to Circles", function(A) {
+L.act("Building the Picture", function(A) {
   A.vizPanel("svg");
-
-  A.say("Let's start by drawing our first circle of radius 1. This circle serves as the foundation for our nested structure.")
+  A.say("Every circle shares one bottom point. Starting with radius 1.")
    .do("drawCircle", { radius: 1 });
-
-  A.say("Now, we'll incrementally add circles with increasing radii. Each new circle will be larger than the previous one, creating a beautiful pattern.")
-   .do("drawCircle", { radius: 2 })
-   .do("drawCircle", { radius: 3 }, "+1.0")
-   .do("drawCircle", { radius: 4 }, "+2.0")
-   .do("drawCircle", { radius: 5 }, "+3.0")
-   .do("drawCircle", { radius: 6 }, "+4.0")
-   .do("drawCircle", { radius: 7 }, "+5.0")
-   .do("drawCircle", { radius: 8 }, "+6.0");
-
+  A.say("Radius 2 expands \u2014 a ring appears between them, the first shaded region.")
+   .do("drawCircle", { radius: 2 });
+  A.say("Adding radii 3 through 8. Every other gap is shaded \u2014 four glowing rings.")
+   .do("drawCircle", { radius: 3 })
+   .do("drawCircle", { radius: 4 }, "+0.8")
+   .do("drawCircle", { radius: 5 }, "+1.6")
+   .do("drawCircle", { radius: 6 }, "+2.4")
+   .do("drawCircle", { radius: 7 }, "+3.2")
+   .do("drawCircle", { radius: 8 }, "+4.0");
 });
 
-
-L.act("Highlighting Shaded Areas", function(A) {
+L.act("The Shaded Rings", function(A) {
   A.vizPanel("svg");
-
-  A.say("Notice the shaded area between the first two circles.")
+  A.say("First shaded ring: between circles 1 and 2.")
    .do("highlightShadedArea", { r1: 1, r2: 2 });
-
-  A.say("Now, let's highlight the shaded area between the next pair of circles.")
+  A.say("Second ring: between circles 3 and 4. Pattern alternates outward.")
    .do("highlightShadedArea", { r1: 3, r2: 4 });
-
 });
 
-
-L.act("Summation of Areas", function(A) {
+L.act("Ring Area \u2014 Step 1", function(A) {
   A.vizPanel("svg");
-
-  A.say("We can express the shaded area mathematically. The shaded area between circles of radius $2k$ and $2k-1$ is given by $A_k = \\pi( (2k)^2 - (2k-1)^2 )$.")
-   .show("A_k = \\pi( (2k)^2 - (2k-1)^2 )")
-   .do("fadeInFormula");
-
-  A.say("Let's break this down into manageable parts. The total shaded area is the sum of all individual shaded areas up to $k$. This can be expressed as $\\sum_{i=1}^{k} A_i$.")
-   .do("fadeInFormula");
-
+  A.say("Ring $k$ is between radius $2k{-}1$ and $2k$. Area is outer disk minus inner disk.")
+   .do("fadeInFormula")
+   .show({ type: "latex", content: "A_k = \\pi(2k)^2 - \\pi(2k-1)^2" });
 });
 
-
-L.act("Finding Minimum k", function(A) {
+L.act("Ring Area \u2014 Step 2", function(A) {
   A.vizPanel("svg");
-
-  A.say("To determine the least number of circles needed, we want to find the minimum $k$ such that the total shaded area reaches at least $2023\\pi$. This means we need to solve for the equation of the shaded area.")
-   .do("drawGraph", { equation: "k(k + 1)" });
-
-  A.say("Now, let's graph the equation and see where it intersects with our threshold line at $4046$. This will show us the minimum $k$ needed to achieve the shaded area requirement.")
-   .do("highlightIntersection", { x: 4046 });
-
+  A.say("Expand the squares: $4k^2\\pi$ from outer, $\\pi(4k^2 - 4k + 1)$ from inner.")
+   .show({ type: "latex", content: "= \\pi\\bigl[4k^2 - (4k^2 - 4k + 1)\\bigr]" });
 });
 
+L.act("Ring Area \u2014 Step 3", function(A) {
+  A.vizPanel("svg");
+  A.say("The $4k^2$ terms cancel perfectly. Area is just $\\pi(4k-1)$ \u2014 linear in $k$.")
+   .show({ type: "latex", content: "A_k = \\pi(4k - 1)", highlight: true });
+});
+
+L.act("Summing All Rings", function(A) {
+  A.vizPanel("svg");
+  A.say("With $n$ rings ($2n$ circles): sum all ring areas using the arithmetic series formula.")
+   .show({ type: "latex", content: "S = \\pi\\sum_{k=1}^{n}(4k-1) = \\pi \\cdot n(2n+1)" });
+});
+
+L.act("Finding the Answer", function(A) {
+  A.vizPanel("svg");
+  A.say("Need $n(2n+1) \\geq 2023$. Graph crosses the orange threshold. Drag the slider to explore.")
+   .do("drawGraph", { equation: "n(2n+1)" })
+   .show({ type: "derivation", title: "Solve for n", steps: [
+     { latex: "n(2n+1) \\geq 2023" },
+     { latex: "n=31:\\; 31\\times63 = 1953 < 2023" },
+     { latex: "n=32:\\; 32\\times65 = 2080 \\geq 2023", highlight: true }
+   ]});
+  A.say("$n=32$ \u2014 32 shaded rings, $2n = 64$ circles.")
+   .do("highlightIntersection", { x: 2023 })
+   .show({ type: "latex", content: "\\boxed{2n = 64 \\text{ circles}}", highlight: true });
+});
 
 L.ask({
-  question: "What is the shaded area between the circles of radius 2 and 1?",
-  options: ["\\pi", "3\\pi", "2\\pi", "4\\pi"],
+  question: "What is the area of ring $k=1$?",
+  options: ["$\\pi$", "$2\\pi$", "$3\\pi$", "$4\\pi$"],
   correct: 2,
   explain: {
-    correct: "Exactly — because the shaded area is the area of the larger circle minus the area of the smaller circle: $\\pi(2^2) - \\pi(1^2) = 4\\pi - \\pi = 3\\pi$.",
-    "1": "That's the area of the smaller circle. Remember to include the larger circle's area as well.",
-    "3": "That's the area of the larger circle. Make sure to subtract the area of the smaller circle.",
-    "4": "That's not correct. You need to find the difference between the two areas."
+    correct: "$A_1 = \\pi(4\\cdot1-1)=3\\pi$ \u2713",
+    "0": "That\u2019s the inner disk $\\pi r^2$, not the ring gap.",
+    "1": "Off by one: $4\\pi - \\pi = 3\\pi$.",
+    "3": "$4\\pi$ is the full outer disk, not the ring."
   },
   wrongPath: function(B) {
-    B.act("Correcting Shaded Area Understanding", function(A) {
+    B.act("Ring Area Recap", function(A) {
       A.vizPanel("svg");
-
-      A.say("Let's revisit how we calculate shaded areas. Specifically, we need to clarify the regions between our nested circles.")
-       .do("highlightShadedArea", { r1: 1, r2: 2 });
-
+      A.say("Ring area = outer minus inner: $\\pi(4)-\\pi(1)=3\\pi$.")
+       .do("highlightShadedArea", { r1: 1, r2: 2 })
+       .show({ type: "latex", content: "A_1 = 4\\pi - \\pi = 3\\pi", highlight: true });
     });
   }
 });
 
-
 L.askFillIn({
-  prompt: "The least number of circles needed is [___].",
+  prompt: "Minimum circles needed: [___]",
   blank: { answer: ["64"], width: 60, placeholder: "?" },
-  hint: "Use the equation for the shaded area to find $k$.",
-  successMessage: "Correct — the least number of circles needed is 64.",
+  hint: "Find $n$ with $n(2n+1)\\geq2023$, answer is $2n$.",
+  successMessage: "Correct! $n=32 \\Rightarrow 2n=64$ circles.",
   wrongPath: function(B) {
-    B.act("Correcting Minimum k Understanding", function(A) {
+    B.act("Minimum Circles Recap", function(A) {
       A.vizPanel("svg");
-
-      A.say("Let's go through the steps to find k again. We need to ensure our calculations are precise.")
-       .do("drawGraph", { equation: "k*(k + 1)" })
-       .do("highlightIntersection", { x: 4046 }, "+1.0");
-
+      A.say("$n=32$: $32\\times65=2080\\geq2023$ \u2713. Circles $=2n=64$.")
+       .do("highlightIntersection", { x: 2023 })
+       .show({ type: "latex", content: "2n = 64 \\text{ circles}", highlight: true });
     });
   }
 });
