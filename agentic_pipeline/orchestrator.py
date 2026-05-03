@@ -972,11 +972,14 @@ def stage3_author_viz(plan, act_specs, model="gemini-2.5-flash"):
 {json.dumps(timeline, indent=2)}
 """
 
-    # Read full reference viz plugin — skip for small-context models (32k and under)
+    # Read full reference viz plugin — skip for models that fail on large prompts.
+    # Nemotron returns empty choices when the prompt exceeds ~15k tokens despite
+    # advertising 131k context, so skip the reference for it too.
     _small_ctx_models = {
         "qwen/qwen-2.5-coder-32b-instruct",
         "mistralai/mistral-small-3.1-24b-instruct",
         "meta-llama/llama-3.3-70b-instruct",
+        "nvidia/llama-3.1-nemotron-70b-instruct",
     }
     _real_model = _strip_openrouter(model) if _is_openrouter(model) else model
     _include_reference = _real_model not in _small_ctx_models

@@ -1,0 +1,218 @@
+{
+  "meta": {
+    "title": "Finding the Least Number of Nested Circles for Shaded Area",
+    "source": "Custom Problem",
+    "answer": "64",
+    "estimated_duration_minutes": 15
+  },
+  "problem": {
+    "text": "An even number of circles are nested, starting with a radius of $1$ and increasing by $1$ each time, all sharing a common point. The region between every other circle is shaded, starting with the region inside the circle of radius $2$ but outside the circle of radius $1$. An example showing $8$ circles is displayed below. What is the **least number of circles** needed to make the total shaded area at least $2023\\pi$?",
+    "highlight": "Find the least number of circles for total shaded area ≥ 2023π."
+  },
+  "viz_requirements": {
+    "type": "custom",
+    "description": "Visual representation of nested circles and their shaded areas.",
+    "config": {},
+    "actions": [
+      {
+        "method": "drawCircle",
+        "description": "Draw circles incrementally with increasing radii.",
+        "params_schema": {
+          "radius": "number"
+        }
+      },
+      {
+        "method": "highlightShadedArea",
+        "description": "Highlight the shaded area between two specified circles.",
+        "params_schema": {
+          "r1": "number",
+          "r2": "number"
+        }
+      },
+      {
+        "method": "fadeInFormula",
+        "description": "Display the area formula step-by-step.",
+        "params_schema": {
+          "formula": "string"
+        }
+      },
+      {
+        "method": "drawGraph",
+        "description": "Graph the quadratic equation for k(k + 1).",
+        "params_schema": {
+          "equation": "string"
+        }
+      },
+      {
+        "method": "highlightIntersection",
+        "description": "Mark the intersection point with the line at y = 4046.",
+        "params_schema": {
+          "x": "number"
+        }
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "type": "act",
+      "id": "act_intro_circles",
+      "title": "Introduction to Circles",
+      "objective": "Understand the construction of nested circles.",
+      "context_from_previous": "No prior knowledge assumed.",
+      "beat_outline": [
+        {
+          "narration_hint": "Let's start by drawing our first circle of radius 1.",
+          "card_type": "none",
+          "viz_actions": [
+            "drawCircle"
+          ],
+          "inline_at_end": false
+        },
+        {
+          "narration_hint": "Now, we'll incrementally add circles with increasing radii.",
+          "card_type": "none",
+          "viz_actions": [
+            "drawCircle"
+          ],
+          "inline_at_end": false
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "act",
+      "id": "act_highlight_shaded",
+      "title": "Highlighting Shaded Areas",
+      "objective": "Identify and calculate shaded areas.",
+      "context_from_previous": "Students have seen circles drawn with increasing radii.",
+      "beat_outline": [
+        {
+          "narration_hint": "Notice the shaded area between the first two circles.",
+          "card_type": "none",
+          "viz_actions": [
+            "highlightShadedArea"
+          ],
+          "inline_at_end": false
+        },
+        {
+          "narration_hint": "Now, let's highlight the shaded area between the next pair of circles.",
+          "card_type": "none",
+          "viz_actions": [
+            "highlightShadedArea"
+          ],
+          "inline_at_end": false
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "act",
+      "id": "act_summation_areas",
+      "title": "Summation of Areas",
+      "objective": "Learn how to sum shaded areas.",
+      "context_from_previous": "Students have identified shaded areas between circles.",
+      "beat_outline": [
+        {
+          "narration_hint": "We can express the shaded area mathematically.",
+          "card_type": "latex",
+          "viz_actions": [
+            "fadeInFormula"
+          ],
+          "inline_at_end": false
+        },
+        {
+          "narration_hint": "Let's break this down into manageable parts.",
+          "card_type": "none",
+          "viz_actions": [
+            "fadeInFormula"
+          ],
+          "inline_at_end": false
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "act",
+      "id": "act_find_min_k",
+      "title": "Finding Minimum k",
+      "objective": "Solve for the least number of circles needed.",
+      "context_from_previous": "Students have learned how to sum shaded areas.",
+      "beat_outline": [
+        {
+          "narration_hint": "We need to find the least k such that the total shaded area is at least 2023π.",
+          "card_type": "none",
+          "viz_actions": [
+            "drawGraph"
+          ],
+          "inline_at_end": false
+        },
+        {
+          "narration_hint": "Let's graph the equation and find where it meets our threshold.",
+          "card_type": "none",
+          "viz_actions": [
+            "highlightIntersection"
+          ],
+          "inline_at_end": false
+        }
+      ],
+      "viz_panel": "svg"
+    },
+    {
+      "type": "gate",
+      "id": "gate_shaded_area_check",
+      "gate_type": "quiz",
+      "after_act": "act_highlight_shaded",
+      "question_hint": "What is the shaded area between the circles of radius 2 and 1?",
+      "wrong_path_hint": "Remember to consider the areas of both circles.",
+      "wrong_path_acts": [
+        {
+          "type": "act",
+          "id": "act_correcting_shaded_area",
+          "title": "Correcting Shaded Area Understanding",
+          "objective": "Clarify the calculation of shaded areas.",
+          "context_from_previous": "Students have made an incorrect calculation.",
+          "beat_outline": [
+            {
+              "narration_hint": "Let's revisit how we calculate shaded areas.",
+              "card_type": "none",
+              "viz_actions": [
+                "highlightShadedArea"
+              ],
+              "inline_at_end": false
+            }
+          ],
+          "viz_panel": "svg"
+        }
+      ]
+    },
+    {
+      "type": "gate",
+      "id": "gate_min_k_check",
+      "gate_type": "fill-in",
+      "after_act": "act_find_min_k",
+      "question_hint": "What is the least number of circles needed?",
+      "wrong_path_hint": "Check your calculations for k.",
+      "wrong_path_acts": [
+        {
+          "type": "act",
+          "id": "act_correcting_min_k",
+          "title": "Correcting Minimum k Understanding",
+          "objective": "Clarify how to find the minimum k.",
+          "context_from_previous": "Students have provided an incorrect value for k.",
+          "beat_outline": [
+            {
+              "narration_hint": "Let's go through the steps to find k again.",
+              "card_type": "none",
+              "viz_actions": [
+                "drawGraph",
+                "highlightIntersection"
+              ],
+              "inline_at_end": false
+            }
+          ],
+          "viz_panel": "svg"
+        }
+      ]
+    }
+  ]
+}

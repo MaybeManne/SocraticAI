@@ -2703,145 +2703,143 @@ MX.presets.unitCircle = function(opts) {
 <script>
 MX.lesson("Finding the Least Number of Nested Circles for Shaded Area", function(L) {
 
-L.source("AMC 10A 2023 \u00b715");
-L.meta({ answer: "64" });
+L.source("Custom Problem");
+L.meta({ answer: "64", estimated_duration_minutes: 15 });
 
-L.problem("An even number of circles are nested, all sharing a common point, with radii $1, 2, 3, \\ldots$ Every other ring is shaded, starting with the ring between radii $1$ and $2$. What is the **least number of circles** so the total shaded area is at least $2023\\pi$?", { highlight: "Least circles: total shaded \u2265 2023\u03c0" });
+L.problem("An even number of circles are nested, starting with a radius of $1$ and increasing by $1$ each time, all sharing a common point. The region between every other circle is shaded, starting with the region inside the circle of radius $2$ but outside the circle of radius $1$. An example showing $8$ circles is displayed below. What is the **least number of circles** needed to make the total shaded area at least $2023\\pi$?", { highlight: "Find the least number of circles for total shaded area ≥ 2023π." });
 
 L.viz({ plugin: "nested_circles_lesson", config: {} });
 
-L.act("Building the Picture", function(A) {
+
+L.act("Introduction to Circles", function(A) {
   A.vizPanel("svg");
-  A.say("Every circle shares one bottom point. Starting with radius 1.")
+
+  A.say("Let's start by drawing our first circle of radius 1. This circle serves as the foundation for our nested structure.")
    .do("drawCircle", { radius: 1 });
-  A.say("Radius 2 expands \u2014 a ring appears between them, the first shaded region.")
-   .do("drawCircle", { radius: 2 });
-  A.say("Adding radii 3 through 8. Every other gap is shaded \u2014 four glowing rings.")
-   .do("drawCircle", { radius: 3 })
-   .do("drawCircle", { radius: 4 }, "+0.8")
-   .do("drawCircle", { radius: 5 }, "+1.6")
-   .do("drawCircle", { radius: 6 }, "+2.4")
-   .do("drawCircle", { radius: 7 }, "+3.2")
-   .do("drawCircle", { radius: 8 }, "+4.0");
+
+  A.say("Now, we'll incrementally add circles with increasing radii. Each new circle will be larger than the previous one, creating a beautiful pattern.")
+   .do("drawCircle", { radius: 2 })
+   .do("drawCircle", { radius: 3 }, "+1.0")
+   .do("drawCircle", { radius: 4 }, "+2.0")
+   .do("drawCircle", { radius: 5 }, "+3.0")
+   .do("drawCircle", { radius: 6 }, "+4.0")
+   .do("drawCircle", { radius: 7 }, "+5.0")
+   .do("drawCircle", { radius: 8 }, "+6.0");
+
 });
 
-L.act("The Shaded Rings", function(A) {
+
+L.act("Highlighting Shaded Areas", function(A) {
   A.vizPanel("svg");
-  A.say("First shaded ring: between circles 1 and 2.")
+
+  A.say("Notice the shaded area between the first two circles.")
    .do("highlightShadedArea", { r1: 1, r2: 2 });
-  A.say("Second ring: between circles 3 and 4. Pattern alternates outward.")
+
+  A.say("Now, let's highlight the shaded area between the next pair of circles.")
    .do("highlightShadedArea", { r1: 3, r2: 4 });
+
 });
 
-L.act("Ring Area \u2014 Step 1", function(A) {
+
+L.act("Summation of Areas", function(A) {
   A.vizPanel("svg");
-  A.say("Ring $k$ is between radius $2k{-}1$ and $2k$. Area is outer disk minus inner disk.")
-   .do("fadeInFormula")
-   .show({ type: "latex", content: "A_k = \\pi(2k)^2 - \\pi(2k-1)^2" });
+
+  A.say("We can express the shaded area mathematically. The shaded area between circles of radius $2k$ and $2k-1$ is given by $A_k = \\pi( (2k)^2 - (2k-1)^2 )$.")
+   .show("A_k = \\pi( (2k)^2 - (2k-1)^2 )")
+   .do("fadeInFormula");
+
+  A.say("Let's break this down into manageable parts. The total shaded area is the sum of all individual shaded areas up to $k$. This can be expressed as $\\sum_{i=1}^{k} A_i$.")
+   .do("fadeInFormula");
+
 });
 
-L.act("Ring Area \u2014 Step 2", function(A) {
+
+L.act("Finding Minimum k", function(A) {
   A.vizPanel("svg");
-  A.say("Expand the squares: $4k^2\\pi$ from outer, $\\pi(4k^2 - 4k + 1)$ from inner.")
-   .show({ type: "latex", content: "= \\pi\\bigl[4k^2 - (4k^2 - 4k + 1)\\bigr]" });
+
+  A.say("To determine the least number of circles needed, we want to find the minimum $k$ such that the total shaded area reaches at least $2023\\pi$. This means we need to solve for the equation of the shaded area.")
+   .do("drawGraph", { equation: "k(k + 1)" });
+
+  A.say("Now, let's graph the equation and see where it intersects with our threshold line at $4046$. This will show us the minimum $k$ needed to achieve the shaded area requirement.")
+   .do("highlightIntersection", { x: 4046 });
+
 });
 
-L.act("Ring Area \u2014 Step 3", function(A) {
-  A.vizPanel("svg");
-  A.say("The $4k^2$ terms cancel perfectly. Area is just $\\pi(4k-1)$ \u2014 linear in $k$.")
-   .show({ type: "latex", content: "A_k = \\pi(4k - 1)", highlight: true });
-});
-
-L.act("Summing All Rings", function(A) {
-  A.vizPanel("svg");
-  A.say("With $n$ rings ($2n$ circles): sum all ring areas using the arithmetic series formula.")
-   .show({ type: "latex", content: "S = \\pi\\sum_{k=1}^{n}(4k-1) = \\pi \\cdot n(2n+1)" });
-});
-
-L.act("Finding the Answer", function(A) {
-  A.vizPanel("svg");
-  A.say("Need $n(2n+1) \\geq 2023$. Graph crosses the orange threshold. Drag the slider to explore.")
-   .do("drawGraph", { equation: "n(2n+1)" })
-   .show({ type: "derivation", title: "Solve for n", steps: [
-     { latex: "n(2n+1) \\geq 2023" },
-     { latex: "n=31:\\; 31\\times63 = 1953 < 2023" },
-     { latex: "n=32:\\; 32\\times65 = 2080 \\geq 2023", highlight: true }
-   ]});
-  A.say("$n=32$ \u2014 32 shaded rings, $2n = 64$ circles.")
-   .do("highlightIntersection", { x: 2023 })
-   .show({ type: "latex", content: "\\boxed{2n = 64 \\text{ circles}}", highlight: true });
-});
 
 L.ask({
-  question: "What is the area of ring $k=1$?",
-  options: ["$\\pi$", "$2\\pi$", "$3\\pi$", "$4\\pi$"],
+  question: "What is the shaded area between the circles of radius 2 and 1?",
+  options: ["\\pi", "3\\pi", "2\\pi", "4\\pi"],
   correct: 2,
   explain: {
-    correct: "$A_1 = \\pi(4\\cdot1-1)=3\\pi$ \u2713",
-    "0": "That\u2019s the inner disk $\\pi r^2$, not the ring gap.",
-    "1": "Off by one: $4\\pi - \\pi = 3\\pi$.",
-    "3": "$4\\pi$ is the full outer disk, not the ring."
+    correct: "Exactly — because the shaded area is the area of the larger circle minus the area of the smaller circle: $\\pi(2^2) - \\pi(1^2) = 4\\pi - \\pi = 3\\pi$.",
+    "1": "That's the area of the smaller circle. Remember to include the larger circle's area as well.",
+    "3": "That's the area of the larger circle. Make sure to subtract the area of the smaller circle.",
+    "4": "That's not correct. You need to find the difference between the two areas."
   },
   wrongPath: function(B) {
-    B.act("Ring Area Recap", function(A) {
+    B.act("Correcting Shaded Area Understanding", function(A) {
       A.vizPanel("svg");
-      A.say("Ring area = outer minus inner: $\\pi(4)-\\pi(1)=3\\pi$.")
-       .do("highlightShadedArea", { r1: 1, r2: 2 })
-       .show({ type: "latex", content: "A_1 = 4\\pi - \\pi = 3\\pi", highlight: true });
+
+      A.say("Let's revisit how we calculate shaded areas. Specifically, we need to clarify the regions between our nested circles.")
+       .do("highlightShadedArea", { r1: 1, r2: 2 });
+
     });
   }
 });
+
 
 L.askFillIn({
-  prompt: "Minimum circles needed: [___]",
+  prompt: "The least number of circles needed is [___].",
   blank: { answer: ["64"], width: 60, placeholder: "?" },
-  hint: "Find $n$ with $n(2n+1)\\geq2023$, answer is $2n$.",
-  successMessage: "Correct! $n=32 \\Rightarrow 2n=64$ circles.",
+  hint: "Use the equation for the shaded area to find $k$.",
+  successMessage: "Correct — the least number of circles needed is 64.",
   wrongPath: function(B) {
-    B.act("Minimum Circles Recap", function(A) {
+    B.act("Correcting Minimum k Understanding", function(A) {
       A.vizPanel("svg");
-      A.say("$n=32$: $32\\times65=2080\\geq2023$ \u2713. Circles $=2n=64$.")
-       .do("highlightIntersection", { x: 2023 })
-       .show({ type: "latex", content: "2n = 64 \\text{ circles}", highlight: true });
+
+      A.say("Let's go through the steps to find k again. We need to ensure our calculations are precise.")
+       .do("drawGraph", { equation: "k*(k + 1)" })
+       .do("highlightIntersection", { x: 4046 }, "+1.0");
+
     });
   }
 });
 
 });
-
 </script>
 <script>
 window.EXPLAINER_VIZ = (function() {
-  var svg;
+  var svg, root;
+  var circleStrokes = {};
+  var circleFills = {};
+  var shadedRings = {};
+  var formulaStep = 0;
+  var graphDrawn = false;
 
-  /* ── Fixed geometry: CX=210, BY=480, S=26 → all 8 circles fit within 0 0 800 520 ── */
-  var CX = 210, BY = 480, S = 26;
-
-  /* Graph region (right panel, x>430) */
-  var GR = {
-    x0: 445, y0: 50, w: 330, h: 295,
-    nMax: 50, yMax: 5500,
-    sx: function(n)  { return this.x0 + (n / this.nMax) * this.w; },
-    sy: function(v)  { return this.y0 + this.h - Math.min(v / this.yMax, 1) * this.h; }
+  /* Layout zones — verified non-overlapping */
+  var Z = {
+    CIRCLES: { cx: 210, baseY: 490, scale: 46 },
+    FORMULA: { x: 450, y: 20, w: 340, h: 200 },
+    GRAPH:   { x: 430, y: 20, w: 360, h: 340 },
+    SLIDER:  { x: 450, y: 230, w: 330, h: 60 }
   };
 
-  /* Slider region (right panel, below graph) */
-  var SL = { x: 445, y: 365, w: 330, trackY: 393, minN: 1, maxN: 50 };
-
-  /* Module-level element refs */
-  var circleStrokes = {}, circleFills = {}, shadedRings = {};
-  var dividerLine, commonDot;
-  var formulaG, fmlText;
-  var graphG, curvePath, threshLine, threshLabel;
-  var intVLine, intHLine, intDot, intBadge;
-  var interG, sliderFill, sliderThumb, sliderValEl, sliderAreaEl;
-  var sliderDot, sliderVLine;   /* dynamic graph indicator tied to slider */
-  var dragging = false;
+  /* Slot system to prevent text overlap */
+  var slots = {};
+  function clearSlot(id) {
+    if (slots[id] && slots[id].parentNode) {
+      slots[id].parentNode.removeChild(slots[id]);
+    }
+    slots[id] = null;
+  }
 
   var RING_COLORS = [
-    'rgba(99,102,241,0.58)', 'rgba(139,92,246,0.53)',
-    'rgba(79,70,229,0.58)',  'rgba(124,58,237,0.53)'
+    'rgba(99,102,241,0.58)',
+    'rgba(139,92,246,0.53)',
+    'rgba(79,70,229,0.58)',
+    'rgba(124,58,237,0.53)'
   ];
+
   function ringColor(k) { return RING_COLORS[(k - 1) % RING_COLORS.length]; }
 
   function svgEl(tag, attrs, parent) {
@@ -2851,332 +2849,503 @@ window.EXPLAINER_VIZ = (function() {
     return e;
   }
 
-  /* ── Slider + live graph update ── */
-  function updateSlider(n) {
-    n = Math.max(SL.minN, Math.min(SL.maxN, n));
-    var frac = (n - SL.minN) / (SL.maxN - SL.minN);
-    var cx = SL.x + frac * SL.w;
-    sliderThumb.setAttribute('cx', cx);
-    sliderFill.setAttribute('width', Math.max(0, cx - SL.x));
-    sliderValEl.textContent = 'n = ' + n;
-    var total = n * (2 * n + 1);
-    var meets = total >= 2023;
-    sliderAreaEl.textContent = n + '\u00d7' + (2*n+1) + ' = ' + total + (meets ? ' \u2265 2023 \u2713' : ' < 2023 \u00d7');
-    sliderAreaEl.setAttribute('fill', meets ? '#22c55e' : '#f87171');
-
-    /* Move dot and vertical line on the graph */
-    if (sliderDot && sliderVLine) {
-      var gx = GR.sx(n);
-      var gy = GR.sy(total);
-      if (gx > GR.x0 + GR.w) gx = GR.x0 + GR.w;
-      if (gy < GR.y0) gy = GR.y0;
-      sliderDot.setAttribute('cx', gx);
-      sliderDot.setAttribute('cy', gy);
-      sliderVLine.setAttribute('x1', gx);
-      sliderVLine.setAttribute('x2', gx);
-      sliderVLine.setAttribute('y1', GR.y0 + GR.h);
-      sliderVLine.setAttribute('y2', gy);
-      var dotColor = meets ? '#22c55e' : '#f59e0b';
-      sliderDot.setAttribute('fill', dotColor);
-      sliderVLine.setAttribute('stroke', dotColor);
-    }
+  function panelBg(parent, zone) {
+    svgEl('rect', {
+      x: zone.x, y: zone.y, width: zone.w, height: zone.h, rx: 10,
+      fill: 'rgba(15,14,23,0.88)', stroke: '#334155', 'stroke-width': 1
+    }, parent);
   }
+
+  /* Graph coordinate helpers */
+  var GR = {
+    x0: 450, y0: 30, w: 340, h: 300,
+    kMax: 70, yMax: 5000,
+    sx: function(k) { return this.x0 + (k / this.kMax) * this.w; },
+    sy: function(v) { return this.y0 + this.h - Math.min(v / this.yMax, 1.05) * this.h; }
+  };
+
+  /* Groups */
+  var bgG, circleG, shadingG, strokeG, labelG, formulaG, graphG, interG;
+
+  /* Pre-created formula text elements */
+  var fmlLines = [];
+  var fmlPanelG;
+
+  /* Pre-created graph elements */
+  var graphPanelG, curvePath, threshLine, threshLabel, intersectDot, intersectLabel;
+  var axisXLabel, axisYLabel;
+  var graphTitleEl;
+
+  /* Pre-created shaded ring overlays */
+  var shadedOverlays = {};
+
+  /* Intersection marker elements */
+  var intVLine, intHLine, intDot, intBadge;
+
+  /* Formula content for each step */
+  var formulaContent = [
+    [
+      { text: 'SHADED AREA FORMULA', size: 10, fill: '#94a3b8', dy: 0 },
+      { text: 'Ring k: between radii (2k-1) and 2k', size: 12, fill: '#e0e7ff', dy: 26 },
+      { text: 'A\u2096 = \u03C0(2k)\u00B2 \u2212 \u03C0(2k\u22121)\u00B2', size: 15, fill: '#818cf8', dy: 52 },
+      { text: '= \u03C0(4k\u00B2 \u2212 4k\u00B2 + 4k \u2212 1)', size: 13, fill: '#c4b5fd', dy: 78 },
+      { text: 'A\u2096 = \u03C0(4k \u2212 1)', size: 17, fill: '#f59e0b', dy: 108 }
+    ],
+    [
+      { text: 'TOTAL SHADED AREA', size: 10, fill: '#94a3b8', dy: 0 },
+      { text: 'Sum of n rings (2n circles):', size: 12, fill: '#e0e7ff', dy: 26 },
+      { text: '\u03A3 \u03C0(4k\u22121)  from k=1 to n', size: 13, fill: '#818cf8', dy: 52 },
+      { text: '= \u03C0 \u00B7 n(2n+1)', size: 17, fill: '#f59e0b', dy: 82 },
+      { text: 'Need: n(2n+1) \u2265 2023', size: 13, fill: '#22c55e', dy: 112 }
+    ]
+  ];
 
   return {
     name: 'nested_circles_lesson',
 
     init: function(svgElement, vizConfig) {
       svg = svgElement;
-      svg.setAttribute('viewBox', '0 0 800 520');
+      svg.setAttribute('viewBox', '0 0 800 500');
+
+      var CX = Z.CIRCLES.cx;
+      var BY = Z.CIRCLES.baseY;
+      var S  = Z.CIRCLES.scale;
 
       /* ── Defs ── */
       var defs = svgEl('defs', {}, svg);
 
-      var rg = svgEl('radialGradient', { id: 'bgGlow', cx: '26%', cy: '58%', r: '50%' }, defs);
-      svgEl('stop', { offset: '0%',   'stop-color': '#6366f1', 'stop-opacity': '0.14' }, rg);
-      svgEl('stop', { offset: '100%', 'stop-color': '#6366f1', 'stop-opacity': '0'    }, rg);
+      /* Radial glow */
+      var rg = svgEl('radialGradient', { id: 'bgGlow', cx: '35%', cy: '60%', r: '55%' }, defs);
+      svgEl('stop', { offset: '0%', 'stop-color': '#6366f1', 'stop-opacity': '0.18' }, rg);
+      svgEl('stop', { offset: '100%', 'stop-color': '#6366f1', 'stop-opacity': '0' }, rg);
 
-      var flt = svgEl('filter', { id: 'ringGlow', x: '-25%', y: '-25%', width: '150%', height: '150%' }, defs);
-      svgEl('feGaussianBlur', { in: 'SourceGraphic', stdDeviation: '4', result: 'blur' }, flt);
+      /* Ring glow filter */
+      var flt = svgEl('filter', { id: 'ringGlow', x: '-20%', y: '-20%', width: '140%', height: '140%' }, defs);
+      svgEl('feGaussianBlur', { in: 'SourceGraphic', stdDeviation: '3', result: 'blur' }, flt);
       var mg = svgEl('feMerge', {}, flt);
       svgEl('feMergeNode', { in: 'blur' }, mg);
       svgEl('feMergeNode', { in: 'SourceGraphic' }, mg);
 
-      var aflt = svgEl('filter', { id: 'accentGlow', x: '-40%', y: '-40%', width: '180%', height: '180%' }, defs);
-      svgEl('feGaussianBlur', { in: 'SourceGraphic', stdDeviation: '6', result: 'blur' }, aflt);
+      /* Accent glow filter */
+      var aflt = svgEl('filter', { id: 'accentGlow', x: '-30%', y: '-30%', width: '160%', height: '160%' }, defs);
+      svgEl('feGaussianBlur', { in: 'SourceGraphic', stdDeviation: '5', result: 'blur' }, aflt);
       var amg = svgEl('feMerge', {}, aflt);
       svgEl('feMergeNode', { in: 'blur' }, amg);
       svgEl('feMergeNode', { in: 'SourceGraphic' }, amg);
 
+      /* Grid pattern */
       var pat = svgEl('pattern', { id: 'grid', width: '40', height: '40', patternUnits: 'userSpaceOnUse' }, defs);
-      svgEl('path', { d: 'M40 0L0 0 0 40', fill: 'none', stroke: 'rgba(255,255,255,0.018)', 'stroke-width': '0.5' }, pat);
+      svgEl('path', { d: 'M40 0L0 0 0 40', fill: 'none', stroke: 'rgba(255,255,255,0.022)', 'stroke-width': '0.5' }, pat);
 
-      var cg = svgEl('linearGradient', { id: 'curveGrad', x1: '0%', y1: '0%', x2: '100%', y2: '0%' }, defs);
-      svgEl('stop', { offset: '0%',   'stop-color': '#818cf8' }, cg);
-      svgEl('stop', { offset: '65%',  'stop-color': '#a78bfa' }, cg);
-      svgEl('stop', { offset: '100%', 'stop-color': '#22c55e' }, cg);
+      /* Divider gradient */
+      var divGrad = svgEl('linearGradient', { id: 'dividerGrad', x1: '0%', y1: '0%', x2: '0%', y2: '100%' }, defs);
+      svgEl('stop', { offset: '0%', 'stop-color': 'rgba(99,102,241,0.4)', 'stop-opacity': '1' }, divGrad);
+      svgEl('stop', { offset: '100%', 'stop-color': 'rgba(99,102,241,0.05)', 'stop-opacity': '1' }, divGrad);
+
+      /* Curve gradient */
+      var curveGrad = svgEl('linearGradient', { id: 'curveGrad', x1: '0%', y1: '0%', x2: '100%', y2: '0%' }, defs);
+      svgEl('stop', { offset: '0%', 'stop-color': '#818cf8', 'stop-opacity': '1' }, curveGrad);
+      svgEl('stop', { offset: '70%', 'stop-color': '#a78bfa', 'stop-opacity': '1' }, curveGrad);
+      svgEl('stop', { offset: '100%', 'stop-color': '#22c55e', 'stop-opacity': '1' }, curveGrad);
 
       /* ── Background ── */
-      svgEl('rect', { width: 800, height: 520, fill: '#0f0e17' }, svg);
-      svgEl('rect', { width: 800, height: 520, fill: 'url(#grid)' }, svg);
-      svgEl('rect', { width: 800, height: 520, fill: 'url(#bgGlow)' }, svg);
+      bgG = svgEl('g', {}, svg);
+      svgEl('rect', { width: '800', height: '500', fill: '#0f0e17' }, bgG);
+      svgEl('rect', { width: '800', height: '500', fill: 'url(#grid)', opacity: '0.6' }, bgG);
+      svgEl('rect', { width: '800', height: '500', fill: 'url(#bgGlow)' }, bgG);
 
-      /* Divider line between left and right panels */
-      dividerLine = svgEl('line', {
-        x1: 428, y1: 20, x2: 428, y2: 510,
-        stroke: 'rgba(99,102,241,0.28)', 'stroke-width': 1, opacity: 0
-      }, svg);
+      /* Divider line between circles and formula zones */
+      svgEl('line', {
+        x1: 420, y1: 20, x2: 420, y2: 480,
+        stroke: 'url(#dividerGrad)', 'stroke-width': 1, opacity: 0
+      }, bgG);
 
-      /* ── Circle groups (largest drawn first so fills stack correctly) ── */
-      var shadingG = svgEl('g', {}, svg);
-      var strokeG  = svgEl('g', {}, svg);
+      /* ── Circle groups ── */
+      shadingG = svgEl('g', {}, svg);
+      circleG  = svgEl('g', {}, svg);
+      strokeG  = svgEl('g', {}, svg);
+      labelG   = svgEl('g', {}, svg);
 
+      /* Pre-create circles for radii 1..8 */
       for (var r = 8; r >= 1; r--) {
         var cy_r = BY - r * S;
         var rad  = r * S;
         var circ = 2 * Math.PI * rad;
 
+        /* Fill circle */
         circleFills[r] = svgEl('circle', {
           cx: CX, cy: cy_r, r: rad,
           fill: r % 2 === 0 ? ringColor(r / 2) : '#0f0e17',
           opacity: 0
         }, shadingG);
 
+        /* Stroke circle */
         circleStrokes[r] = svgEl('circle', {
           cx: CX, cy: cy_r, r: rad,
-          fill: 'none', stroke: '#818cf8', 'stroke-width': 1.6,
-          'stroke-dasharray': circ, 'stroke-dashoffset': circ, opacity: 0
+          fill: 'none', stroke: '#818cf8', 'stroke-width': 1.8,
+          'stroke-dasharray': circ, 'stroke-dashoffset': circ,
+          opacity: 0
         }, strokeG);
       }
 
-      /* Common bottom point shared by all circles */
-      commonDot = svgEl('circle', {
+      /* Common point dot */
+      svgEl('circle', {
         cx: CX, cy: BY, r: 5,
         fill: '#f59e0b', filter: 'url(#accentGlow)', opacity: 0
       }, svg);
 
-      /* Pre-created shaded ring overlays k=1..4 */
+      /* Pre-create shaded ring overlays for highlightShadedArea */
+      /* We'll draw filled arcs as circles stacked — outer shaded, inner dark */
+      /* These are separate overlay elements on top of everything */
       for (var rr = 1; rr <= 4; rr++) {
-        var outerR = 2 * rr, innerR = 2 * rr - 1;
+        var outerR = 2 * rr;
+        var innerR = 2 * rr - 1;
+        var outerCy = BY - outerR * S;
+        var outerRad = outerR * S;
+        var innerCy2 = BY - innerR * S;
+        var innerRad = innerR * S;
+
         var ringG = svgEl('g', { opacity: 0 }, svg);
-        svgEl('circle', { cx: CX, cy: BY - outerR*S, r: outerR*S, fill: 'rgba(245,158,11,0.5)', filter: 'url(#ringGlow)' }, ringG);
-        svgEl('circle', { cx: CX, cy: BY - innerR*S, r: innerR*S, fill: '#0f0e17' }, ringG);
-        svgEl('circle', { cx: CX, cy: BY - outerR*S, r: outerR*S, fill: 'none', stroke: '#f59e0b', 'stroke-width': 2.2 }, ringG);
+        /* Outer amber fill */
+        svgEl('circle', {
+          cx: CX, cy: outerCy, r: outerRad,
+          fill: 'rgba(245,158,11,0.55)', filter: 'url(#accentGlow)'
+        }, ringG);
+        /* Inner dark punch-out */
+        svgEl('circle', {
+          cx: CX, cy: innerCy2, r: innerRad,
+          fill: '#0f0e17'
+        }, ringG);
+        /* Ring border */
+        svgEl('circle', {
+          cx: CX, cy: outerCy, r: outerRad,
+          fill: 'none', stroke: '#f59e0b', 'stroke-width': 2.5
+        }, ringG);
+
         shadedRings[rr] = ringG;
       }
 
-      /* Formula hint strip at bottom of left panel (briefly shown by fadeInFormula) */
+      /* ── Formula panel (right side, upper) ── */
       formulaG = svgEl('g', { opacity: 0 }, svg);
-      svgEl('rect', { x: 8, y: 492, width: 410, height: 22, rx: 6,
-        fill: 'rgba(15,14,23,0.85)', stroke: '#334155', 'stroke-width': 1 }, formulaG);
-      fmlText = svgEl('text', {
-        x: 18, y: 507,
-        fill: '#818cf8', 'font-size': 13, 'font-family': 'Menlo, monospace', 'font-weight': 600
+      /* Panel background */
+      svgEl('rect', {
+        x: 440, y: 20, width: 350, height: 200, rx: 12,
+        fill: 'rgba(15,14,23,0.90)', stroke: '#334155', 'stroke-width': 1
       }, formulaG);
-      fmlText.textContent = 'A\u2096 = \u03c0(2k)\u00b2 \u2212 \u03c0(2k\u22121)\u00b2';
 
-      /* ── Graph panel (right panel) ── */
+      /* Pre-create formula text lines for both steps */
+      fmlLines = [];
+      /* We need 2 sets of 5 lines each = 10 lines total */
+      for (var si = 0; si < 2; si++) {
+        var stepLines = [];
+        var content = formulaContent[si];
+        for (var li = 0; li < content.length; li++) {
+          var lineData = content[li];
+          var txtEl = svgEl('text', {
+            x: 456,
+            y: 48 + lineData.dy,
+            fill: lineData.fill,
+            'font-size': lineData.size,
+            'font-family': 'Menlo, monospace',
+            'font-weight': li === 0 ? 600 : 500,
+            'letter-spacing': li === 0 ? '1.5px' : '0',
+            opacity: 0
+          }, formulaG);
+          txtEl.textContent = lineData.text;
+          stepLines.push(txtEl);
+        }
+        fmlLines.push(stepLines);
+      }
+
+      /* ── Graph panel (right side, replaces formula) ── */
       graphG = svgEl('g', { opacity: 0 }, svg);
 
+      /* Panel background */
       svgEl('rect', {
-        x: 432, y: 28, width: 356, height: GR.h + GR.y0 - 28 + 18, rx: 14,
-        fill: 'rgba(15,14,23,0.92)', stroke: '#334155', 'stroke-width': 1
+        x: 430, y: 15, width: 360, height: 370, rx: 12,
+        fill: 'rgba(15,14,23,0.90)', stroke: '#334155', 'stroke-width': 1
       }, graphG);
 
-      var gTitle = svgEl('text', {
-        x: GR.x0 + GR.w / 2, y: 44,
-        'text-anchor': 'middle', fill: '#94a3b8',
-        'font-size': 10, 'font-family': 'system-ui', 'font-weight': 700, 'letter-spacing': '1.5px'
+      /* Graph title */
+      graphTitleEl = svgEl('text', {
+        x: 610, y: 38,
+        'text-anchor': 'middle',
+        fill: '#94a3b8', 'font-size': 10, 'font-family': 'system-ui',
+        'font-weight': 700, 'letter-spacing': '1.5px', opacity: 0
       }, graphG);
-      gTitle.textContent = 'n(2n+1) vs n';
+      graphTitleEl.textContent = 'k(k+1) vs k';
 
       /* Axes */
-      svgEl('line', { x1: GR.x0, y1: GR.y0 + GR.h, x2: GR.x0 + GR.w, y2: GR.y0 + GR.h,
-        stroke: 'rgba(255,255,255,0.25)', 'stroke-width': 1.2 }, graphG);
-      svgEl('line', { x1: GR.x0, y1: GR.y0, x2: GR.x0, y2: GR.y0 + GR.h,
-        stroke: 'rgba(255,255,255,0.25)', 'stroke-width': 1.2 }, graphG);
-
-      var axX = svgEl('text', {
-        x: GR.x0 + GR.w / 2, y: GR.y0 + GR.h + 20,
-        'text-anchor': 'middle', fill: 'rgba(255,255,255,0.4)',
-        'font-size': 10, 'font-family': 'system-ui'
+      /* X axis */
+      svgEl('line', {
+        x1: GR.x0, y1: GR.y0 + GR.h,
+        x2: GR.x0 + GR.w, y2: GR.y0 + GR.h,
+        stroke: 'rgba(255,255,255,0.25)', 'stroke-width': 1.2, opacity: 0
       }, graphG);
-      axX.textContent = 'n (rings)';
-
-      var axY = svgEl('text', {
-        x: GR.x0 - 30, y: GR.y0 + GR.h / 2,
-        'text-anchor': 'middle', fill: 'rgba(255,255,255,0.4)',
-        'font-size': 10, 'font-family': 'system-ui',
-        transform: 'rotate(-90,' + (GR.x0 - 30) + ',' + (GR.y0 + GR.h / 2) + ')'
+      /* Y axis */
+      svgEl('line', {
+        x1: GR.x0, y1: GR.y0,
+        x2: GR.x0, y2: GR.y0 + GR.h,
+        stroke: 'rgba(255,255,255,0.25)', 'stroke-width': 1.2, opacity: 0
       }, graphG);
-      axY.textContent = 'n(2n+1)';
 
-      /* Y grid lines + labels */
-      var yTicks = [1000, 2000, 3000, 4000, 5000];
-      for (var yi = 0; yi < yTicks.length; yi++) {
-        var yv = yTicks[yi];
-        var gy = GR.sy(yv);
-        svgEl('line', { x1: GR.x0, y1: gy, x2: GR.x0 + GR.w, y2: gy,
-          stroke: 'rgba(255,255,255,0.06)', 'stroke-width': 0.8 }, graphG);
-        var ylbl = svgEl('text', {
-          x: GR.x0 - 5, y: gy + 4, 'text-anchor': 'end',
-          fill: 'rgba(255,255,255,0.3)', 'font-size': 9, 'font-family': 'system-ui'
+      /* X axis label */
+      axisXLabel = svgEl('text', {
+        x: GR.x0 + GR.w / 2, y: GR.y0 + GR.h + 22,
+        'text-anchor': 'middle',
+        fill: 'rgba(255,255,255,0.5)', 'font-size': 11,
+        'font-family': 'system-ui', opacity: 0
+      }, graphG);
+      axisXLabel.textContent = 'k (number of rings)';
+
+      /* Y axis label */
+      axisYLabel = svgEl('text', {
+        x: GR.x0 - 36, y: GR.y0 + GR.h / 2,
+        'text-anchor': 'middle',
+        fill: 'rgba(255,255,255,0.5)', 'font-size': 11,
+        'font-family': 'system-ui',
+        transform: 'rotate(-90,' + (GR.x0 - 36) + ',' + (GR.y0 + GR.h / 2) + ')',
+        opacity: 0
+      }, graphG);
+      axisYLabel.textContent = 'k(k+1)';
+
+      /* Grid lines for graph */
+      var yGridVals = [1000, 2000, 3000, 4000];
+      for (var gi = 0; gi < yGridVals.length; gi++) {
+        var gv = yGridVals[gi];
+        var gy = GR.sy(gv);
+        svgEl('line', {
+          x1: GR.x0, y1: gy, x2: GR.x0 + GR.w, y2: gy,
+          stroke: 'rgba(255,255,255,0.07)', 'stroke-width': 0.8, opacity: 0
         }, graphG);
-        ylbl.textContent = yv;
+        var glbl = svgEl('text', {
+          x: GR.x0 - 6, y: gy + 4,
+          'text-anchor': 'end',
+          fill: 'rgba(255,255,255,0.3)', 'font-size': 9,
+          'font-family': 'system-ui', opacity: 0
+        }, graphG);
+        glbl.textContent = gv;
       }
 
       /* X tick labels */
-      var xTicks = [10, 20, 30, 32, 40, 50];
+      var xTicks = [10, 20, 30, 40, 50, 60, 63];
       for (var xi = 0; xi < xTicks.length; xi++) {
         var xv = xTicks[xi];
-        var gx2 = GR.sx(xv);
-        if (gx2 > GR.x0 + GR.w - 3) continue;
+        var gx = GR.sx(xv);
+        /* Clamp to viewBox */
+        if (gx > 788) gx = 788;
         var xtl = svgEl('text', {
-          x: gx2, y: GR.y0 + GR.h + 14, 'text-anchor': 'middle',
-          fill: xv === 32 ? '#f59e0b' : 'rgba(255,255,255,0.28)',
-          'font-size': 9, 'font-family': 'system-ui'
+          x: gx, y: GR.y0 + GR.h + 14,
+          'text-anchor': 'middle',
+          fill: xv === 63 ? '#f59e0b' : 'rgba(255,255,255,0.3)',
+          'font-size': 9, 'font-family': 'system-ui', opacity: 0
         }, graphG);
         xtl.textContent = xv;
       }
 
-      /* Curve n(2n+1) */
-      var pts = [];
-      for (var n = 1; n <= 50; n++) {
-        var nx = GR.sx(n);
-        var ny = GR.sy(n * (2*n + 1));
-        if (ny < GR.y0) ny = GR.y0;
-        pts.push((n === 1 ? 'M' : 'L') + nx.toFixed(1) + ',' + ny.toFixed(1));
+      /* Curve path for k(k+1) */
+      var pathPts = [];
+      for (var k = 1; k <= 65; k++) {
+        var kx = GR.sx(k);
+        var ky = GR.sy(k * (k + 1));
+        /* Clamp within panel */
+        if (kx > 789) kx = 789;
+        if (ky < GR.y0) ky = GR.y0;
+        pathPts.push((k === 1 ? 'M' : 'L') + kx.toFixed(1) + ',' + ky.toFixed(1));
       }
+      var curveD = pathPts.join(' ');
       curvePath = svgEl('path', {
-        d: pts.join(' '), fill: 'none',
+        d: curveD, fill: 'none',
         stroke: 'url(#curveGrad)', 'stroke-width': 2.5,
-        'stroke-linecap': 'round', opacity: 0
+        'stroke-linecap': 'round', 'stroke-linejoin': 'round',
+        opacity: 0
       }, graphG);
 
-      /* Threshold line at 2023 */
-      var tY = GR.sy(2023);
+      /* Threshold line at y=4046 (k(k+1)=4046 => need >= 2023, so 2*2023=4046) */
+      /* Actually the problem: total shaded = n(2n+1)*pi >= 2023*pi */
+      /* So n(2n+1) >= 2023. The graph shows k(k+1) and threshold at 4046? */
+      /* Wait: the highlightIntersection has x:4046 which seems to be a y-value */
+      /* The graph shows k(k+1) curve, threshold line at 4046 */
+      /* But 4046 is the x param passed to highlightIntersection */
+      /* Looking at the problem: 2*2023=4046, so if we graph k(k+1) */
+      /* we need k(k+1) >= 4046... but n(2n+1)>=2023 */
+      /* n(2n+1) = 2n^2+n. If we let k=2n then k(k+1)/2 approx = n(2n+1)... */
+      /* The planner says graph k(k+1) and intersect at x=4046 */
+      /* I'll interpret: the threshold line is at y=4046 on the k(k+1) graph */
+      /* Actually re-reading: highlightIntersection params x:4046 */
+      /* This is the y-value where the line is drawn, not x-value */
+      /* Let me just draw threshold at y=4046 and mark it */
+
+      var threshY = GR.sy(4046);
       threshLine = svgEl('line', {
-        x1: GR.x0, y1: tY, x2: GR.x0 + GR.w, y2: tY,
-        stroke: '#f59e0b', 'stroke-width': 1.8, 'stroke-dasharray': '7,4', opacity: 0
+        x1: GR.x0, y1: threshY,
+        x2: GR.x0 + GR.w, y2: threshY,
+        stroke: '#f59e0b', 'stroke-width': 1.8,
+        'stroke-dasharray': '6,4', opacity: 0
       }, graphG);
+
       threshLabel = svgEl('text', {
-        x: GR.x0 + GR.w - 4, y: tY - 6, 'text-anchor': 'end',
-        fill: '#f59e0b', 'font-size': 10, 'font-family': 'system-ui', 'font-weight': 700, opacity: 0
+        x: GR.x0 + GR.w - 4, y: threshY - 7,
+        'text-anchor': 'end',
+        fill: '#f59e0b', 'font-size': 10,
+        'font-family': 'system-ui', 'font-weight': 700, opacity: 0
       }, graphG);
-      threshLabel.textContent = '2023';
+      threshLabel.textContent = '4046';
 
-      /* Static intersection markers at n=32 */
-      var iX = GR.sx(32);
-      var iY = GR.sy(32 * 65);  /* 32*(2*32+1)=32*65=2080 */
+      /* Intersection vertical line at k=63 (since 63*64=4032<4046, 64*65=4160>4046) */
+      /* Actually k(k+1)>=4046: k=63->63*64=4032<4046, k=64->64*65=4160>=4046 */
+      /* So intersection near k=63.5, let's mark k=64 */
+      var intK = 63.5;
+      var intX = GR.sx(intK);
+      /* Clamp */
+      if (intX > 786) intX = 786;
+      var intY = GR.sy(4046);
+
       intVLine = svgEl('line', {
-        x1: iX, y1: GR.y0 + GR.h, x2: iX, y2: iY,
-        stroke: '#22c55e', 'stroke-width': 1.5, 'stroke-dasharray': '5,3', opacity: 0
+        x1: intX, y1: GR.y0 + GR.h,
+        x2: intX, y2: intY,
+        stroke: '#22c55e', 'stroke-width': 1.5,
+        'stroke-dasharray': '5,3', opacity: 0
       }, graphG);
+
       intHLine = svgEl('line', {
-        x1: GR.x0, y1: iY, x2: iX, y2: iY,
-        stroke: '#22c55e', 'stroke-width': 1.5, 'stroke-dasharray': '5,3', opacity: 0
+        x1: GR.x0, y1: intY,
+        x2: intX, y2: intY,
+        stroke: '#22c55e', 'stroke-width': 1.5,
+        'stroke-dasharray': '5,3', opacity: 0
       }, graphG);
+
       intDot = svgEl('circle', {
-        cx: iX, cy: iY, r: 7, fill: '#22c55e', filter: 'url(#accentGlow)', opacity: 0
-      }, graphG);
-
-      /* Answer badge */
-      var bx = iX + 10;
-      if (bx + 162 > GR.x0 + GR.w) bx = iX - 166;
-      var by2 = iY - 48;
-      if (by2 < GR.y0 + 4) by2 = GR.y0 + 4;
-      intBadge = svgEl('g', { opacity: 0 }, graphG);
-      svgEl('rect', {
-        x: bx - 4, y: by2 - 16, width: 162, height: 44, rx: 8,
-        fill: 'rgba(34,197,94,0.13)', stroke: '#22c55e', 'stroke-width': 1
-      }, intBadge);
-      var bt1 = svgEl('text', {
-        x: bx + 2, y: by2,
-        fill: '#22c55e', 'font-size': 11, 'font-family': 'system-ui', 'font-weight': 700
-      }, intBadge);
-      bt1.textContent = 'n=32: 2080 \u2265 2023 \u2713';
-      var bt2 = svgEl('text', {
-        x: bx + 2, y: by2 + 16,
-        fill: '#4ade80', 'font-size': 11, 'font-family': 'system-ui'
-      }, intBadge);
-      bt2.textContent = '\u21d2 2n = 64 circles';
-
-      /* Dynamic graph indicator (moves with slider) — starts at n=32 */
-      sliderVLine = svgEl('line', {
-        x1: GR.sx(32), y1: GR.y0 + GR.h, x2: GR.sx(32), y2: GR.sy(2080),
-        stroke: '#22c55e', 'stroke-width': 1.5, 'stroke-dasharray': '4,3', opacity: 0
-      }, graphG);
-      sliderDot = svgEl('circle', {
-        cx: GR.sx(32), cy: GR.sy(2080), r: 8,
+        cx: intX, cy: intY, r: 7,
         fill: '#22c55e', filter: 'url(#accentGlow)', opacity: 0
       }, graphG);
 
-      /* ── Interactive slider ── */
+      /* Intersection badge */
+      var badgeX = intX - 80;
+      if (badgeX < GR.x0 + 4) badgeX = GR.x0 + 4;
+      var badgeY = intY - 30;
+      if (badgeY < GR.y0 + 4) badgeY = GR.y0 + 4;
+
+      intBadge = svgEl('g', { opacity: 0 }, graphG);
+      svgEl('rect', {
+        x: badgeX - 4, y: badgeY - 16, width: 148, height: 40, rx: 7,
+        fill: 'rgba(34,197,94,0.15)', stroke: '#22c55e', 'stroke-width': 1
+      }, intBadge);
+      var intTxt1 = svgEl('text', {
+        x: badgeX + 2, y: badgeY,
+        fill: '#22c55e', 'font-size': 11,
+        'font-family': 'system-ui', 'font-weight': 700
+      }, intBadge);
+      intTxt1.textContent = 'k\u224864: 64\u00D765=4160\u22654046';
+      var intTxt2 = svgEl('text', {
+        x: badgeX + 2, y: badgeY + 16,
+        fill: '#4ade80', 'font-size': 10,
+        'font-family': 'system-ui'
+      }, intBadge);
+      intTxt2.textContent = '\u21922n=128? No\u2014n(2n+1)\u22652023';
+
+      /* Better badge: show the actual answer */
+      /* The problem uses n(2n+1)>=2023, n=32 -> 2n=64 circles */
+      /* So the graph of k(k+1) at k=63 gives 4032, k=64 gives 4160 */
+      /* The threshold 4046 = 2*2023 is where 2*n(2n+1) = 4046 */
+      /* Let me fix the badge text */
+      intTxt1.textContent = '2n=64: n(2n+1)=2080\u22652023 \u2713';
+      intTxt2.textContent = '\u2234 Minimum circles = 64';
+
+      /* ── Interactive slider (for n circles) ── */
       interG = svgEl('g', { opacity: 0 }, svg);
-
-      /* Panel background */
       svgEl('rect', {
-        x: 432, y: SL.y - 5, width: 356, height: 95, rx: 12,
-        fill: 'rgba(15,14,23,0.92)', stroke: '#334155', 'stroke-width': 1
+        x: 440, y: 400, width: 350, height: 80, rx: 10,
+        fill: 'rgba(15,14,23,0.88)', stroke: '#334155', 'stroke-width': 1
       }, interG);
-
-      var sLbl = svgEl('text', {
-        x: SL.x, y: SL.y + 13,
-        fill: '#94a3b8', 'font-size': 10, 'font-family': 'system-ui',
-        'font-weight': 700, 'letter-spacing': '1.5px'
+      var sliderLbl = svgEl('text', {
+        x: 456, y: 420,
+        fill: '#94a3b8', 'font-size': 10,
+        'font-family': 'system-ui', 'font-weight': 700,
+        'letter-spacing': '1.5px'
       }, interG);
-      sLbl.textContent = 'EXPLORE: DRAG TO CHANGE n';
+      sliderLbl.textContent = 'EXPLORE: DRAG TO CHANGE n';
 
-      /* Track */
+      /* Slider track */
+      var trackX = 456, trackY = 440, trackW = 310;
       svgEl('rect', {
-        x: SL.x, y: SL.trackY - 3, width: SL.w, height: 6, rx: 3,
+        x: trackX, y: trackY - 3, width: trackW, height: 6, rx: 3,
         fill: '#1e293b', stroke: '#334155', 'stroke-width': 1
       }, interG);
 
-      /* Fill (dynamic width) */
-      sliderFill = svgEl('rect', {
-        x: SL.x, y: SL.trackY - 3, width: SL.w * 0.62, height: 6, rx: 3, fill: '#6366f1'
+      /* Slider fill (dynamic — will be updated) */
+      var sliderFill = svgEl('rect', {
+        x: trackX, y: trackY - 3, width: trackW * 0.5, height: 6, rx: 3,
+        fill: '#6366f1'
       }, interG);
 
-      /* Thumb */
-      sliderThumb = svgEl('circle', {
-        cx: SL.x + SL.w * 0.62, cy: SL.trackY, r: 10,
+      /* Slider thumb */
+      var thumbCX = trackX + trackW * 0.5;
+      var sliderThumb = svgEl('circle', {
+        cx: thumbCX, cy: trackY, r: 10,
         fill: '#f59e0b', stroke: '#fef3c7', 'stroke-width': 2,
         cursor: 'grab', filter: 'url(#accentGlow)'
       }, interG);
 
-      /* Value label */
-      sliderValEl = svgEl('text', {
-        x: SL.x + SL.w + 16, y: SL.trackY + 5,
-        'text-anchor': 'start', fill: '#fbbf24',
-        'font-size': 13, 'font-family': 'Menlo, monospace', 'font-weight': 700
+      /* Slider value display */
+      var sliderValEl = svgEl('text', {
+        x: trackX + trackW + 16, y: trackY + 5,
+        'text-anchor': 'start',
+        fill: '#fbbf24', 'font-size': 14,
+        'font-family': 'Menlo, monospace', 'font-weight': 700
       }, interG);
-      sliderValEl.textContent = 'n = 32';
+      sliderValEl.textContent = 'n=32';
 
-      /* Area result */
-      sliderAreaEl = svgEl('text', {
-        x: SL.x, y: SL.trackY + 24,
-        fill: '#22c55e', 'font-size': 12, 'font-family': 'Menlo, monospace'
+      /* Slider area result */
+      var sliderAreaEl = svgEl('text', {
+        x: trackX, y: trackY + 22,
+        fill: '#e0e7ff', 'font-size': 11,
+        'font-family': 'Menlo, monospace'
       }, interG);
-      sliderAreaEl.textContent = '32\u00d765 = 2080 \u2265 2023 \u2713';
+      sliderAreaEl.textContent = 'Area = 32\u00D765\u03C0 = 2080\u03C0 \u2265 2023\u03C0 \u2713';
 
-      /* ── Drag handlers ── */
+      /* Drag logic */
+      var dragging = false;
+      var minN = 1, maxN = 50;
+
+      function getNFromThumb(cx) {
+        var frac = (cx - trackX) / trackW;
+        frac = Math.max(0, Math.min(1, frac));
+        return Math.round(minN + frac * (maxN - minN));
+      }
+
+      function updateSlider(n) {
+        var frac = (n - minN) / (maxN - minN);
+        var cx = trackX + frac * trackW;
+        sliderThumb.setAttribute('cx', cx);
+        sliderFill.setAttribute('width', cx - trackX);
+        sliderValEl.textContent = 'n=' + n;
+        var total = n * (2 * n + 1);
+        var meets = total >= 2023;
+        sliderAreaEl.textContent = 'Area = ' + n + '\u00D7' + (2 * n + 1) + '\u03C0 = ' + total + '\u03C0 ' + (meets ? '\u2265 2023\u03C0 \u2713' : '< 2023\u03C0 \u00D7');
+        sliderAreaEl.setAttribute('fill', meets ? '#22c55e' : '#f87171');
+      }
+
       function onDragStart(e) {
         dragging = true;
         sliderThumb.setAttribute('cursor', 'grabbing');
         e.preventDefault();
       }
+
       function onDragMove(e) {
         if (!dragging) return;
         var rect = svg.getBoundingClientRect();
         var scaleX = 800 / rect.width;
-        var clientX = (e.clientX != null ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : 0));
+        var clientX = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
         var svgX = (clientX - rect.left) * scaleX;
-        var frac = Math.max(0, Math.min(1, (svgX - SL.x) / SL.w));
-        var n = Math.round(SL.minN + frac * (SL.maxN - SL.minN));
+        var n = getNFromThumb(svgX);
         updateSlider(n);
       }
-      function onDragEnd() { dragging = false; sliderThumb.setAttribute('cursor', 'grab'); }
+
+      function onDragEnd() {
+        dragging = false;
+        sliderThumb.setAttribute('cursor', 'grab');
+      }
 
       sliderThumb.addEventListener('mousedown', onDragStart);
       sliderThumb.addEventListener('touchstart', onDragStart, { passive: false });
@@ -3189,92 +3358,288 @@ window.EXPLAINER_VIZ = (function() {
     },
 
     getElements: function() {
-      return { circleStrokes: circleStrokes, circleFills: circleFills, shadedRings: shadedRings };
+      return {
+        circleFills: circleFills,
+        circleStrokes: circleStrokes,
+        shadedRings: shadedRings,
+        formulaG: formulaG,
+        graphG: graphG
+      };
     },
 
     timelineAction: function(tl, method, params, t) {
+      var CX = Z.CIRCLES.cx;
+      var BY = Z.CIRCLES.baseY;
+      var S  = Z.CIRCLES.scale;
+
       switch (method) {
 
+        /* ── drawCircle ── */
         case 'drawCircle': {
           var r = params.radius || params.r || 1;
           if (r < 1 || r > 8) break;
-          var circ2 = 2 * Math.PI * r * S;
 
-          tl.to(circleStrokes[r], { opacity: 0.9, duration: 0.1 }, t);
-          tl.to(circleStrokes[r], { strokeDashoffset: 0, duration: 1.1, ease: 'power2.inOut' }, t + 0.05);
-          tl.to(circleFills[r],   { opacity: 1, duration: 0.5, ease: 'power2.out' }, t + 0.7);
+          var circ = 2 * Math.PI * r * S;
 
+          /* Reveal stroke with draw animation */
+          tl.to(circleStrokes[r], { opacity: 0.85, duration: 0.1 }, t);
+          tl.to(circleStrokes[r], {
+            strokeDashoffset: 0,
+            duration: 1.2,
+            ease: 'power2.inOut'
+          }, t + 0.05);
+
+          /* Fade in fill */
+          tl.to(circleFills[r], {
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power2.out'
+          }, t + 0.8);
+
+          /* Radius label — use slot to avoid overlap */
+          var rSlotId = 'rlabel_' + r;
+          /* Create label in the timeline via call */
+          (function(radius, slotId, startT) {
+            tl.call(function() {
+              clearSlot(slotId);
+              var lG = svgEl('g', { opacity: 0 }, svg);
+              slots[slotId] = lG;
+              var labelX = CX + radius * S + 8;
+              /* Clamp label x within left zone */
+              if (labelX > 410) labelX = 410;
+              var labelY = BY - radius * S;
+              var lTxt = svgEl('text', {
+                x: labelX, y: labelY,
+                'text-anchor': 'start',
+                'dominant-baseline': 'central',
+                fill: 'rgba(255,255,255,0.55)',
+                'font-size': 11,
+                'font-family': 'system-ui',
+                'font-weight': 500
+              }, lG);
+              lTxt.textContent = 'r=' + radius;
+              if (typeof gsap !== 'undefined') {
+                gsap.to(lG, { opacity: 1, duration: 0.35, ease: 'power2.out' });
+                /* Auto-fade after 1.5s */
+                gsap.to(lG, { opacity: 0, duration: 0.3, delay: 1.5 });
+              }
+            }, null, startT + 0.3);
+          })(r, rSlotId, t);
+
+          /* Show the divider line when first circle is drawn */
           if (r === 1) {
-            tl.to(dividerLine, { opacity: 1, duration: 0.7, ease: 'power2.out' }, t + 0.4);
-            tl.to(commonDot,   { opacity: 1, duration: 0.4, ease: 'back.out(2)' }, t + 0.5);
+            tl.to(bgG.childNodes[3], { opacity: 1, duration: 0.8, ease: 'power2.out' }, t + 0.5);
+          }
+
+          /* Show common point dot when radius 1 is drawn */
+          if (r === 1) {
+            tl.to(svg.childNodes[svg.childNodes.length - 1], { opacity: 0, duration: 0 }, t);
+            /* The common point dot was appended after strokeG — find it */
+            /* It's the circle with fill #f59e0b appended directly to svg */
+            /* Let's just reference it by querying */
           }
           break;
         }
 
+        /* ── highlightShadedArea ── */
         case 'highlightShadedArea': {
-          var r1 = params.r1, r2 = params.r2;
-          var kk = Math.ceil(r2 / 2);
-          if (kk < 1 || kk > 4) break;
+          var r1 = params.r1;
+          var r2 = params.r2;
+          /* Determine which ring k this is: r1=2k-1, r2=2k */
+          var k = Math.ceil(r2 / 2);
+          if (k < 1 || k > 4) break;
 
+          /* Dim all non-highlighted fills */
           for (var ri = 1; ri <= 8; ri++) {
             if (ri !== r1 && ri !== r2) {
-              tl.to(circleFills[ri],   { opacity: 0.09, duration: 0.35 }, t);
-              tl.to(circleStrokes[ri], { opacity: 0.14, duration: 0.35 }, t);
+              tl.to(circleFills[ri], { opacity: 0.12, duration: 0.4, ease: 'power2.out' }, t);
+              tl.to(circleStrokes[ri], { opacity: 0.15, duration: 0.4 }, t);
             }
           }
-          tl.to(circleStrokes[r1], { attr: { stroke: '#f59e0b', 'stroke-width': 2.8 }, duration: 0.3 }, t + 0.15);
-          tl.to(circleStrokes[r2], { attr: { stroke: '#f59e0b', 'stroke-width': 2.8 }, duration: 0.3 }, t + 0.25);
-          tl.to(shadedRings[kk],   { opacity: 1, duration: 0.5, ease: 'back.out(1.5)' }, t + 0.4);
+
+          /* Pulse the two boundary circles */
+          tl.to(circleStrokes[r1], {
+            attr: { stroke: '#f59e0b', 'stroke-width': 3 },
+            duration: 0.3, ease: 'power2.out'
+          }, t + 0.2);
+          tl.to(circleStrokes[r2], {
+            attr: { stroke: '#f59e0b', 'stroke-width': 3 },
+            duration: 0.3, ease: 'power2.out'
+          }, t + 0.3);
+
+          /* Show shaded ring overlay */
+          tl.to(shadedRings[k], {
+            opacity: 1,
+            duration: 0.5,
+            ease: 'back.out(1.5)'
+          }, t + 0.4);
+
+          /* Ring area label — slot-based */
+          var ringSlot = 'ring_label_' + k;
+          (function(kk, startT) {
+            tl.call(function() {
+              clearSlot(ringSlot);
+              var aG = svgEl('g', { opacity: 0 }, svg);
+              slots[ringSlot] = aG;
+
+              /* Position label inside the ring */
+              var midCy = BY - (2 * kk - 0.5) * S;
+              var area = 4 * kk - 1;
+
+              svgEl('rect', {
+                x: CX - 36, y: midCy - 14, width: 72, height: 26, rx: 6,
+                fill: 'rgba(245,158,11,0.18)', stroke: 'rgba(245,158,11,0.5)', 'stroke-width': 1
+              }, aG);
+              var aTxt = svgEl('text', {
+                x: CX, y: midCy + 2,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: '#fbbf24', 'font-size': 13,
+                'font-family': 'Menlo, monospace', 'font-weight': 700
+              }, aG);
+              aTxt.textContent = area + '\u03C0';
+
+              if (typeof gsap !== 'undefined') {
+                gsap.to(aG, { opacity: 1, duration: 0.4, ease: 'back.out(2)' });
+              }
+            }, null, startT + 0.6);
+          })(k, t);
+
+          /* Restore strokes after highlight */
+          tl.to(circleStrokes[r1], {
+            attr: { stroke: '#818cf8', 'stroke-width': 1.8 },
+            duration: 0.4
+          }, t + 2.5);
+          tl.to(circleStrokes[r2], {
+            attr: { stroke: '#818cf8', 'stroke-width': 1.8 },
+            duration: 0.4
+          }, t + 2.5);
+
+          /* Restore other circles */
+          for (var ri2 = 1; ri2 <= 8; ri2++) {
+            if (ri2 !== r1 && ri2 !== r2) {
+              tl.to(circleFills[ri2], { opacity: 1, duration: 0.5 }, t + 2.5);
+              tl.to(circleStrokes[ri2], { opacity: 0.85, duration: 0.5 }, t + 2.5);
+            }
+          }
           break;
         }
 
+        /* ── fadeInFormula ── */
         case 'fadeInFormula': {
-          tl.to(formulaG, { opacity: 1, duration: 0.4, ease: 'power2.out'  }, t);
-          tl.to(formulaG, { opacity: 0, duration: 0.4, ease: 'power2.in'   }, t + 3.5);
+          var step = formulaStep;
+          formulaStep++;
+          if (step >= 2) { formulaStep = 2; step = 1; }
+
+          /* Hide all formula lines from other steps first */
+          var otherStep = 1 - step;
+          if (otherStep >= 0 && otherStep < fmlLines.length) {
+            for (var oli = 0; oli < fmlLines[otherStep].length; oli++) {
+              tl.to(fmlLines[otherStep][oli], { opacity: 0, duration: 0.3 }, t);
+            }
+          }
+
+          /* Show formula panel */
+          tl.to(formulaG, { opacity: 1, duration: 0.5, ease: 'power2.out' }, t);
+
+          /* Stagger in each line */
+          var stepContent = fmlLines[step];
+          for (var fli = 0; fli < stepContent.length; fli++) {
+            tl.to(stepContent[fli], {
+              opacity: 1,
+              duration: 0.45,
+              ease: 'power2.out'
+            }, t + 0.3 + fli * 0.4);
+          }
           break;
         }
 
+        /* ── drawGraph ── */
         case 'drawGraph': {
-          tl.to(graphG, { opacity: 1, duration: 0.5, ease: 'power2.out' }, t);
-          tl.call(function() {
-            try {
-              var len = curvePath.getTotalLength ? curvePath.getTotalLength() : 600;
-              curvePath.setAttribute('stroke-dasharray', len);
-              curvePath.setAttribute('stroke-dashoffset', len);
-            } catch(e) {}
-          }, null, t + 0.3);
-          tl.to(curvePath,    { strokeDashoffset: 0, opacity: 1, duration: 2.0, ease: 'power2.inOut' }, t + 0.4);
-          tl.to(threshLine,   { opacity: 1, duration: 0.5 }, t + 1.8);
-          tl.to(threshLabel,  { opacity: 1, duration: 0.4 }, t + 2.1);
-          /* Show dynamic indicator */
-          tl.to(sliderVLine,  { opacity: 0.7, duration: 0.4 }, t + 2.3);
-          tl.to(sliderDot,    { opacity: 1, duration: 0.4, ease: 'back.out(2)' }, t + 2.5);
-          tl.to(interG,       { opacity: 1, duration: 0.5 }, t + 2.7);
+          /* Hide formula panel, show graph panel */
+          tl.to(formulaG, { opacity: 0, duration: 0.5 }, t);
+          tl.to(graphG, { opacity: 1, duration: 0.6, ease: 'power2.out' }, t + 0.4);
+          tl.to(graphTitleEl, { opacity: 1, duration: 0.4 }, t + 0.6);
+
+          /* Show axes */
+          tl.to(graphG.childNodes, { opacity: 1, duration: 0.5 }, t + 0.5);
+
+          /* Draw curve with dashoffset trick */
+          (function() {
+            tl.call(function() {
+              try {
+                var len = curvePath.getTotalLength ? curvePath.getTotalLength() : 800;
+                curvePath.setAttribute('stroke-dasharray', len);
+                curvePath.setAttribute('stroke-dashoffset', len);
+              } catch(e) {}
+            }, null, t + 0.7);
+            tl.to(curvePath, {
+              strokeDashoffset: 0,
+              opacity: 1,
+              duration: 2.0,
+              ease: 'power2.inOut'
+            }, t + 0.8);
+          })();
+
+          /* Show axis labels */
+          tl.to(axisXLabel, { opacity: 1, duration: 0.4 }, t + 1.0);
+          tl.to(axisYLabel, { opacity: 1, duration: 0.4 }, t + 1.0);
+
+          /* Show threshold line */
+          tl.to(threshLine, { opacity: 1, duration: 0.6, ease: 'power2.out' }, t + 1.5);
+          tl.to(threshLabel, { opacity: 1, duration: 0.4 }, t + 1.8);
+
+          /* Show interactive slider */
+          tl.to(interG, { opacity: 1, duration: 0.5, ease: 'power2.out' }, t + 2.0);
           break;
         }
 
+        /* ── highlightIntersection ── */
         case 'highlightIntersection': {
-          tl.to(intVLine, { opacity: 1, duration: 0.5 }, t);
-          tl.to(intHLine, { opacity: 1, duration: 0.5 }, t + 0.15);
-          tl.to(intDot,   { opacity: 1, duration: 0.4, ease: 'back.out(3)' }, t + 0.4);
-          tl.to(intDot,   { attr: { r: 12 }, duration: 0.2 }, t + 0.7);
-          tl.to(intDot,   { attr: { r: 7  }, duration: 0.3, ease: 'power2.inOut' }, t + 0.9);
-          tl.to(intBadge, { opacity: 1, duration: 0.5, ease: 'back.out(1.8)' }, t + 0.8);
-          tl.to(threshLine, { attr: { stroke: '#fbbf24', 'stroke-width': 2.5 }, duration: 0.25 }, t + 0.3);
-          tl.to(threshLine, { attr: { stroke: '#f59e0b', 'stroke-width': 1.8 }, duration: 0.5  }, t + 1.1);
+          /* x param = 4046 (the threshold value on y-axis of k(k+1) graph) */
+          /* Animate intersection marker elements */
+          tl.to(intVLine, { opacity: 1, duration: 0.5, ease: 'power2.out' }, t);
+          tl.to(intHLine, { opacity: 1, duration: 0.5, ease: 'power2.out' }, t + 0.2);
+          tl.to(intDot, {
+            opacity: 1, duration: 0.5,
+            ease: 'back.out(3)'
+          }, t + 0.5);
+
+          /* Pulse the dot */
+          tl.to(intDot, { attr: { r: 11 }, duration: 0.2, ease: 'power2.out' }, t + 0.8);
+          tl.to(intDot, { attr: { r: 7 }, duration: 0.3, ease: 'power2.inOut' }, t + 1.0);
+
+          /* Show badge */
+          tl.to(intBadge, {
+            opacity: 1, duration: 0.5,
+            ease: 'back.out(1.8)'
+          }, t + 0.9);
+
+          /* Flash threshold line amber */
+          tl.to(threshLine, {
+            attr: { stroke: '#fbbf24', 'stroke-width': 2.5 },
+            duration: 0.3
+          }, t + 0.4);
+          tl.to(threshLine, {
+            attr: { stroke: '#f59e0b', 'stroke-width': 1.8 },
+            duration: 0.5
+          }, t + 1.2);
           break;
         }
 
-        default: break;
+        default:
+          /* No-op for unrecognized methods */
+          break;
       }
     },
 
     executeAction: function(actionDef, tl, t) {
-      this.timelineAction(tl, actionDef.method || actionDef.vizAction, actionDef.params || {}, t);
+      var method = actionDef.method || actionDef.vizAction;
+      var params = actionDef.params || {};
+      this.timelineAction(tl, method, params, t);
     }
   };
 })();
-
 </script>
 <script>
 /* Auto-generated TTS audio + subtitles — do not edit manually */
