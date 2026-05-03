@@ -117,6 +117,17 @@ if os.path.exists(katex_js_path):
         '<script>\n' + katex_js + '\n</script>'
     )
 
+# 1d. Inline GSAP — eliminates the only remaining CDN dependency
+gsap_js = ""
+gsap_js_path = 'node_modules/gsap/dist/gsap.min.js'
+if os.path.exists(gsap_js_path):
+    with open(gsap_js_path, 'r') as f:
+        gsap_js = f.read()
+    template = template.replace(
+        '<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>',
+        '<script>\n' + gsap_js + '\n</script>'
+    )
+
 # 2. Find the block of script tags to replace
 # Remove everything from the first MX module script to the last engine script
 start_marker = '<!-- MX modules -->'
