@@ -21,3 +21,6 @@ node_modules/
 # Claude Code
 .claude/
 skills-lock.json
+
+# Scratch/test HTML files in dist
+dist/test_*.html
