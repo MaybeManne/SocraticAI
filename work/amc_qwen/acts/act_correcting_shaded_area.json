@@ -1,0 +1,22 @@
+{
+  "act_id": "act_correcting_shaded_area",
+  "title": "Correcting Shaded Area Understanding",
+  "viz_panel": "svg",
+  "beats": [
+    {
+      "say": "Let's revisit how we calculate shaded areas. Specifically, we need to clarify the regions between our nested circles.",
+      "card": null,
+      "viz_actions": [
+        {
+          "method": "highlightShadedArea",
+          "params": {
+            "r1": 1,
+            "r2": 2
+          },
+          "offset": 0
+        }
+      ],
+      "inline_viz": null
+    }
+  ]
+}

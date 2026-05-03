@@ -33,8 +33,11 @@ Report visual bugs as `severity: "error"` with `"location": "visual"` and a desc
 
 Even without a screenshot, check the viz JS for these patterns:
 - **`//` comments in viz code** → these break single-line JSON strings. Flag as error with fix "replace with `/* */`".
-- **`opacity: 1` in `init()`** → elements pre-visible before their animation. Flag as error.
-- **Missing switch cases** → any method in `viz_requirements.actions` not handled in `switch(method)` → silent animation gap.
+- **`opacity: 1` in `init()`** → elements pre-visible before their animation. Flag as error. Every SVG element in `init()` must have `opacity: 0` (or `opacity: "0"`).
+- **Missing switch cases** → any method in `viz_requirements.actions` not handled in `switch(method)` → silent animation gap. Count methods in the action list; count `case` branches; they must be equal.
+- **Undersized visualization** → if circles, shapes, or diagram elements have radii or dimensions that place them in less than ~80% of the viewBox, flag as warning with fix "scale up to fill the panel."
+- **Raw LaTeX strings** → if `K.mixed()` or `K.display()` are called but `katex` is not guaranteed loaded first, or if card content contains unrendered `$...$` strings visible as text, flag as error.
+- **Empty viz_actions on visual beats** → any beat whose `say` text references a visible element (ring, circle, arrow, formula) but has no `.do()` call is a visual-narration sync failure. Flag as error.
 
 # What to Check
 

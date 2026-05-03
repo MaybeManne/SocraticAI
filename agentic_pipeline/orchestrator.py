@@ -289,6 +289,10 @@ def _call_openrouter(system_prompt, user_message, output_schema, model):
         f"```json\n{json.dumps(cleaned_schema, indent=2)}\n```\n"
     )
 
+    # Use smaller output budget for models with limited context windows
+    _small_ctx = {"qwen/qwen-2.5-coder-32b-instruct", "mistralai/mistral-small-3.1-24b-instruct"}
+    _out_tokens = 8000 if real_model in _small_ctx else 16000
+
     response = client.chat.completions.create(
         model=real_model,
         messages=[
@@ -297,22 +301,31 @@ def _call_openrouter(system_prompt, user_message, output_schema, model):
         ],
         response_format={"type": "json_object"},
         temperature=0.7,
-        max_tokens=16000,
+        max_tokens=_out_tokens,
     )
     text = response.choices[0].message.content
     if not text:
         raise ValueError(f"Empty response from OpenRouter ({real_model})")
-    # Strip markdown fences if present — DeepSeek and some other providers
-    # leak ```json ... ``` even when response_format=json_object is set.
+    # Strip markdown fences if present — many providers leak ```json ... ```
+    import re as _re
     stripped = text.strip()
-    if stripped.startswith("```"):
-        # remove leading ``` or ```json line and the trailing ``` line
+    # Handle ```json { ... } ``` or ``` { ... } ``` (multi-line or single-line)
+    _fence_match = _re.search(r'```(?:json)?\s*([\s\S]*?)```', stripped)
+    if _fence_match:
+        stripped = _fence_match.group(1).strip()
+    elif stripped.startswith("```"):
+        # Fallback: strip opening and closing fence lines
         lines = stripped.splitlines()
         if lines[0].startswith("```"):
             lines = lines[1:]
         if lines and lines[-1].strip() == "```":
             lines = lines[:-1]
         stripped = "\n".join(lines).strip()
+    # If still not parseable JSON, try to find the first { ... } block
+    if stripped and stripped[0] != '{':
+        _obj_match = _re.search(r'\{[\s\S]*\}', stripped)
+        if _obj_match:
+            stripped = _obj_match.group(0)
     try:
         return json.loads(stripped)
     except json.JSONDecodeError as e:
@@ -959,14 +972,23 @@ def stage3_author_viz(plan, act_specs, model="gemini-2.5-flash"):
 {json.dumps(timeline, indent=2)}
 """
 
-    # Read full reference viz plugin — find highest-version file that exists
-    import glob as _glob
-    _candidates = sorted(_glob.glob(str(CODE2HTML_DIR / "content" / "amc10a_2023_p15_*.js")))
-    example_path = Path(_candidates[-1]) if _candidates else None
-    if example_path and example_path.is_file():
-        with open(example_path) as f:
-            viz_section = f.read()
-        user_msg += f"\n## Reference: Complete production viz plugin\n```javascript\n{viz_section}\n```\n"
+    # Read full reference viz plugin — skip for small-context models (32k and under)
+    _small_ctx_models = {
+        "qwen/qwen-2.5-coder-32b-instruct",
+        "mistralai/mistral-small-3.1-24b-instruct",
+        "meta-llama/llama-3.3-70b-instruct",
+    }
+    _real_model = _strip_openrouter(model) if _is_openrouter(model) else model
+    _include_reference = _real_model not in _small_ctx_models
+
+    if _include_reference:
+        import glob as _glob
+        _candidates = sorted(_glob.glob(str(CODE2HTML_DIR / "content" / "amc10a_2023_p15_*.js")))
+        example_path = Path(_candidates[-1]) if _candidates else None
+        if example_path and example_path.is_file():
+            with open(example_path) as f:
+                viz_section = f.read()
+            user_msg += f"\n## Reference: Complete production viz plugin\n```javascript\n{viz_section}\n```\n"
 
     schema = _schema_for_tool("viz_spec")
     spec = call_llm(system_prompt, user_msg, schema, model=model)

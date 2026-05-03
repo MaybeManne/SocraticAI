@@ -307,6 +307,8 @@ Anti-patterns:
 | `.inline("svg")` only at the very last beat | Inline when the narrative calls for it |
 | No `.show()` or `.card()` on any beats | At least 2–3 beats per act should persist a key equation |
 | Duplicate `say` texts | Merge or delete — each beat must say something new |
+| Beat with empty `viz_actions: []` that references a visual | **Not allowed.** A beat saying "look at the ring" or "notice the shading" with no viz_action is a broken beat. Either add the viz action or label it `/* narration only */` in your thinking and ensure the narration makes NO visual reference. |
+| Algebra step in narration with no equation card | **Not allowed.** Every algebraic manipulation = one `latex` or `derivation` card on the right. |
 
 # Quality Checklist
 

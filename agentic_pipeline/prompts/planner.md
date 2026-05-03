@@ -47,6 +47,8 @@ Every beat must answer: **"What is the student SEEING while hearing this?"**
   - `card_type`: what appears in the notebook panel
 - **Every beat that describes a visual moment MUST have at least one viz_action.** If the narrator says "this ring has area 3π," the viz MUST include `highlightRing` (or equivalent). A beat_outline entry with empty viz_actions is only valid for pure narration with zero visual reference.
 - **Specify the dominant visual action per beat.** Every beat_outline entry must include the specific method name that fires on it. "Show the derivation" is vague; "show derivation step via showFormula" is concrete.
+- **Every algebraic step = its own beat.** An act covering algebra must have one beat per manipulation: define variables, write area difference, expand squares, cancel terms, simplify — each is a SEPARATE beat with its own `card_type: "latex"` and a viz action. Never combine two algebraic steps into one beat.
+- **Narration hint must name the viz method.** Do not write `narration_hint: "explain the formula"`. Write `narration_hint: "show area formula A_k = π(2k)²−π(2k−1)² via showRingFormula"`. The method name in the hint becomes the contract the act worker must honor.
 - `context_from_previous` tells the worker what the student already knows. Be specific: "Student has derived A_k = π(4k−1) and seen rings k=1..4 drawn" not "Student knows the formula."
 - `viz_panel`: `"svg"` for live animated viz, `"figure"` for static figures in cards, `null` for no viz.
 

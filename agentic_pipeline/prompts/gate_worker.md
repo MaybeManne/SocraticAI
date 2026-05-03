@@ -103,10 +103,12 @@ Return only the fields relevant to your gate type. No gate_id.
 # Quality Checklist
 1. `gate_type` matches the concept being tested.
 2. `after_act` is the ID of the immediately preceding act.
-3. Every distractor encodes a named misconception.
-4. Every explanation teaches, not just judges.
-5. Fill-in answers cover all common equivalent forms.
+3. Every distractor encodes a **uniquely named** misconception — no two explanations may describe the same error.
+4. Every explanation teaches, not just judges. Say what's wrong AND the correct reasoning.
+5. Fill-in answers cover all common equivalent forms (e.g. `["3π", "3*pi", "3\\pi"]`).
 6. Wrong path teaches the **missing prerequisite**, not the same content.
 7. NO `gate_id` in output.
 8. **Fill-in prompt contains exactly one `[___]` token.** Search your prompt string — `[___]` must appear once. No input renders without it.
 9. **Wrong path acts**: if a wrong_path contains a nested fill-in gate, that gate's prompt also needs `[___]`. Check recursively.
+10. **`wrong_path_acts` is REQUIRED** for every quiz and fill-in gate that tests a conceptually important step. A gate with no wrong path means wrong students get no help — include at least one remediation act ID for every gate where the wrong answer reveals a real gap.
+11. **Unique explanation per wrong option.** For a quiz with 4 options: each wrong option gets its own explanation that names the specific misconception, not a generic "try again." Template: `"[Option X]: That's [misconception name] — you [did/forgot] X. The correct approach is Y."`

@@ -32,6 +32,8 @@ Solve the problem completely. **Every algebraic step must be shown in full — n
 
 **For algebra-heavy problems:** walk through EVERY line of the derivation. If the solution involves defining variables, computing areas/lengths, setting up an equation, simplifying, and solving — each of those is a SEPARATE step requiring its own visual and narration beat. A student should be able to re-derive the full solution from the lesson alone, with nothing left implicit.
 
+**Forbidden shortcut:** Do not write "expanding and simplifying gives X" — show EVERY expansion and simplification step on its own line. Do not write "solving for k gives 32" — show the inequality, the substitution, the threshold check, and the rounding step separately. Every implicit step is a student left behind.
+
 ## 2. Key "Aha" Moments
 
 What are the 2–4 moments where a student's understanding clicks? These become the centerpieces of the lesson. For each one, describe:

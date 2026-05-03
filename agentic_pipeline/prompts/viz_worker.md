@@ -24,7 +24,9 @@ var x = 1; /* my comment */
 
 **Every single comment in your output must use `/* ... */`.** `//` is banned entirely.
 
-## ② Every SVG element starts invisible; GSAP reveals it
+## ② Every SVG element starts invisible; GSAP reveals it — NO EXCEPTIONS
+
+**Every** SVG element created in `init()` MUST have `opacity: 0` (or equivalent hidden state). GSAP is the ONLY mechanism that makes elements visible. This applies to every circle, rect, text, path, group — no exceptions.
 
 ```js
 /* WRONG — element visible before its animation fires */
@@ -37,6 +39,8 @@ tl.to(fills[r], { opacity: 1, duration: 0.5, ease: 'power2.out' }, t);
 ```
 
 Set `stroke-dashoffset` equal to `stroke-dasharray` in `init()` so strokes start invisible.
+
+**Self-check before returning:** Search your `init()` function for any `opacity: 1` or missing `opacity` attribute. Every element must have `opacity: 0` (or `opacity: "0"`) set. If you find any element without it, add `opacity: 0` now.
 
 ## ③ Viz panel fills at least 80% of available space
 
@@ -498,6 +502,47 @@ switch (method) {
 ```
 
 Add `actions_implemented` to your output listing every method name you implemented. The pipeline cross-checks this list against the plan.
+
+## THREE CONCRETE CORRECT timelineAction() EXAMPLES
+
+Copy this pattern — it is the required style:
+
+```javascript
+/* Example 1: Drawing a circle with stroke reveal */
+case "drawCircle":
+  var r = params.r || 1;
+  var circ = circles[r]; /* pre-created in init() with opacity:0 */
+  tl.to(circ.stroke, { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut" }, t);
+  tl.to(circ.fill,   { opacity: 1, duration: 0.5, ease: "power2.out" }, t + 1.0);
+  tl.to(circ.label,  { opacity: 1, duration: 0.3, ease: "power2.out" }, t + 0.5);
+  break;
+
+/* Example 2: Focusing one ring while dimming others */
+case "focusRing":
+  var k = params.k;
+  for (var i = 1; i <= maxK; i++) {
+    tl.to(rings[i], { opacity: i === k ? 1 : 0.15, duration: 0.4, ease: "power2.out" }, t);
+  }
+  tl.to(labels[k], { opacity: 1, scale: 1.1, duration: 0.3, ease: "back.out(2)" }, t + 0.2);
+  break;
+
+/* Example 3: Showing a formula text label */
+case "showFormula":
+  var g = formulaGroup; /* pre-created <g> with opacity:0, text set in init() */
+  tl.set(g, { opacity: 0 }, t);  /* ensure clean state on re-call */
+  tl.to(g, { opacity: 1, y: "-=4", duration: 0.6, ease: "power2.out" }, t + 0.1);
+  break;
+```
+
+## SELF-CHECK: Method name coverage (MANDATORY before returning)
+
+1. List every method name in `viz_requirements.actions` you received
+2. List every `case "..."` in your `switch(method)` block  
+3. They must be identical sets — same names, same spelling, same count
+4. Add any missing cases now (even as `/* no-op */` stubs if truly unused)
+5. Set `actions_implemented` in your output to the exact list of method names you handled
+
+**Do not return without completing this check.** A missing case = a broken lesson.
 
 # Output Format
 
