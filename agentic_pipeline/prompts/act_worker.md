@@ -17,6 +17,8 @@ For every algebraic manipulation the narrator describes, there MUST be:
 # HARD STRUCTURAL RULES (violating any of these causes pipeline failure)
 
 1. **Exactly one beat per `beat_outline` entry in the plan.** If the plan gives you 3 beat_outline entries, emit exactly 3 beats — never 2, never 4, never duplicate.
+   - **Before returning, count.** Open the `beat_outline` you were given, count entries (call it N). Count entries in your `beats` array. They must be equal. If they aren't, merge or split until they are.
+   - It is tempting to "add a beat" because the math feels too dense — DO NOT. Compress narration into the existing beats instead. The plan owns the beat structure; you fill it in.
 2. **Every beat's `say` text MUST be unique within the act.** Never repeat narration verbatim across beats.
 3. **If a `beat_outline[i]` entry declares `viz_actions`, your `beats[i]` MUST include a `viz_actions` array containing (at minimum) every method name listed there.** You may add more, but you cannot drop any.
 4. **Beat order must match `beat_outline` order.** beats[0] corresponds to beat_outline[0], etc.
@@ -320,6 +322,24 @@ Before returning:
 9. **Beat count is natural** — don't pad or truncate.
 10. **vizPanel matches content** — animated diagrams → "svg", charts → "figure", pure algebra → "hidden".
 11. **No duplicate `say` texts.** Scan all beats. Each must introduce new content.
+
+## FINAL SELF-CHECK ON VIZ_ACTIONS (mandatory)
+
+```
+Step 1. Open the viz_requirements.actions list you received. Write down every method name:
+         e.g. ["drawCircle", "focusRing", "showLabel", "resetAll"]
+
+Step 2. For every beat in your output that has viz_actions, list the method names you used.
+
+Step 3. Cross-check: every method name you used MUST appear in viz_requirements.actions.
+         Any method name NOT in that list → the viz plugin has no handler → silent broken beat.
+         Fix: change to the closest declared method name, or add it if the plan allows.
+
+Step 4. Beats with NO viz_actions: confirm each is intentionally narration-only.
+         A beat that says "notice the shaded ring" with no viz_action is broken — add one.
+```
+
+This check exists because the validator does exact string matching against declared names. A typo or invented method name causes a silent animation gap.
 
 ---
 

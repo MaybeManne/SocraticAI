@@ -480,6 +480,55 @@ def assemble_content(plan, act_specs, gate_specs, viz_spec):
     return "\n".join(lines)
 
 
+def _normalize_viz_code(code):
+    """Normalize viz code that may have been returned as a single-line JSON string.
+
+    LLMs called via json_object response_format often return the entire plugin
+    as one long line with spaces instead of newlines. In that form, any
+    // single-line comment consumes everything until end-of-string, breaking
+    the whole plugin with a silent parse error.
+
+    Fix: insert real newlines after statement terminators (;) and after block
+    openers/closers ({, }) when they appear outside string literals. This
+    converts single-line compact JS back to a form where // comments terminate
+    at the inserted newline rather than eating the rest of the file.
+
+    Safe for already-multiline code (guard: returns early if newlines present).
+    """
+    if '\n' in code:
+        return code  # already has newlines -- nothing to do
+
+    result = []
+    i = 0
+    n = len(code)
+    in_string = None  # None | '"' | "'" | '`'
+
+    while i < n:
+        c = code[i]
+        if in_string:
+            result.append(c)
+            if c == '\\' and i + 1 < n:
+                i += 1
+                result.append(code[i])
+            elif c == in_string:
+                in_string = None
+        elif c in ('"', "'", '`'):
+            in_string = c
+            result.append(c)
+        elif c == ';':
+            result.append(c)
+            result.append('\n')  # terminate statement so // comments end here
+        elif c == '{':
+            result.append(c)
+            result.append('\n')
+        elif c == '}':
+            result.append('\n')
+            result.append(c)
+        else:
+            result.append(c)
+        i += 1
+
+    return ''.join(result)
 def assemble_viz(viz_spec):
     """
     Extract the visualization plugin JavaScript from a VizSpec dict.
@@ -503,11 +552,14 @@ def assemble_viz(viz_spec):
     mode = viz_spec["mode"]
 
     if mode == "custom_code":
-        return viz_spec.get("code") or None
+        code = viz_spec.get("code") or None
+        return _normalize_viz_code(code) if code else None
     elif mode == "mobject_plugin":
-        return viz_spec.get("mobject_plugin_code") or None
+        code = viz_spec.get("mobject_plugin_code") or None
+        return _normalize_viz_code(code) if code else None
     elif mode == "three_js":
-        return viz_spec.get("three_js_code") or None
+        code = viz_spec.get("three_js_code") or None
+        return _normalize_viz_code(code) if code else None
     elif mode == "preset":
         # Presets are inlined into the content file via L.viz()
         return None
