@@ -24,6 +24,10 @@ A lesson is a sequence of **nodes**:
 - **gate**: An interactive checkpoint placed after an act. Tests the concept just taught. Can have a **wrong path** — a branch of extra acts for students who answer incorrectly.
 - **marker**: A section divider (e.g., "visualization", "derivation"). Cosmetic only.
 
+## Algebra Step Rule (NON-NEGOTIABLE)
+
+Acts that cover algebraic steps MUST have **one beat per algebraic step minimum** — never combine two algebraic manipulations into one beat. For example, if the solution requires (1) defining the ring, (2) writing the area difference, (3) expanding, (4) canceling terms, (5) simplifying — that is FIVE separate beats in the act, each with its own narration hint and equation card.
+
 ## Act Design — The Visual Narration Principle
 
 Every beat must answer: **"What is the student SEEING while hearing this?"**

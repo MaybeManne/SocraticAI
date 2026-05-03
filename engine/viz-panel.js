@@ -34,8 +34,27 @@ var VizPanel = {
       this._viewBox = vizConfig.config.viewBox;
     }
     this.mainSvg.setAttribute("viewBox", this._viewBox);
+    this._applyViewBoxClip();
 
     this._bindEvents();
+  },
+
+  _applyViewBoxClip: function() {
+    var ns = "http://www.w3.org/2000/svg";
+    var vb = this._viewBox.split(/[\s,]+/).map(Number);
+    var x = vb[0] || 0, y = vb[1] || 0, w = vb[2] || 500, h = vb[3] || 500;
+    var defs = this.mainSvg.querySelector("defs") || document.createElementNS(ns, "defs");
+    if (!this.mainSvg.querySelector("defs")) this.mainSvg.appendChild(defs);
+    var existing = defs.querySelector("#viz-clip");
+    if (existing) existing.parentNode.removeChild(existing);
+    var clip = document.createElementNS(ns, "clipPath");
+    clip.setAttribute("id", "viz-clip");
+    var rect = document.createElementNS(ns, "rect");
+    rect.setAttribute("x", x); rect.setAttribute("y", y);
+    rect.setAttribute("width", w); rect.setAttribute("height", h);
+    clip.appendChild(rect);
+    defs.appendChild(clip);
+    this.mainSvg.setAttribute("clip-path", "url(#viz-clip)");
   },
 
   getViewBox: function() {
@@ -59,8 +78,9 @@ var VizPanel = {
     // Clear SVG contents
     var svg = this.mainSvg;
     while (svg.firstChild) svg.removeChild(svg.firstChild);
-    // Restore viewBox
+    // Restore viewBox and clipping
     svg.setAttribute("viewBox", this._viewBox);
+    this._applyViewBoxClip();
     // Reset overlay
     this.overlayDiv.style.display = "none";
     this.overlayDiv.innerHTML = "";

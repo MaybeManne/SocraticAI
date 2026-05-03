@@ -88,6 +88,35 @@ template = template.replace(
     '<style>\n' + css + '\n</style>'
 )
 
+# 1b. Inline KaTeX CSS — rewrite font URLs to CDN so they load without local files
+katex_css = ""
+katex_css_path = 'node_modules/katex/dist/katex.min.css'
+if os.path.exists(katex_css_path):
+    with open(katex_css_path, 'r') as f:
+        katex_css = f.read()
+    # Rewrite relative font URLs to absolute CDN URLs
+    import re as _re
+    katex_css = _re.sub(
+        r'url\(fonts/',
+        'url(https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/fonts/',
+        katex_css
+    )
+    template = template.replace(
+        '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">',
+        '<style>\n' + katex_css + '\n</style>'
+    )
+
+# 1c. Inline KaTeX JS — load before content/engine so katex is defined at render time
+katex_js = ""
+katex_js_path = 'node_modules/katex/dist/katex.min.js'
+if os.path.exists(katex_js_path):
+    with open(katex_js_path, 'r') as f:
+        katex_js = f.read()
+    template = template.replace(
+        '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>',
+        '<script>\n' + katex_js + '\n</script>'
+    )
+
 # 2. Find the block of script tags to replace
 # Remove everything from the first MX module script to the last engine script
 start_marker = '<!-- MX modules -->'

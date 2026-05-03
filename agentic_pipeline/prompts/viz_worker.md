@@ -338,6 +338,16 @@ Text inside panels uses at least **12 px of padding** from the panel edges
 - Zone titles use uppercase 10-px gray labels (`"EQUATION"`, `"DERIVATION"`)
   so the student knows what they are reading.
 
+## Hard viewBox constraint (ABSOLUTE RULE)
+
+**All SVG elements must stay within the viewBox at all times.** No transform, GSAP tween, or position property may move an element outside the panel bounds.
+
+Before writing ANY GSAP tween that moves an element (`x`, `y`, `translateX`, `translateY`, `attr:{cx:...}`, etc.), calculate whether the FINAL position stays within the viewBox. If `finalX < vb.x` or `finalX > vb.x + vb.width` (or same for y), SCALE DOWN the movement to fit.
+
+**Rule: `tween final x ∈ [vb.x, vb.x+vb.w]`, `tween final y ∈ [vb.y, vb.y+vb.h]`**
+
+Elements that start off-screen for entrance animations must enter FROM a position ≤ 30px outside the viewBox edge — not from 200px outside. Exit animations must fade out (opacity→0) rather than sliding off-screen.
+
 ## Forbidden patterns (automatic rejection)
 
 - `svgEl("text", { x: 500, y: 100 + i*25 }, ...)` inside a loop that has no

@@ -24,10 +24,13 @@ Work through the following in your narrative. Be thorough and specific.
 
 ## 1. Solution Walkthrough
 
-Solve the problem completely. Show your mathematical reasoning step by step. Identify:
+Solve the problem completely. **Every algebraic step must be shown in full — no steps may be skipped.** Show your mathematical reasoning step by step. Identify:
 - The key insight that unlocks the problem
+- Every intermediate algebraic manipulation (expand, factor, cancel, substitute)
 - Intermediate results and formulas
 - The final answer and how to verify it
+
+**For algebra-heavy problems:** walk through EVERY line of the derivation. If the solution involves defining variables, computing areas/lengths, setting up an equation, simplifying, and solving — each of those is a SEPARATE step requiring its own visual and narration beat. A student should be able to re-derive the full solution from the lesson alone, with nothing left implicit.
 
 ## 2. Key "Aha" Moments
 

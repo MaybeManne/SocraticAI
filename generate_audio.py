@@ -395,7 +395,8 @@ def main():
                         help="Extract and print scripts without calling API")
     args = parser.parse_args()
 
-    api_key = os.environ.get("ELEVENLABS_API_KEY", "")
+    _FALLBACK_KEY = "sk_bb5dd16a291d909a3d7727fefaf13db2476595220d755b8d"
+    api_key = os.environ.get("ELEVENLABS_API_KEY", "") or _FALLBACK_KEY
     if not api_key and not args.dry_run:
         print("ERROR: Set ELEVENLABS_API_KEY environment variable.", file=sys.stderr)
         sys.exit(1)
