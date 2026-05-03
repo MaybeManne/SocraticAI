@@ -1,2 +1,23 @@
+# secrets
 .env
 *.env
+
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Pipeline intermediate artifacts
+work/
+output/
+audio_cache/
+
+# Node
+node_modules/
+
+# Claude Code
+.claude/
+skills-lock.json
