@@ -42,6 +42,7 @@ from validate import validate_plan, validate_act_spec, validate_gate_spec, valid
 # These dataclasses/TypedDicts make illegal states unrepresentable (6.031: fail fast).
 from pipeline_types import (
     assert_plan_shape, assert_act_spec_shape, assert_gate_spec_shape, assert_viz_spec_shape,
+    assert_viz_implements_plan_actions,
 )
 
 try:
@@ -105,9 +106,17 @@ def _is_gemini(model):
     return model.startswith("gemini-") or model in GEMINI_MODELS
 
 
-def load_prompt(name):
-    """Load a system prompt from the prompts directory."""
-    path = PROMPTS_DIR / f"{name}.md"
+def load_prompt(name, override_path=None):
+    """Load a system prompt from the prompts directory, or from an explicit path.
+
+    @param name: base prompt name; resolved to PROMPTS_DIR/{name}.md when no override.
+    @param override_path: optional path to an alternate prompt file (e.g. a variant
+        under prompts/variants/). When given, `name` is ignored and this file is
+        loaded instead — used for side-by-side prompt experiments without touching
+        the canonical prompt.
+    @returns: str — the prompt file contents.
+    """
+    path = Path(override_path) if override_path else PROMPTS_DIR / f"{name}.md"
     with open(path) as f:
         return f.read()
 
@@ -623,11 +632,17 @@ def _validate_narrative(narrative):
 # Stage 2: Structure Agent (narrative → lesson_plan.json)
 # ─────────────────────────────────────────────────────────────────────
 
-def stage2_structure(problem_text, narrative, objectives=None, model="gemini-2.5-flash"):
-    """Stage 2: Convert natural-language narrative into structured lesson_plan.json."""
+def stage2_structure(problem_text, narrative, objectives=None, model="gemini-2.5-flash",
+                     planner_prompt_path=None):
+    """Stage 2: Convert natural-language narrative into structured lesson_plan.json.
+
+    @param planner_prompt_path: optional path to an alternate planner prompt. When
+        given, it replaces prompts/planner.md for this run so planner variants can
+        be A/B-tested without editing the canonical prompt.
+    """
     print("\n=== Stage 2: Structuring lesson plan ===")
 
-    system_prompt = load_prompt("planner")
+    system_prompt = load_prompt("planner", override_path=planner_prompt_path)
 
     user_msg = f"## Solution & Pedagogical Narrative\n\n{narrative}\n\n---\n\n"
     user_msg += f"## Math Problem\n\n{problem_text}\n"
@@ -1519,6 +1534,54 @@ def load_artifacts(work_dir):
     return narrative, plan, act_specs, gate_specs, viz_spec
 
 
+def _plan_node_index(plan):
+    """Map every act/gate id in `plan` (including nested wrong_path_acts) to its node.
+
+    @param plan: dict — a lesson plan (must have "nodes"); may be None/empty.
+    @returns: dict[str, dict] mapping node id → node dict. Used to key loaded
+        act/gate specs against their authoritative plan node so that artifacts
+        loaded from disk get the same structural checks as freshly-generated ones.
+    """
+    index = {}
+    for node in (plan or {}).get("nodes", []):
+        nid = node.get("id")
+        if nid:
+            index[nid] = node
+        # Branch acts are defined inline under a gate's wrong_path_acts.
+        for wp in node.get("wrong_path_acts", []):
+            if isinstance(wp, dict) and wp.get("id"):
+                index[wp["id"]] = wp
+    return index
+
+
+def assert_loaded_artifacts(plan=None, act_specs=None, gate_specs=None, viz_spec=None):
+    """Run the same stage-boundary structural assertions on artifacts loaded from disk.
+
+    The fresh-generate path validates each artifact via assert_*_shape inside the
+    stage functions. Artifacts supplied via --resume/--plan skip those stages, so
+    without this they would reach the assembler unchecked. This closes that gap:
+    loaded and generated artifacts go through identical validation.
+
+    @raises TypeError: on the first structural contract violation (same failure mode
+        as the generate path).
+    """
+    if plan is not None:
+        assert_plan_shape(plan)
+
+    node_index = _plan_node_index(plan) if plan is not None else {}
+
+    for act_id, spec in (act_specs or {}).items():
+        assert_act_spec_shape(spec, plan_node=node_index.get(act_id))
+
+    for gate_id, spec in (gate_specs or {}).items():
+        assert_gate_spec_shape(spec, plan_node=node_index.get(gate_id))
+
+    if viz_spec is not None:
+        assert_viz_spec_shape(viz_spec)
+        if plan is not None:
+            assert_viz_implements_plan_actions(viz_spec, plan)
+
+
 # ─────────────────────────────────────────────────────────────────────
 # Main
 # ─────────────────────────────────────────────────────────────────────
@@ -1589,6 +1652,11 @@ Examples:
                              "Accepts same formats as --model, including openrouter: prefix. "
                              "If omitted, Stage 4 uses --model. "
                              "Example: --viz-model openrouter:meta-llama/llama-3.3-70b-instruct")
+    parser.add_argument("--planner-prompt", default=None,
+                        help="Path to an alternate planner prompt to use for Stage 2 "
+                             "instead of prompts/planner.md. Enables side-by-side "
+                             "planner prompt experiments (see scripts/run_planner_variants.sh). "
+                             "Example: --planner-prompt prompts/variants/planner_v2.md")
 
     args = parser.parse_args()
     # --viz-model defaults to --model when not explicitly specified
@@ -1608,11 +1676,16 @@ Examples:
         print(f"Resuming from: {args.resume}")
         narrative, plan, act_specs, gate_specs, viz_spec = load_artifacts(args.resume)
         work_dir = Path(args.resume)
+        # Loaded artifacts skip the generate-path stage functions (and their
+        # assert_*_shape guards). Validate here so --resume gets identical checks.
+        assert_loaded_artifacts(plan, act_specs, gate_specs, viz_spec)
 
     elif args.plan:
         # Skip stages 1-2: load existing structured plan
         with open(args.plan) as f:
             plan = json.load(f)
+        # --plan bypasses stage2_structure's assert_plan_shape — enforce it here.
+        assert_loaded_artifacts(plan=plan)
         save_artifacts(work_dir, plan=plan)
 
     elif args.narrative:
@@ -1653,7 +1726,8 @@ Examples:
             obj_path = Path(args.objectives)
             objectives = obj_path.read_text() if obj_path.exists() else args.objectives
 
-        plan = stage2_structure(problem_text, narrative, objectives, model=args.model)
+        plan = stage2_structure(problem_text, narrative, objectives, model=args.model,
+                                planner_prompt_path=args.planner_prompt)
         save_artifacts(work_dir, plan=plan)
         print(f"  Saved plan to: {work_dir / 'lesson_plan.json'}")
 
