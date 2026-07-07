@@ -452,12 +452,15 @@ def assemble_content(plan, act_specs, gate_specs, viz_spec):
 
         if ntype == "act":
             act_id = node["id"]
-            if act_id in act_specs:
-                lines.append("")
-                lines.append(emit_act(act_specs[act_id], indent=0))
-                lines.append("")
-            else:
-                lines.append(f'// WARNING: No act spec found for {act_id}')
+            if act_id not in act_specs:
+                raise AssemblyError(
+                    f"Act '{act_id}' declared in plan but no spec in act_specs. "
+                    f"Available act IDs: {sorted(act_specs.keys())}. "
+                    f"Act worker stage likely failed silently."
+                )
+            lines.append("")
+            lines.append(emit_act(act_specs[act_id], indent=0))
+            lines.append("")
 
         elif ntype == "gate":
             gate_id = node["id"]

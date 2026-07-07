@@ -741,11 +741,17 @@ class TestAssembleContent:
         result = assemble_content(self._minimal_plan(), {"act_1": self._act_spec()}, {}, None)
         assert "L.act(" in result
 
-    def test_missing_act_spec_emits_warning_comment(self):
-        """act in plan nodes but no entry in act_specs → JS comment."""
-        result = assemble_content(self._minimal_plan(), {}, {}, None)
-        assert "WARNING" in result
-        assert "act_1" in result
+    def test_missing_act_spec_raises_assembly_error(self):
+        """act in plan nodes but no entry in act_specs → fail fast, not warn.
+
+        Mirrors the gate branch: a missing act spec means the act worker stage
+        failed silently, and emitting a warning comment would ship a broken
+        lesson. Assembly must raise instead.
+        """
+        import pytest
+        from assembler import AssemblyError
+        with pytest.raises(AssemblyError, match="act_1"):
+            assemble_content(self._minimal_plan(), {}, {}, None)
 
     def test_gate_emitted_when_spec_present(self):
         plan = self._minimal_plan(nodes=[
