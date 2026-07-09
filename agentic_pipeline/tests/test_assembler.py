@@ -809,6 +809,41 @@ class TestAssembleContent:
 # assemble_viz
 # ─────────────────────────────────────────────────────────────────────
 
+class TestVizCodeNewlineRepair:
+    """Regression: a raw newline inside a quoted JS string literal (as some LLMs
+    emit) is a hard parse error that blanks the whole viz panel (the v3 bug).
+    assemble_viz must escape it; backtick template literals stay untouched."""
+
+    def _check(self, code):
+        import tempfile, subprocess, os
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".js", delete=False) as f:
+            f.write(code); path = f.name
+        try:
+            r = subprocess.run(["node", "--check", path], capture_output=True, text=True)
+            return r.returncode == 0
+        except FileNotFoundError:
+            pytest.skip("node not available")
+        finally:
+            os.unlink(path)
+
+    def test_raw_newline_in_string_literal_repaired(self):
+        broken = 'var x = "line one\n = \n" + y; foo();'
+        # sanity: the broken form really is invalid JS
+        assert not self._check(broken)
+        spec = {"mode": "custom_code", "code": broken}
+        out = assemble_viz(spec)
+        assert self._check(out), "assemble_viz must produce syntactically valid JS"
+        assert "\\n" in out  # the literal newline became an escape
+
+    def test_backtick_template_newlines_preserved(self):
+        code = "var t = `a\nb\nc`; bar();"
+        spec = {"mode": "custom_code", "code": code}
+        out = assemble_viz(spec)
+        assert self._check(out)
+        # real newlines inside the template literal are still there (not escaped)
+        assert "`a\nb\nc`" in out
+
+
 class TestAssembleViz:
     """
     Testing strategy

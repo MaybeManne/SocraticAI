@@ -64,14 +64,16 @@ if (!global.MX) {
   var _actN = 0, _beatN = 0;
   function noop() { return this; }
   function chainable() { return { do: chainable, show: chainable, title: chainable,
-    card: chainable, inline: chainable, highlight: chainable, pause: chainable }; }
+    card: chainable, inline: chainable, highlight: chainable, pause: chainable,
+    vizPanel: chainable, duration: chainable }; }
   function ActBuilder(title) { this.id = 'act-' + (++_actN); this.title = title; this._beats = []; }
   ActBuilder.prototype.vizPanel = noop;
   ActBuilder.prototype.say = function(text) {
     var b = { id: 'b' + (++_beatN), say: text };
     this._beats.push(b);
     return { do: chainable, show: chainable, title: chainable,
-      card: chainable, inline: chainable, highlight: chainable, pause: chainable };
+      card: chainable, inline: chainable, highlight: chainable, pause: chainable,
+      vizPanel: chainable, duration: chainable };
   };
   ActBuilder.prototype.marker = noop;
 
@@ -230,6 +232,62 @@ def text_hash(text):
     return hashlib.sha256(text.encode()).hexdigest()[:12]
 
 
+# LaTeX-command → spoken-word map, applied longest-key-first so multi-char
+# commands win over prefixes (e.g. \geq before \ge).
+_LATEX_WORDS = [
+    (r"\geq", " is at least "), (r"\ge", " is at least "),
+    (r"\leq", " is at most "),  (r"\le", " is at most "),
+    (r"\neq", " is not equal to "), (r"\ne", " is not equal to "),
+    (r"\approx", " is approximately "),
+    (r"\times", " times "), (r"\cdot", " times "),
+    (r"\pi", " pi "), (r"\theta", " theta "), (r"\alpha", " alpha "),
+    (r"\beta", " beta "), (r"\lambda", " lambda "), (r"\sum", " the sum of "),
+    (r"\sqrt", " square root of "), (r"\infty", " infinity "),
+    (r"\ldots", " and so on "), (r"\dots", " and so on "), (r"\cdots", " and so on "),
+    (r"\left", ""), (r"\right", ""), (r"\,", " "), (r"\;", " "), (r"\!", ""),
+    (r"\quad", " "), (r"\qquad", " "),
+]
+
+
+def verbalize_math(text):
+    """Convert narration containing LaTeX into plain spoken words for TTS.
+
+    Defensive safety net: even with the act_worker prompt telling the model to
+    write spoken-word narration, some `say` text still ships with `$...$`, `\\pi`,
+    `\\geq`, `^`, `\\frac{}{}`, etc. Sent verbatim to ElevenLabs those are read as
+    "dollar / backslash pi / geq" and garble or drop the sentence. This strips the
+    math markup and substitutes spoken equivalents. Idempotent on clean text.
+
+    @param text: raw narration string (may contain LaTeX).
+    @returns: a spoken-word string with no `$`, backslash commands, `^`, or braces.
+    """
+    if not text or ("$" not in text and "\\" not in text and "^" not in text):
+        return text
+
+    s = text
+    # \frac{a}{b} -> "a over b"  (do before generic brace stripping)
+    s = re.sub(r"\\frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}", r" \1 over \2 ", s)
+    # superscripts: x^2 -> "x squared", x^3 -> "x cubed", x^{n} -> "x to the n"
+    s = re.sub(r"\^\s*\{?\s*2\s*\}?", " squared ", s)
+    s = re.sub(r"\^\s*\{?\s*3\s*\}?", " cubed ", s)
+    s = re.sub(r"\^\s*\{([^{}]*)\}", r" to the \1 ", s)
+    s = re.sub(r"\^\s*(\w+)", r" to the \1 ", s)
+    # subscripts: a_k -> "a k", a_{k+1} -> "a k plus 1"
+    s = re.sub(r"_\s*\{([^{}]*)\}", r" \1 ", s)
+    s = re.sub(r"_\s*(\w+)", r" \1 ", s)
+    # named LaTeX commands -> words (longest first)
+    for cmd, word in sorted(_LATEX_WORDS, key=lambda kv: -len(kv[0])):
+        s = s.replace(cmd, word)
+    # bare unicode symbols occasionally used directly
+    s = (s.replace("π", " pi ").replace("≥", " is at least ").replace("≤", " is at most ")
+           .replace("≠", " is not equal to ").replace("×", " times ").replace("·", " times "))
+    # drop remaining $ delimiters and leftover braces/backslashes
+    s = s.replace("$", " ").replace("{", " ").replace("}", " ").replace("\\", " ")
+    # collapse whitespace
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
 def call_tts(text, api_key, voice_id, model_id, cache_path):
     """POST to ElevenLabs with-timestamps. Returns {audio_base64, alignment}."""
     if os.path.exists(cache_path):
@@ -382,9 +440,8 @@ def write_audio_js(lesson_id, audio_map, subtitle_map, output_path, beat_timings
 
 def main():
     parser = argparse.ArgumentParser(description="Generate TTS audio for math explainer")
-    parser.add_argument("content_js", nargs="?",
-                        default="content/amc10a_2023_p15.js",
-                        help="Path to the content JS file")
+    parser.add_argument("content_js",
+                        help="Path to the content JS file (e.g. content/amc10a_2023_p15_v5.js)")
     parser.add_argument("--voice", default=DEFAULT_VOICE,
                         help=f"ElevenLabs voice ID (default: {DEFAULT_VOICE})")
     parser.add_argument("--model", default=DEFAULT_MODEL,
@@ -395,10 +452,15 @@ def main():
                         help="Extract and print scripts without calling API")
     args = parser.parse_args()
 
-    _FALLBACK_KEY = "sk_bb5dd16a291d909a3d7727fefaf13db2476595220d755b8d"
-    api_key = os.environ.get("ELEVENLABS_API_KEY", "") or _FALLBACK_KEY
+    api_key = os.environ.get("ELEVENLABS_API_KEY", "")
     if not api_key and not args.dry_run:
-        print("ERROR: Set ELEVENLABS_API_KEY environment variable.", file=sys.stderr)
+        print(
+            "ERROR: ELEVENLABS_API_KEY environment variable is not set.\n"
+            "       Export it before running audio generation:\n"
+            "         export ELEVENLABS_API_KEY=your_key_here\n"
+            "       (Use --dry-run to preview scripts without calling the API.)",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     content_path = os.path.abspath(args.content_js)
@@ -442,7 +504,12 @@ def main():
 
     for i, act in enumerate(acts):
         aid = act["actId"]
-        script = act["script"]
+        # Defensive: verbalize any LaTeX that slipped into narration so TTS never
+        # reads "$" / "\pi" / "\geq" aloud. Applied before hashing so the cache key
+        # tracks the spoken text.
+        script = verbalize_math(act["script"])
+        if script != act["script"]:
+            print(f"    (verbalized LaTeX in narration before TTS)")
         h = text_hash(script)
         cache_path = os.path.join(CACHE_DIR, f"{h}.json")
         cached = os.path.exists(cache_path) and not args.no_cache

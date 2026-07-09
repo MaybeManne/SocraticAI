@@ -42,10 +42,95 @@ Set `stroke-dashoffset` equal to `stroke-dasharray` in `init()` so strokes start
 
 **Self-check before returning:** Search your `init()` function for any `opacity: 1` or missing `opacity` attribute. Every element must have `opacity: 0` (or `opacity: "0"`) set. If you find any element without it, add `opacity: 0` now.
 
-## ③ Viz panel fills at least 80% of available space
+### `timelineAction` REVEALS pre-created elements — it does NOT create-and-hide them
+
+Elements are created ONCE in `init()` (at `opacity: 0`). `timelineAction` looks them
+up and tweens them TO `opacity: 1`. **Never create a new element inside `timelineAction`
+and tween it toward `opacity: 0`** — that both leaks a fresh element per call and animates
+it to invisible, so the panel stays blank no matter what fires. This is the exact inverse
+of what you want.
+
+```js
+/* WRONG — creates a NEW circle on every call and animates it AWAY (to opacity 0).
+   Nothing pre-exists to reveal; the panel never shows anything. */
+case "drawCircle":
+  tl.to(svgEl("circle", { cx: params.r*50, cy: 300, r: params.r*50 }),
+        { opacity: 0, duration: 0.5 }, t);   /* ← target opacity 0 = hide. broken. */
+  break;
+
+/* RIGHT — look up the element made in init() and tween it TO opacity 1 (reveal). */
+case "drawCircle":
+  tl.to(fills[params.r], { opacity: 1, duration: 0.5, ease: "power2.out" }, t);
+  break;
+```
+
+Rule of thumb: inside `timelineAction`, the target of an opacity tween is almost always
+`1` (reveal) or a dim value like `0.15` (de-emphasize a still-visible element) — never
+`0` on an element you just created in the same case.
+
+## ③ Viz panel fills at least 80% of available space — AND every element fits inside it
 
 viewBox must use the full 500×500 (or equivalent). No small thumbnail circles in the corner.
-Circles: radii in the range `r * 28` px for 8 circles → outermost at ~224px, leaving ~26px margin. Scale up if fewer circles.
+
+**Right-size it: the main diagram's largest extent should span ~70–90% of the viewBox —
+never overflow it, never shrink to a tiny cluster.** Concretely, in a 500×500 box the
+outermost element's radius/half-width should land between ~175 and ~240 px. Too big →
+it clips off-screen; too small → a lonely dot in the middle. Pick the scale so the
+biggest thing lands in that band.
+
+**Every drawn shape must fit inside the viewBox. Compute the scale from the LARGEST
+thing you draw, not the smallest.** The classic bug: scaling by radius index without
+checking the maximum. If you draw circles for `r = 1..64` centered at `(250, 250)` in
+a 500×500 box, the max radius must satisfy `centerY + maxR ≤ 500` and `maxR ≤ 250` — so
+`scale = 250 / 64 ≈ 3.9` px per unit, NOT `20`. A hardcoded `r * 20` gives the outermost
+circle radius `1280` — five times outside the box — and nothing but the tiny inner circles
+is ever visible.
+
+```
+BAD  (radius 20*r → r=64 reaches 1280px, far outside a 500 box; only a few show):
+  for (var r = 1; r <= 64; r++) svgEl("circle", { cx:250, cy:250, r: r*20 }, svg);
+
+GOOD (scale chosen so the LARGEST radius fits: maxR = 250, so scale = 250/N):
+  var N = 64, maxR = 240;              /* 240 leaves a 10px margin in a 500 box */
+  var scale = maxR / N;                /* ≈ 3.75 px per unit */
+  for (var r = 1; r <= N; r++) svgEl("circle", { cx:250, cy:250, r: r*scale }, svg);
+```
+
+### Center on the viewBox's ACTUAL center — not an arbitrary/default value (MANDATORY)
+
+The point everything is drawn around (circle centers, the shared anchor, the main
+diagram) MUST equal the geometric center of your declared viewBox. For a
+`viewBox = "0 0 W H"` that center is **exactly `(W/2, H/2)`** — for the standard
+`0 0 500 500` that is `(250, 250)`. Do NOT use `300`, `256`, `200`, or a copy-pasted
+value from another plugin: an off-center diagram drifts partly off-screen even when
+each radius technically fits. Define the center ONCE and reuse it everywhere.
+
+If you expose a config, it MUST carry these explicit center values (matching the
+viewBox), and `init` must read them — never leave the center to a default. If you
+hardcode (preferred), hardcode `CX = W/2, CY = H/2` from the same viewBox you declare.
+
+**EVERY view uses the SAME center — including any "final", "zoom-out", "all 64
+circles", or summary view.** A common bug: the main diagram is centered at `(250,250)`
+but a second/final cluster is offset to `cx: 400` (or scaled up) and clips off the
+right edge. Do NOT offset or rescale a later view off-center. Reuse the single
+`CX, CY` for every cluster, and if a later view has MORE elements (e.g. 64 circles
+instead of 8), shrink its per-unit scale so its largest radius still satisfies
+`CX + maxR ≤ W` and `CY + maxR ≤ H` — it must stay fully on-screen and centered,
+never `cx:400, r:224` (right edge 624 > 500 → clipped).
+
+```
+BAD  — viewBox 0 0 500 500 but drawn around (300,220): diagram sits off-center, clips right/bottom:
+  "config": { "plugin": "p", "config": {} },
+  "code": "...init:function(svg){ var CX=300, CY=220; for(var r=1;r<=8;r++) svgEl('circle',{cx:CX,cy:CY,r:r*28},svg); }..."
+
+GOOD — center = exact viewBox center (250,250); config carries it explicitly if used:
+  "config": { "plugin": "p", "config": { "viewBox":"0 0 500 500", "cx":250, "cy":250 } },
+  "code": "...init:function(svg,c){ var CX=c.cx, CY=c.cy; for(var r=1;r<=8;r++) svgEl('circle',{cx:CX,cy:CY,r:r*28},svg); }..."
+  /* or hardcoded: var CX=250, CY=250;  (250 = 500/2) */
+```
+
+If only the first few of many circles ever animate on-screen, draw only those few at a
+large scale rather than all N at a scale that pushes most off-frame.
 
 ## ④ Dark theme colors — use exactly these values
 
@@ -544,6 +629,36 @@ case "showFormula":
 
 **Do not return without completing this check.** A missing case = a broken lesson.
 
+# Config: HARDCODE your constants — do not read from `config` (NON-NEGOTIABLE)
+
+**Strongly preferred: hardcode every layout constant directly in your `code`
+(`var CX = 250, BASE_Y = 450, SCALE = 25, N = 8;`) and read NOTHING off the `config`
+parameter.** Return `"config": { "plugin": "your_name", "config": {} }`. This is the
+simplest, most reliable path and it is what you should do unless you have a specific
+reason not to.
+
+**Why this is mandatory-by-default:** the runtime calls `init(svg, config.config)`.
+If your `init()` reads `var N = config.circleCount;` but you leave `config.config`
+empty, `N` is `undefined`, your `for (var r = N; ...)` loop runs ZERO times, nothing is
+appended to the SVG, and the panel is blank — even though the code is otherwise valid.
+The pipeline REJECTS any plugin that reads a `config.<field>` you did not populate.
+
+```
+BAD — reads config.* but the returned config is empty → REJECTED, blank panel:
+  "config": { "plugin": "nested_circles", "config": {} },
+  "code": "...init: function(svg, c){ var N=c.circleCount, CX=c.cx; for(var r=N;r>=1;r--){...} }..."
+
+GOOD (do this) — hardcode everything, read nothing off config:
+  "config": { "plugin": "nested_circles", "config": {} },
+  "code": "...init: function(svg){ var N=8, CX=250, BASE_Y=450, SCALE=25; for(var r=N;r>=1;r--){...} }..."
+```
+
+If you genuinely must read a `config.<field>`, then EVERY such field MUST appear in the
+returned `config.config` with a real value — but prefer hardcoding and avoid this
+entirely. Before returning, grep your own `code`: if you see `config.` anywhere other
+than the `init` parameter list, either delete it (hardcode the value) or add that exact
+key to `config.config`.
+
 # Output Format
 
 Return a JSON object via the `output` tool:
@@ -553,7 +668,7 @@ Return a JSON object via the `output` tool:
   "mode": "custom_code",
   "config": {
     "plugin": "plugin_name",
-    "config": { ... config object for L.viz() ... }
+    "config": { ... config object for L.viz() — MUST contain every config.X the code reads ... }
   },
   "code": "window.EXPLAINER_VIZ = (function() { ... })();",
   "actions_implemented": ["action1", "action2", ...]

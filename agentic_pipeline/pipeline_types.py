@@ -341,12 +341,51 @@ def assert_gate_spec_shape(spec, plan_node=None):
                  f"gate {spec['gate_id']}: after_act mismatch with plan")
 
 
+def _referenced_config_fields(code):
+    """Return the set of config-object field names the plugin `code` reads.
+
+    Detects the config parameter of `init(svg, <cfg>)`, follows a
+    `config = <cfg>` reassignment, and collects `<holder>.<field>` reads off any
+    such holder (plus the conventional names `config`/`vizConfig`). Used to catch
+    the "reads config.circleCount but returns an empty config" blank-panel bug.
+
+    @param code: plugin source (str).
+    @returns: set[str] of field names read off the config object. Empty if the
+        code reads nothing off config (e.g. fully hardcoded plugins).
+    """
+    if not isinstance(code, str) or not code:
+        return set()
+
+    holders = {"config", "vizConfig"}
+    # init: function(svgElement, vizConfig)  → second param is the config holder
+    m = _re.search(r"init\s*:\s*function\s*\(\s*[A-Za-z_$][\w$]*\s*,\s*([A-Za-z_$][\w$]*)\s*\)", code)
+    if m:
+        holders.add(m.group(1))
+    # var config = vizConfig;  /  config = c;  → alias reassignments
+    for hm in _re.finditer(r"\b([A-Za-z_$][\w$]*)\s*=\s*([A-Za-z_$][\w$]*)\s*;", code):
+        lhs, rhs = hm.group(1), hm.group(2)
+        if rhs in holders:
+            holders.add(lhs)
+
+    fields = set()
+    for h in holders:
+        for fm in _re.finditer(r"\b" + _re.escape(h) + r"\.([A-Za-z_$][\w$]*)", code):
+            fld = fm.group(1)
+            # skip method-ish / prototype accessors that aren't data config keys
+            if fld not in ("hasOwnProperty", "config", "prototype", "constructor",
+                           "call", "apply", "bind"):
+                fields.add(fld)
+    return fields
+
+
 def assert_viz_spec_shape(spec):
     """Raise TypeError unless `spec` matches VizSpec for its declared mode.
 
     @param spec: viz_spec dict emitted by stage 3 (or loaded from viz_spec.json).
-    @raises TypeError: if `mode` is unknown, or if the mode-specific code field
-        (code / mobject_plugin_code / three_js_code / preset) is missing or empty.
+    @raises TypeError: if `mode` is unknown, if the mode-specific code field
+        (code / mobject_plugin_code / three_js_code / preset) is missing or empty,
+        or (custom_code) if the plugin reads config fields that the returned config
+        object never populates — which renders a blank panel.
     """
     _require(isinstance(spec, dict), "viz spec not dict")
     _require(spec.get("mode") in _VALID_VIZ_MODES,
@@ -354,6 +393,19 @@ def assert_viz_spec_shape(spec):
     if spec["mode"] == "custom_code":
         _require(isinstance(spec.get("code"), str) and spec["code"].strip(),
                  "custom_code mode requires non-empty 'code'")
+        # Config completeness: every config.<field> the code reads must exist in the
+        # returned config object, else init()'s drawing loops run on undefined and
+        # nothing is appended to the SVG (the v1/v2/v4 blank-panel bug).
+        referenced = _referenced_config_fields(spec["code"])
+        populated = set((spec.get("config") or {}).get("config", {}).keys())
+        missing = referenced - populated
+        if missing:
+            raise TypeError(
+                f"[pipeline contract] viz plugin reads config field(s) {sorted(missing)} "
+                f"that are not populated in config.config (present: {sorted(populated)}). "
+                f"init() would run on undefined values and render a blank panel. "
+                f"Populate every referenced config field, or hardcode and read none."
+            )
     elif spec["mode"] == "mobject_plugin":
         _require(isinstance(spec.get("mobject_plugin_code"), str) and spec["mobject_plugin_code"].strip(),
                  "mobject_plugin mode requires non-empty 'mobject_plugin_code'")

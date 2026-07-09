@@ -483,6 +483,52 @@ def assemble_content(plan, act_specs, gate_specs, viz_spec):
     return "\n".join(lines)
 
 
+def _escape_ctrl_in_quoted_strings(code):
+    """Escape raw newlines/CR/tabs that appear INSIDE '...' or "..." string literals.
+
+    LLMs sometimes emit a JS string literal broken across physical lines, e.g.
+        rLab[r].textContent = "r
+         = " + r;
+    A raw newline inside a single/double-quoted string is a hard parse error
+    ("Invalid or unexpected token") — which blanks the whole viz plugin. This walks
+    the source tracking string state and replaces literal control chars with their
+    escape sequences (\\n, \\r, \\t) only when inside a '...'/"..." literal.
+
+    Backtick template literals are left untouched — newlines are legal there.
+
+    @param code: JS source (str) or None.
+    @returns: repaired source with no raw control chars inside quoted strings.
+    """
+    if not code:
+        return code
+    out = []
+    i, n = 0, len(code)
+    quote = None  # None | '"' | "'"  (backticks intentionally excluded)
+    in_backtick = False
+    while i < n:
+        c = code[i]
+        if quote:
+            if c == '\\' and i + 1 < n:
+                out.append(c); out.append(code[i + 1]); i += 2; continue
+            if c == '\n': out.append('\\n'); i += 1; continue
+            if c == '\r': out.append('\\r'); i += 1; continue
+            if c == '\t': out.append('\\t'); i += 1; continue
+            if c == quote: quote = None
+            out.append(c); i += 1; continue
+        if in_backtick:
+            if c == '\\' and i + 1 < n:
+                out.append(c); out.append(code[i + 1]); i += 2; continue
+            if c == '`': in_backtick = False
+            out.append(c); i += 1; continue
+        # not in any string
+        if c == '"' or c == "'":
+            quote = c
+        elif c == '`':
+            in_backtick = True
+        out.append(c); i += 1
+    return ''.join(out)
+
+
 def _normalize_viz_code(code):
     """Normalize viz code that may have been returned as a single-line JSON string.
 
@@ -554,15 +600,31 @@ def assemble_viz(viz_spec):
     """
     mode = viz_spec["mode"]
 
+    def _repair(c):
+        import re as _re
+        # 0) Protect the ';' inside HTML entities (&pi; &theta; &#8347; ...) from
+        #    _normalize_viz_code's statement-splitting — that ';' is never a JS
+        #    statement terminator. Swap to a placeholder, normalize, swap back.
+        _SENT = ""
+        c = _re.sub(r'&(#?\w+);', r'&\1' + _SENT, c)
+        # 1) raw newlines inside quoted strings (v3 blank-panel bug), then normalize.
+        c = _normalize_viz_code(_escape_ctrl_in_quoted_strings(c))
+        c = c.replace(_SENT, ';')
+        # 2) a stray trailing comma at EOF (LLMs sometimes end the IIFE with
+        #    `})(),` instead of `})();` — a file ending in a bare comma is always
+        #    invalid JS and blanks the whole plugin).
+        c = _re.sub(r',(\s*)$', r';\1', c)
+        return c
+
     if mode == "custom_code":
         code = viz_spec.get("code") or None
-        return _normalize_viz_code(code) if code else None
+        return _repair(code) if code else None
     elif mode == "mobject_plugin":
         code = viz_spec.get("mobject_plugin_code") or None
-        return _normalize_viz_code(code) if code else None
+        return _repair(code) if code else None
     elif mode == "three_js":
         code = viz_spec.get("three_js_code") or None
-        return _normalize_viz_code(code) if code else None
+        return _repair(code) if code else None
     elif mode == "preset":
         # Presets are inlined into the content file via L.viz()
         return None

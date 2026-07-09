@@ -34,6 +34,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 from assembler import assemble_content, assemble_viz, AssemblyError
@@ -431,7 +432,75 @@ def _check_viz_layout(code, viewbox_w=800, viewbox_h=400):
             f"Z.<ZONE> references — layout is freehand. Define `var Z = {{...}}` "
             f"and place every overlay inside a named zone."
         )
+
+    # (a) Geometry that scales past the viewBox by a wide margin (the v5 bug:
+    #     `r: r*20` in a loop up to 64 → radius 1280 in a 500-wide box). Pair each
+    #     `<attr>: <ident> * <K>` scale with the largest loop bound and flag when the
+    #     product blows well past the box.
+    _bound_max = max(viewbox_w, viewbox_h)
+    loop_bounds = [int(m) for m in _re.findall(r'<=\s*(\d{2,4})', code)]
+    hi_bound = max(loop_bounds) if loop_bounds else 0
+    if hi_bound:
+        for m in _re.finditer(r'\b(?:r|cx|cy|ca|radius)\s*:\s*[A-Za-z_]\w*\s*\*\s*(\d{1,4})', code):
+            scale = int(m.group(1))
+            if hi_bound * scale > 2 * _bound_max:
+                warnings.append(
+                    f"geometry overflow: a radius/coord scales as index*{scale} with a "
+                    f"loop up to {hi_bound} → max ~{hi_bound*scale}px, far outside the "
+                    f"~{_bound_max}px viewBox. Choose scale = (maxRadius / N) so the "
+                    f"largest element fits, or draw only the few indices you animate."
+                )
+                break
+
+    # (b) timelineAction that CREATES an element and tweens its own opacity toward 0
+    #     (the v6 bug: `tl.to(svgEl(...), { ... opacity: 0 ... }, t)`), which hides the
+    #     freshly-made element instead of revealing a pre-created one.
+    for m in _re.finditer(r'tl\.(?:to|fromTo)\(\s*svgEl\(', code):
+        tail = code[m.end(): m.end() + 400]
+        if _re.search(r'opacity\s*:\s*0(?!\.\d*[1-9])(?![\.\d])', tail):
+            warnings.append(
+                "reveal inverted: a timelineAction tween creates an element inline via "
+                "svgEl(...) and animates it toward opacity:0 — this hides a brand-new "
+                "element every call, so nothing shows. Create elements in init() at "
+                "opacity:0 and tween the looked-up element TO opacity:1 here."
+            )
+            break
+
     return warnings
+
+
+# Known LaTeX command names that legitimately appear in on-screen math strings.
+# The reviewer LLM often re-emits these with a lone backslash (\pi), which JS
+# parses as an invalid escape and silently drops the backslash — so KaTeX then
+# renders "pi" as three italic letters instead of the π symbol. We re-double the
+# backslash in the JS *source* so the runtime string keeps its single backslash.
+_LATEX_CMDS = [
+    "pi", "theta", "alpha", "beta", "gamma", "delta", "lambda", "mu", "phi",
+    "cdot", "cdots", "times", "div", "pm", "mp", "frac", "sqrt", "sum", "prod",
+    "int", "geq", "leq", "neq", "approx", "equiv", "ldots", "dots", "infty",
+    "cancel", "left", "right", "quad", "qquad", "text", "mathbb", "mathrm",
+    "begin", "end", "cos", "sin", "tan", "log", "ln",
+]
+
+
+def _fix_latex_escapes(js_source):
+    """Re-double lone backslashes before known LaTeX commands in JS source text.
+
+    Operates on the JS *source string*: turns a single `\\pi` (which JS would parse
+    as invalid-escape → `pi`, losing the backslash and breaking KaTeX) into `\\\\pi`
+    (which parses to a real `\\pi` at runtime). Idempotent — already-doubled `\\\\pi`
+    is skipped via a negative lookbehind, and non-LaTeX escapes (`\\n`, `\\t`, `\\"`)
+    are untouched because they are not in the whitelist.
+
+    @param js_source: assembled/reviewed content JS as a str.
+    @returns: the same source with lone LaTeX-command backslashes doubled.
+    """
+    import re as _re
+    out = js_source
+    for cmd in _LATEX_CMDS:
+        # lone backslash (not preceded by another backslash) + command + word boundary
+        out = _re.sub(r'(?<!\\)\\' + cmd + r'\b', r'\\\\' + cmd, out)
+    return out
 
 
 ALLOWED_DSL = {"say","show","do","card","inline","title","duration",
@@ -633,12 +702,15 @@ def _validate_narrative(narrative):
 # ─────────────────────────────────────────────────────────────────────
 
 def stage2_structure(problem_text, narrative, objectives=None, model="gemini-2.5-flash",
-                     planner_prompt_path=None):
+                     planner_prompt_path=None, timing_sink=None):
     """Stage 2: Convert natural-language narrative into structured lesson_plan.json.
 
     @param planner_prompt_path: optional path to an alternate planner prompt. When
         given, it replaces prompts/planner.md for this run so planner variants can
         be A/B-tested without editing the canonical prompt.
+    @param timing_sink: optional dict; if given, populated with
+        timing_sink["planner_llm_seconds"] = elapsed wall-clock time of the main
+        planner LLM call (excludes retries), for cross-variant comparison.
     """
     print("\n=== Stage 2: Structuring lesson plan ===")
 
@@ -650,7 +722,12 @@ def stage2_structure(problem_text, narrative, objectives=None, model="gemini-2.5
         user_msg += f"\n## Learning Objectives\n\n{objectives}\n"
 
     schema = _schema_for_tool("lesson_plan")
+    _t0 = time.time()
     plan = call_llm(system_prompt, user_msg, schema, model=model)
+    _elapsed = time.time() - _t0
+    print(f"  [timing] planner LLM call: {_elapsed:.2f}s")
+    if timing_sink is not None:
+        timing_sink["planner_llm_seconds"] = _elapsed
 
     errors = validate_plan(plan)
     if errors:
@@ -732,6 +809,29 @@ Viz panel: {node.get('viz_panel', 'none')}
     return ctx
 
 
+def _normalize_act_spec(spec):
+    """Coerce empty/typeless beat `card` objects to null in-place.
+
+    Gemini's restricted schema dialect can't express the card field's
+    `oneOf: [null, {type,...}]`, so `_clean_schema_for_gemini` presents it as a
+    bare object and Gemini emits `card: {}` for beats with no card. An empty (or
+    type-less) card means "no card" — normalize it to None so it passes
+    validate_act_spec's original oneOf schema and assembles correctly.
+
+    @param spec: an act_spec dict (mutated in place).
+    @returns: the same spec.
+    """
+    if not isinstance(spec, dict):
+        return spec
+    for beat in spec.get("beats", []) or []:
+        if not isinstance(beat, dict):
+            continue
+        card = beat.get("card")
+        if isinstance(card, dict) and not card.get("type"):
+            beat["card"] = None
+    return spec
+
+
 def stage2_author_acts(plan, model="gemini-2.5-flash"):
     """Call worker agents to produce act specs for every act in the plan."""
     print("\n=== Stage 3: Authoring acts ===")
@@ -760,6 +860,7 @@ def stage2_author_acts(plan, model="gemini-2.5-flash"):
             spec = call_llm(system_prompt, user_msg, schema, model=model)
             spec["act_id"] = act_id
             spec["title"] = node["title"]
+            _normalize_act_spec(spec)  # empty card:{} -> null (Gemini schema quirk)
 
             errors = validate_act_spec(spec, plan, plan_node=node)
             if errors:
@@ -767,6 +868,7 @@ def stage2_author_acts(plan, model="gemini-2.5-flash"):
                 spec = _retry_with_errors(system_prompt, user_msg, schema, errors, model)
                 spec["act_id"] = act_id
                 spec["title"] = node["title"]
+                _normalize_act_spec(spec)
                 errors = validate_act_spec(spec, plan, plan_node=node)
                 if errors:
                     failures.append((act_id, f"validation after retry: {errors}"))
@@ -1154,6 +1256,184 @@ def stage3b_viz_visual_revision(
 
 
 # ─────────────────────────────────────────────────────────────────────
+# Single-agent mega stage (experiment): replaces stage2_structure +
+# stage2_author_acts + stage2b_author_gates + stage3_author_viz with one
+# LLM call. Used for the single-vs-multi-agent prompt comparison — see
+# prompts/variants/v6_single_agent_mega.md and --single-agent-prompt.
+# ─────────────────────────────────────────────────────────────────────
+
+def _build_single_agent_schema():
+    """
+    Build the combined output schema for the single-agent mega stage by
+    merging the existing per-stage schemas (lesson_plan, act_spec, gate_spec,
+    viz_spec) rather than hand-duplicating field lists that could drift out
+    of sync with schemas/*.json.
+
+    Node shape differs from the normal LessonPlan: act nodes carry full
+    "beats" (ActSpec shape) instead of "beat_outline", and gate nodes carry
+    the full GateSpec fields inline instead of just gate_type/after_act —
+    because this single call produces fully-authored content, not an outline.
+
+    @returns: dict — flat JSON schema (no $ref/$defs/oneOf) safe to pass
+        directly to call_llm() for any provider.
+    """
+    lesson_plan_schema = json.loads((PIPELINE_DIR / "schemas" / "lesson_plan.json").read_text())
+    act_spec_schema = json.loads((PIPELINE_DIR / "schemas" / "act_spec.json").read_text())
+    gate_spec_schema = json.loads((PIPELINE_DIR / "schemas" / "gate_spec.json").read_text())
+    viz_spec_schema = json.loads((PIPELINE_DIR / "schemas" / "viz_spec.json").read_text())
+
+    act_node_def = lesson_plan_schema["$defs"]["act_node"]
+    gate_node_def = lesson_plan_schema["$defs"]["gate_node"]
+    marker_node_def = lesson_plan_schema["$defs"]["marker_node"]
+
+    node_properties = {
+        "type": {"type": "string", "enum": ["act", "gate", "marker"]},
+        "id": {"type": "string"},
+        # act fields (beat_outline replaced by full "beats")
+        "title": act_node_def["properties"]["title"],
+        "objective": act_node_def["properties"]["objective"],
+        "viz_panel": act_node_def["properties"]["viz_panel"],
+        "beats": act_spec_schema["properties"]["beats"],
+        # gate fields — full GateSpec content inline (gate_id is injected later,
+        # never produced by the LLM, same contract as the normal gate worker)
+        "gate_type": gate_node_def["properties"]["gate_type"],
+        "after_act": gate_node_def["properties"]["after_act"],
+        **{k: v for k, v in gate_spec_schema["properties"].items()
+           if k not in ("gate_type", "after_act")},
+        # marker field
+        "label": marker_node_def["properties"]["label"],
+    }
+
+    return {
+        "type": "object",
+        "required": ["meta", "problem", "viz_requirements", "nodes", "viz_spec"],
+        "properties": {
+            "meta": lesson_plan_schema["properties"]["meta"],
+            "problem": lesson_plan_schema["properties"]["problem"],
+            "viz_requirements": lesson_plan_schema["properties"]["viz_requirements"],
+            "nodes": {
+                "type": "array",
+                "description": "Ordered act/gate/marker nodes, fully authored (beats + gate content inline).",
+                "items": {"type": "object", "required": ["type"], "properties": node_properties},
+            },
+            "viz_spec": {
+                "type": "object",
+                "required": ["mode"],
+                "properties": viz_spec_schema["properties"],
+            },
+        },
+    }
+
+
+def _split_single_agent_output(mega, model="gemini-2.5-flash"):
+    """
+    Split the single-agent mega response into the normal pipeline shapes
+    (plan, act_specs, gate_specs, viz_spec) so it can flow through the same
+    assert_*_shape guards and assemble_content()/assemble_viz() as the
+    multi-agent path — no separate, unguarded code path.
+
+    @param mega: dict — raw output of the single-agent LLM call (see
+        _build_single_agent_schema for shape).
+    @returns: (plan, act_specs, gate_specs, viz_spec)
+    """
+    nodes = mega.get("nodes", [])
+    act_specs, gate_specs = {}, {}
+    plan_nodes = []
+
+    for node in nodes:
+        ntype = node.get("type")
+        if ntype == "act":
+            act_id = node["id"]
+            act_specs[act_id] = {
+                "act_id": act_id,
+                "title": node.get("title", ""),
+                "viz_panel": node.get("viz_panel"),
+                "beats": node.get("beats", []),
+            }
+            plan_nodes.append({
+                "type": "act", "id": act_id, "title": node.get("title", ""),
+                "objective": node.get("objective", ""), "viz_panel": node.get("viz_panel"),
+                "beat_outline": [],  # not produced in single-agent mode; beats are authoritative
+            })
+        elif ntype == "gate":
+            gate_id = node["id"]
+            gate_spec = {k: v for k, v in node.items() if k not in ("type", "id")}
+            gate_spec["gate_id"] = gate_id  # injected, same contract as stage2b_author_gates
+            gate_specs[gate_id] = gate_spec
+            plan_nodes.append({
+                "type": "gate", "id": gate_id, "gate_type": node.get("gate_type"),
+                "after_act": node.get("after_act"),
+                "wrong_path_acts": node.get("wrong_path_acts", []),
+            })
+        elif ntype == "marker":
+            plan_nodes.append({
+                "type": "marker", "label": node.get("label", ""), "after_act": node.get("after_act"),
+            })
+
+    plan = {
+        "meta": mega["meta"],
+        "problem": mega["problem"],
+        "viz_requirements": mega.get("viz_requirements", {}),
+        "nodes": plan_nodes,
+    }
+    viz_spec = mega.get("viz_spec")
+    return plan, act_specs, gate_specs, viz_spec
+
+
+def stage_single_agent_mega(problem_text, narrative, model="gemini-2.5-flash",
+                            single_agent_prompt_path=None, timing_sink=None):
+    """
+    Single-agent experiment stage: one LLM call replaces stage2_structure +
+    stage2_author_acts + stage2b_author_gates + stage3_author_viz, producing
+    a fully-authored lesson (plan + beats + gate content + viz code) in one
+    JSON response — no multi-stage handoff.
+
+    Runs the SAME structural assertions as the multi-agent path
+    (assert_plan_shape / assert_act_spec_shape / assert_gate_spec_shape /
+    assert_viz_spec_shape / assert_viz_implements_plan_actions) so this
+    experimental path gets identical enforcement, not a weaker one.
+
+    @param single_agent_prompt_path: path to the mega prompt (e.g.
+        prompts/variants/v6_single_agent_mega.md). Required — there is no
+        canonical single-agent prompt to default to.
+    @param timing_sink: optional dict; if given, populated with
+        timing_sink["single_agent_llm_seconds"] = elapsed wall-clock time of
+        the mega LLM call, for cross-variant comparison with stage2_structure.
+    @returns: (plan, act_specs, gate_specs, viz_spec)
+    """
+    print("\n=== Single-agent mega stage (Stage 2+3a+3b+4 combined) ===")
+
+    system_prompt = load_prompt("planner", override_path=single_agent_prompt_path)
+    user_msg = f"## Solution & Pedagogical Narrative\n\n{narrative}\n\n---\n\n"
+    user_msg += f"## Math Problem\n\n{problem_text}\n"
+
+    schema = _build_single_agent_schema()
+
+    _t0 = time.time()
+    mega = call_llm(system_prompt, user_msg, schema, model=model)
+    _elapsed = time.time() - _t0
+    print(f"  [timing] single-agent mega LLM call: {_elapsed:.2f}s")
+    if timing_sink is not None:
+        timing_sink["single_agent_llm_seconds"] = _elapsed
+
+    plan, act_specs, gate_specs, viz_spec = _split_single_agent_output(mega, model=model)
+
+    # Same fail-fast contract as the multi-agent path — no weaker guard for
+    # the experimental single-call path.
+    assert_plan_shape(plan)
+    node_index = _plan_node_index(plan)
+    for act_id, spec in act_specs.items():
+        assert_act_spec_shape(spec, plan_node=node_index.get(act_id))
+    for gate_id, spec in gate_specs.items():
+        assert_gate_spec_shape(spec, plan_node=node_index.get(gate_id))
+    if viz_spec:
+        assert_viz_spec_shape(viz_spec)
+        assert_viz_implements_plan_actions(viz_spec, plan)
+
+    return plan, act_specs, gate_specs, viz_spec
+
+
+# ─────────────────────────────────────────────────────────────────────
 # Stage 4: Assemble
 # ─────────────────────────────────────────────────────────────────────
 
@@ -1351,6 +1631,10 @@ def stage5_review(plan, content_js, viz_js=None, screenshot_path=None, model="ge
     reviewed_content = _reject_if_invalid_dsl(reviewed_content, content_js, "content")
     if viz_js:
         reviewed_viz = _reject_if_invalid_dsl(reviewed_viz, viz_js, "viz")
+
+    # Repair lone LaTeX backslashes the reviewer may have introduced (\pi -> \\pi
+    # in source) so on-screen KaTeX renders symbols, not italic letters.
+    reviewed_content = _fix_latex_escapes(reviewed_content)
 
     return reviewed_content, reviewed_viz, issues
 
@@ -1657,6 +1941,12 @@ Examples:
                              "instead of prompts/planner.md. Enables side-by-side "
                              "planner prompt experiments (see scripts/run_planner_variants.sh). "
                              "Example: --planner-prompt prompts/variants/planner_v2.md")
+    parser.add_argument("--single-agent-prompt", default=None,
+                        help="Path to a single-agent mega prompt (e.g. "
+                             "prompts/variants/v6_single_agent_mega.md). When given, ONE LLM "
+                             "call replaces the normal Stage 2/3a/3b/4 sequence, producing the "
+                             "full plan + beats + gate content + viz code at once. Assembly and "
+                             "HTML build proceed exactly as in the normal flow afterward.")
 
     args = parser.parse_args()
     # --viz-model defaults to --model when not explicitly specified
@@ -1712,6 +2002,30 @@ Examples:
         print("\nDone (stage: narrative). Edit the narrative, then re-run with --narrative.")
         return
 
+    # ── Single-agent mega stage (experiment): replaces stage2_structure +
+    # stage2_author_acts + stage2b_author_gates + stage3_author_viz with one
+    # LLM call. Populating plan/act_specs/gate_specs/viz_spec here makes the
+    # normal "if not X:" stage guards below no-op for stages this call covers,
+    # so assembly + build proceed exactly as in the normal flow.
+    if args.single_agent_prompt and not plan:
+        if args.problem:
+            problem_path = Path(args.problem)
+            problem_text = problem_path.read_text() if problem_path.exists() else args.problem
+        else:
+            problem_text = _load_problem_text(work_dir)
+
+        timing = {}
+        plan, act_specs, gate_specs, viz_spec = stage_single_agent_mega(
+            problem_text, narrative, model=args.model,
+            single_agent_prompt_path=args.single_agent_prompt, timing_sink=timing,
+        )
+        save_artifacts(work_dir, plan=plan, act_specs=act_specs, gate_specs=gate_specs,
+                       viz_spec=viz_spec)
+        if timing:
+            with open(work_dir / "timing.json", "w") as f:
+                json.dump(timing, f, indent=2)
+        print(f"  Saved plan+acts+gates+viz to: {work_dir}")
+
     # ── Stage 2: Structure Agent (narrative → lesson_plan.json) ──
     if not plan and narrative:
         # Recover problem text for stage 2
@@ -1726,9 +2040,13 @@ Examples:
             obj_path = Path(args.objectives)
             objectives = obj_path.read_text() if obj_path.exists() else args.objectives
 
+        timing = {}
         plan = stage2_structure(problem_text, narrative, objectives, model=args.model,
-                                planner_prompt_path=args.planner_prompt)
+                                planner_prompt_path=args.planner_prompt, timing_sink=timing)
         save_artifacts(work_dir, plan=plan)
+        if timing:
+            with open(work_dir / "timing.json", "w") as f:
+                json.dump(timing, f, indent=2)
         print(f"  Saved plan to: {work_dir / 'lesson_plan.json'}")
 
     if args.stage == "plan":

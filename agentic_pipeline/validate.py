@@ -293,6 +293,25 @@ def validate_viz_spec(viz_spec, plan=None, all_acts=None):
     if mode == "preset" and not viz_spec.get("preset"):
         errors.append("preset mode requires 'preset' field")
 
+    # Config completeness (soft — feeds the viz retry loop with actionable feedback;
+    # assert_viz_spec_shape enforces the same rule as a hard backstop). Every
+    # config.<field> the plugin reads must be populated in the returned config.
+    if mode == "custom_code" and viz_spec.get("code"):
+        try:
+            from pipeline_types import _referenced_config_fields
+            referenced = _referenced_config_fields(viz_spec["code"])
+            populated = set((viz_spec.get("config") or {}).get("config", {}).keys())
+            missing = referenced - populated
+            if missing:
+                errors.append(
+                    f"config incomplete: plugin reads config field(s) {sorted(missing)} "
+                    f"but config.config only has {sorted(populated)}. Populate every "
+                    f"referenced field with a real value (or hardcode and read none), "
+                    f"else init() runs on undefined and the panel renders blank."
+                )
+        except Exception:
+            pass  # never let the helper break validation
+
     # Cross-check: all viz actions used in acts should be implemented
     if all_acts and viz_spec.get("actions_implemented"):
         implemented = set(viz_spec["actions_implemented"])

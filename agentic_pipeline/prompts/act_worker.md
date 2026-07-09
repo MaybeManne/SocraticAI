@@ -115,8 +115,41 @@ Write narration like the best math YouTube creators. Rules:
 - **Pause for visual beats.** After a complex animation, give a beat of breathing room before the next idea. A short sentence after a `.do()` lets the visual land.
 - **Pacing: ~2.5 words/second** (150 WPM). A 10-word sentence ≈ 4 seconds.
 - **Each beat = 1–3 sentences.** Don't cram. Let visuals carry weight.
-- **LaTeX:** Use `$...$` for inline math. Narration should read naturally even without LaTeX rendering.
 - **Avoid:** "Let me...", "I will...", "In this act...", "As we discussed...". Just teach directly.
+
+## Narration `say` text MUST be spoken-word only — NO LaTeX (CRITICAL)
+
+The `say` field is sent verbatim to a text-to-speech engine. It must read like a
+human talking. **Spell every mathematical expression out in words. Never put `$`,
+`\pi`, `\geq`, `^`, `\frac`, `\cdot`, backslashes, carets, or any LaTeX command
+inside a `say` string.** TTS reads `$` aloud as "dollar" and mangles `\pi` into
+"backslash pi", garbling or skipping the whole sentence.
+
+On-screen math still gets full LaTeX — but it lives in the `card` / `.show()` /
+`.card()` content, NOT in `say`. Say it in words; show it in LaTeX.
+
+| Field | Math style |
+|---|---|
+| `say` (spoken) | words only: "pi times four k minus one", "two thousand twenty-three pi", "n squared" |
+| `card` / `.show()` / `.card()` content (on-screen) | LaTeX fine: `$\pi(4k-1)$`, `$2023\pi$`, `$n^2$` |
+
+```
+BAD  (raw LaTeX goes to TTS → "dollar backslash pi ... geq dollar"):
+  A.say("We want the smallest $n$ with $\\pi n(2n+1) \\geq 2023\\pi$.")
+
+GOOD (spoken words in say, LaTeX only in the card):
+  A.say("We want the smallest n where pi times n times two-n-plus-one is at least two-thousand twenty-three pi.")
+   .show({ type: "latex", content: "\\pi\\,n(2n+1) \\geq 2023\\pi", highlight: true });
+
+BAD:  A.say("The k-th ring has area $\\pi(2k)^2 - \\pi(2k-1)^2$.")
+GOOD: A.say("The k-th ring's area is pi times two-k squared, minus pi times two-k-minus-one squared.")
+       .show("$\\pi(2k)^2 - \\pi(2k-1)^2$");
+```
+
+Spelling conventions for spoken math: `2n` → "two n", `2k-1` → "two-k-minus-one",
+`n^2` → "n squared", `π` / `\pi` → "pi", `≥` / `\geq` → "at least" or "is greater
+than or equal to", `\frac{a}{b}` → "a over b", `\cdot` / `×` → "times", `2023\pi`
+→ "two-thousand twenty-three pi". Read numbers naturally, not digit-by-digit.
 
 # Viz Action Choreography
 

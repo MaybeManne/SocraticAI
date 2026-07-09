@@ -24,3 +24,6 @@ skills-lock.json
 
 # Scratch/test HTML files in dist
 dist/test_*.html
+__pycache__/
+*.pyc
+dist/
