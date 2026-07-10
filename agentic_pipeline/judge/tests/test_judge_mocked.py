@@ -59,7 +59,8 @@ def fake_lessons(tmp_path, monkeypatch):
         dist = tmp_path / "dist" / "circle problem"
         dist.mkdir(parents=True, exist_ok=True)
         (dist / f"{v}.html").write_text("<html>fake lesson</html>")
-        (dist / f"{v}.png").write_bytes(FAKE_PNG)  # precomputed screenshot
+        (dist / f"{v}.png").write_bytes(FAKE_PNG)      # precomputed t=0 shot
+        (dist / f"{v}_mid.png").write_bytes(FAKE_PNG)  # precomputed mid-lesson shot
 
         work = tmp_path / "agentic_pipeline" / "work" / v
         (work / "gates").mkdir(parents=True)
@@ -119,8 +120,10 @@ def test_pairwise_end_to_end_mocked(fake_lessons, monkeypatch):
 
     # Input routing: each dimension gets ONLY what it needs.
     for dim in ("visual_accuracy", "polish"):
-        assert _n_images(by_dim[dim]) == 2, f"{dim} must get exactly 2 screenshots"
-        assert "gate specs" not in _parts_text(by_dim[dim])
+        assert _n_images(by_dim[dim]) == 4, f"{dim} must get 2 screenshots per lesson (t=0 + mid)"
+        txt = _parts_text(by_dim[dim])
+        assert "title/problem screen (t=0)" in txt and "mid-lesson frame" in txt
+        assert "gate specs" not in txt
     for dim in ("interactivity", "narration_quality", "sync", "concept_accuracy"):
         assert _n_images(by_dim[dim]) == 0, f"{dim} must get no images"
     assert "gate specs" in _parts_text(by_dim["interactivity"])

@@ -99,8 +99,11 @@ class LessonAssets:
         self.html_path = REPO_ROOT / "dist" / spec["dist"] / spec["html"](variant_id)
         if not self.html_path.exists():
             raise FileNotFoundError(f"Lesson HTML not found for {variant_id!r}: {self.html_path}")
-        # Precomputed screenshot lives alongside the HTML (same basename, .png).
+        # Precomputed screenshots live alongside the HTML:
+        #   <name>.png     — t=0 title/problem card (catches text-render bugs)
+        #   <name>_mid.png — lesson actively driven to ~50% of its timeline
         self.screenshot_path = self.html_path.with_suffix(".png")
+        self.mid_screenshot_path = self.html_path.with_name(self.html_path.stem + "_mid.png")
 
         # Work-dir artifacts (may be absent, e.g. for *_v0original).
         self.work_dir = PIPELINE_DIR / "work" / variant_id.replace(".", "_")
@@ -184,22 +187,86 @@ def extract_transcript(content_js):
 
 # ── Screenshot prep (precomputed, reused across comparisons) ──────────────────
 
+# JS to drive an audio-gated lesson to a mid-timeline point. Passive waiting
+# never advances these lessons (the player sits paused at 0:00 until a user
+# gesture), so we start playback and seek via the engine's own API:
+#   EX.Orchestrator.seekToGlobalTime() snapshot-renders every act before the
+#   target, renders passed gates, seeks within the target act, then plays.
+# We pause immediately after so the frame is stable when captured.
+_DRIVE_TO_MID_JS = """
+(fraction) => {
+  const EX = window.EX;
+  const graph = window._graph;
+  const state = window._state;
+  if (!EX || !EX.Orchestrator || !graph || !state) {
+    return "engine globals missing (EX/_graph/_state)";
+  }
+  const total = graph.totalDefaultDuration;
+  if (!total || total <= 0) return "graph.totalDefaultDuration unavailable";
+  // Start via the real play button (user gesture), then seek mid-lesson.
+  const btn = document.getElementById("playBtn");
+  if (btn) btn.click();
+  EX.Orchestrator.seekToGlobalTime(total * fraction, graph, state);
+  return "ok:" + (total * fraction).toFixed(1) + "s/" + total.toFixed(1) + "s";
+}
+"""
+
+_PAUSE_JS = """
+() => {
+  const EX = window.EX;
+  if (EX && EX.ActRunner) EX.ActRunner.pause();
+  if (EX && EX.EventBus) EX.EventBus.emit("audio:pause", {});
+  return "paused";
+}
+"""
+
+
+def _screenshot_mid(html_path, out_path, fraction=0.5, load_wait_ms=4000, settle_ms=2500):
+    """
+    Capture the lesson actively driven to `fraction` of its default-path
+    timeline (default 50% — the mid-derivation point, where the viz is
+    richest). Requires playwright.
+    """
+    from playwright.sync_api import sync_playwright
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page(viewport={"width": 1280, "height": 800})
+        page.goto(f"file://{Path(html_path).resolve()}")
+        page.wait_for_timeout(load_wait_ms)
+        status = page.evaluate(_DRIVE_TO_MID_JS, fraction)
+        if not str(status).startswith("ok:"):
+            browser.close()
+            raise RuntimeError(f"Mid-lesson drive failed for {html_path}: {status}")
+        # Let the snapshot renders + seek-target GSAP calls settle, then freeze.
+        page.wait_for_timeout(settle_ms)
+        page.evaluate(_PAUSE_JS)
+        page.wait_for_timeout(300)
+        page.screenshot(path=str(out_path), full_page=False)
+        browser.close()
+    print(f"  Screenshot (mid-lesson, {status}): {out_path}")
+    return out_path
+
+
 def ensure_screenshot(assets, force=False):
     """
-    One-time prep: render the lesson HTML to a PNG saved next to it, using
-    orchestrator.take_screenshot (playwright). Reuses the existing PNG on
-    subsequent runs — never re-renders per comparison.
+    One-time prep, two shots per lesson (reused on later runs, never
+    re-rendered per comparison):
+      1. t=0 title/problem card — orchestrator.take_screenshot (passive).
+      2. mid-lesson (~50% of the timeline) — active drive via the engine API,
+         since audio-gated lessons never advance on passive waits.
     """
-    if assets.screenshot_path.exists() and not force:
-        return assets.screenshot_path
-    sys.path.insert(0, str(PIPELINE_DIR))
-    from orchestrator import take_screenshot  # lazy: playwright optional elsewhere
-    ok = take_screenshot(assets.html_path, assets.screenshot_path, wait_ms=4000)
-    if not ok or not assets.screenshot_path.exists():
-        raise RuntimeError(
-            f"Failed to screenshot {assets.html_path} — is playwright installed? "
-            "(pip install playwright && playwright install chromium)"
-        )
+    if not (assets.screenshot_path.exists() and not force):
+        sys.path.insert(0, str(PIPELINE_DIR))
+        from orchestrator import take_screenshot  # lazy: playwright optional elsewhere
+        ok = take_screenshot(assets.html_path, assets.screenshot_path, wait_ms=4000)
+        if not ok or not assets.screenshot_path.exists():
+            raise RuntimeError(
+                f"Failed to screenshot {assets.html_path} — is playwright installed? "
+                "(pip install playwright && playwright install chromium)"
+            )
+    if not (assets.mid_screenshot_path.exists() and not force):
+        _screenshot_mid(assets.html_path, assets.mid_screenshot_path)
     return assets.screenshot_path
 
 
@@ -279,10 +346,14 @@ def build_dimension_content(dimension, lesson1, lesson2):
     """
     parts = []
     if dimension in ("visual_accuracy", "polish"):
-        parts.append(_text("Screenshot of Lesson 1:"))
-        parts.append(_image(lesson1.screenshot_path))
-        parts.append(_text("Screenshot of Lesson 2:"))
-        parts.append(_image(lesson2.screenshot_path))
+        # Two frames per lesson: the t=0 title/problem card AND a mid-lesson
+        # frame (actively driven to ~50% of the timeline) so the judge sees
+        # the actual diagrams/animation state, not just the paused intro.
+        for label, lesson in (("Lesson 1", lesson1), ("Lesson 2", lesson2)):
+            parts.append(_text(f"{label} — title/problem screen (t=0):"))
+            parts.append(_image(lesson.screenshot_path))
+            parts.append(_text(f"{label} — mid-lesson frame (~50% through the timeline):"))
+            parts.append(_image(lesson.mid_screenshot_path))
     elif dimension == "interactivity":
         for label, lesson in (("Lesson 1", lesson1), ("Lesson 2", lesson2)):
             gates = "\n\n".join(lesson.gates) if lesson.gates else None
