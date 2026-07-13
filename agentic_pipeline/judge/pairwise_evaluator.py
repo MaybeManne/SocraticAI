@@ -68,6 +68,28 @@ DIMENSIONS = [
 #   archer_v4       -> dist/archer/v4.html                   + work/archer_v4
 #   binsearch_v2    -> dist/binary search/v2.html            + work/binsearch_v2
 #   *_v0original    -> dist html only (no work-dir artifacts)
+#
+# EXTERNAL videos (Veo3 / Manimator / NotebookLM drops) resolve first:
+#   circles_veo3    -> benchmark_comparison/circles/veo3.mp4 (or .webm/.mov)
+# They carry no pipeline metadata; the judge uses extracted video frames, an
+# optional sidecar transcript (veo3.transcript.txt), and the subject's problem
+# statement instead of lesson_plan.json / content JS.
+
+BENCH_DIR_NAME = "benchmark_comparison"
+VIDEO_EXTS = (".mp4", ".webm", ".mov")
+
+# Subject -> problem statement source (used as concept context when a lesson
+# has no lesson_plan.json, i.e. external videos).
+PROBLEM_FILES = {
+    "circles": "amc10a_2023_p15.md",
+    "archer": "archer_problem.md",
+    "binsearch": "tests/binary_search_problem.md",
+}
+
+
+def problem_text_for(subject):
+    path = PIPELINE_DIR / PROBLEM_FILES[subject]
+    return path.read_text().strip() if path.exists() else None
 
 _SUBJECTS = {
     "circles": {"dist": "circle problem", "html": lambda v: f"{v}.html"},
@@ -95,10 +117,40 @@ class LessonAssets:
         subject = subject_of(variant_id)
         spec = _SUBJECTS[subject]
         self.subject = subject
+        self.problem_text = problem_text_for(subject)
 
+        # External video drop? (benchmark_comparison/<subject>/<tool>.<ext>)
+        tool = variant_id.split("_", 1)[1] if "_" in variant_id else ""
+        self.video_path = None
+        self.sidecar_transcript = None
+        for ext in VIDEO_EXTS:
+            cand = REPO_ROOT / BENCH_DIR_NAME / subject / f"{tool}{ext}"
+            if cand.exists():
+                self.video_path = cand
+                break
+
+        if self.video_path:
+            # External mode: no pipeline metadata at all.
+            self.is_external = True
+            self.html_path = None
+            self.screenshot_path = self.video_path.with_suffix(".png")
+            self.mid_screenshot_path = self.video_path.with_name(
+                self.video_path.stem + "_mid.png")
+            self.work_dir = None
+            self.plan_json = None
+            self.gates = None
+            self.content_js = None
+            sidecar = self.video_path.with_name(self.video_path.stem + ".transcript.txt")
+            self.sidecar_transcript = self._read_optional(sidecar)
+            return
+
+        self.is_external = False
         self.html_path = REPO_ROOT / "dist" / spec["dist"] / spec["html"](variant_id)
         if not self.html_path.exists():
-            raise FileNotFoundError(f"Lesson HTML not found for {variant_id!r}: {self.html_path}")
+            raise FileNotFoundError(
+                f"No lesson found for {variant_id!r}: neither an external video in "
+                f"{BENCH_DIR_NAME}/{subject}/ nor {self.html_path}"
+            )
         # Precomputed screenshots live alongside the HTML:
         #   <name>.png     — t=0 title/problem card (catches text-render bugs)
         #   <name>_mid.png — lesson actively driven to ~50% of its timeline
@@ -110,6 +162,20 @@ class LessonAssets:
         self.plan_json = self._read_optional(self.work_dir / "lesson_plan.json")
         self.gates = self._read_gates()
         self.content_js = self._read_content_js()
+
+    def transcript(self):
+        """Best-available narration transcript for this lesson.
+
+        Pipeline lessons: extracted from the content script (with beat/timing
+        cues). External videos: the optional sidecar transcript verbatim
+        (labeled as timing-free), else None.
+        """
+        if self.is_external:
+            if self.sidecar_transcript:
+                return ("(external video — transcript provided without "
+                        "beat/timing data)\n" + self.sidecar_transcript)
+            return None
+        return extract_transcript(self.content_js)
 
     @staticmethod
     def _read_optional(path):
@@ -248,6 +314,37 @@ def _screenshot_mid(html_path, out_path, fraction=0.5, load_wait_ms=4000, settle
     return out_path
 
 
+def _video_screenshots(video_path, t0_out, mid_out):
+    """Extract t=0 and 50% frames from an arbitrary video file via ffmpeg.
+    Mirrors the two-shot capture used for pipeline lessons."""
+    import shutil
+    import subprocess
+    if not (shutil.which("ffmpeg") and shutil.which("ffprobe")):
+        raise RuntimeError(
+            f"ffmpeg/ffprobe required to screenshot external video {video_path} "
+            "(brew install ffmpeg)"
+        )
+    probe = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+         "-of", "default=noprint_wrappers=1:nokey=1", str(video_path)],
+        capture_output=True, text=True, timeout=60,
+    )
+    try:
+        duration = float(probe.stdout.strip())
+    except ValueError:
+        raise RuntimeError(f"Could not read duration of {video_path}: {probe.stderr.strip()[:200]}")
+    for ts, out in ((0.0, t0_out), (duration * 0.5, mid_out)):
+        r = subprocess.run(
+            ["ffmpeg", "-y", "-ss", f"{ts:.2f}", "-i", str(video_path),
+             "-frames:v", "1", "-q:v", "2", str(out)],
+            capture_output=True, text=True, timeout=120,
+        )
+        if r.returncode != 0 or not Path(out).exists():
+            raise RuntimeError(f"ffmpeg frame extraction failed at {ts:.1f}s: {r.stderr.strip()[:300]}")
+        print(f"  Screenshot (video @{ts:.1f}s/{duration:.1f}s): {out}")
+    return t0_out
+
+
 def ensure_screenshot(assets, force=False):
     """
     One-time prep, two shots per lesson (reused on later runs, never
@@ -255,7 +352,14 @@ def ensure_screenshot(assets, force=False):
       1. t=0 title/problem card — orchestrator.take_screenshot (passive).
       2. mid-lesson (~50% of the timeline) — active drive via the engine API,
          since audio-gated lessons never advance on passive waits.
+    External videos get the same two frames via ffmpeg instead.
     """
+    if assets.is_external:
+        if force or not (assets.screenshot_path.exists() and assets.mid_screenshot_path.exists()):
+            _video_screenshots(assets.video_path, assets.screenshot_path,
+                               assets.mid_screenshot_path)
+        return assets.screenshot_path
+
     if not (assets.screenshot_path.exists() and not force):
         sys.path.insert(0, str(PIPELINE_DIR))
         from orchestrator import take_screenshot  # lazy: playwright optional elsewhere
@@ -361,15 +465,29 @@ def build_dimension_content(dimension, lesson1, lesson2):
             parts.append(_text(f"{label} plan JSON:\n{_clip(lesson.plan_json, 'plan JSON')}"))
     elif dimension in ("narration_quality", "sync"):
         for label, lesson in (("Lesson 1", lesson1), ("Lesson 2", lesson2)):
-            transcript = extract_transcript(lesson.content_js)
+            transcript = lesson.transcript()
             parts.append(_text(
                 f"{label} narration transcript with beat/timing data:\n"
                 f"{_clip(transcript, 'transcript')}"
             ))
     elif dimension == "concept_accuracy":
+        # Both lessons teach the same problem; give the judge the actual
+        # problem statement so lessons without pipeline metadata (external
+        # videos) can still be assessed against what SHOULD be taught.
+        problem = lesson1.problem_text or lesson2.problem_text
+        if problem:
+            parts.append(_text(f"The problem both lessons teach:\n{problem}"))
         for label, lesson in (("Lesson 1", lesson1), ("Lesson 2", lesson2)):
-            parts.append(_text(f"{label} lesson plan JSON:\n{_clip(lesson.plan_json, 'lesson plan')}"))
-            parts.append(_text(f"{label} content script:\n{_clip(lesson.content_js, 'content script')}"))
+            if lesson.is_external:
+                transcript = lesson.transcript()
+                parts.append(_text(
+                    f"{label} is an externally generated video (no lesson plan / "
+                    f"script available). Narration transcript:\n"
+                    f"{_clip(transcript, 'transcript')}"
+                ))
+            else:
+                parts.append(_text(f"{label} lesson plan JSON:\n{_clip(lesson.plan_json, 'lesson plan')}"))
+                parts.append(_text(f"{label} content script:\n{_clip(lesson.content_js, 'content script')}"))
     else:
         raise ValueError(f"Unknown dimension: {dimension}")
 

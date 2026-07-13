@@ -67,6 +67,19 @@ def fake_lessons(tmp_path, monkeypatch):
         (work / "lesson_plan.json").write_text(PLAN_JSON)
         (work / "gates" / "g1.json").write_text(GATE_JSON)
         (work / f"{v}_content.js").write_text(CONTENT_JS)
+
+    # Problem statement source (used as concept context for external videos).
+    (tmp_path / "agentic_pipeline" / "amc10a_2023_p15.md").write_text(
+        "Nested circles problem statement.")
+
+    # External video drop: benchmark_comparison/circles/veo3.mp4 + sidecar
+    # transcript + precomputed frame PNGs (so ensure_screenshot skips ffmpeg).
+    bench = tmp_path / "benchmark_comparison" / "circles"
+    bench.mkdir(parents=True)
+    (bench / "veo3.mp4").write_bytes(b"\x00\x00\x00\x18ftypmp42fake")
+    (bench / "veo3.transcript.txt").write_text("Narrated circles explanation.")
+    (bench / "veo3.png").write_bytes(FAKE_PNG)
+    (bench / "veo3_mid.png").write_bytes(FAKE_PNG)
     return ("circles_v98", "circles_v99")
 
 
@@ -174,6 +187,58 @@ def test_tie_resolution(fake_lessons, monkeypatch):
 def test_cross_subject_rejected(fake_lessons):
     with pytest.raises(ValueError, match="Cross-subject"):
         pairwise_evaluator.run_pairwise("circles_v98", "archer_v1")
+
+
+# ── External video intake (benchmark_comparison/ drops) ───────────────────────
+
+def test_external_video_pair_end_to_end(fake_lessons, monkeypatch):
+    a, _ = fake_lessons
+    recorder = CallRecorder()
+    monkeypatch.setattr(pairwise_evaluator, "_call_openai", recorder)
+    monkeypatch.setattr(pairwise_evaluator.random, "random", lambda: 0.1)  # lesson1 = A order
+
+    result = pairwise_evaluator.run_pairwise(a, "circles_veo3")
+    assert len(recorder.calls) == 7
+
+    by_dim = {}
+    for sys_prompt, content in recorder.calls[:6]:
+        for dim in pairwise_evaluator.DIMENSIONS:
+            if f"DIMENSION: {dim}" in sys_prompt:
+                by_dim[dim] = content
+
+    # Image dims still get 4 frames (video frames stand in for renders).
+    for dim in ("visual_accuracy", "polish"):
+        assert _n_images(by_dim[dim]) == 4
+
+    # Concept gets the problem statement + the video's sidecar transcript,
+    # and is told the video side has no plan/script.
+    concept_txt = _parts_text(by_dim["concept_accuracy"])
+    assert "The problem both lessons teach" in concept_txt
+    assert "Nested circles problem statement." in concept_txt
+    assert "externally generated video" in concept_txt
+    assert "Narrated circles explanation." in concept_txt
+
+    # Narration/sync use the sidecar transcript, labeled timing-free.
+    narr_txt = _parts_text(by_dim["narration_quality"])
+    assert "transcript provided without beat/timing data" in narr_txt
+
+    # Interactivity honestly reports absence for the video side.
+    inter_txt = _parts_text(by_dim["interactivity"])
+    assert "not available" in inter_txt
+
+    # Winners resolve to the real ids.
+    assert result["setupB"] == "circles_veo3"
+    assert result["dimensions"]["polish"]["winner"] in (a, "circles_veo3", "tie")
+
+
+def test_external_video_without_transcript(fake_lessons, tmp_path, monkeypatch):
+    a, _ = fake_lessons
+    (tmp_path / "benchmark_comparison" / "circles" / "veo3.transcript.txt").unlink()
+    recorder = CallRecorder()
+    monkeypatch.setattr(pairwise_evaluator, "_call_openai", recorder)
+    pairwise_evaluator.run_pairwise(a, "circles_veo3")
+    narr = next(c for s, c in recorder.calls[:6] if "narration_quality" in s)
+    assert "transcript not available" in _parts_text(narr)
 
 
 def test_missing_api_key_fails_loudly(monkeypatch):
