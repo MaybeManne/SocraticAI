@@ -1154,8 +1154,11 @@ def stage3_author_viz(plan, act_specs, model="gemini-2.5-flash"):
     # If the viz agent silently dropped an action, this raises here rather than
     # letting the assembled HTML go live with missing animations.
     assert_viz_spec_shape(spec)
-    from pipeline_types import assert_viz_implements_plan_actions
+    from pipeline_types import assert_viz_implements_plan_actions, assert_viz_action_contract
     assert_viz_implements_plan_actions(spec, plan)
+    # Case/params contract against the act specs that will call this plugin —
+    # a call missing an unguarded params read renders literal "undefined".
+    assert_viz_action_contract(spec, act_specs)
     return spec
 
 
@@ -1445,6 +1448,14 @@ def stage4_assemble(plan, act_specs, gate_specs, viz_spec, output_dir):
     output_dir.mkdir(parents=True, exist_ok=True)
 
     import re as _re
+
+    # Final contract gates before emitting anything: every viz action call must
+    # hit a real case with its required params, and narrated visuals must fire
+    # an action. Same checks run on the --resume path via assert_loaded_artifacts.
+    from pipeline_types import assert_viz_action_contract, assert_beat_visual_contract
+    if viz_spec:
+        assert_viz_action_contract(viz_spec, act_specs)
+    assert_beat_visual_contract(act_specs)
 
     content_js = assemble_content(plan, act_specs, gate_specs, viz_spec)
     lesson_id = plan["meta"].get("title", "lesson").lower()
@@ -1864,6 +1875,15 @@ def assert_loaded_artifacts(plan=None, act_specs=None, gate_specs=None, viz_spec
         assert_viz_spec_shape(viz_spec)
         if plan is not None:
             assert_viz_implements_plan_actions(viz_spec, plan)
+        if act_specs:
+            # Case/params contract — loaded artifacts get the same gate as
+            # freshly generated ones (binsearch_v7 "undefined" class).
+            from pipeline_types import assert_viz_action_contract
+            assert_viz_action_contract(viz_spec, act_specs)
+
+    if act_specs:
+        from pipeline_types import assert_beat_visual_contract
+        assert_beat_visual_contract(act_specs)
 
 
 # ─────────────────────────────────────────────────────────────────────

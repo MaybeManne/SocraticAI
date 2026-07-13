@@ -17,6 +17,7 @@ Contract:
 """
 
 import json
+import os
 import re
 import textwrap
 from pathlib import Path
@@ -551,6 +552,13 @@ def _normalize_viz_code(code):
     i = 0
     n = len(code)
     in_string = None  # None | '"' | "'" | '`'
+    last_significant = ''  # last non-space char emitted outside strings/regexes
+
+    def _regex_starts_here(prev):
+        # A '/' begins a regex literal (not division) only after an operator,
+        # opener, or statement position. Conservative set: covers the forms
+        # LLM viz code actually uses — `.replace(/…/g)`, `= /…/`, `(/…/)`.
+        return prev in ('', '(', ',', '=', ':', '[', '!', '&', '|', '?', ';', '{', '}')
 
     while i < n:
         c = code[i]
@@ -561,23 +569,89 @@ def _normalize_viz_code(code):
                 result.append(code[i])
             elif c == in_string:
                 in_string = None
+        elif c == '/' and _regex_starts_here(last_significant):
+            # Regex literal: copy verbatim through the unescaped closing '/'.
+            # Braces/semicolons inside (e.g. /\cancel{([^}]+)}/g) are regex
+            # syntax, not JS statement structure — inserting newlines there
+            # corrupts the literal and blanks the whole plugin.
+            result.append(c)
+            i += 1
+            in_class = False
+            while i < n:
+                rc = code[i]
+                result.append(rc)
+                if rc == '\\' and i + 1 < n:
+                    i += 1
+                    result.append(code[i])
+                elif rc == '[':
+                    in_class = True
+                elif rc == ']':
+                    in_class = False
+                elif rc == '/' and not in_class:
+                    break
+                i += 1
+            last_significant = '/'
         elif c in ('"', "'", '`'):
             in_string = c
             result.append(c)
+            last_significant = c
         elif c == ';':
             result.append(c)
             result.append('\n')  # terminate statement so // comments end here
+            last_significant = c
         elif c == '{':
             result.append(c)
             result.append('\n')
+            last_significant = c
         elif c == '}':
             result.append('\n')
             result.append(c)
+            last_significant = c
         else:
             result.append(c)
+            if not c.isspace():
+                last_significant = c
         i += 1
 
     return ''.join(result)
+def _assert_repaired_js_parses(code):
+    """node --check the FINAL (post-repair) viz code.
+
+    The stage-3 syntax check sees the raw LLM output; the repairs in
+    assemble_viz can themselves corrupt code (regex-literal splitting blanked
+    circles_v7's whole panel), so the artifact actually being shipped must be
+    re-verified. Fails loudly instead of emitting a lesson whose viz panel
+    silently renders blank.
+
+    @param code: repaired JS source (str).
+    @returns: code unchanged, if it parses (or node is unavailable).
+    @raises AssemblyError: when node --check rejects the code.
+    """
+    import shutil
+    import subprocess
+    import tempfile
+    if not shutil.which("node"):
+        print("  [assemble] WARNING: node not found — skipping final JS parse check.")
+        return code
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".js", delete=False) as f:
+        f.write(code)
+        path = f.name
+    try:
+        r = subprocess.run(["node", "--check", path],
+                           capture_output=True, text=True, timeout=15)
+        if r.returncode != 0:
+            raise AssemblyError(
+                "Assembled viz plugin does not parse as JavaScript — refusing to "
+                "emit a lesson whose panel would silently render blank.\n"
+                f"node --check says:\n{r.stderr.strip()[:800]}"
+            )
+    except subprocess.TimeoutExpired:
+        print("  [assemble] WARNING: node --check timed out — skipping.")
+    finally:
+        os.unlink(path)
+    return code
+
+
 def assemble_viz(viz_spec):
     """
     Extract the visualization plugin JavaScript from a VizSpec dict.
@@ -614,7 +688,7 @@ def assemble_viz(viz_spec):
         #    `})(),` instead of `})();` — a file ending in a bare comma is always
         #    invalid JS and blanks the whole plugin).
         c = _re.sub(r',(\s*)$', r';\1', c)
-        return c
+        return _assert_repaired_js_parses(c)
 
     if mode == "custom_code":
         code = viz_spec.get("code") or None

@@ -100,6 +100,41 @@ def validate_plan(plan):
             if after and after not in act_ids:
                 errors.append(f"Marker '{node.get('label')}' references non-existent act: {after}")
 
+    # Pacing rule (soft — feeds the planner retry loop): a beat firing 3+ viz
+    # actions is an all-at-once visual dump the narration can't anchor.
+    # Also: a beat whose narration_hint names a visual moment must fire at
+    # least one action, or the student hears about something that never appears.
+    import re as _re
+    _visual_hint = _re.compile(
+        r"\b(watch|look at|notice the|see the|see how|shown|highlight|draw|zoom|"
+        r"animate|appear|reveal|glow|flash|via [A-Za-z_]\w*)\b", _re.IGNORECASE)
+
+    def _walk_acts(nodes):
+        for node in nodes:
+            if node.get("type") == "act":
+                yield node
+            for wp in node.get("wrong_path_acts", []) or []:
+                if isinstance(wp, dict):
+                    yield wp
+
+    for act in _walk_acts(plan["nodes"]):
+        for bi, beat in enumerate(act.get("beat_outline", []) or []):
+            actions = beat.get("viz_actions") or []
+            if len(actions) > 2:
+                errors.append(
+                    f"Act {act.get('id')} beat {bi} has {len(actions)} viz_actions "
+                    f"({actions}) — pacing rule caps a beat at 2 actions. Split this "
+                    f"into multiple beats so each visual change maps to the words "
+                    f"explaining it."
+                )
+            hint = beat.get("narration_hint") or ""
+            if not actions and _visual_hint.search(hint):
+                errors.append(
+                    f"Act {act.get('id')} beat {bi} narration_hint describes a visual "
+                    f"moment ({hint[:60]!r}...) but viz_actions is empty. Name the "
+                    f"method that fires, or rewrite the hint as pure narration."
+                )
+
     return errors
 
 
@@ -321,6 +356,17 @@ def validate_viz_spec(viz_spec, plan=None, all_acts=None):
                     method = va.get("method")
                     if method and method not in implemented:
                         errors.append(f"Act {act_id} uses viz action '{method}' not in actions_implemented")
+
+    # Params contract (soft — feeds the viz retry loop): every case block's
+    # unguarded params.<field> read must be supplied by the act-spec calls,
+    # else the SVG renders literal "undefined" (binsearch_v7 mid-calc bug).
+    # The viz agent can fix its side by guarding reads with defaults.
+    if all_acts:
+        try:
+            from pipeline_types import viz_action_contract_errors
+            errors.extend(viz_action_contract_errors(viz_spec, all_acts))
+        except Exception:
+            pass  # never let the helper break validation
 
     return errors
 

@@ -428,3 +428,154 @@ def assert_viz_implements_plan_actions(viz_spec, plan):
             f"[pipeline contract] viz_spec is missing {len(missing)} action(s) "
             f"declared in the plan: {sorted(missing)}. Viz agent silently dropped them."
         )
+
+
+# ─────────────────────────────────────────────────────────────────────
+# Viz action ↔ act-spec contract (the binsearch_v7 "undefined + undefined" class)
+# ─────────────────────────────────────────────────────────────────────
+
+_CASE_RE = _re.compile(r"""case\s*(['"])([A-Za-z_]\w*)\1\s*:""")
+_PARAM_READ_RE = _re.compile(r"""params\s*(?:\.\s*([A-Za-z_]\w*)|\[\s*['"]([A-Za-z_]\w*)['"]\s*\])""")
+
+
+def _viz_case_param_reads(code):
+    """Map each `case 'method':` block in a viz plugin to the params fields it
+    reads WITHOUT a fallback guard.
+
+    A read like `params.k || 1`, `params.x ?? 0`, or one preceded by
+    `typeof`/undefined-checks is treated as optional. Everything else is a
+    required param: calling that method with `{}` renders literal "undefined"
+    into the SVG (binsearch_v7's "undefined + undefined = NaN" mid-calc box).
+
+    @param code: viz plugin JS source (str) or None.
+    @returns: dict[str, set[str]] — method name → required param names.
+              Empty dict when code is falsy or has no case blocks.
+    """
+    if not code:
+        return {}
+    cases = list(_CASE_RE.finditer(code))
+    if not cases:
+        return {}
+    out = {}
+    for idx, m in enumerate(cases):
+        body_start = m.end()
+        body_end = cases[idx + 1].start() if idx + 1 < len(cases) else len(code)
+        body = code[body_start:body_end]
+        required = set()
+        for pm in _PARAM_READ_RE.finditer(body):
+            name = pm.group(1) or pm.group(2)
+            tail = body[pm.end():pm.end() + 24]
+            head = body[max(0, pm.start() - 16):pm.start()]
+            guarded = (
+                tail.lstrip().startswith(("||", "??"))
+                or "undefined" in tail
+                or "!= null" in tail or "!== null" in tail
+                or "typeof" in head
+            )
+            if not guarded:
+                required.add(name)
+        # Union across duplicate case labels (fallthrough chains keep both).
+        out[m.group(2)] = out.get(m.group(2), set()) | required
+    return out
+
+
+def viz_action_contract_errors(viz_spec, act_specs):
+    """Cross-check every viz action call in the act specs against the viz
+    plugin's actual switch cases. Returns human-readable error strings
+    (empty list = contract satisfied). Shared by the soft validator (feeds
+    the stage-3 retry) and the hard assert below.
+
+    Checks per beat action call:
+      1. the called method has a matching `case '<method>':` in the code;
+      2. every params field that case reads unguarded is present (non-None)
+         in the call's params.
+    """
+    code = (viz_spec.get("code")
+            or viz_spec.get("mobject_plugin_code")
+            or viz_spec.get("three_js_code"))
+    if not code:
+        return []
+    case_reads = _viz_case_param_reads(code)
+    if not case_reads:
+        # No switch-case dispatch found (e.g. map-based plugin) — the params
+        # analysis doesn't apply; method coverage is still checked upstream
+        # via actions_implemented.
+        return []
+    errors = []
+    for act_id, act in (act_specs or {}).items():
+        for bi, beat in enumerate(act.get("beats", [])):
+            for va in beat.get("viz_actions", []) or []:
+                method = va.get("method") or va.get("vizAction")
+                if not method:
+                    continue
+                if method not in case_reads:
+                    errors.append(
+                        f"act '{act_id}' beat {bi} calls viz action '{method}' but the "
+                        f"plugin's timelineAction switch has no case for it — the call "
+                        f"silently does nothing. Add the case or remove the call."
+                    )
+                    continue
+                supplied = {k for k, v in (va.get("params") or {}).items() if v is not None}
+                missing = case_reads[method] - supplied
+                if missing:
+                    errors.append(
+                        f"act '{act_id}' beat {bi} calls '{method}' with params "
+                        f"{sorted(supplied) or '{}'} but the plugin case reads "
+                        f"{sorted(case_reads[method])} unguarded — missing "
+                        f"{sorted(missing)} would render literal 'undefined' on screen. "
+                        f"Populate real values in the act spec, or guard the reads "
+                        f"with defaults (params.x || ...) in the plugin."
+                    )
+    return errors
+
+
+def assert_viz_action_contract(viz_spec, act_specs):
+    """Hard gate for viz_action_contract_errors — raises on the first violation
+    set instead of letting broken calls render 'undefined' on screen.
+
+    @raises TypeError: [pipeline contract] with every violation listed.
+    """
+    errors = viz_action_contract_errors(viz_spec, act_specs)
+    if errors:
+        raise TypeError(
+            "[pipeline contract] viz action contract violated:\n  - "
+            + "\n  - ".join(errors)
+        )
+
+
+# Strong visual-reference cues only — narration like "we found n=32" must NOT
+# trip this; "watch the ring" / "notice the highlighted cell" must.
+_VISUAL_CUE_RE = _re.compile(
+    r"\b(watch|look at|notice the|see the|see how|as you can see|shown here|"
+    r"highlighted?|lights? up|glow(s|ing)?|on the (left|right|screen))\b",
+    _re.IGNORECASE,
+)
+
+
+def assert_beat_visual_contract(act_specs):
+    """A beat whose narration explicitly points at a visual ("watch the ring",
+    "notice the highlighted cell") MUST fire at least one viz action — the
+    circles/blank-panel class where the narrator references something that
+    never appears. Pure-narration beats (no visual cue words) are exempt.
+
+    @raises TypeError: [pipeline contract] listing every offending beat.
+    """
+    errors = []
+    for act_id, act in (act_specs or {}).items():
+        for bi, beat in enumerate(act.get("beats", [])):
+            if beat.get("viz_actions"):
+                continue
+            say = beat.get("say") or ""
+            cue = _VISUAL_CUE_RE.search(say)
+            if cue:
+                errors.append(
+                    f"act '{act_id}' beat {bi} narration references a visual "
+                    f"(\"...{cue.group(0)}...\") but has empty viz_actions — the "
+                    f"student hears about something that never appears. Add the "
+                    f"viz action or rewrite the narration as pure exposition."
+                )
+    if errors:
+        raise TypeError(
+            "[pipeline contract] narrated visual with no viz action:\n  - "
+            + "\n  - ".join(errors)
+        )
