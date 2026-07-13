@@ -433,8 +433,16 @@ def run_pairwise(variant_a, variant_b, model=JUDGE_MODEL):
 
     def run_dimension(dim):
         content = build_dimension_content(dim, lesson1, lesson2)
-        raw = _call_openai(load_prompt(dim), content, model=model)
-        return parse_agent_json(raw)
+        last_err = None
+        # Occasional truncated/empty replies — retry the single flaky call
+        # instead of failing the whole 7-call comparison.
+        for _ in range(3):
+            raw = _call_openai(load_prompt(dim), content, model=model)
+            try:
+                return parse_agent_json(raw)
+            except json.JSONDecodeError as e:
+                last_err = e
+        raise RuntimeError(f"{dim} agent returned unparseable JSON after 3 attempts: {last_err}")
 
     # 6 parallel dimension agents.
     with ThreadPoolExecutor(max_workers=len(DIMENSIONS)) as pool:

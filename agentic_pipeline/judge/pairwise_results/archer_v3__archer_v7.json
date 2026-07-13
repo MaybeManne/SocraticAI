@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v7",
+  "setupB": "archer_v3",
+  "subject": "archer",
+  "lesson1Setup": "archer_v3",
+  "lesson2Setup": "archer_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v3",
+      "confidence": 0.78,
+      "rationale": "Lesson 1\u2019s projectile path and velocity-component diagram are more positionally faithful to a 30\u00b0 launch with a shallow same-height trajectory, while Lesson 2 shows an exaggeratedly tall arc and less proportionally accurate trajectory despite correctly indicating the components and flight time."
+    },
+    "interactivity": {
+      "winner": "archer_v7",
+      "confidence": 0.7,
+      "rationale": "Both lessons include a real, wired fill-in gate with a concrete prompt and correct answer, but Lesson 2 is slightly more robust because its gate is placed after the dedicated decomposition act and accepts multiple valid numeric formats, while Lesson 1 is more narrowly formatted and its remediation path is equally unwired."
+    },
+    "narration_quality": {
+      "winner": "archer_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 has consistently clear, natural narration with spoken math rendered appropriately, while Lesson 1 contains a confusing/defective line describing the range as \u201cthirty-four point six meters per second for just over four seconds,\u201d which sounds like an unfinished calculation and uses the wrong spoken unit for the quantity."
+    },
+    "sync": {
+      "winner": "archer_v7",
+      "confidence": 0.68,
+      "rationale": "Lesson 2 aligns more visual changes with the lines that immediately introduce them, such as the trajectory, time transfer, identity, and final range label, while Lesson 1 more often fires cues early or omits expected cues when equations and the trig identity are explicitly referenced."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v3",
+      "confidence": 0.68,
+      "rationale": "Lesson 1 is slightly better because it explicitly establishes both velocity components, including the needed horizontal component for the range calculation, while Lesson 2 gives a clearer verbal note about the two time roots but leaves the horizontal component largely uncomputed before using it in the final range step."
+    },
+    "polish": {
+      "winner": "archer_v7",
+      "confidence": 0.9,
+      "rationale": "Lesson 2 is more polished because its mid-lesson diagram is larger, better composed within the left panel, and more legible, while Lesson 1's diagram is tiny, pushed into the bottom-left with excessive empty space and very small labels."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v7",
+    "confidence": 0.78,
+    "explanation": "Lesson 2 is the clear overall winner: four of six agents preferred it, including high-confidence wins in narration quality (0.93) and polish (0.90), plus advantages in interactivity and synchronization. Lesson 1 had meaningful strengths in visual accuracy and concept accuracy, especially a more faithful trajectory and clearer establishment of both velocity components, but these were outweighed by Lesson 2\u2019s stronger narration, cleaner presentation, better-timed visuals, and slightly more robust interaction design."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-13T13:06:54.821089+00:00"
+}

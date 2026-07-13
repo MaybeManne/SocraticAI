@@ -1,0 +1,46 @@
+{
+  "setupA": "circles_v7",
+  "setupB": "circles_v5",
+  "subject": "circles",
+  "lesson1Setup": "circles_v5",
+  "lesson2Setup": "circles_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v5",
+      "confidence": 0.82,
+      "rationale": "Lesson 1 at least visualizes circles sharing a common point and a shaded region, whereas Lesson 2\u2019s mid-lesson frame is essentially blank and provides no diagrammatic representation of the alternating shaded circle regions despite having cleaner problem wording."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 0.95,
+      "rationale": "Both lessons include a single well-formed quiz gate with a real formula-application question, plausible options, a marked correct answer, and correct wiring immediately after the relevant formula act, while both equally lack an implemented remediation act referenced by the wrong path."
+    },
+    "narration_quality": {
+      "winner": "circles_v5",
+      "confidence": 0.68,
+      "rationale": "Lesson 1 has clearer, more naturally paced spoken math with separate steps, while Lesson 2 uses more compressed and slightly awkward hyphenated math phrasing like \u201ctwo-k-minus-one\u201d and combines value testing into a longer denser narration segment."
+    },
+    "sync": {
+      "winner": "circles_v7",
+      "confidence": 0.68,
+      "rationale": "Lesson 2 stages most visual changes closer to the narration references, whereas Lesson 1 frequently fires broad combined cues at the very start of long lines, showing later-mentioned elements like shading, formulas, and diagrams too early."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 presents the non-concentric common-point setup cleanly and derives the correct area formula and threshold, while Lesson 1 has the same mostly correct derivation but undermines conceptual accuracy by calling the circles concentric and then contradicting that with the common-circumference-point condition."
+    },
+    "polish": {
+      "winner": "circles_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has cleaner, more legible, consistently styled title text with no obvious raw LaTeX artifacts, while Lesson 1 is marred by visible malformed text like \u201cody\u201d/braced subscripts plus a cluttered mid-frame with an off-center diagram and overlapping empty label box, even though Lesson 2\u2019s mid-frame is overly empty."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v7",
+    "confidence": 0.63,
+    "explanation": "Across the six dimensions, Lesson 2 has the stronger weighted case: it wins sync, concept accuracy, and polish with moderate-to-high confidence, especially on the important issue of avoiding Lesson 1\u2019s misleading 'concentric' wording and presenting cleaner text. Lesson 1 wins visual accuracy and narration quality, with its visual advantage notable because Lesson 2\u2019s frame is too blank, but these gains are offset by Lesson 2\u2019s cleaner conceptual framing, better timing, and more polished presentation. Interactivity is a high-confidence tie, so it does not shift the result. Overall the votes favor Lesson 2, though not overwhelmingly."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-13T13:04:38.137846+00:00"
+}
