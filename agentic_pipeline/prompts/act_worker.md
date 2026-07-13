@@ -159,6 +159,13 @@ You have a list of available viz actions. Use them cinematically:
 - `offset: 0` — fires when the beat starts (as narration begins)
 - `offset: "+0.5"` — fires 0.5s after beat start (good for "and then..." moments)
 - `offset: "+1.0"` — fires 1s in (let the first sentence land, then animate)
+- **Place the offset where the trigger words sit in the sentence.** Estimate the
+  beat's spoken length at ~2.5 words/second, find the word that names the visual
+  ("...and when we highlight THIS RING..."), and set the offset to that word's
+  position: trigger ~60% through a 20-word beat (8s) → `"+4.8"`. The player
+  rescales your offsets to the real audio pace, so a proportionally placed
+  offset lands on the spoken words — but an offset of 0 for a mid-sentence
+  reference will always fire early no matter what the player does.
 
 **Choreography patterns:**
 - **Reveal-then-explain:** `.do("drawCircle", {r: 1})` at offset 0, narration explains what appeared

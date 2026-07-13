@@ -333,12 +333,26 @@ var ActRunner = {
       }
     }
 
-    // Schedule viz actions
+    // Schedule viz actions.
+    // offsetScale: authored offsets ("+2.0") assume the ~2.5 words/sec
+    // estimate; with real TTS audio the beat's actual duration differs, so
+    // cues fire early/late within the beat. Scale offsets by actual/estimated
+    // duration (clamped) so "fire 60% through the line" stays 60% through
+    // the real audio. Without audio, actual == estimate and scale is 1.
+    var offsetScale = 1;
+    if (cue && beat.say) {
+      var estWords = beat.say.split(/\s+/).length;
+      var estDur = beat.duration || Math.max(1.5, estWords / 2.5);
+      var actualDur = cue.endTime - cue.startTime;
+      if (estDur > 0 && actualDur > 0) {
+        offsetScale = Math.max(0.4, Math.min(2.5, actualDur / estDur));
+      }
+    }
     if (beat.vizActions && beat.vizActions.length > 0) {
       if (instant) {
         EventBus.emit("viz:runActions", { actions: beat.vizActions, time: 0, instant: true });
       } else {
-        EventBus.emit("viz:runActions", { actions: beat.vizActions, timeline: tl, time: t, instant: false });
+        EventBus.emit("viz:runActions", { actions: beat.vizActions, timeline: tl, time: t, instant: false, offsetScale: offsetScale });
       }
     }
 

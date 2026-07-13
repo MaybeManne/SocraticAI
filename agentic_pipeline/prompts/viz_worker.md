@@ -468,6 +468,47 @@ svgEl("rect", {
 Text inside panels uses at least **12 px of padding** from the panel edges
 (`x: zone.x + 12`, `y: zone.y + 22` for the first label).
 
+## Scene hygiene — ONE scene on screen at a time (NON-NEGOTIABLE)
+
+The single ugliest failure mode is two acts' visuals overlapping: a comparison
+chart from act 3 still on screen while act 2's array redraws under it, giant
+cells colliding with panels, clipped text everywhere. This happens whenever a
+scene change adds new elements without retiring the old ones — and it is
+guaranteed to be visible because the player supports SCRUBBING: every action
+you schedule gets replayed instantly on seek, so anything you never explicitly
+hid is still there, stacked on top of the current scene.
+
+Rules:
+1. **Group every act's scenery under one `<g>` per scene** (`sceneIntroG`,
+   `sceneTraceG`, `sceneComplexityG`, ...). Persistent shared elements (the
+   main diagram, axes) live in their own group.
+2. **The FIRST action of every new scene fades out the previous scene's
+   group(s)** — `tl.to(prevSceneG, { opacity: 0, duration: 0.4 }, t)`. Never
+   rely on the new scene covering the old one.
+3. **Test mentally at every action boundary:** "if the student scrubs to
+   exactly this moment, what is visible?" The answer must be ONE coherent
+   scene plus the shared diagram — never elements from two scenes at once.
+4. **Scale changes re-use the same elements.** If a later scene needs the
+   same array/diagram at a different size or position, morph the existing
+   group (`tl.to(g, { scale, x, y })`) — do NOT draw a second copy.
+
+## The notebook owns the algebra — the SVG owns the picture
+
+Multi-line derivations, step-by-step algebra, and worked computations belong
+in the notebook panel on the RIGHT (the act worker puts them there as
+`derivation`/`latex` cards, synchronized to narration). Your SVG panel is for
+the GEOMETRY: diagrams, graphs, motion, highlighting.
+
+- **Never build a multi-line derivation as a wall of SVG `<text>` lines.**
+  It duplicates the notebook card, competes with the diagram for space, and
+  renders LaTeX commands as literal backslash text.
+- At most ONE short formula label may live in the SVG at a time (e.g. the
+  current ring's area next to the highlighted ring), in a zone panel,
+  cleared before the next one appears.
+- If you feel the urge to write 4+ lines of math in the SVG, stop — that
+  content is the act worker's derivation card, not yours. Your job is to
+  highlight the diagram part that the current derivation line refers to.
+
 ## Text positioning rules
 
 - Never place raw `<text>` at arbitrary coordinates. Place it relative to its

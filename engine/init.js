@@ -61,11 +61,14 @@ EventBus.on("viz:runActions", function(data) {
     console.warn("[Viz] Plugin has no timelineAction method — .do() calls will be ignored");
     return;
   }
+  var offsetScale = data.offsetScale || 1;
   function runAction(a, tl, baseTime) {
     var offset = a.offset || a.delay || 0;
     if (typeof offset === "string" && offset.charAt(0) === "+") offset = parseFloat(offset.substring(1));
     var before = tl.getChildren().length;
-    plugin.timelineAction(tl, a.method, a.params || {}, baseTime + offset);
+    // offsetScale maps the authored (word-count-estimated) offset onto the
+    // beat's real audio duration — keeps cues aligned with the spoken words.
+    plugin.timelineAction(tl, a.method, a.params || {}, baseTime + offset * offsetScale);
     if (tl.getChildren().length === before) {
       console.warn("[Viz] Method \"" + a.method + "\" added no tweens — is the method name correct?");
     }
