@@ -6,41 +6,41 @@
   "lesson2Setup": "archer_v5",
   "dimensions": {
     "visual_accuracy": {
-      "winner": "archer_v5",
-      "confidence": 0.78,
-      "rationale": "Lesson 2 more accurately aligns the visuals with the projectile setup by showing the archer, 30\u00b0 launch vector, and correct horizontal/vertical components, while Lesson 1\u2019s diagram is broadly correct but less tied to the current prompt and emphasizes total flight time during a step asking for vertical speed."
+      "winner": "archer_v7",
+      "confidence": 0.65,
+      "rationale": "Lesson 1\u2019s diagram consistently shows the projectile path, component vectors, and correct total flight time in the right context, while Lesson 2\u2019s otherwise accurate launch diagram is less aligned with the current prompt because it asks for horizontal speed but highlights a vertical-motion formula, creating a conceptual mismatch."
     },
     "interactivity": {
       "winner": "archer_v7",
-      "confidence": 0.62,
-      "rationale": "Both lessons include a real wired fill-in gate with a prompt, accepted answers, hint, and success message, but Lesson 1 is slightly better because its gate appears right after decomposition without apparently revealing the numeric answer first, whereas Lesson 2\u2019s preceding act explicitly shows calculated component labels before asking for one of them, making the interaction less meaningful despite functioning."
+      "confidence": 0.58,
+      "rationale": "Both lessons include a real, wired fill-in gate with prompt, acceptable answers, hint, and success message, but Lesson 1\u2019s gate is placed after a dedicated decomposition act whereas Lesson 2\u2019s is bundled after the broader introduction and even follows a beat that may already show the component values, making its checkpoint slightly less cleanly interactive."
     },
     "narration_quality": {
       "winner": "archer_v5",
-      "confidence": 0.63,
-      "rationale": "Lesson 2 is slightly more natural and conversational with clearer spoken explanations of variables, while Lesson 1 is also clean but has a few more terse or awkward math-readout phrases like \"v-naught-x\" and \"two sine theta cosine theta\" that sound less polished."
+      "confidence": 0.7,
+      "rationale": "Lesson 2\u2019s narration is slightly more natural and mathematically spoken, especially around the trig identity, while Lesson 1 is clear but has a few more stiff phrases like \u201cThe terms two sine theta cosine theta\u201d that sound less polished aloud."
     },
     "sync": {
       "winner": "archer_v5",
-      "confidence": 0.78,
-      "rationale": "Lesson 2 has several early cues, but it generally triggers visuals for the concepts as they are introduced, whereas Lesson 1 has more serious sync gaps with missing cues for equation/solution steps and multiple visuals firing well before the narration references them."
+      "confidence": 0.74,
+      "rationale": "Lesson 2 times most major visual changes closer to when they are mentioned, while Lesson 1 has more premature cues and several narration references to equations, factoring, and results with no corresponding visual cue at the moment they are discussed."
     },
     "concept_accuracy": {
       "winner": "archer_v7",
-      "confidence": 0.62,
-      "rationale": "Lesson 1 is slightly better because it explicitly gives the correct flight time of about 4.08 s before using it for range, whereas Lesson 2 explains decomposition more clearly but hand-waves the vertical solve without ever stating the numerical time needed for the calculation."
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is more conceptually complete because it explicitly identifies the vertical component as the key to flight time and gives the computed total time of about 4.08 s before using it for range, whereas Lesson 2 explains decomposition well but skips the actual vertical-component/time calculation in the script and then refers to a flight time that was never numerically found."
     },
     "polish": {
       "winner": "archer_v7",
-      "confidence": 0.86,
-      "rationale": "Lesson 1 is more polished because its mid-lesson diagram is larger, better centered within the left panel, and more legible, while Lesson 2\u2019s diagram is pushed into the lower-left corner with tiny labels and excessive empty space, making the layout feel less balanced and harder to read."
+      "confidence": 0.92,
+      "rationale": "Lesson 1 is better polished because its mid-lesson diagram is larger, more legible, and better composed within the frame, whereas Lesson 2\u2019s mid-lesson visuals are tiny, pushed into the lower-left with excessive empty space, and have several labels that are difficult to read."
     }
   },
   "aggregator": {
-    "winner": "tie",
-    "confidence": 0.52,
-    "explanation": "The six agents are evenly split 3-3, and confidence-weighted support is nearly balanced: Lesson 2 is favored for visual accuracy, narration quality, and sync, with two fairly strong wins at 0.78, while Lesson 1 is favored for interactivity, concept accuracy, and especially polish, with the highest single confidence at 0.86. Lesson 2 has a slight weighted edge overall, but the margin is very small and the strengths are distributed across important dimensions, so there is no clear overall winner."
+    "winner": "archer_v7",
+    "confidence": 0.74,
+    "explanation": "Lesson 1 is the clear overall winner by weighted dimension votes. It wins four of six categories, including the highest-confidence judgment: polish at 0.92, where its visuals are much more legible and better composed. It also wins concept accuracy strongly at 0.78 because it explicitly connects the vertical component to flight time and computes the time before using it for range. Visual accuracy and interactivity also favor Lesson 1, though more moderately. Lesson 2 wins narration quality and sync with solid confidence, reflecting smoother spoken phrasing and better timing of visual changes, but these advantages do not outweigh Lesson 1\u2019s stronger conceptual completeness, visual presentation, and overall polish."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-13T13:06:22.410945+00:00"
+  "evaluatedAt": "2026-07-13T14:03:21.772220+00:00"
 }

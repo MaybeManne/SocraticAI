@@ -2,45 +2,45 @@
   "setupA": "archer_v7",
   "setupB": "archer_v3",
   "subject": "archer",
-  "lesson1Setup": "archer_v3",
-  "lesson2Setup": "archer_v7",
+  "lesson1Setup": "archer_v7",
+  "lesson2Setup": "archer_v3",
   "dimensions": {
     "visual_accuracy": {
-      "winner": "archer_v3",
-      "confidence": 0.78,
-      "rationale": "Lesson 1\u2019s projectile path and velocity-component diagram are more positionally faithful to a 30\u00b0 launch with a shallow same-height trajectory, while Lesson 2 shows an exaggeratedly tall arc and less proportionally accurate trajectory despite correctly indicating the components and flight time."
+      "winner": "archer_v7",
+      "confidence": 0.76,
+      "rationale": "Lesson 1 more accurately depicts the projectile path and component decomposition with the vertical component highlighted for the step shown, whereas Lesson 2 makes the horizontal component being asked for very dim/unclear and visually emphasizes the vertical component instead."
     },
     "interactivity": {
       "winner": "archer_v7",
-      "confidence": 0.7,
-      "rationale": "Both lessons include a real, wired fill-in gate with a concrete prompt and correct answer, but Lesson 2 is slightly more robust because its gate is placed after the dedicated decomposition act and accepts multiple valid numeric formats, while Lesson 1 is more narrowly formatted and its remediation path is equally unwired."
+      "confidence": 0.62,
+      "rationale": "Both lessons include a real, wired fill-in gate with prompt, answer, hint, and success handling, but Lesson 1 is slightly stronger because its checkpoint asks for a component calculation with multiple accepted input formats after the decomposition act, whereas Lesson 2 asks for a value that its preceding act says has already been shown and only accepts one exact rounded format."
     },
     "narration_quality": {
       "winner": "archer_v7",
-      "confidence": 0.93,
-      "rationale": "Lesson 2 has consistently clear, natural narration with spoken math rendered appropriately, while Lesson 1 contains a confusing/defective line describing the range as \u201cthirty-four point six meters per second for just over four seconds,\u201d which sounds like an unfinished calculation and uses the wrong spoken unit for the quantity."
+      "confidence": 0.82,
+      "rationale": "Lesson 1 is smoother and consistently well-paced with clear spoken math, while Lesson 2 has a notably awkward fragment\u2014\u201cAbout thirty-four point six meters per second for just over four seconds\u201d\u2014that sounds incomplete and less natural despite otherwise clear narration."
     },
     "sync": {
-      "winner": "archer_v7",
-      "confidence": 0.68,
-      "rationale": "Lesson 2 aligns more visual changes with the lines that immediately introduce them, such as the trajectory, time transfer, identity, and final range label, while Lesson 1 more often fires cues early or omits expected cues when equations and the trig identity are explicitly referenced."
+      "winner": "archer_v3",
+      "confidence": 0.78,
+      "rationale": "Lesson 2\u2019s cues generally occur closer to the moments the narration references the trajectory, decomposition, vertical focus, time transfer, and final range, whereas Lesson 1 has more noticeable early or missing visual changes, such as projecting the vertical shadow well before it is mentioned, lacking cues for displayed equations/solutions, and drawing the range label before the narration reaches the final distance."
     },
     "concept_accuracy": {
-      "winner": "archer_v3",
+      "winner": "archer_v7",
       "confidence": 0.68,
-      "rationale": "Lesson 1 is slightly better because it explicitly establishes both velocity components, including the needed horizontal component for the range calculation, while Lesson 2 gives a clearer verbal note about the two time roots but leaves the horizontal component largely uncomputed before using it in the final range step."
+      "rationale": "Lesson 1 is slightly better because it more clearly explains the vertical-time derivation, including the two roots and why the nonzero root is the flight time, while Lesson 2 is correct but skips more of that reasoning and leaves the horizontal range multiplication less explicitly stated before the final confirmation."
     },
     "polish": {
       "winner": "archer_v7",
-      "confidence": 0.9,
-      "rationale": "Lesson 2 is more polished because its mid-lesson diagram is larger, better composed within the left panel, and more legible, while Lesson 1's diagram is tiny, pushed into the bottom-left with excessive empty space and very small labels."
+      "confidence": 0.93,
+      "rationale": "Lesson 1 is better polished because its mid-lesson diagram is larger, more legible, and better composed within the left panel, while Lesson 2\u2019s diagram is tiny, pushed into the lower-left with excessive empty space and very small labels."
     }
   },
   "aggregator": {
     "winner": "archer_v7",
-    "confidence": 0.78,
-    "explanation": "Lesson 2 is the clear overall winner: four of six agents preferred it, including high-confidence wins in narration quality (0.93) and polish (0.90), plus advantages in interactivity and synchronization. Lesson 1 had meaningful strengths in visual accuracy and concept accuracy, especially a more faithful trajectory and clearer establishment of both velocity components, but these were outweighed by Lesson 2\u2019s stronger narration, cleaner presentation, better-timed visuals, and slightly more robust interaction design."
+    "confidence": 0.82,
+    "explanation": "Lesson 1 wins clearly, taking five of six dimensions and with strong weighted support. It was preferred for visual accuracy, interactivity, narration quality, concept accuracy, and polish, including clearer component depiction, a better-placed interactive checkpoint, smoother narration, more complete explanation of the vertical-time derivation, and a much more legible/composed diagram. Lesson 2 was favored only for synchronization, where its visual cues were judged better aligned with narration. Overall, the single sync advantage is outweighed by Lesson 1's broader and higher-confidence strengths, especially polish and narration."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-13T13:06:54.821089+00:00"
+  "evaluatedAt": "2026-07-13T14:04:03.113844+00:00"
 }
