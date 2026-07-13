@@ -27,3 +27,9 @@ dist/test_*.html
 __pycache__/
 *.pyc
 dist/
+
+# external benchmark videos (large binaries; README is tracked)
+benchmark_comparison/**/*.mp4
+benchmark_comparison/**/*.webm
+benchmark_comparison/**/*.mov
+benchmark_comparison/**/*.png
