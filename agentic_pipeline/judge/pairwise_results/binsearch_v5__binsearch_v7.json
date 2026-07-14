@@ -1,0 +1,46 @@
+{
+  "setupA": "binsearch_v7",
+  "setupB": "binsearch_v5",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_v7",
+  "lesson2Setup": "binsearch_v5",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_v7",
+      "confidence": 0.92,
+      "rationale": "Lesson 1 more accurately represents the binary search state by highlighting target 45 at index 7 and largely aligning the final mid/high position with the explanation, whereas Lesson 2 explicitly computes low=high=7 but visually leaves low at index 0 and high at index 10, a clear positional contradiction."
+    },
+    "interactivity": {
+      "winner": "binsearch_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 has a clean, well-formed quiz gate with a real question, plausible options, marked correct answer, and matching placement after act_found, while Lesson 2 is also mostly functional but is slightly weaker because its quiz spec includes extraneous ordering fields and a wrong_path_acts reference to a remediation act that does not appear in the plan."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v5",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 uses more natural spoken math and smoother explanatory phrasing, while Lesson 1 has slightly awkward math narration like \u201cn divided by two-to-the-power-of-k elements\u201d and a more compressed ending that could feel less clear when spoken."
+    },
+    "sync": {
+      "winner": "binsearch_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 has some coarse or slightly early cues, but Lesson 2 has more serious timing/order issues, especially discarding and moving pointers before the narration has established the relevant comparison or consequence."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v7",
+      "confidence": 0.68,
+      "rationale": "Lesson 1 gives a clearer and more mathematically accurate explanation of the logarithmic runtime with the n/2^k derivation, while Lesson 2 traces the search reasonably but gives a vaguer O(log n explanation and relies more on assertion than derivation."
+    },
+    "polish": {
+      "winner": "binsearch_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 is more polished with a balanced two-column layout, cleaner typography, and fewer visual distractions, while Lesson 2 is pushed into the left half with a largely empty right side, visible player controls, and a midpoint box where text appears cramped/spilling outside."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v7",
+    "confidence": 0.86,
+    "explanation": "Lesson 1 is the clear overall winner, taking five of six dimensions, including high-confidence wins in visual accuracy and polish. It more accurately keeps the binary search state aligned with the explanation, has a cleaner and more functional quiz interaction, better synchronization, stronger conceptual treatment of logarithmic runtime, and a more polished layout. Lesson 2 wins narration quality due to smoother spoken phrasing, but that single advantage is outweighed by its visual contradictions, timing/order issues, weaker runtime explanation, and layout/polish problems."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-14T15:49:19.606522+00:00"
+}

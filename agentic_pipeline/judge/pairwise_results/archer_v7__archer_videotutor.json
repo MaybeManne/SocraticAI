@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v7",
+  "setupB": "archer_videotutor",
+  "subject": "archer",
+  "lesson1Setup": "archer_videotutor",
+  "lesson2Setup": "archer_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 accurately shows the projectile problem, trajectory, velocity components, and flight-time equations in the correct context, while Lesson 1\u2019s title frame is an OBS screen-capture recursion and its mid-frame only shows a partially entered Desmos setup with errors and no meaningful projectile visualization."
+    },
+    "interactivity": {
+      "winner": "archer_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a wired, functional fill-in gate after act_decomposition with a concrete prompt, answer, hint, and remediation path, whereas Lesson 1 has no available gate specs or plan and therefore no functioning checkpoints."
+    },
+    "narration_quality": {
+      "winner": "archer_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 has clear, natural narration with spoken math rendered appropriately and no obvious pacing or LaTeX-readout defects, while Lesson 1 has no available narration transcript to evaluate and therefore cannot demonstrate acceptable audio quality."
+    },
+    "sync": {
+      "winner": "archer_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 provides timed visual cues that mostly coincide with the narration\u2019s references, whereas Lesson 1 has no transcript or cue data at all, making its sync impossible to verify and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly decomposes projectile motion, derives flight time from vertical motion and range from horizontal motion with clear pedagogy and the correct 141.4 m result, while Lesson 1 has no transcript or plan available and therefore provides no assessable teaching content."
+    },
+    "polish": {
+      "winner": "archer_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 is clean, centered, visually consistent, and legible, while Lesson 1 has a severe OBS infinite-screen-capture bug on the title screen and a cluttered browser/UI-heavy mid-lesson frame with distracting controls and off-center lesson content."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v7",
+    "confidence": 0.99,
+    "explanation": "All six dimension agents strongly prefer Lesson 2, with very high confidence across visual accuracy, interactivity, narration quality, sync, concept accuracy, and polish. Lesson 2 is described as accurate, functional, well-narrated, synchronized, pedagogically correct, and visually clean. Lesson 1 has severe deficiencies: OBS recursion, incomplete or erroneous visuals, no assessable narration/transcript/plan/gates, absent sync data, and cluttered UI-heavy presentation. The verdict is unanimous with consistently high confidence, so Lesson 2 is the clear overall winner."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-14T15:52:25.855211+00:00"
+}

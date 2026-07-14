@@ -1,0 +1,46 @@
+{
+  "setupA": "circles_v7",
+  "setupB": "circles_v5",
+  "subject": "circles",
+  "lesson1Setup": "circles_v5",
+  "lesson2Setup": "circles_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 accurately depicts nested internally tangent circles sharing a common circumference point and correctly shades a region between a paired radii, while Lesson 1 incorrectly describes them as concentric and its mid-lesson visual shows only a sparse/unclear pair without the alternating shaded nested regions."
+    },
+    "interactivity": {
+      "winner": "circles_v5",
+      "confidence": 0.58,
+      "rationale": "Both lessons include a functional wired quiz gate with real options and a correct answer, but Lesson 1\u2019s gate question more explicitly states the formula and the 2n=10 to n=5 conversion, while Lesson 2\u2019s spec is slightly less self-contained and relies more on surrounding context."
+    },
+    "narration_quality": {
+      "winner": "circles_v5",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 has clearer pacing with shorter, separated explanation beats, while Lesson 2 is slightly more compressed and contains more potentially awkward spoken math phrasing like \u201ctwo-k-minus-one,\u201d \u201cfour-k minus one,\u201d and a long combined testing sentence that may sound rushed."
+    },
+    "sync": {
+      "winner": "circles_v7",
+      "confidence": 0.76,
+      "rationale": "Lesson 2 generally times cues to the specific moments concepts are introduced, especially graph testing, while Lesson 1 often fires broad visuals at line start well before the narration mentions drawing, shading, formulas, or specific changes."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 is more conceptually accurate and clearer because it consistently describes circles sharing a common point and explicitly derives the ring and total-area formulas, while Lesson 1 contains a contradictory 'concentric circles' statement and slightly muddier wording about the geometry despite reaching the correct formula and answer."
+    },
+    "polish": {
+      "winner": "circles_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 is more polished with cleaner centered title text, consistent styling, and a balanced mid-lesson two-column layout, whereas Lesson 1 has awkward/raw-looking problem text, excessive empty space, an off-center/cluttered mid-frame, and a diagram/label box that feels poorly composed."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v7",
+    "confidence": 0.86,
+    "explanation": "Lesson 2 is the clear overall winner. Four of six agents prefer it, and those preferences carry higher confidence overall: visual accuracy strongly favors Lesson 2 because it correctly represents internally tangent nested circles and shading, concept accuracy favors Lesson 2 due to its consistent common-point geometry and clearer derivation, sync favors Lesson 2 for better-timed cues, and polish favors Lesson 2 for cleaner layout and styling. Lesson 1 wins interactivity and narration quality, but with lower-to-moderate confidence and on narrower grounds. The strongest and most central criteria favor Lesson 2, so the result is not a genuine tie."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-14T15:46:01.849868+00:00"
+}

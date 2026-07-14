@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v7",
+  "setupB": "archer_v5",
+  "subject": "archer",
+  "lesson1Setup": "archer_v5",
+  "lesson2Setup": "archer_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 more accurately places the projectile trajectory, axes, launch/landing points, component triangle, and flight-time equations in a coherent diagram, while Lesson 1\u2019s diagram is much smaller/cramped with less clear component placement and no clear range/landing emphasis despite being broadly conceptually correct."
+    },
+    "interactivity": {
+      "winner": "archer_v5",
+      "confidence": 0.58,
+      "rationale": "Both lessons include a real, wired fill-in gate that should render and accept input, but Lesson 1 is slightly better because its answer set is more tolerant with both rounded and more precise values, while Lesson 2 only accepts the exact rounded value and is therefore a bit less robust despite otherwise similar gate functionality."
+    },
+    "narration_quality": {
+      "winner": "archer_v7",
+      "confidence": 0.63,
+      "rationale": "Lesson 2 has slightly smoother, more naturally paced narration with shorter explanatory chunks, while Lesson 1 is also clear but includes denser, longer lines that are a bit more likely to feel rushed or overloaded when spoken."
+    },
+    "sync": {
+      "winner": "archer_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 generally places cues closer to the exact narrated references by breaking the explanation into shorter lines, while Lesson 1 often fires visuals noticeably early within long narration lines, especially trajectory, shadows, substitutions, and final range labels."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 2 is more conceptually accurate pedagogically because it explicitly derives and numerically evaluates the vertical flight time and horizontal range step by step, while Lesson 1 is broadly correct but leaves key algebra and numerical substitutions implicit and even calls the range formula 'more accurate' rather than just an equivalent simplification."
+    },
+    "polish": {
+      "winner": "archer_v7",
+      "confidence": 0.92,
+      "rationale": "Lesson 2 is substantially more polished with a cleaner centered title screen, larger and more legible mid-lesson diagram/formula panels, and a balanced split layout, while Lesson 1\u2019s mid-lesson content is tiny, pushed into the lower-left with excessive empty space and low-contrast/awkwardly placed elements."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v7",
+    "confidence": 0.91,
+    "explanation": "Lesson 2 is the clear overall winner, taking five of six dimensions and with higher-confidence wins in the most substantive areas. It was judged more visually accurate, better synchronized, more conceptually/pedagogically complete, more polished, and slightly stronger in narration. Lesson 1 only won interactivity, and that was a low-confidence, narrow advantage based on more tolerant accepted fill-in answers. Overall, the weighted verdict strongly favors Lesson 2."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-14T15:48:13.738963+00:00"
+}

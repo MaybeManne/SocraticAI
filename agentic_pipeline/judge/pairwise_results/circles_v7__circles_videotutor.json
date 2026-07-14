@@ -1,0 +1,46 @@
+{
+  "setupA": "circles_v7",
+  "setupB": "circles_videotutor",
+  "subject": "circles",
+  "lesson1Setup": "circles_v7",
+  "lesson2Setup": "circles_videotutor",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 accurately depicts the nested internally tangent circles and correctly shades the region between radii 1 and 2 while showing the right area formula, whereas Lesson 2 initially shows an OBS capture error and later only a Desmos graph with the threshold line off-screen rather than a correct geometric visualization of the shaded circle regions."
+    },
+    "interactivity": {
+      "winner": "circles_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a functional, wired quiz gate with a real question, options, correct answer, and remediation after act_total_area, whereas Lesson 2 has no available gate specs or plan and therefore no evidence of any functioning checkpoint."
+    },
+    "narration_quality": {
+      "winner": "circles_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 has clear, well-paced narration with properly spoken math and no obvious TTS defects, while Lesson 2 provides no narration transcript at all, making its narration quality absent and therefore worse."
+    },
+    "sync": {
+      "winner": "circles_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 provides timed cues that mostly occur as the narration introduces the corresponding visuals, whereas Lesson 2 has no transcript or cue data at all, so it cannot demonstrate synchronization."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly derives the shaded area as a sum of area differences, solves the resulting inequality, and clarifies that the final answer is twice the number of shaded pairs, while Lesson 2 has no available transcript or plan to demonstrate any correct or pedagogically useful explanation."
+    },
+    "polish": {
+      "winner": "circles_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 is a clean, centered, visually consistent lesson with legible math and diagrams, while Lesson 2 shows raw screen-recording/browser/OBS UI clutter, off-center content, and distracting interface elements that severely reduce polish."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v7",
+    "confidence": 0.99,
+    "explanation": "All six dimension agents strongly favor Lesson 1 with very high confidence. Lesson 1 is judged superior in visual accuracy, interactivity, narration quality, synchronization, concept accuracy, and polish. The rationales consistently note that Lesson 1 provides correct geometry, clear narration, synchronized visuals, a functioning quiz gate, accurate mathematical reasoning, and a clean presentation, while Lesson 2 lacks key evidence such as narration, cue data, interactivity, and a coherent instructional plan, and also suffers from major visual/polish issues like OBS/browser clutter and incomplete or incorrect visualizations."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-14T15:51:15.684519+00:00"
+}
