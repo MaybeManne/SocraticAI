@@ -115,7 +115,12 @@
     <div class="videos" id="grid"></div>
 
     <div class="panel" id="metricsPanel" style="display:none">
-      <h3>Judge metrics</h3>
+      <div style="display:flex; align-items:center; margin-bottom:8px">
+        <h3 style="margin:0">Judge metrics</h3>
+        <div class="seg" id="mview" style="margin-left:auto">
+          <button data-v="ai" class="on">AI judge score</button><button data-v="records">Records &amp; rank</button>
+        </div>
+      </div>
       <div id="metricsBody"></div>
     </div>
 
@@ -161,7 +166,8 @@
 <script>
 const DIMS = ["visual_accuracy","interactivity","narration_quality","sync","concept_accuracy","polish"];
 let CATALOG = [], selected = [], verdict = {}, judgeFb = {},
-    subjectFilter = "circles", showAll = false, notesOn = false;
+    subjectFilter = "circles", showAll = false, notesOn = false,
+    metricsView = "ai";   // "ai" (judge scores /100) | "records" (win-loss + BT rank)
 const $ = id => document.getElementById(id);
 const api = (p, o) => fetch(p, o).then(r => r.json());
 const item = id => CATALOG.find(i => i.id === id);
@@ -169,6 +175,12 @@ const item = id => CATALOG.find(i => i.id === id);
 // A curated sidebar: the videos you actually compare (main variants +
 // external tools). Everything else appears with "Show all versions".
 const PRIMARY = /_(v\d|veo3|mathgpt|notebooklm|videotutor)$/;
+
+document.querySelectorAll("#mview button").forEach(b => b.onclick = () => {
+  metricsView = b.dataset.v;
+  document.querySelectorAll("#mview button").forEach(x => x.classList.toggle("on", x === b));
+  loadMetrics();
+});
 
 document.querySelectorAll(".tab2").forEach(t => t.onclick = () => {
   document.querySelectorAll(".tab2").forEach(x => x.classList.remove("active"));
@@ -254,15 +266,101 @@ function render() {
   setupVerdict();
 }
 
+// Per-match credit out of 100 from the judge's verdict + confidence:
+// win at confidence c → 100·c, loss → 100·(1−c), tie → 50.
+// So a narrow 0.58 loss scores 42, a crushing 0.95 loss scores 5.
+const credit = (res, conf) => res === "t" ? 50
+  : (c => res === "w" ? 100 * c : 100 * (1 - c))(conf ?? 0.75);
+const aiScore = list => list.length
+  ? list.reduce((s, m) => s + credit(m.result, m.confidence), 0) / list.length : null;
+const scoreChip = (v, n) => {
+  if (v == null) return "<span class='muted' title='never judged on this dimension'>—</span>";
+  const cls = v >= 60 ? "sc-hi" : v > 40 ? "sc-mid" : "sc-lo";
+  return `<span class="sc ${cls}" title="average AI-judge score over ${n} match${n === 1 ? "" : "es"} — 50 = evenly matched">${Math.round(v)}</span>`;
+};
+
 async function loadMetrics() {
   const panel = $("metricsPanel");
   const scored = selected.filter(id => item(id).subject !== "misc");
   if (!scored.length) { panel.style.display = "none"; return; }
   panel.style.display = "";
 
-  // ── 1. REAL judged performance (from actual verdicts, not rank) ──
   const stats = {};
   for (const id of scored) stats[id] = await api(`/api/stats/${encodeURIComponent(id)}`);
+  const pairs = [];
+  for (let i = 0; i < selected.length; i++)
+    for (let j = i + 1; j < selected.length; j++) pairs.push([selected[i], selected[j]]);
+  const h2h = [];
+  for (const [a, b] of pairs) {
+    const d = await api(`/api/pair/${encodeURIComponent(a)}/${encodeURIComponent(b)}`);
+    if (d.judge) h2h.push({ a, b, j: d.judge, human: d.human.length });
+  }
+
+  $("metricsBody").innerHTML = metricsView === "ai"
+    ? renderAiView(scored, stats, h2h)
+    : await renderRecordsView(scored, stats, h2h);
+}
+
+// ── AI-judge view: scores out of 100 straight from the judge's verdicts ──
+function renderAiView(scored, stats, h2h) {
+  let html = `<table><tr><th>video</th><th>overall</th>` +
+    DIMS.map(d => `<th>${d.split("_")[0]}</th>`).join("") + `<th>matches</th></tr>`;
+  for (const id of scored) {
+    const st = stats[id];
+    const ov = st.matches.map(m => m.overall);
+    html += `<tr><td><b>${id}</b></td><td>${scoreChip(aiScore(ov), ov.length)}</td>` +
+      DIMS.map(d => {
+        const list = st.matches.map(m => m.dimensions[d]).filter(Boolean);
+        return `<td>${scoreChip(aiScore(list), list.length)}</td>`;
+      }).join("") +
+      `<td class="muted">${st.matches.length}</td></tr>`;
+  }
+  html += `</table><div class="legend"><b>AI judge score, out of 100</b> — built from the judge's
+    verdict <i>and</i> confidence in every match this video has played
+    (win at confidence 0.9 → 90, narrow loss at 0.58 → 42, tie → 50).
+    <span class="sc sc-hi">60+ favored</span> <span class="sc sc-mid">41–59 contested</span>
+    <span class="sc sc-lo">≤40 outmatched</span> • 50 = dead even with its opponents.
+    It's relative to opponents, not a % of things working.</div>`;
+
+  // Selected pairs the judge has actually ruled on: scores + its reasoning.
+  for (const { a, b, j } of h2h) {
+    // The judge writes blinded "Lesson 1/2" — translate to real video names.
+    const deblind = t => (t && j.lesson1Setup)
+      ? t.replace(/Lesson 1/g, `<b>${j.lesson1Setup}</b>`).replace(/Lesson 2/g, `<b>${j.lesson2Setup}</b>`) : t;
+    const rows = [...DIMS.map(dm => [dm, j.dimensions[dm]]),
+      ["overall", { winner: j.aggregator.winner, confidence: j.aggregator.confidence,
+                    rationale: j.aggregator.explanation }]];
+    html += `<h3 style="margin-top:14px">${a} <span class="muted" style="text-transform:none">vs</span> ${b}
+      <span class="muted" style="text-transform:none;letter-spacing:0">— what the AI judge said</span></h3>
+      <table><tr><th>dimension</th><th>${a}</th><th>${b}</th><th>judge's reasoning</th></tr>`;
+    for (const [dm, r] of rows) {
+      const sa = r.winner === "tie" ? 50 : Math.round(100 * (r.winner === a ? r.confidence : 1 - r.confidence));
+      html += `<tr${dm === "overall" ? ' style="font-weight:650"' : ""}>
+        <td>${dm.replace(/_/g, " ")}</td>
+        <td>${scoreChip(sa, 1)}</td><td>${scoreChip(100 - sa, 1)}</td>
+        <td class="muted" style="font-weight:400">${deblind(r.rationale) || ""}</td></tr>`;
+    }
+    html += "</table>";
+  }
+
+  // Single video: per-match AI scores against every opponent.
+  if (scored.length === 1 && stats[scored[0]].matches.length) {
+    const st = stats[scored[0]];
+    html += `<h3 style="margin-top:14px">All judged matches for ${scored[0]}</h3>
+      <table><tr><th>opponent</th><th>overall</th>` + DIMS.map(d => `<th>${d.split("_")[0]}</th>`).join("") + `</tr>`;
+    for (const m of st.matches) {
+      html += `<tr><td>${m.opponent}</td><td>${scoreChip(credit(m.overall.result, m.overall.confidence), 1)}</td>` +
+        DIMS.map(d => `<td>${m.dimensions[d]
+          ? scoreChip(credit(m.dimensions[d].result, m.dimensions[d].confidence), 1)
+          : "<span class='muted'>—</span>"}</td>`).join("") + `</tr>`;
+    }
+    html += "</table>";
+  }
+  return html;
+}
+
+// ── Records view: raw win/loss record + Bradley-Terry rank ──
+async function renderRecordsView(scored, stats, h2h) {
   const recChip = (rec) => {
     const n = rec.w + rec.l + rec.t;
     if (!n) return "<span class='muted' title='never judged on this dimension'>—</span>";
@@ -278,11 +376,11 @@ async function loadMetrics() {
       DIMS.map(d => `<td>${recChip(st.dimRecord[d])}</td>`).join("") +
       `<td class="muted">${st.matches.length}</td></tr>`;
   }
-  html += `</table><div class="legend">Cells show <b>dimension wins / judged matches</b> — real
-    judge verdicts. <span class="sc sc-hi">won most</span> <span class="sc sc-mid">contested</span>
+  html += `</table><div class="legend">Cells show <b>dimension wins / judged matches</b> — a match
+    record, NOT a quality score (0/3 just means it lost 3 matchups, often against strong opponents).
+    <span class="sc sc-hi">won most</span> <span class="sc sc-mid">contested</span>
     <span class="sc sc-lo">lost most</span> • — = never judged. Few matches = weak evidence.</div>`;
 
-  // ── 2. leaderboard rank (derived from match record) ──
   const subjects = [...new Set(scored.map(id => item(id).subject))];
   const rankings = {};
   for (const sj of subjects) rankings[sj] = await api(`/api/rankings/${sj}`);
@@ -301,15 +399,6 @@ async function loadMetrics() {
   }
   html += "</table>";
 
-  // ── 3. head-to-head among the selected pairs ──
-  const pairs = [];
-  for (let i = 0; i < selected.length; i++)
-    for (let j = i + 1; j < selected.length; j++) pairs.push([selected[i], selected[j]]);
-  const h2h = [];
-  for (const [a, b] of pairs) {
-    const d = await api(`/api/pair/${encodeURIComponent(a)}/${encodeURIComponent(b)}`);
-    if (d.judge) h2h.push({ a, b, j: d.judge, human: d.human.length });
-  }
   if (h2h.length) {
     const w = x => x === "tie" ? `<span class="badge btie">tie</span>` : `<span class="badge">${x}</span>`;
     html += `<h3 style="margin-top:14px">Head-to-head</h3>
@@ -321,24 +410,20 @@ async function loadMetrics() {
     html += "</table>";
   }
 
-  // ── 4. single video selected: full match history with real verdicts ──
-  if (scored.length === 1) {
+  if (scored.length === 1 && stats[scored[0]].matches.length) {
     const st = stats[scored[0]];
-    if (st.matches.length) {
-      const rb = x => x === "w" ? `<span class="badge" style="background:#e6f6ee;color:#0a8a5f">won</span>`
-        : x === "l" ? `<span class="badge" style="background:#fdeaea;color:#b3352e">lost</span>`
-        : `<span class="badge btie">tie</span>`;
-      html += `<h3 style="margin-top:14px">All judged matches for ${scored[0]}</h3>
-        <table><tr><th>opponent</th><th>overall</th>` + DIMS.map(d=>`<th>${d.split("_")[0]}</th>`).join("") + `</tr>`;
-      for (const m of st.matches) {
-        html += `<tr><td>${m.opponent}</td><td>${rb(m.overall.result)} <span class="muted">${m.overall.confidence ?? ""}</span></td>` +
-          DIMS.map(d => `<td>${m.dimensions[d] ? rb(m.dimensions[d].result) : "<span class='muted'>—</span>"}</td>`).join("") + `</tr>`;
-      }
-      html += "</table>";
+    const rb = x => x === "w" ? `<span class="badge" style="background:#e6f6ee;color:#0a8a5f">won</span>`
+      : x === "l" ? `<span class="badge" style="background:#fdeaea;color:#b3352e">lost</span>`
+      : `<span class="badge btie">tie</span>`;
+    html += `<h3 style="margin-top:14px">All judged matches for ${scored[0]}</h3>
+      <table><tr><th>opponent</th><th>overall</th>` + DIMS.map(d=>`<th>${d.split("_")[0]}</th>`).join("") + `</tr>`;
+    for (const m of st.matches) {
+      html += `<tr><td>${m.opponent}</td><td>${rb(m.overall.result)} <span class="muted">${m.overall.confidence ?? ""}</span></td>` +
+        DIMS.map(d => `<td>${m.dimensions[d] ? rb(m.dimensions[d].result) : "<span class='muted'>—</span>"}</td>`).join("") + `</tr>`;
     }
+    html += "</table>";
   }
-
-  $("metricsBody").innerHTML = html;
+  return html;
 }
 
 function setupVerdict() {
