@@ -25,12 +25,15 @@ var CardSystem = {
   init: function() {
     var self = this;
     EventBus.on("beat:render", function(data) {
-      self.renderBeat(data.beat);
+      self.renderBeat(data.beat, data.instant);
     });
   },
 
-  renderBeat: function(beat) {
+  renderBeat: function(beat, instant) {
     if (!beat.card) return null;
+    // The full-screen title overlay is a play-through moment; replaying it on
+    // seek (instant snapshot renders) flashes the intro over the sought frame.
+    if (instant && beat.card.type === "title") return null;
     var factory = this.factories[beat.card.type];
     if (!factory) {
       console.warn("[CardSystem] No factory for type: " + beat.card.type);

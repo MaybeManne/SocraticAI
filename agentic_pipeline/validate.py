@@ -166,6 +166,21 @@ def validate_act_spec(act_spec, plan=None, plan_node=None):
         if errors:
             return errors
 
+    # Card content that is clearly LaTeX but missing $ delimiters renders as
+    # raw backslash text in text/recap cards (archer_v7 "y(t) = v_{0y}t..." bug).
+    # The engine has a rendering fallback, but the act worker should delimit.
+    import re as _re
+    _latexy = _re.compile(r"\\(frac|sqrt|sum|int|cdot|times|approx|geq|leq|neq|pi|theta|alpha|beta|Delta|infty)\b")
+    for bi, beat in enumerate(act_spec.get("beats", []) or []):
+        card = beat.get("card")
+        if isinstance(card, dict) and card.get("type") in ("text", "recap"):
+            content = card.get("content") or ""
+            if isinstance(content, str) and "$" not in content and _latexy.search(content):
+                errors.append(
+                    f"Beat {bi} card content contains raw LaTeX without $ delimiters "
+                    f"({content[:50]!r}...). Wrap math in $...$ so it renders."
+                )
+
     if "act_id" not in act_spec:
         errors.append("Missing 'act_id'")
     if "beats" not in act_spec:

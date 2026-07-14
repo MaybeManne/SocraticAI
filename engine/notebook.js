@@ -24,6 +24,16 @@ var K = {
     catch(e) { el.textContent = latex; }
   },
   mixed: function(text, container) {
+    // Fallback: content that is clearly LaTeX but missing $ delimiters
+    // (e.g. "y(t) = v_{0y}t - \\frac{1}{2}gt^2") must never render as raw
+    // backslash text — treat the whole string as display math.
+    if (text.indexOf("$") === -1 &&
+        /\\(frac|sqrt|sum|int|cdot|times|approx|geq|leq|neq|pi|theta|alpha|beta|Delta|infty|left|right)\b/.test(text)) {
+      var dm = document.createElement("div");
+      K.display(text, dm);
+      container.appendChild(dm);
+      return;
+    }
     var parts = text.split(/(\$\$[\s\S]*?\$\$|\$[^$]+?\$)/g);
     parts.forEach(function(part) {
       if (part.indexOf("$$") === 0 && part.lastIndexOf("$$") === part.length - 2) {

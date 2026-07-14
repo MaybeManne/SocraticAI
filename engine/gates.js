@@ -29,6 +29,7 @@ var GateSystem = {
   },
 
   renderGate: function(milestone) {
+    var self = this;
     var type = milestone.gate.type;
     var factory = this.gateFactories[type];
     if (!factory) {
@@ -37,11 +38,16 @@ var GateSystem = {
       return null;
     }
 
+    var el = null;
     var onResolve = function(correct) {
       EventBus.emit("gate:resolve", { correct: correct, milestone: milestone });
+      // The answered gate (options, colors, explanation) shouldn't clutter
+      // the notebook for the rest of the lesson — collapse to the compact
+      // "answered" form a few seconds after the learner sees the feedback.
+      setTimeout(function() { self.collapseGate(el, milestone, correct); }, 4000);
     };
 
-    var el = factory(milestone.id, milestone.gate, onResolve);
+    el = factory(milestone.id, milestone.gate, onResolve);
     if (el) {
       EventBus.emit("notebook:appendMilestone", { milestoneId: milestone.id, element: el });
       EventBus.emit("scroll:observe", { element: el });
@@ -49,6 +55,33 @@ var GateSystem = {
       EX.Notebook.scrollTo(milestone.id);
     }
     return el;
+  },
+
+  /* Shrink an answered gate card down to its question + a result badge —
+     same silhouette as renderPassedGate, so live-answered and seek-rendered
+     gates look identical after the fact. */
+  collapseGate: function(el, milestone, correct) {
+    if (!el || !el.parentNode || el.dataset.collapsed) return;
+    el.dataset.collapsed = "1";
+    el.style.transition = "opacity 0.4s";
+    el.style.opacity = "0";
+    setTimeout(function() {
+      el.innerHTML = "";
+      var q = document.createElement("div");
+      q.className = "quiz-question";
+      var qText = milestone.gate.question || milestone.gate.prompt || milestone.gate.instruction || "";
+      K.mixed(qText, q);
+      q.style.opacity = "0.55";
+      var badge = document.createElement("span");
+      badge.className = "gate-result-badge";
+      badge.textContent = correct ? "✓ answered" : "✗ review path taken";
+      badge.style.cssText = "display:inline-block;margin-top:6px;font-size:.72rem;letter-spacing:.06em;" +
+        "color:" + (correct ? "#34d399" : "#f87171") + ";opacity:.8";
+      el.appendChild(q);
+      el.appendChild(badge);
+      el.classList.add("past");
+      el.style.opacity = "";
+    }, 420);
   },
 
   renderPassedGate: function(milestone) {

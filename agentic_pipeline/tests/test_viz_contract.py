@@ -187,3 +187,12 @@ def test_gemini_cleaner_resolves_nullable_card_union():
     assert c.get("nullable") is True
     assert c.get("type") == "object"
     assert set(c["properties"]) >= {"type", "content", "steps"}
+
+
+# ── 8. silent-lesson guard: --audio must hard-fail without a key ──────────────
+
+def test_audio_stage_hard_fails_without_key(monkeypatch, tmp_path):
+    from orchestrator import stage_audio_and_rebuild
+    monkeypatch.delenv("ELEVENLABS_API_KEY", raising=False)
+    with pytest.raises(SystemExit, match="silent lesson"):
+        stage_audio_and_rebuild(tmp_path / "c.js", None, tmp_path / "o.html", tmp_path)

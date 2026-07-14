@@ -1673,19 +1673,24 @@ def stage5_review(plan, content_js, viz_js=None, screenshot_path=None, model="ge
 # Build HTML (optional)
 # ─────────────────────────────────────────────────────────────────────
 
-def build_html(content_js_path, viz_js_path, output_html_path):
+def build_html(content_js_path, viz_js_path, output_html_path, audio_js_path=None):
     """Call the existing build.sh to produce a self-contained HTML file."""
     print("\n=== Building HTML ===")
     # Resolve all paths to absolute so build.sh works regardless of cwd
     content_abs = str(Path(content_js_path).resolve())
     viz_abs = str(Path(viz_js_path).resolve()) if viz_js_path else None
     output_abs = str(Path(output_html_path).resolve())
+    audio_abs = str(Path(audio_js_path).resolve()) if audio_js_path else None
 
     cmd = [str(CODE2HTML_DIR / "build.sh")]
     if viz_abs:
         cmd += [content_abs, viz_abs, output_abs]
+        if audio_abs:
+            cmd += [audio_abs]
     else:
         cmd += ["--mx", content_abs, output_abs]
+        if audio_abs:
+            cmd += [audio_abs]
 
     result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(CODE2HTML_DIR))
     if result.returncode != 0:
@@ -1694,6 +1699,52 @@ def build_html(content_js_path, viz_js_path, output_html_path):
     else:
         print(f"  {result.stdout.strip()}")
         return True
+
+
+def stage_audio_and_rebuild(content_path, viz_path, output_path, work_dir):
+    """Generate TTS narration for the assembled lesson and rebuild the final
+    HTML with audio embedded. HARD-FAILS on any problem — a lesson must never
+    silently ship without narration (the circles_v7/archer_v7 silent-lesson
+    incident: the manual audio step was skipped and nobody noticed).
+
+    @raises SystemExit: when the key is missing, TTS fails, no audio JS is
+        produced, or the final HTML embeds zero audio clips.
+    """
+    print("\n=== Stage 7: Audio narration ===")
+    if not os.environ.get("ELEVENLABS_API_KEY"):
+        raise SystemExit(
+            "ERROR: --audio requires ELEVENLABS_API_KEY in the environment. "
+            "Refusing to ship a silent lesson — export the key or drop --audio."
+        )
+
+    result = subprocess.run(
+        [sys.executable, str(CODE2HTML_DIR / "generate_audio.py"),
+         str(Path(content_path).resolve())],
+        capture_output=True, text=True, cwd=str(CODE2HTML_DIR),
+    )
+    tail = (result.stdout or "") + (result.stderr or "")
+    if result.returncode != 0:
+        raise SystemExit(f"ERROR: audio generation failed (lesson NOT built):\n{tail[-800:]}")
+    print("  " + (result.stdout or "").strip().splitlines()[-1] if result.stdout else "")
+
+    audio_files = sorted(Path(work_dir).glob("audio_*.js"))
+    if not audio_files or audio_files[-1].stat().st_size < 10000:
+        raise SystemExit(
+            f"ERROR: audio generation produced no usable audio JS in {work_dir} "
+            f"(found: {[f.name for f in audio_files]}). Lesson NOT built."
+        )
+
+    if not build_html(content_path, viz_path, output_path, audio_js_path=audio_files[-1]):
+        raise SystemExit("ERROR: final audio build failed.")
+
+    with open(output_path) as f:
+        clips = f.read().count("b64:")
+    if clips == 0:
+        raise SystemExit(
+            f"ERROR: built {output_path} contains ZERO embedded audio clips — "
+            "refusing to ship a silent lesson."
+        )
+    print(f"  Audio OK: {clips} clip(s) embedded in {output_path}")
 
 
 # ─────────────────────────────────────────────────────────────────────
@@ -1961,6 +2012,10 @@ Examples:
                         choices=["narrative", "plan", "acts", "viz", "assemble", "review", "all"],
                         default="all", help="Run only up to this stage")
     parser.add_argument("--no-review", action="store_true", help="Skip the review stage")
+    parser.add_argument("--audio", action="store_true",
+                        help="After the final build, generate TTS narration (ELEVENLABS_API_KEY "
+                             "required) and rebuild the HTML with audio embedded. HARD-FAILS if "
+                             "audio cannot be produced — never ships a silent lesson.")
     parser.add_argument("--screenshot", action="store_true",
                         help="Take a screenshot of the rendered HTML and feed it to the reviewer. "
                              "Requires: pip install playwright && playwright install chromium. "
@@ -2189,6 +2244,10 @@ Examples:
     # ── Build HTML (final — uses reviewed JS if the reviewer corrected anything) ──
     if content_path and args.output:
         build_html(content_path, viz_path, args.output)
+        if args.audio:
+            stage_audio_and_rebuild(content_path, viz_path, args.output, work_dir)
+        else:
+            print("  NOTE: built WITHOUT audio narration (pass --audio for the narrated build).")
 
     print("\nPipeline complete.")
 
