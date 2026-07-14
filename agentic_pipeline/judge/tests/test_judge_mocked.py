@@ -272,6 +272,19 @@ def test_bradley_terry_sane_ranking():
     assert all(r["comparisons"] == 3 for r in ranking)
 
 
+def test_bradley_terry_star_graph_with_winless_setups():
+    # One champion beating several tools that never play each other — two
+    # winless setups both reach strength 0, which used to raise 0/(0+0).
+    matchups = [
+        {"a": "v7", "b": "veo3", "aWins": 1},
+        {"a": "v7", "b": "mathgpt", "aWins": 1},
+        {"a": "v7", "b": "notebooklm", "aWins": 1},
+    ]
+    ranking = bradley_terry.compute_bradley_terry(matchups)
+    assert ranking[0]["id"] == "v7"
+    assert all(r["score"] == 0 for r in ranking[1:])
+
+
 def test_rank_all_seven_rankings():
     def fake_result(a, b, overall, per_dim):
         return {

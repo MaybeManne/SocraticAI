@@ -66,8 +66,14 @@ def compute_bradley_terry(matchups):
         for i in setups:
             denom = 0.0
             for j in setups:
-                if j != i:
-                    denom += Nij[i][j] / (p[i] + p[j])
+                # Skip never-played pairs (their term is 0 anyway) — and guard
+                # the degenerate case where two winless setups both sit at
+                # strength 0: 0/(0+0) raises in Python (Alex's JS silently
+                # yields NaN there instead).
+                if j != i and Nij[i][j]:
+                    strengths = p[i] + p[j]
+                    if strengths > 0:
+                        denom += Nij[i][j] / strengths
             new_p[i] = W[i] / denom if denom > 0 else p[i]
 
         total = sum(new_p.values())
