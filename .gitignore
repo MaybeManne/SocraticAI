@@ -33,3 +33,4 @@ benchmark_comparison/**/*.mp4
 benchmark_comparison/**/*.webm
 benchmark_comparison/**/*.mov
 benchmark_comparison/**/*.png
+benchmark_comparison/**/*.txt
