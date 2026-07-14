@@ -1,0 +1,46 @@
+{
+  "setupA": "circles_v6",
+  "setupB": "circles_v5",
+  "subject": "circles",
+  "lesson1Setup": "circles_v6",
+  "lesson2Setup": "circles_v5",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v6",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 correctly depicts many nested circles sharing a common point, whereas Lesson 2 inconsistently describes them as concentric and only shows a couple of partially obscured circles, making the geometry and shaded-region setup less accurate."
+    },
+    "interactivity": {
+      "winner": "circles_v6",
+      "confidence": 0.68,
+      "rationale": "Lesson 1 has a fully wired fill-in gate with a real prompt and valid answer after an existing act, while Lesson 2 also has a real quiz gate but its wrong-path remediation references an act that is not present in the plan, making its interactivity less reliably functional on incorrect input."
+    },
+    "narration_quality": {
+      "winner": "circles_v5",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 speaks the math naturally and clearly, while Lesson 1 contains extensive raw LaTeX such as dollar signs, backslashes, \\pi, \\geq, and \\ldots that would be read aloud verbatim and severely degrade narration quality."
+    },
+    "sync": {
+      "winner": "circles_v6",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 generally staggers visual changes to match the narrated sequence, while Lesson 2 often fires broad visuals at the start before the narration reaches them and even has explanatory lines about formulas and the final conversion with no corresponding cue."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v6",
+      "confidence": 0.82,
+      "rationale": "Lesson 1 presents the geometry and area derivation consistently and correctly, while Lesson 2 contains a contradictory statement calling the circles concentric before saying they share a circumference point, plus malformed problem text, which could confuse learners despite using the same correct formula and answer."
+    },
+    "polish": {
+      "winner": "circles_v5",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is more polished because its title screen is better centered and its mid-lesson diagram is more contained and composed, while Lesson 1 has severe off-center/cropped visuals with a huge diagram pushed left plus visible raw LaTeX text, though Lesson 2 still has garbled red text artifacts."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v6",
+    "confidence": 0.7,
+    "explanation": "Lesson 1 wins four of the six dimensions, including high-confidence advantages in visual accuracy, synchronization, and conceptual accuracy, plus a moderate interactivity edge. Lesson 2 has strong advantages in narration quality and polish, especially because Lesson 1's raw LaTeX would seriously hurt spoken delivery, but the weighted balance still favors Lesson 1 due to its more accurate geometry, more consistent derivation, better timing of visuals, and more reliable interaction flow."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-14T18:00:15.671508+00:00"
+}
