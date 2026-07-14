@@ -268,6 +268,33 @@ class Handler(BaseHTTPRequestHandler):
             _, _, a, b = candidates[0]
             return self._json({"a": a, "b": b})
 
+        if path.startswith("/api/stats/"):
+            vid = unquote(path.rsplit("/", 1)[1])
+            matches = []
+            dim_rec = {d: {"w": 0, "l": 0, "t": 0} for d in DIMENSIONS}
+            ov_rec = {"w": 0, "l": 0, "t": 0}
+            for r in load_judge_results():
+                if vid not in (r.get("setupA"), r.get("setupB")):
+                    continue
+                opp = r["setupB"] if r["setupA"] == vid else r["setupA"]
+                dims = {}
+                for d in DIMENSIONS:
+                    v = r.get("dimensions", {}).get(d)
+                    if not v:
+                        continue
+                    res = "t" if v["winner"] == "tie" else ("w" if v["winner"] == vid else "l")
+                    dim_rec[d][res] += 1
+                    dims[d] = {"result": res, "confidence": v.get("confidence"),
+                               "rationale": v.get("rationale")}
+                agg = r.get("aggregator") or {}
+                ores = "t" if agg.get("winner") == "tie" else ("w" if agg.get("winner") == vid else "l")
+                ov_rec[ores] += 1
+                matches.append({"opponent": opp, "subject": r.get("subject"),
+                                "overall": {"result": ores, "confidence": agg.get("confidence")},
+                                "dimensions": dims, "evaluatedAt": r.get("evaluatedAt")})
+            return self._json({"video": vid, "matches": matches,
+                               "dimRecord": dim_rec, "overallRecord": ov_rec})
+
         if path.startswith("/api/job/"):
             job = JOBS.get(path.rsplit("/", 1)[1])
             return self._json(job or {"status": "unknown"}, 200 if job else 404)

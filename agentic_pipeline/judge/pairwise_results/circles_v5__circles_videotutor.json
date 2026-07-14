@@ -1,0 +1,46 @@
+{
+  "setupA": "circles_v5",
+  "setupB": "circles_videotutor",
+  "subject": "circles",
+  "lesson1Setup": "circles_v5",
+  "lesson2Setup": "circles_videotutor",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v5",
+      "confidence": 0.87,
+      "rationale": "Lesson 1 more accurately visualizes the nested tangent circles sharing a common point and relates them to the correct summed ring areas, whereas Lesson 2 mostly shows UI/text and a Desmos graph with the target line off-scale/not visible, making the visual representation of the geometry and intersection concept much less accurate."
+    },
+    "interactivity": {
+      "winner": "circles_v5",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a functional quiz gate wired after act_derivation with a real question, plausible options, and a marked correct answer, whereas Lesson 2 has no available gate specs or plan and therefore no evidence of any functioning checkpoint."
+    },
+    "narration_quality": {
+      "winner": "circles_v5",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 provides mostly clear, paced narration with only minor awkward spoken-math phrasing, while Lesson 2 has no transcript available and therefore cannot demonstrate any audio clarity or pacing."
+    },
+    "sync": {
+      "winner": "circles_v5",
+      "confidence": 0.92,
+      "rationale": "Lesson 1 provides timed visual cues that mostly align with the narration\u2019s references, whereas Lesson 2 has no transcript or cue data available, making it absent on sync rather than merely imperfect."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v5",
+      "confidence": 0.97,
+      "rationale": "Lesson 1 correctly derives the shaded area as a sum of circle-area differences and solves the inequality to get 64, despite an inaccurate/contradictory use of \u201cconcentric,\u201d while Lesson 2 has no available transcript or content to demonstrate any conceptual correctness or pedagogy."
+    },
+    "polish": {
+      "winner": "circles_v5",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 is far cleaner and more centered with a consistent dark visual style and mostly legible math/diagram layout, whereas Lesson 2 is dominated by browser chrome, chat panels, controls, subtitles, off-center content, excessive empty space, and cluttered UI elements that significantly reduce presentation polish."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v5",
+    "confidence": 0.97,
+    "explanation": "All six dimension agents strongly prefer Lesson 1, with high confidence across visual accuracy, interactivity, narration quality, synchronization, concept accuracy, and polish. Lesson 1 is described as having accurate geometry visuals, a functioning quiz gate, clear narration, aligned cues, a correct derivation, and a cleaner presentation. Lesson 2 lacks key evidence for narration, sync, interactivity, and conceptual content, and its visuals/polish are significantly weaker due to UI clutter and ineffective graph/geometry representation."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-14T20:41:25.695714+00:00"
+}

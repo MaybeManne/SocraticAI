@@ -1,0 +1,46 @@
+{
+  "setupA": "binsearch_v5",
+  "setupB": "binsearch_videotutor",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_videotutor",
+  "lesson2Setup": "binsearch_v5",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_videotutor",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 accurately shows the binary search state with mid=5 at value 23 and the remaining range [6,10], while Lesson 2\u2019s mid-frame formula says low=high=7 but visually leaves low at index 0 and high at index 10, creating a clear positional inconsistency."
+    },
+    "interactivity": {
+      "winner": "binsearch_v5",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a clearly wired, well-formed quiz gate after act_found with a real question, answer options, and a marked correct choice, whereas Lesson 1 has no available gate specs or plan and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v5",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 has clear, natural narration with correctly spoken math and no obvious pacing or raw-LaTeX defects, while Lesson 1 provides no narration transcript at all, making it absent on this dimension."
+    },
+    "sync": {
+      "winner": "binsearch_v5",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 at least provides timed visual cues that often roughly correspond to the narration, whereas Lesson 1 has no transcript or timing data at all, making its sync impossible to verify and effectively worse despite Lesson 2 having several early or poorly aligned cues."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v5",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 accurately traces the binary search steps and explains the halving/logarithmic intuition clearly, while Lesson 1 has no available transcript or lesson content to verify or learn from."
+    },
+    "polish": {
+      "winner": "binsearch_v5",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 has a much cleaner, consistent full-screen visual style with legible centered title content, whereas Lesson 1 is dominated by browser/app chrome, chat widgets/tooltips, excessive empty space, and mid-lesson content pushed awkwardly into the lower-right."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v5",
+    "confidence": 0.94,
+    "explanation": "Lesson 2 wins five of six dimensions, with very high confidence in interactivity, narration quality, concept accuracy, and polish, plus a moderate-confidence win on sync because it provides timed narration/visual cues while Lesson 1 lacks transcript or timing data. Lesson 1\u2019s only win is visual accuracy, where it avoids a notable positional inconsistency present in Lesson 2. Overall, the strong and consistent advantages for Lesson 2 across core lesson quality dimensions outweigh Lesson 1\u2019s isolated visual-accuracy advantage."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-14T20:46:16.769697+00:00"
+}

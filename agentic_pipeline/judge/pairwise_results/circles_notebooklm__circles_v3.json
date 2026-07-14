@@ -1,0 +1,46 @@
+{
+  "setupA": "circles_v3",
+  "setupB": "circles_notebooklm",
+  "subject": "circles",
+  "lesson1Setup": "circles_v3",
+  "lesson2Setup": "circles_notebooklm",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v3",
+      "confidence": 0.74,
+      "rationale": "Lesson 1 at least depicts nested concentric circles related to the problem, whereas Lesson 2 uses mostly decorative/non-concentric overlapping circles that do not visually represent the shared-center annuli despite showing a relevant sum formula."
+    },
+    "interactivity": {
+      "winner": "circles_v3",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate after act_summation with a real question, plausible options, and a correct answer, while Lesson 2 has no available gate specs or plan JSON and therefore no functioning checkpoints."
+    },
+    "narration_quality": {
+      "winner": "circles_v3",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 provides clear, natural spoken narration with no raw LaTeX or garbled symbols, while Lesson 2 has no narration transcript at all, making its narration quality absent and therefore worse."
+    },
+    "sync": {
+      "winner": "circles_v3",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 provides timed cues that generally track the narrated visual references, whereas Lesson 2 has no transcript or cue timing available at all, making its visual-narration sync absent and unevaluable."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v3",
+      "confidence": 0.97,
+      "rationale": "Lesson 1 correctly derives each shaded ring area as \u03c0((2k)^2-(2k-1)^2), sums to \u03c0n(2n+1), and pedagogically checks n=31 and n=32 to get 64 circles, whereas Lesson 2 has no available transcript or lesson content to demonstrate any accurate or explanatory teaching."
+    },
+    "polish": {
+      "winner": "circles_notebooklm",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 is far more polished with large legible text, centered and clean layouts, and consistent hand-drawn styling, while Lesson 1 has raw unrendered LaTeX, tiny unreadable labels, and a mid-lesson diagram shoved into the top-left with excessive empty space."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v3",
+    "confidence": 0.94,
+    "explanation": "Lesson 1 is the clear overall winner: five of six agents preferred it, all with high confidence, across the most instructionally important dimensions. It had better visual accuracy, functioning interactivity, actual narration, usable narration-visual sync, and correct mathematical/conceptual development. Lesson 2 won only on polish, with strong confidence, due to cleaner layouts and more legible styling, but it lacked available narration, checkpoints, timing, and demonstrated lesson content. The single polish advantage is not enough to outweigh Lesson 1's strong performance on content, teaching, and functionality."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-14T20:40:36.903249+00:00"
+}

@@ -1,0 +1,46 @@
+{
+  "setupA": "binsearch_v3",
+  "setupB": "binsearch_mathgpt",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_mathgpt",
+  "lesson2Setup": "binsearch_v3",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_mathgpt",
+      "confidence": 0.92,
+      "rationale": "Lesson 1 correctly depicts the binary search state with the proper array, indices, active range, and index 8/value 56 highlighted, whereas Lesson 2 shows an incorrect 'undefined + undefined' mid formula, an unrelated example array/target, and a partially obscured main array."
+    },
+    "interactivity": {
+      "winner": "binsearch_v3",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a clearly wired, functional quiz gate after act_search_trace with a real question, plausible options, and a marked correct answer, whereas Lesson 1 has no available gate specs or plan and therefore no evidence of any functioning checkpoint."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v3",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 provides clear, well-paced narration with spoken math and no obvious TTS defects, while Lesson 1 has no transcript available and therefore cannot demonstrate any narration quality."
+    },
+    "sync": {
+      "winner": "binsearch_v3",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 provides concrete visual cues that are mostly aligned with the narrated references, whereas Lesson 1 has no transcript or timing data at all, making it impossible to verify any synchronized visual changes."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v3",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 accurately traces the binary search to index 7 and explains the halving-to-O(log n) idea clearly, while Lesson 1 has no available transcript or content to verify or teach the concept at all despite Lesson 2 having a minor inconsistency in the lesson plan about linear-search step count."
+    },
+    "polish": {
+      "winner": "binsearch_v3",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 has a more cohesive, centered, and styled presentation overall, whereas Lesson 1 opens on an essentially blank white screen with only a logo and later uses excessive empty space despite its mid-lesson elements being readable."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v3",
+    "confidence": 0.88,
+    "explanation": "Five of the six dimension agents favor Lesson 2, most with very high confidence: interactivity, narration quality, sync, concept accuracy, and polish all judged Lesson 2 stronger, largely because it provides verifiable narration, timing, quiz functionality, and conceptual explanation while Lesson 1 lacks available transcript, timing, and gate evidence. Lesson 1 wins visual accuracy with high confidence because its binary search visualization is correct while Lesson 2 contains notable visual issues such as an incorrect mid formula and unrelated/obscured array elements. However, the overall weighted evidence clearly favors Lesson 2 despite its visual inaccuracies."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-14T20:44:54.238459+00:00"
+}

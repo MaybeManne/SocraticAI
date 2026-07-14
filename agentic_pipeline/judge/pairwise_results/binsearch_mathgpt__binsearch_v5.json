@@ -1,0 +1,46 @@
+{
+  "setupA": "binsearch_v5",
+  "setupB": "binsearch_mathgpt",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_v5",
+  "lesson2Setup": "binsearch_mathgpt",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_mathgpt",
+      "confidence": 0.67,
+      "rationale": "Lesson 2\u2019s mid-lesson diagram correctly selects index 8 with value 56 in the active range, whereas Lesson 1 shows a contradictory state with the formula mid=(7+7)/2 but low/high markers still positioned at indices 0 and 10 rather than both at 7."
+    },
+    "interactivity": {
+      "winner": "binsearch_v5",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate with a real question, plausible options, and a correct answer after a specific act, while Lesson 2 has no available gate specs or plan and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v5",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, natural narration with correctly spoken math and reasonable pacing, while Lesson 2 has no available narration transcript at all, making its narration absent and therefore worse."
+    },
+    "sync": {
+      "winner": "binsearch_v5",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 provides timed visual cues that are mostly aligned with the narration despite a few early/late pointer and discard cues, while Lesson 2 has no transcript or cue data at all, making its synchronization absent and unevaluable."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v5",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly traces the binary search steps, explains the sorted-array halving logic and logarithmic complexity clearly, while Lesson 2 has no available transcript or script and therefore provides no assessable teaching content."
+    },
+    "polish": {
+      "winner": "binsearch_v5",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 has a coherent, legible, consistently styled dark layout despite some left-heavy mid-lesson composition, whereas Lesson 2 shows browser chrome/player UI, an essentially blank title screen, excessive empty space, and a less polished captured-screen presentation."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v5",
+    "confidence": 0.96,
+    "explanation": "Lesson 1 is the clear overall winner: five of six agents prefer it, and those five preferences have high confidence (0.86\u20130.99). Lesson 1 strongly outperforms Lesson 2 in interactivity, narration quality, synchronization, concept accuracy, and polish, largely because Lesson 2 lacks available quiz/interactivity specs, narration transcript, cue data, and assessable teaching content, and appears less polished. Lesson 2 wins only visual accuracy with moderate confidence due to a specific correct diagram and a contradictory marker state in Lesson 1. That isolated visual advantage is outweighed by Lesson 1\u2019s broad, high-confidence strengths across the other dimensions."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-14T20:45:11.786731+00:00"
+}

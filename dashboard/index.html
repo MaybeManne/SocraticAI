@@ -259,38 +259,49 @@ async function loadMetrics() {
   const scored = selected.filter(id => item(id).subject !== "misc");
   if (!scored.length) { panel.style.display = "none"; return; }
   panel.style.display = "";
+
+  // ── 1. REAL judged performance (from actual verdicts, not rank) ──
+  const stats = {};
+  for (const id of scored) stats[id] = await api(`/api/stats/${encodeURIComponent(id)}`);
+  const recChip = (rec) => {
+    const n = rec.w + rec.l + rec.t;
+    if (!n) return "<span class='muted' title='never judged on this dimension'>—</span>";
+    const ratio = (rec.w + rec.t * 0.5) / n;
+    const cls = ratio >= 0.66 ? "sc-hi" : ratio >= 0.33 ? "sc-mid" : "sc-lo";
+    return `<span class="sc ${cls}" title="won ${rec.w}, lost ${rec.l}, tied ${rec.t} of ${n} judged matches">${rec.w}/${n}</span>`;
+  };
+  let html = `<table><tr><th>video</th><th>overall</th>` +
+    DIMS.map(d => `<th>${d.split("_")[0]}</th>`).join("") + `<th>matches</th></tr>`;
+  for (const id of scored) {
+    const st = stats[id];
+    html += `<tr><td><b>${id}</b></td><td>${recChip(st.overallRecord)}</td>` +
+      DIMS.map(d => `<td>${recChip(st.dimRecord[d])}</td>`).join("") +
+      `<td class="muted">${st.matches.length}</td></tr>`;
+  }
+  html += `</table><div class="legend">Cells show <b>dimension wins / judged matches</b> — real
+    judge verdicts. <span class="sc sc-hi">won most</span> <span class="sc sc-mid">contested</span>
+    <span class="sc sc-lo">lost most</span> • — = never judged. Few matches = weak evidence.</div>`;
+
+  // ── 2. leaderboard rank (derived from match record) ──
   const subjects = [...new Set(scored.map(id => item(id).subject))];
   const rankings = {};
-  for (const s of subjects) rankings[s] = await api(`/api/rankings/${s}`);
-
-  const rows = scored.map(id => {
+  for (const sj of subjects) rankings[sj] = await api(`/api/rankings/${sj}`);
+  html += `<h3 style="margin-top:14px">Leaderboard rank <span class="muted" style="text-transform:none;letter-spacing:0">
+    (Bradley-Terry, derived from win/loss record only — not a quality score)</span></h3>
+    <table><tr><th>video</th><th>rank in subject</th><th>strength</th><th>record</th></tr>`;
+  for (const id of scored) {
     const r = rankings[item(id).subject];
-    const find = l => (l || []).find(x => x.id === id);
-    const o = find(r && r.overall);
-    const c = { id, overall: o ? o.score : null, wlt: o ? `${o.wins}-${o.losses}-${o.ties}` : "—" };
-    for (const d of DIMS) { const x = find(r && r.dimensions && r.dimensions[d]); c[d] = x ? x.score : null; }
-    return c;
-  });
-  const best = {};
-  for (const k of ["overall", ...DIMS]) best[k] = Math.max(...rows.map(r => r[k] ?? -1));
-  // v == null  -> never judged on this dimension ("—")
-  // v is real  -> Bradley-Terry strength 0..100 (0 = lost every judged matchup)
-  const band = v => v >= 0.66 ? "sc-hi" : v >= 0.33 ? "sc-mid" : "sc-lo";
-  const fmt = (v, k) => v == null ? "<span class='muted' title='never judged on this dimension'>—</span>"
-    : `<span class="sc ${band(v)} ${v === best[k] && rows.filter(x=>x[k]!=null).length>1 ? "best":""}"
-        title="Bradley-Terry strength from all ${'$'}{'judge'} comparisons in this subject">${(v*100).toFixed(1)}</span>`;
-  let html = `<table><tr><th>video</th><th>overall</th>` +
-    DIMS.map(d => `<th>${d.split("_")[0]}</th>`).join("") + `<th>W-L-T</th></tr>`;
-  for (const r of rows)
-    html += `<tr><td><b>${r.id}</b></td><td>${fmt(r.overall,"overall")}</td>` +
-      DIMS.map(d => `<td>${fmt(r[d],d)}</td>`).join("") + `<td class="muted">${r.wlt}</td></tr>`;
+    const rows = (r && r.overall) || [];
+    const i = rows.findIndex(x => x.id === id);
+    const row = rows[i];
+    html += `<tr><td><b>${id}</b></td>
+      <td>${i >= 0 ? "#" + (i+1) + " of " + rows.length : "<span class='muted'>unranked</span>"}</td>
+      <td class="muted">${row ? (row.score*100).toFixed(1) : "—"}</td>
+      <td class="muted">${row ? `${row.wins}-${row.losses}-${row.ties} (${row.comparisons} match${row.comparisons===1?"":"es"})` : "no matches"}</td></tr>`;
+  }
   html += "</table>";
-  html += `<div class="legend">Scores are <b>Bradley-Terry strength (0–100)</b> computed from every
-    machine-judge comparison in this subject — relative standing, not a grade.
-    <span class="sc sc-hi">≥66</span> strong &nbsp;<span class="sc sc-mid">33–66</span> contested
-    &nbsp;<span class="sc sc-lo">&lt;33</span> weak/losing &nbsp;•&nbsp; <b>0.0</b> = lost every judged
-    matchup so far (real verdicts) &nbsp;•&nbsp; <b>—</b> = never judged on that dimension.</div>`;
 
+  // ── 3. head-to-head among the selected pairs ──
   const pairs = [];
   for (let i = 0; i < selected.length; i++)
     for (let j = i + 1; j < selected.length; j++) pairs.push([selected[i], selected[j]]);
@@ -301,7 +312,7 @@ async function loadMetrics() {
   }
   if (h2h.length) {
     const w = x => x === "tie" ? `<span class="badge btie">tie</span>` : `<span class="badge">${x}</span>`;
-    html += `<h3 style="margin-top:12px">Head-to-head</h3>
+    html += `<h3 style="margin-top:14px">Head-to-head</h3>
       <table><tr><th>pair</th><th>overall</th>` + DIMS.map(d=>`<th>${d.split("_")[0]}</th>`).join("") + `<th>human</th></tr>`;
     for (const { a, b, j, human } of h2h)
       html += `<tr><td>${a} <span class="muted">vs</span> ${b}</td><td>${w(j.aggregator.winner)}</td>` +
@@ -309,6 +320,24 @@ async function loadMetrics() {
         `<td class="muted">${human || "—"}</td></tr>`;
     html += "</table>";
   }
+
+  // ── 4. single video selected: full match history with real verdicts ──
+  if (scored.length === 1) {
+    const st = stats[scored[0]];
+    if (st.matches.length) {
+      const rb = x => x === "w" ? `<span class="badge" style="background:#e6f6ee;color:#0a8a5f">won</span>`
+        : x === "l" ? `<span class="badge" style="background:#fdeaea;color:#b3352e">lost</span>`
+        : `<span class="badge btie">tie</span>`;
+      html += `<h3 style="margin-top:14px">All judged matches for ${scored[0]}</h3>
+        <table><tr><th>opponent</th><th>overall</th>` + DIMS.map(d=>`<th>${d.split("_")[0]}</th>`).join("") + `</tr>`;
+      for (const m of st.matches) {
+        html += `<tr><td>${m.opponent}</td><td>${rb(m.overall.result)} <span class="muted">${m.overall.confidence ?? ""}</span></td>` +
+          DIMS.map(d => `<td>${m.dimensions[d] ? rb(m.dimensions[d].result) : "<span class='muted'>—</span>"}</td>`).join("") + `</tr>`;
+      }
+      html += "</table>";
+    }
+  }
+
   $("metricsBody").innerHTML = html;
 }
 
