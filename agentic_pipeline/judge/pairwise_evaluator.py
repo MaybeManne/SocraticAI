@@ -40,6 +40,12 @@ PIPELINE_DIR = JUDGE_DIR.parent          # agentic_pipeline/
 REPO_ROOT = PIPELINE_DIR.parent          # repo root (has dist/)
 PROMPTS_DIR = JUDGE_DIR / "judge_prompts"
 
+# The narration a listener actually hears is generate_audio.py's
+# verbalize_math() output (LaTeX -> spoken words), not the raw `A.say` source.
+# Import the exact same function so the judged transcript matches the audio.
+sys.path.insert(0, str(REPO_ROOT))
+from generate_audio import verbalize_math  # noqa: E402
+
 # Results dir is overridable for tests via JUDGE_RESULTS_DIR.
 def results_dir():
     override = os.environ.get("JUDGE_RESULTS_DIR")
@@ -207,6 +213,12 @@ _DO_RE = re.compile(r'\.do\(\s*"((?:[^"\\]|\\.)*)"\s*(?:,\s*(\{[^)]*?\}))?\s*(?:
 _ASK_RE = re.compile(r'L\.ask\(')
 
 
+def _js_unescape(s):
+    """Resolve JS string-literal escapes (\\\\ -> \\, \\" -> ", \\n -> newline)
+    so the text matches the runtime string the TTS pipeline received."""
+    return re.sub(r"\\(.)", lambda m: {"n": "\n", "t": "\t"}.get(m.group(1), m.group(1)), s)
+
+
 def extract_transcript(content_js):
     """
     Extract a readable narration transcript with beat/timing data from a
@@ -240,12 +252,17 @@ def extract_transcript(content_js):
 
     for _, kind, payload in events:
         if kind == "act":
-            lines.append(f"ACT: {payload}")
+            lines.append(f"ACT: {_js_unescape(payload)}")
         elif kind == "say":
-            lines.append(f'  SAY: {payload}')
+            # Transcribe what the TTS actually speaks: unescape the JS string
+            # literal, then apply the same LaTeX->spoken-words conversion that
+            # generate_audio.py applies before synthesis. Judging the raw
+            # source would penalize LaTeX the listener never hears.
+            spoken = verbalize_math(_js_unescape(payload))
+            lines.append(f'  SAY: {spoken}')
         elif kind == "do":
             action, offset = payload
-            lines.append(f"    cue: {action} at offset {offset}")
+            lines.append(f"    cue: {_js_unescape(action)} at offset {offset}")
         elif kind == "ask":
             lines.append("  [GATE/CHECKPOINT appears here]")
     return "\n".join(lines) if lines else None
@@ -354,11 +371,24 @@ def ensure_screenshot(assets, force=False):
          since audio-gated lessons never advance on passive waits.
     External videos get the same two frames via ffmpeg instead.
     """
+    def stale(png, source):
+        # A cached frame older than its source shows a lesson/video that no
+        # longer exists — silently judging stale imagery is worse than the
+        # cost of re-rendering.
+        return png.exists() and png.stat().st_mtime < source.stat().st_mtime
+
     if assets.is_external:
-        if force or not (assets.screenshot_path.exists() and assets.mid_screenshot_path.exists()):
+        if (force or not (assets.screenshot_path.exists() and assets.mid_screenshot_path.exists())
+                or stale(assets.screenshot_path, assets.video_path)
+                or stale(assets.mid_screenshot_path, assets.video_path)):
             _video_screenshots(assets.video_path, assets.screenshot_path,
                                assets.mid_screenshot_path)
         return assets.screenshot_path
+
+    if force or stale(assets.screenshot_path, assets.html_path):
+        assets.screenshot_path.unlink(missing_ok=True)
+    if stale(assets.mid_screenshot_path, assets.html_path):
+        assets.mid_screenshot_path.unlink(missing_ok=True)
 
     if not (assets.screenshot_path.exists() and not force):
         sys.path.insert(0, str(PIPELINE_DIR))

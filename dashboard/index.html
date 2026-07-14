@@ -273,10 +273,11 @@ const credit = (res, conf) => res === "t" ? 50
   : (c => res === "w" ? 100 * c : 100 * (1 - c))(conf ?? 0.75);
 const aiScore = list => list.length
   ? list.reduce((s, m) => s + credit(m.result, m.confidence), 0) / list.length : null;
-const scoreChip = (v, n) => {
+const scoreChip = (v, n, markThin) => {
   if (v == null) return "<span class='muted' title='never judged on this dimension'>—</span>";
   const cls = v >= 60 ? "sc-hi" : v > 40 ? "sc-mid" : "sc-lo";
-  return `<span class="sc ${cls}" title="average AI-judge score over ${n} match${n === 1 ? "" : "es"} — 50 = evenly matched">${Math.round(v)}</span>`;
+  const sup = markThin && n < 3 ? `<sup style="font-size:8px;opacity:.65" title="only ${n} match${n === 1 ? "" : "es"} — weak evidence">${n}</sup>` : "";
+  return `<span class="sc ${cls}" title="average AI-judge score over ${n} match${n === 1 ? "" : "es"} — 50 = evenly matched">${Math.round(v)}${sup}</span>`;
 };
 
 async function loadMetrics() {
@@ -308,10 +309,10 @@ function renderAiView(scored, stats, h2h) {
   for (const id of scored) {
     const st = stats[id];
     const ov = st.matches.map(m => m.overall);
-    html += `<tr><td><b>${id}</b></td><td>${scoreChip(aiScore(ov), ov.length)}</td>` +
+    html += `<tr><td><b>${id}</b></td><td>${scoreChip(aiScore(ov), ov.length, true)}</td>` +
       DIMS.map(d => {
         const list = st.matches.map(m => m.dimensions[d]).filter(Boolean);
-        return `<td>${scoreChip(aiScore(list), list.length)}</td>`;
+        return `<td>${scoreChip(aiScore(list), list.length, true)}</td>`;
       }).join("") +
       `<td class="muted">${st.matches.length}</td></tr>`;
   }
@@ -320,7 +321,9 @@ function renderAiView(scored, stats, h2h) {
     (win at confidence 0.9 → 90, narrow loss at 0.58 → 42, tie → 50).
     <span class="sc sc-hi">60+ favored</span> <span class="sc sc-mid">41–59 contested</span>
     <span class="sc sc-lo">≤40 outmatched</span> • 50 = dead even with its opponents.
-    It's relative to opponents, not a % of things working.</div>`;
+    It's relative to opponents, not a % of things working.
+    A tiny superscript (e.g. 42<sup style="font-size:8px">1</sup>) = score rests on only
+    that many matches — weak evidence, treat with caution.</div>`;
 
   // Selected pairs the judge has actually ruled on: scores + its reasoning.
   for (const { a, b, j } of h2h) {
