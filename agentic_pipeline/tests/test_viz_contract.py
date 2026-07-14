@@ -164,3 +164,26 @@ def test_assemble_viz_rejects_unparseable_code():
 @pytest.mark.skipif(shutil.which("node") is None, reason="node not installed")
 def test_assemble_viz_accepts_valid_code():
     assert assemble_viz({"mode": "custom_code", "code": PLUGIN}) is not None
+
+
+# ── 7. Gemini schema cleaner must resolve oneOf unions, not drop them ─────────
+
+def test_gemini_cleaner_resolves_nullable_card_union():
+    from orchestrator import _clean_schema_for_gemini
+    card = {
+        "oneOf": [
+            {"type": "null"},
+            {"type": "object", "required": ["type"],
+             "properties": {"type": {"type": "string"},
+                            "content": {"type": "string"},
+                            "steps": {"type": "array",
+                                      "items": {"type": "object",
+                                                "properties": {"latex": {"type": "string"}}}}}},
+        ]
+    }
+    c = _clean_schema_for_gemini(card)
+    # Dropping the union used to leave a bare {} -> Gemini emitted card:{} for
+    # every beat -> notebook cards never existed (the dead-right-panel bug).
+    assert c.get("nullable") is True
+    assert c.get("type") == "object"
+    assert set(c["properties"]) >= {"type", "content", "steps"}

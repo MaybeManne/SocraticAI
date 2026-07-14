@@ -142,7 +142,7 @@ if (L.problem) {
   if (L.problem.highlight) {
     var hl = document.createElement("span");
     hl.className = "problem-highlight";
-    hl.textContent = L.problem.highlight;
+    K.mixed(L.problem.highlight, hl);  /* KaTeX-aware — raw $...$ must never show */
     bar.appendChild(hl);
   }
 
@@ -156,7 +156,8 @@ if (L.problem) {
     if (L.problem.highlight) {
       var hl2 = document.createElement("span");
       hl2.className = "problem-highlight";
-      hl2.textContent = " " + L.problem.highlight;
+      hl2.appendChild(document.createTextNode(" "));
+      K.mixed(L.problem.highlight, hl2);
       bar.appendChild(hl2);
     }
     gsap.fromTo(bar, { opacity: 0.5, y: -8 }, { opacity: 1, y: 0, duration: 0.4 });

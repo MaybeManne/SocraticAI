@@ -25,6 +25,7 @@ var PlayerControls = {
   _state: null,
 
   init: function(graph, state) {
+    this._initChromeIdle();
     this._graph = graph;
     this._state = state;
     var self = this; // v2: properly scoped self for all closures in this method
@@ -200,6 +201,24 @@ var PlayerControls = {
     if (totalDur > 0) {
       $("timeD").textContent = "0:00 / " + formatTime(totalDur);
     }
+  },
+
+  /* YouTube-style chrome auto-hide: after ~2.5s without pointer/key input,
+     fade the control bar out of the frame; any input brings it back. Keeps
+     player UI out of the lesson frame while nobody is interacting. */
+  _initChromeIdle: function() {
+    var app = document.getElementById("app");
+    if (!app) return;
+    var timer = null;
+    function wake() {
+      app.classList.remove("chrome-idle");
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(function() { app.classList.add("chrome-idle"); }, 2500);
+    }
+    ["mousemove", "mousedown", "keydown", "touchstart", "focusin"].forEach(function(ev) {
+      document.addEventListener(ev, wake, { passive: true });
+    });
+    wake();
   },
 
   start: function() {

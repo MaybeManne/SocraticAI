@@ -555,6 +555,25 @@ def _clean_schema_for_gemini(schema):
     if not isinstance(schema, dict):
         return schema
 
+    # Resolve oneOf/anyOf unions instead of silently dropping them. The common
+    # pipeline pattern is `oneOf: [null, X]` (e.g. a beat's `card`): take the
+    # first non-null branch and mark it nullable. Dropping the union presented
+    # Gemini with a bare `{}` — so it emitted `card: {}` for every beat and no
+    # lesson ever produced notebook cards (the empty-right-panel bug).
+    for union_key in ("oneOf", "anyOf"):
+        branches = schema.get(union_key)
+        if isinstance(branches, list) and branches:
+            non_null = [b for b in branches
+                        if not (isinstance(b, dict) and b.get("type") == "null")]
+            has_null = len(non_null) < len(branches)
+            base = dict(non_null[0]) if non_null else {"type": "string"}
+            merged = {k: v for k, v in schema.items() if k not in ("oneOf", "anyOf")}
+            merged.update(base)
+            cleaned_union = _clean_schema_for_gemini(merged)
+            if has_null:
+                cleaned_union["nullable"] = True
+            return cleaned_union
+
     allowed = {"type", "properties", "required", "items", "enum", "description",
                "format", "nullable", "minimum", "maximum", "minItems", "maxItems"}
 

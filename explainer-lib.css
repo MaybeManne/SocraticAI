@@ -91,7 +91,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 #stage{flex:1;display:flex;overflow:hidden;position:relative;min-height:0}
 
 /* ── Viz Panel (left) ── */
-#viz-wrap{flex:0 0 50%;display:flex;align-items:center;justify-content:center;padding:10px;min-height:0;position:relative}
+#viz-wrap{flex:0 0 50%;display:flex;align-items:center;justify-content:center;padding:10px;min-height:0;position:relative;transition:flex-basis .45s ease}
 #viz-wrap svg{width:100%;height:100%}
 
 /* ── Subtitle Track ── */
@@ -100,16 +100,20 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 #subtitle-track .active-word{color:var(--accent);font-weight:600}
 
 /* ── Notebook Panel (right, scrollable) ── */
-#notebook{flex:0 0 50%;padding:16px 20px 80px;display:flex;flex-direction:column;gap:0;background:var(--card-bg);border-left:1px solid var(--border-subtle);overflow-y:auto;scroll-behavior:smooth;min-height:0}
+#notebook{flex:0 0 50%;transition:flex-basis .45s ease,padding .45s ease;padding:16px 20px 80px;display:flex;flex-direction:column;gap:0;background:var(--card-bg);border-left:1px solid var(--border-subtle);overflow-y:auto;scroll-behavior:smooth;min-height:0}
+/* When the notebook has no cards yet, give the diagram the full frame
+   instead of leaving a dead right column. Toggled by Notebook module. */
+#stage.nb-empty #viz-wrap{flex:1 1 100%}
+#stage.nb-empty #notebook{flex:0 0 0;padding:0;border-left:none;overflow:hidden}
 #notebook::-webkit-scrollbar{width:4px}
 #notebook::-webkit-scrollbar-track{background:transparent}
 #notebook::-webkit-scrollbar-thumb{background:var(--scrollbar);border-radius:2px}
 
 /* ── Beat Card (base) ── */
 .slide-card,.beat-card{padding:14px 16px;margin-bottom:4px;border-radius:10px;opacity:0;transform:translateY(12px);transition:opacity .4s,transform .4s}
-.slide-card.entered,.beat-card.entered{opacity:0.55;transform:translateY(0)}
+.slide-card.entered,.beat-card.entered{opacity:0.9;transform:translateY(0)}
 .slide-card.active,.beat-card.active,.beat-card.current{opacity:1;border-left:3px solid var(--accent);padding-left:13px}
-.beat-card.past{opacity:0.55;transform:translateY(0)}
+.beat-card.past{opacity:0.9;transform:translateY(0)}
 .beat-card.milestone-card{border:1px solid rgba(129,140,248,0.15);background:var(--card-bg-accent)}
 
 /* ── Viz Overlay (full-panel figure/chart overlay inside viz-wrap) ── */
@@ -264,7 +268,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .slide-card--practice .practice-problem{font-size:.98rem;line-height:1.7;margin-bottom:10px}
 
 /* ── Playback Controls ── */
-#controls{height:48px;display:flex;align-items:center;gap:10px;padding:0 16px;background:var(--bg-controls);border-top:1px solid var(--border-subtle);z-index:40;flex-shrink:0;position:relative}
+#controls{transition:opacity .35s ease;height:48px;display:flex;align-items:center;gap:10px;padding:0 16px;background:var(--bg-controls);border-top:1px solid var(--border-subtle);z-index:40;flex-shrink:0;position:relative}
 #playBtn{width:36px;height:36px;border-radius:50%;border:none;background:var(--btn-bg);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 #playBtn:hover{background:rgba(255,255,255,0.15)}
 .light-mode #playBtn:hover{background:rgba(0,0,0,0.1)}
@@ -374,3 +378,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
   [dir="rtl"] .beat-card,[dir="rtl"] .slide-card{border-left:none;border-right:2px solid #6366f1;padding-left:0;padding-right:14px}
   @page{margin:1.5cm}
 }
+
+/* Controls auto-hide after input idle (PlayerControls idle timer). Chrome
+   should not sit in the frame while nobody is interacting. */
+#app.chrome-idle #controls{opacity:0;pointer-events:none}
+#app.chrome-idle #subtitle-track{bottom:8px}

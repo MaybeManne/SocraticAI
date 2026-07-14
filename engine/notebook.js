@@ -90,6 +90,20 @@ var Notebook = {
   init: function() {
     this.container = $("notebook");
     this._bindEvents();
+    this._watchEmptiness();
+  },
+
+  /* Empty notebook = dead right column. Let the diagram take the full frame
+     until the first card arrives (and again after notebook:clear). */
+  _watchEmptiness: function() {
+    var container = this.container;
+    var stage = document.getElementById("stage");
+    if (!stage || !container || typeof MutationObserver === "undefined") return;
+    function sync() {
+      stage.classList.toggle("nb-empty", container.children.length === 0);
+    }
+    new MutationObserver(sync).observe(container, { childList: true });
+    sync();
   },
 
   _bindEvents: function() {
