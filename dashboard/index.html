@@ -2,95 +2,91 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Compare — SocraticAI</title>
+<title>Compare</title>
 <style>
-  :root { --border:#e4e6ec; --text:#1c1e26; --dim:#8a8e9c; --accent:#4f46e5;
-          --accent-soft:#eef2ff; --green:#0a8a5f; --soft:#f7f8fb; }
+  :root { --border:#e8eaef; --text:#1c1e26; --dim:#9094a2; --accent:#4f46e5;
+          --accent-soft:#eef2ff; --green:#0a8a5f; --soft:#f8f9fb; }
   * { box-sizing:border-box; }
   body { margin:0; background:#fff; color:var(--text);
          font:14px/1.5 -apple-system, "Segoe UI", sans-serif; display:flex; height:100vh; overflow:hidden; }
 
-  /* ── sidebar: browse & pick ── */
-  aside { width:270px; min-width:270px; border-right:1px solid var(--border);
-          display:flex; flex-direction:column; background:var(--soft); }
-  aside .top { padding:14px 14px 10px; }
-  aside h1 { font-size:15px; margin:0 0 10px; font-weight:700; }
-  #search { width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:8px;
-            font-size:13px; background:#fff; }
-  .chips { display:flex; flex-wrap:wrap; gap:6px; padding:10px 14px; }
-  .chip { padding:4px 11px; border-radius:20px; border:1px solid var(--border); background:#fff;
-          cursor:pointer; font-size:12px; color:var(--dim); }
-  .chip.on { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
-  #list { flex:1; overflow-y:auto; padding:4px 8px 20px; }
-  .vitem { display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:8px;
+  aside { width:240px; min-width:240px; border-right:1px solid var(--border);
+          display:flex; flex-direction:column; }
+  aside .top { padding:14px 12px 8px; }
+  #search { width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:9px;
+            font-size:13px; outline:none; }
+  #search:focus { border-color:var(--accent); }
+  .chips { display:flex; flex-wrap:wrap; gap:5px; padding:8px 12px; }
+  .chip { padding:3px 10px; border-radius:20px; cursor:pointer; font-size:12px; color:var(--dim); }
+  .chip.on { background:var(--accent-soft); color:var(--accent); font-weight:650; }
+  #list { flex:1; overflow-y:auto; padding:2px 6px 16px; }
+  .vitem { display:flex; align-items:center; padding:6px 10px; border-radius:8px;
            cursor:pointer; font-size:13px; }
-  .vitem:hover { background:var(--accent-soft); }
+  .vitem:hover { background:var(--soft); }
   .vitem.sel { background:var(--accent); color:#fff; }
-  .vitem .tag { font-size:10px; padding:1px 6px; border-radius:5px; background:#fff;
-                border:1px solid var(--border); color:var(--dim); margin-left:auto; }
-  .vitem.sel .tag { background:rgba(255,255,255,.2); color:#fff; border-color:transparent; }
+  .vitem .tag { font-size:10px; color:var(--dim); margin-left:auto; }
+  .vitem.sel .tag { color:rgba(255,255,255,.7); }
+  #showAll { margin:6px 12px 14px; font-size:12px; color:var(--dim); background:none;
+             border:none; cursor:pointer; text-align:left; padding:0; }
+  #showAll:hover { color:var(--accent); }
 
-  /* ── main ── */
-  main { flex:1; overflow-y:auto; padding:14px 18px; }
-  .bar { display:flex; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  main { flex:1; overflow-y:auto; padding:12px 18px; }
+  .bar { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
   button { background:#fff; color:var(--text); border:1px solid var(--border);
-           border-radius:8px; padding:7px 13px; cursor:pointer; font-size:13px; font-family:inherit; }
-  button:hover { border-color:var(--accent); }
-  button.primary { background:var(--accent); color:#fff; border-color:var(--accent); font-weight:600; }
+           border-radius:9px; padding:6px 12px; cursor:pointer; font-size:13px; font-family:inherit; }
+  button:hover { border-color:var(--accent); color:var(--accent); }
+  button.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+  button.primary:hover { color:#fff; }
   .muted { color:var(--dim); }
-  .tab2 { cursor:pointer; padding:5px 12px; border-radius:7px; color:var(--dim); }
-  .tab2.active { background:var(--accent-soft); color:var(--accent); font-weight:650; }
+  .tab2 { cursor:pointer; padding:4px 11px; border-radius:7px; color:var(--dim); font-size:13px; }
+  .tab2.active { color:var(--accent); font-weight:700; }
 
+  #empty { padding:110px 20px; text-align:center; color:var(--dim); font-size:15px; }
   .videos { display:grid; gap:10px; grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); }
   .vslot { border:1px solid var(--border); border-radius:12px; overflow:hidden; }
-  .vtitle { display:flex; align-items:center; gap:8px; padding:7px 11px; font-weight:600;
-            font-size:13px; border-bottom:1px solid var(--border); }
-  .letter { display:inline-block; min-width:20px; height:20px; border-radius:6px; text-align:center;
-            line-height:20px; font-size:11px; background:var(--accent); color:#fff; }
-  .vtitle .x { margin-left:auto; border:none; background:none; color:var(--dim); font-size:15px; }
-  .vtitle .x:hover { color:#c0392b; }
-  .vslot iframe, .vslot video { width:100%; height:390px; border:0; background:#000; display:block; }
-  #empty { border:2px dashed var(--border); border-radius:14px; padding:70px 20px;
-           text-align:center; color:var(--dim); font-size:15px; }
+  .vtitle { display:flex; align-items:center; gap:8px; padding:6px 10px; font-weight:600; font-size:13px; }
+  .letter { min-width:19px; height:19px; border-radius:6px; text-align:center;
+            line-height:19px; font-size:11px; background:var(--accent); color:#fff; }
+  .vtitle .x { margin-left:auto; border:none; background:none; color:var(--dim); font-size:14px; padding:0 3px; }
+  .vslot iframe, .vslot video { width:100%; height:400px; border:0; background:#000; display:block; }
 
-  .panel { margin-top:14px; border:1px solid var(--border); border-radius:12px; padding:13px 15px; }
-  .panel h3 { margin:0 0 10px; font-size:11px; letter-spacing:.09em; color:var(--dim);
-              text-transform:uppercase; }
+  .panel { margin-top:12px; border:1px solid var(--border); border-radius:12px; padding:12px 14px; }
+  h3 { margin:0 0 8px; font-size:11px; letter-spacing:.08em; color:var(--dim);
+       text-transform:uppercase; font-weight:650; }
   table { width:100%; border-collapse:collapse; font-size:13px; }
-  th { text-align:left; padding:6px 9px; color:var(--dim); font-size:11px;
-       text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--border); }
-  td { padding:6px 9px; border-bottom:1px solid var(--soft); vertical-align:top; }
+  th { text-align:left; padding:5px 8px; color:var(--dim); font-size:11px;
+       text-transform:uppercase; letter-spacing:.03em; font-weight:600;
+       border-bottom:1px solid var(--border); }
+  td { padding:6px 8px; border-bottom:1px solid var(--soft); vertical-align:top; }
   .best { color:var(--green); font-weight:650; }
-  .badge { display:inline-block; padding:1px 8px; border-radius:6px; font-size:11px; font-weight:600;
+  .badge { display:inline-block; padding:0 7px; border-radius:6px; font-size:11px; font-weight:600;
            background:var(--accent-soft); color:var(--accent); }
   .btie { background:var(--soft); color:var(--dim); }
 
-  /* verdict */
-  .vgrid { display:grid; grid-template-columns:160px auto 1fr; gap:8px 12px; align-items:center; }
-  .seg { display:inline-flex; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
-  .seg button { border:0; border-radius:0; padding:6px 16px; }
+  .vgrid { display:grid; grid-template-columns:150px auto 1fr; gap:6px 12px; align-items:center; }
+  .vgrid.nonotes { grid-template-columns:150px auto; }
+  .seg { display:inline-flex; border:1px solid var(--border); border-radius:9px; overflow:hidden; }
+  .seg button { border:0; border-radius:0; padding:6px 18px; }
   .seg button.on { background:var(--accent); color:#fff; }
-  .vgrid input { border:1px solid var(--border); border-radius:7px; padding:6px 8px; font-size:12px; width:100%; }
-  .quick { display:flex; gap:8px; margin-bottom:10px; }
+  .vgrid input { border:1px solid var(--border); border-radius:7px; padding:5px 8px; font-size:12px; width:100%; }
+  .quick { display:flex; gap:6px; margin-bottom:10px; align-items:center; }
   #saveMsg { color:var(--green); font-size:12px; margin-left:8px; }
   details summary { cursor:pointer; font-size:11px; color:var(--dim); text-transform:uppercase;
-                    letter-spacing:.08em; padding:4px 0; }
-  .fb button { padding:1px 7px; font-size:11px; margin-left:3px; }
+                    letter-spacing:.08em; padding:3px 0; }
+  .fb button { padding:0 6px; font-size:11px; margin-left:3px; }
   .fb button.on { border-color:var(--green); color:var(--green); }
   .fb button.off { border-color:#c0392b; color:#c0392b; }
-  .lbbar { height:6px; background:var(--soft); border-radius:4px; overflow:hidden; min-width:100px; }
+  .lbbar { height:5px; background:var(--soft); border-radius:4px; overflow:hidden; min-width:90px; }
   .lbbar > div { height:100%; background:var(--accent); }
 </style>
 </head>
 <body>
 
 <aside>
-  <div class="top">
-    <h1>⚖️ Compare videos</h1>
-    <input id="search" placeholder="Search videos…">
-  </div>
+  <div class="top"><input id="search" placeholder="Search 91 videos…"></div>
   <div class="chips" id="chips"></div>
   <div id="list"></div>
+  <button id="showAll">Show all versions…</button>
 </aside>
 
 <main>
@@ -98,13 +94,12 @@
     <div class="tab2 active" data-tab="compare">Compare</div>
     <div class="tab2" data-tab="leaderboard">Leaderboard</div>
     <span style="flex:1"></span>
-    <button id="nextPair" class="primary">🎲 Suggest a pair</button>
+    <button id="nextPair" class="primary">Suggest a pair</button>
     <button id="clearAll">Clear</button>
   </div>
 
   <section id="compare">
-    <div id="empty">Click videos in the left sidebar to compare them side-by-side.<br>
-      <span style="font-size:13px">Any number of videos. Metrics appear automatically.</span></div>
+    <div id="empty">Pick videos on the left to compare them.</div>
     <div class="videos" id="grid"></div>
 
     <div class="panel" id="metricsPanel" style="display:none">
@@ -113,19 +108,19 @@
     </div>
 
     <div class="panel" id="verdictPanel" style="display:none">
-      <h3>Your verdict — A vs B</h3>
+      <h3>Your verdict</h3>
       <div class="quick">
         <button data-fill="A">A sweeps</button>
         <button data-fill="tie">All tie</button>
         <button data-fill="B">B sweeps</button>
-        <span class="muted" style="align-self:center">…then adjust rows below</span>
+        <button id="notesToggle" style="margin-left:auto">＋ notes</button>
       </div>
-      <div class="vgrid" id="verdictRows"></div>
-      <div style="margin-top:12px">
-        <button id="submitVerdict" class="primary">Submit verdict</button><span id="saveMsg"></span>
+      <div class="vgrid nonotes" id="verdictRows"></div>
+      <div style="margin-top:10px">
+        <button id="submitVerdict" class="primary">Submit</button><span id="saveMsg"></span>
       </div>
-      <details id="judgeDetails" style="display:none; margin-top:12px">
-        <summary>Machine judge said… (expand)</summary>
+      <details id="judgeDetails" style="display:none; margin-top:10px">
+        <summary>Machine judge said…</summary>
         <table id="judgeTable"></table>
       </details>
     </div>
@@ -133,12 +128,10 @@
 
   <section id="leaderboard" style="display:none">
     <div class="bar">
-      <span class="muted">Subject:</span>
       <button class="lbsub primary" data-s="circles">circles</button>
       <button class="lbsub" data-s="archer">archer</button>
       <button class="lbsub" data-s="binsearch">binsearch</button>
-      <span class="muted" style="margin-left:12px">Dimension:</span>
-      <select id="lbDim" style="border:1px solid var(--border); border-radius:8px; padding:7px 10px">
+      <select id="lbDim" style="border:1px solid var(--border); border-radius:9px; padding:6px 10px; margin-left:8px">
         <option value="overall">overall</option>
         <option>visual_accuracy</option><option>interactivity</option>
         <option>narration_quality</option><option>sync</option>
@@ -151,10 +144,15 @@
 
 <script>
 const DIMS = ["visual_accuracy","interactivity","narration_quality","sync","concept_accuracy","polish"];
-let CATALOG = [], selected = [], verdict = {}, judgeFb = {}, subjectFilter = "circles";
+let CATALOG = [], selected = [], verdict = {}, judgeFb = {},
+    subjectFilter = "circles", showAll = false, notesOn = false;
 const $ = id => document.getElementById(id);
 const api = (p, o) => fetch(p, o).then(r => r.json());
 const item = id => CATALOG.find(i => i.id === id);
+
+// A curated sidebar: the videos you actually compare (main variants +
+// external tools). Everything else appears with "Show all versions".
+const PRIMARY = /_(v\d|veo3|mathgpt|notebooklm|videotutor)$/;
 
 document.querySelectorAll(".tab2").forEach(t => t.onclick = () => {
   document.querySelectorAll(".tab2").forEach(x => x.classList.remove("active"));
@@ -166,6 +164,7 @@ document.querySelectorAll(".tab2").forEach(t => t.onclick = () => {
 
 async function init() {
   CATALOG = await api("/api/videos");
+  $("search").placeholder = `Search ${CATALOG.length} videos…`;
   const subjects = [...new Set(CATALOG.map(i => i.subject))];
   $("chips").innerHTML = "";
   for (const s of subjects) {
@@ -178,6 +177,8 @@ async function init() {
     $("chips").appendChild(c);
   }
   $("search").oninput = renderList;
+  $("showAll").onclick = () => { showAll = !showAll;
+    $("showAll").textContent = showAll ? "Show fewer…" : "Show all versions…"; renderList(); };
   $("nextPair").onclick = async () => {
     const p = await api("/api/next_pair");
     if (p.a) { selected = [p.a, p.b]; render(); renderList(); }
@@ -186,23 +187,34 @@ async function init() {
   renderList();
 }
 
+function sortKey(id) {
+  // v7 first, then v6..v1, then externals, then the rest
+  const m = id.match(/_v(\d+)(\.\d+)?$/);
+  if (m) return 100 - +m[1];
+  if (/veo3|mathgpt|notebooklm|videotutor/.test(id)) return 200;
+  return 300;
+}
+
 function renderList() {
   const q = $("search").value.toLowerCase();
   const host = $("list");
   host.innerHTML = "";
-  for (const it of CATALOG) {
-    if (!q && it.subject !== subjectFilter) continue;   // search looks everywhere
-    if (q && !it.id.toLowerCase().includes(q)) continue;
+  const items = CATALOG
+    .filter(it => q ? it.id.toLowerCase().includes(q)
+                    : it.subject === subjectFilter && (showAll || PRIMARY.test(it.id) || selected.includes(it.id)))
+    .sort((a, b) => sortKey(a.id) - sortKey(b.id));
+  for (const it of items) {
     const el = document.createElement("div");
     el.className = "vitem" + (selected.includes(it.id) ? " sel" : "");
-    const short = it.id.replace(/^misc_/, "");
-    el.innerHTML = `<span>${short}</span><span class="tag">${it.kind === "video" ? "ext" : "SAI"}</span>`;
+    el.innerHTML = `<span>${it.id.replace(/^misc_/, "")}</span>
+      <span class="tag">${it.kind === "video" ? "ext" : ""}</span>`;
     el.onclick = () => {
       selected.includes(it.id) ? selected = selected.filter(x => x !== it.id) : selected.push(it.id);
       render(); renderList();
     };
     host.appendChild(el);
   }
+  if (!items.length) host.innerHTML = "<div class='vitem muted'>no matches</div>";
 }
 
 function render() {
@@ -214,8 +226,7 @@ function render() {
     const slot = document.createElement("div");
     slot.className = "vslot";
     slot.innerHTML = `<div class="vtitle"><span class="letter">${String.fromCharCode(65+idx)}</span>
-      ${it.id.replace(/^misc_/, "")} <span class="muted" style="font-weight:400">
-      ${it.kind === "video" ? "external" : "SocraticAI"}</span><button class="x">✕</button></div>`;
+      ${it.id.replace(/^misc_/, "")}<button class="x">✕</button></div>`;
     slot.querySelector(".x").onclick = () => { selected = selected.filter(x => x !== id); render(); renderList(); };
     const media = it.kind === "video"
       ? Object.assign(document.createElement("video"), { src: it.url, controls: true, preload: "metadata" })
@@ -265,7 +276,7 @@ async function loadMetrics() {
   }
   if (h2h.length) {
     const w = x => x === "tie" ? `<span class="badge btie">tie</span>` : `<span class="badge">${x}</span>`;
-    html += `<h3 style="margin-top:14px">Head-to-head (machine judge)</h3>
+    html += `<h3 style="margin-top:12px">Head-to-head</h3>
       <table><tr><th>pair</th><th>overall</th>` + DIMS.map(d=>`<th>${d.split("_")[0]}</th>`).join("") + `<th>human</th></tr>`;
     for (const { a, b, j, human } of h2h)
       html += `<tr><td>${a} <span class="muted">vs</span> ${b}</td><td>${w(j.aggregator.winner)}</td>` +
@@ -281,45 +292,53 @@ function setupVerdict() {
   verdict = {}; judgeFb = {};
   if (selected.length !== 2) { panel.style.display = "none"; return; }
   panel.style.display = "";
-  const host = $("verdictRows");
-  host.innerHTML = "";
-  for (const dim of [...DIMS, "overall"]) {
-    host.insertAdjacentHTML("beforeend", `
-      <div style="${dim==="overall"?"font-weight:600":""}">${dim}</div>
-      <div class="seg" data-dim="${dim}">
-        <button data-w="A">A</button><button data-w="tie">Tie</button><button data-w="B">B</button>
-      </div>
-      <input placeholder="note…" data-note="${dim}">`);
-  }
-  host.querySelectorAll(".seg button").forEach(b => b.onclick = () => pick(b.parentElement.dataset.dim, b.dataset.w));
-  document.querySelectorAll(".quick button").forEach(b => b.onclick = () => {
+  drawVerdictRows();
+  document.querySelectorAll(".quick button[data-fill]").forEach(b => b.onclick = () => {
     for (const d of [...DIMS, "overall"]) pick(d, b.dataset.fill);
   });
+  $("notesToggle").onclick = () => { notesOn = !notesOn;
+    $("notesToggle").textContent = notesOn ? "－ notes" : "＋ notes"; drawVerdictRows(true); };
   $("submitVerdict").onclick = submitVerdict;
   $("saveMsg").textContent = "";
   loadJudgePanel();
 }
 
+function drawVerdictRows(keep) {
+  const host = $("verdictRows");
+  const prevNotes = {};
+  if (keep) host.querySelectorAll("[data-note]").forEach(i => prevNotes[i.dataset.note] = i.value);
+  host.className = "vgrid" + (notesOn ? "" : " nonotes");
+  host.innerHTML = "";
+  for (const dim of [...DIMS, "overall"]) {
+    host.insertAdjacentHTML("beforeend", `
+      <div style="${dim==="overall"?"font-weight:650":""}">${dim.replace(/_/g," ")}</div>
+      <div class="seg" data-dim="${dim}">
+        <button data-w="A">A</button><button data-w="tie">tie</button><button data-w="B">B</button>
+      </div>` + (notesOn ? `<input placeholder="note…" data-note="${dim}" value="${prevNotes[dim]||""}">` : ""));
+  }
+  host.querySelectorAll(".seg button").forEach(b => b.onclick = () => pick(b.parentElement.dataset.dim, b.dataset.w));
+  for (const d in verdict) pick(d, verdict[d]);   // restore highlights
+}
+
 function pick(dim, w) {
   verdict[dim] = w;
   const seg = document.querySelector(`.seg[data-dim="${dim}"]`);
-  seg.querySelectorAll("button").forEach(x => x.classList.toggle("on", x.dataset.w === w));
+  if (seg) seg.querySelectorAll("button").forEach(x => x.classList.toggle("on", x.dataset.w === w));
 }
 
 async function submitVerdict() {
   const [a, b] = selected;
   const resolve = w => w === "A" ? a : w === "B" ? b : "tie";
+  const note = d => (document.querySelector(`[data-note="${d}"]`) || {}).value || null;
   const dims = {};
   for (const d of DIMS) {
-    if (!verdict[d]) { $("saveMsg").textContent = `pick ${d}`; return; }
-    dims[d] = { winner: resolve(verdict[d]),
-                note: document.querySelector(`[data-note="${d}"]`).value || null };
+    if (!verdict[d]) { $("saveMsg").textContent = `pick ${d.replace(/_/g," ")}`; return; }
+    dims[d] = { winner: resolve(verdict[d]), note: note(d) };
   }
   if (!verdict.overall) { $("saveMsg").textContent = "pick overall"; return; }
   const r = await api("/api/verdict", { method: "POST", body: JSON.stringify({
     setupA: a, setupB: b, dimensions: dims,
-    aggregator: { winner: resolve(verdict.overall),
-                  note: document.querySelector('[data-note="overall"]').value || null } }) });
+    aggregator: { winner: resolve(verdict.overall), note: note("overall") } }) });
   $("saveMsg").textContent = r.saved ? "saved ✓" : (r.error || "error");
   loadMetrics();
 }
@@ -331,15 +350,15 @@ async function loadJudgePanel() {
   if (!d.judge) { det.style.display = "none"; return; }
   det.style.display = ""; det.open = false;
   const j = d.judge;
-  const badge = w => w === "tie" ? `<span class="badge btie">Tie</span>`
+  const badge = w => w === "tie" ? `<span class="badge btie">tie</span>`
     : `<span class="badge">${w === a ? "A" : "B"}</span>`;
   let html = `<tr><th>dimension</th><th>winner</th><th>conf</th><th>rationale</th><th>you</th></tr>`;
   const rows = [...DIMS.map(dm => [dm, j.dimensions[dm]]),
     ["overall", { winner: j.aggregator.winner, confidence: j.aggregator.confidence,
                   rationale: j.aggregator.explanation }]];
   for (const [dm, r] of rows)
-    html += `<tr><td>${dm}</td><td>${badge(r.winner)}</td><td class="muted">${r.confidence ?? ""}</td>
-      <td class="muted">${r.rationale || ""}</td>
+    html += `<tr><td>${dm.replace(/_/g," ")}</td><td>${badge(r.winner)}</td>
+      <td class="muted">${r.confidence ?? ""}</td><td class="muted">${r.rationale || ""}</td>
       <td class="fb" data-dim="${dm}"><button data-v="agree">👍</button><button data-v="disagree">👎</button></td></tr>`;
   $("judgeTable").innerHTML = html;
   $("judgeTable").querySelectorAll(".fb button").forEach(bn => bn.onclick = async () => {
