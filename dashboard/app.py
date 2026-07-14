@@ -20,7 +20,10 @@ import mimetypes
 import os
 import random
 import re
+import subprocess
 import sys
+import threading
+import uuid
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -33,6 +36,36 @@ import bradley_terry  # noqa: E402  (read-only use of the judge's ranking math)
 JUDGE_RESULTS = REPO / "agentic_pipeline" / "judge" / "pairwise_results"
 HUMAN_RESULTS = REPO / "human_pairwise_results"
 PORT = 8765
+
+# Python used to RUN the judge (needs openai + playwright for screenshot prep).
+# Override with JUDGE_PYTHON; falls back to the judge venv, then this python.
+_VENV_PY = Path.home() / "Coding Projects" / "socraticai-judge" / ".venv-judge" / "bin" / "python3"
+JUDGE_PYTHON = os.environ.get("JUDGE_PYTHON") or (str(_VENV_PY) if _VENV_PY.exists() else sys.executable)
+RUN_JUDGE = REPO / "agentic_pipeline" / "judge" / "run_judge.py"
+
+# In-flight judge runs: job_id -> {status, pair, error, startedAt}
+JOBS = {}
+
+
+def _run_judge_job(job_id, a, b):
+    JOBS[job_id]["status"] = "running"
+    try:
+        r = subprocess.run(
+            [JUDGE_PYTHON, str(RUN_JUDGE), "--a", a, "--b", b, "--force"],
+            capture_output=True, text=True, timeout=600,
+            env={**os.environ},
+        )
+        if r.returncode != 0:
+            tail = ((r.stderr or "") + "\n" + (r.stdout or "")).strip()[-600:]
+            JOBS[job_id].update(status="error", error=tail or f"exit {r.returncode}")
+        elif not (JUDGE_RESULTS / f"{pair_key(a, b)}.json").exists():
+            JOBS[job_id].update(status="error", error="judge finished but no result file was written")
+        else:
+            JOBS[job_id]["status"] = "done"
+    except subprocess.TimeoutExpired:
+        JOBS[job_id].update(status="error", error="judge timed out after 10 minutes")
+    except Exception as e:
+        JOBS[job_id].update(status="error", error=str(e))
 
 DIMENSIONS = ["visual_accuracy", "interactivity", "narration_quality",
               "sync", "concept_accuracy", "polish"]
@@ -235,6 +268,10 @@ class Handler(BaseHTTPRequestHandler):
             _, _, a, b = candidates[0]
             return self._json({"a": a, "b": b})
 
+        if path.startswith("/api/job/"):
+            job = JOBS.get(path.rsplit("/", 1)[1])
+            return self._json(job or {"status": "unknown"}, 200 if job else 404)
+
         if path.startswith("/api/rankings/"):
             subject = path.rsplit("/", 1)[1]
             results = load_judge_results(subject)
@@ -266,6 +303,23 @@ class Handler(BaseHTTPRequestHandler):
             out = HUMAN_RESULTS / f"{pair_key(a, b)}__human_{ts}.json"
             out.write_text(json.dumps(record, indent=2))
             return self._json({"saved": out.name})
+
+        if url.path == "/api/run_judge":
+            a, b = data.get("a"), data.get("b")
+            if not a or not b:
+                return self._json({"error": "a and b required"}, 400)
+            if not os.environ.get("OPENAI_API_KEY"):
+                return self._json({"error": "server was started without OPENAI_API_KEY — "
+                                            "restart: OPENAI_API_KEY=... python3 dashboard/app.py"}, 400)
+            # one run at a time per pair
+            for j in JOBS.values():
+                if j["pair"] == pair_key(a, b) and j["status"] in ("queued", "running"):
+                    return self._json({"error": "a judge run for this pair is already in progress"}, 409)
+            job_id = uuid.uuid4().hex[:10]
+            JOBS[job_id] = {"status": "queued", "pair": pair_key(a, b),
+                            "startedAt": datetime.now(timezone.utc).isoformat(), "error": None}
+            threading.Thread(target=_run_judge_job, args=(job_id, a, b), daemon=True).start()
+            return self._json({"job": job_id})
 
         if url.path == "/api/judge_feedback":
             a, b = data.get("setupA"), data.get("setupB")

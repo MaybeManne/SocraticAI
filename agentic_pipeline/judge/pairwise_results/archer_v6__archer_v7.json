@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v7",
+  "setupB": "archer_v6",
+  "subject": "archer",
+  "lesson1Setup": "archer_v6",
+  "lesson2Setup": "archer_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 accurately depicts the projectile trajectory, axes, launch components, landing point, and relevant flight-time equations, while Lesson 1\u2019s mid-lesson visual is mostly blank/garbled with raw formula text and an incomplete tiny arrow diagram that fails to represent the projectile motion concept clearly or positionally correctly."
+    },
+    "interactivity": {
+      "winner": "archer_v7",
+      "confidence": 0.82,
+      "rationale": "Lesson 2 has a clearly functional single fill-in gate with a matching wired node and one correct answer, while Lesson 1 is wired but its prompt contains two blanks despite only a singular blank spec with an answer array, making the input behavior more likely to be malformed or ambiguous."
+    },
+    "narration_quality": {
+      "winner": "archer_v7",
+      "confidence": 0.62,
+      "rationale": "Lesson 2 is slightly more polished and naturally paced with smoother explanatory phrasing, while Lesson 1 is also clear but a bit more abrupt and includes slightly less natural spoken phrasing such as \u201cg...\u201d and the quoted formula line."
+    },
+    "sync": {
+      "winner": "archer_v7",
+      "confidence": 0.74,
+      "rationale": "Lesson 2 generally times cues to the specific phrases that introduce them within longer narration lines, while Lesson 1 relies much more on cueing visuals at line starts even when the referenced idea appears later, making its synchronization less precise overall."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.92,
+      "rationale": "Lesson 2 is more conceptually clear and pedagogically complete because it explicitly shows the component equations, time-of-flight derivation, numerical substitutions, and range formula, while Lesson 1 is mostly correct but vaguer about the actual algebra and briefly risks confusion by referring to calculating the trajectory's 'length' rather than the horizontal range."
+    },
+    "polish": {
+      "winner": "archer_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 is far more polished with a balanced split layout, readable rendered math, and consistent styling, while Lesson 1 is off-center/cluttered with a tiny diagram, excessive empty space, and a major raw unrendered LaTeX text bug across the middle."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v7",
+    "confidence": 0.95,
+    "explanation": "All six dimension agents preferred Lesson 2, with especially strong advantages in visual accuracy, concept accuracy, and polish. Lesson 2 presents clearer projectile-motion visuals, readable equations, better layout, and a more complete derivation, while Lesson 1 suffers from garbled/raw formula rendering, weak or incomplete diagrams, and less precise algebraic explanation. Lesson 2 also wins on interactivity, narration, and synchronization, though those margins are somewhat smaller. Overall, the unanimous and mostly high-confidence verdicts indicate Lesson 2 is clearly superior."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-14T17:52:02.331074+00:00"
+}

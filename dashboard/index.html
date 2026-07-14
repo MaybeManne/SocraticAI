@@ -78,6 +78,12 @@
   .fb button.off { border-color:#c0392b; color:#c0392b; }
   .lbbar { height:5px; background:var(--soft); border-radius:4px; overflow:hidden; min-width:90px; }
   .lbbar > div { height:100%; background:var(--accent); }
+  .spin { display:inline-block; width:13px; height:13px; border:2px solid var(--accent-soft);
+          border-top-color:var(--accent); border-radius:50%; animation:sp .8s linear infinite;
+          vertical-align:-2px; margin-right:7px; }
+  @keyframes sp { to { transform:rotate(360deg); } }
+  #judgeStatus { font-size:13px; margin-left:10px; }
+  #judgeStatus.err { color:#c0392b; }
 </style>
 </head>
 <body>
@@ -108,6 +114,10 @@
     </div>
 
     <div class="panel" id="verdictPanel" style="display:none">
+      <div style="display:flex; align-items:center; margin-bottom:10px">
+        <button id="runJudge" class="primary">⚖ Run AI judge on this pair</button>
+        <span id="judgeStatus"></span>
+      </div>
       <h3>Your verdict</h3>
       <div class="quick">
         <button data-fill="A">A sweeps</button>
@@ -300,7 +310,38 @@ function setupVerdict() {
     $("notesToggle").textContent = notesOn ? "－ notes" : "＋ notes"; drawVerdictRows(true); };
   $("submitVerdict").onclick = submitVerdict;
   $("saveMsg").textContent = "";
+  $("runJudge").onclick = runJudge;
+  $("judgeStatus").textContent = "";
+  $("judgeStatus").className = "";
   loadJudgePanel();
+}
+
+async function runJudge() {
+  const [a, b] = selected;
+  const st = $("judgeStatus");
+  $("runJudge").disabled = true;
+  st.className = "";
+  st.innerHTML = `<span class="spin"></span>Running judge — screenshots + 7 LLM calls, this may take a minute…`;
+  try {
+    const start = await api("/api/run_judge", { method: "POST", body: JSON.stringify({ a, b }) });
+    if (start.error) throw new Error(start.error);
+    while (true) {
+      await new Promise(r => setTimeout(r, 3000));
+      if (selected[0] !== a || selected[1] !== b) return;   // user moved on
+      const j = await api(`/api/job/${start.job}`);
+      if (j.status === "done") break;
+      if (j.status === "error") throw new Error(j.error || "judge failed");
+    }
+    st.className = "";
+    st.textContent = "done ✓ — metrics updated";
+    await loadMetrics();
+    await loadJudgePanel();
+  } catch (e) {
+    st.className = "err";
+    st.textContent = "✗ " + e.message;
+  } finally {
+    $("runJudge").disabled = false;
+  }
 }
 
 function drawVerdictRows(keep) {
