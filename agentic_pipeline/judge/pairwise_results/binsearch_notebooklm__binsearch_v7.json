@@ -1,0 +1,46 @@
+{
+  "setupA": "binsearch_v7",
+  "setupB": "binsearch_notebooklm",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_v7",
+  "lesson2Setup": "binsearch_notebooklm",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_v7",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 shows the correct target array with indices and a plausible binary-search comparison, whereas Lesson 2\u2019s mid-lesson table incorrectly lists Low, Mid, and High all as value 45 and does not accurately represent the required array indices or pointer positions."
+    },
+    "interactivity": {
+      "winner": "binsearch_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate with a real binary-search question, plausible options, and a marked correct answer after a specific act, while Lesson 2 has no available gate specs or plan and therefore provides no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 provides clear, well-paced narration with natural spoken math and no raw LaTeX or garbling, while Lesson 2 has no available transcript and therefore cannot demonstrate any narration quality."
+    },
+    "sync": {
+      "winner": "binsearch_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 provides timed visual cues that mostly align with the narration's references, whereas Lesson 2 has no transcript or cue timing available, making its sync impossible to verify and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 is mostly mathematically correct and explains the sorted prerequisite, pointer updates, halving argument, and O(log n) reasoning, whereas Lesson 2 provides no transcript or lesson content to verify or teach the concept at all, though Lesson 1 does pedagogically weaken the trace by skipping the explicit mid=6 comparison before finding index 7."
+    },
+    "polish": {
+      "winner": "binsearch_notebooklm",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 is cleaner, more centered, and consistently styled with legible table/text, while Lesson 1\u2019s mid-lesson frame is pushed left, has excessive empty space and a faint unrelated prompt box that makes the layout feel cluttered and visually buggy."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v7",
+    "confidence": 0.97,
+    "explanation": "Lesson 1 is the clear overall winner: five of six dimension agents favored it, all with very high confidence, across visual accuracy, interactivity, narration quality, synchronization, and concept accuracy. These are core lesson-quality dimensions, and Lesson 2 was repeatedly penalized for missing or unverifiable transcript, cue timing, lesson content, and interactivity, plus an inaccurate binary-search table. Lesson 2 only won polish, with moderately high confidence, for cleaner visual styling and layout. While Lesson 1 has some layout clutter and a minor pedagogical weakness in the search trace, the weighted evidence strongly favors Lesson 1."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-13T23:08:32.747513+00:00"
+}
