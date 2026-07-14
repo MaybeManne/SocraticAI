@@ -7,40 +7,40 @@
   "dimensions": {
     "visual_accuracy": {
       "winner": "binsearch_v7",
-      "confidence": 0.67,
-      "rationale": "Lesson 1 at least presents the correct problem and array for binary search, while Lesson 2\u2019s title screen is entirely an OBS recursive capture artifact even though its mid-lesson binary-search highlight is more accurate than Lesson 1\u2019s somewhat unclear/inconsistent mid-frame."
+      "confidence": 0.82,
+      "rationale": "Lesson 1 actually renders the binary-search problem and array with the target/final element highlighted, whereas Lesson 2\u2019s title screen is an erroneous OBS screen capture unrelated to the lesson despite its mid-frame correctly showing the index-8 comparison."
     },
     "interactivity": {
       "winner": "binsearch_v7",
       "confidence": 0.99,
-      "rationale": "Lesson 1 includes a well-formed quiz gate wired after act_first_cut with a real question, options, correct answer, and remediation path, while Lesson 2 has no available gate specs or plan and therefore no functioning interactivity."
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate with a real binary-search question, plausible answer options, and a marked correct answer after act_found, whereas Lesson 2 has no available gate specs or plan JSON and therefore no functional interactivity."
     },
     "narration_quality": {
       "winner": "binsearch_v7",
       "confidence": 0.99,
-      "rationale": "Lesson 1 has clear, natural narration with appropriate pacing and no raw LaTeX or garbled phrasing, while Lesson 2 has no available transcript and therefore cannot demonstrate acceptable narration quality."
+      "rationale": "Lesson 1 has clear, well-paced narration with spoken math rendered naturally, while Lesson 2 has no transcript available and therefore provides no assessable narration."
     },
     "sync": {
       "winner": "binsearch_v7",
-      "confidence": 0.97,
-      "rationale": "Lesson 1 provides timed visual cues that generally align with the narrated references, while Lesson 2 has no transcript or cue data at all, making its synchronization absent and impossible to verify."
+      "confidence": 0.96,
+      "rationale": "Lesson 1 provides timed cues that generally coincide with the narrated references to pointers, midpoint, elimination, final match, and complexity comparison, whereas Lesson 2 has no transcript or cue data at all, making its synchronization absent and impossible to verify."
     },
     "concept_accuracy": {
       "winner": "binsearch_v7",
-      "confidence": 0.95,
-      "rationale": "Lesson 1 is mostly conceptually correct and explains sortedness, midpoint comparisons, halving, and O(log n), though it weakly skips the explicit index-6 comparison with 38, whereas Lesson 2 has no available transcript or content to verify or teach the concept at all."
+      "confidence": 0.97,
+      "rationale": "Lesson 1 correctly traces binary search to index 7 and explains the halving/logarithmic rationale clearly, while Lesson 2 has no available transcript or script to demonstrate any accurate or pedagogically useful concept explanation."
     },
     "polish": {
       "winner": "binsearch_v7",
-      "confidence": 0.93,
-      "rationale": "Lesson 1 is a coherent, consistently styled lesson with readable text and clean visuals despite some off-center/empty-space issues, whereas Lesson 2 has a major OBS screen-capture recursion bug on the title screen and visible OS/browser chrome with excessive blank space in the lesson frame."
+      "confidence": 0.98,
+      "rationale": "Lesson 1 is consistently composed, legible, and mostly clean despite minor overlap/raw-symbol issues, whereas Lesson 2 has a severely broken OBS recursive capture on the title screen plus visible browser chrome/cursor and excessive empty space in the lesson frame."
     }
   },
   "aggregator": {
     "winner": "binsearch_v7",
-    "confidence": 0.96,
-    "explanation": "All six dimension agents prefer Lesson 1, most with very high confidence. Lesson 1 is judged stronger in interactivity, narration, synchronization, conceptual accuracy, and polish, with functioning quiz design, clear narration, aligned cues, mostly correct binary-search explanation, and coherent visuals. Visual accuracy is the weakest margin because Lesson 2 has one more accurate mid-lesson binary-search highlight, but Lesson 2 is severely undermined by an OBS recursive capture artifact, missing transcript/cue/interactivity data, and visible capture/polish issues. The overall verdict is therefore clearly Lesson 1."
+    "confidence": 0.98,
+    "explanation": "All six dimension agents strongly favored Lesson 1, with consistently high confidence. Lesson 1 was judged superior in visual accuracy, interactivity, narration quality, synchronization, concept accuracy, and polish. The strongest issues for Lesson 2 were missing transcript/cue/plan data, no functional interactivity, and severe visual/polish problems including an erroneous OBS capture, while Lesson 1 presented a coherent binary-search lesson with correct tracing, synchronized cues, a working quiz gate, and clear narration."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-13T23:08:19.828969+00:00"
+  "evaluatedAt": "2026-07-14T15:53:18.929934+00:00"
 }

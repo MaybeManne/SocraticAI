@@ -2,45 +2,45 @@
   "setupA": "archer_v7",
   "setupB": "archer_v3",
   "subject": "archer",
-  "lesson1Setup": "archer_v7",
-  "lesson2Setup": "archer_v3",
+  "lesson1Setup": "archer_v3",
+  "lesson2Setup": "archer_v7",
   "dimensions": {
     "visual_accuracy": {
       "winner": "archer_v7",
-      "confidence": 0.76,
-      "rationale": "Lesson 1 more accurately depicts the projectile path and component decomposition with the vertical component highlighted for the step shown, whereas Lesson 2 makes the horizontal component being asked for very dim/unclear and visually emphasizes the vertical component instead."
+      "confidence": 0.86,
+      "rationale": "Lesson 2 more accurately and completely shows the projectile path, launch/landing points, component vectors, angle, and horizontal range aligned with the equations, while Lesson 1\u2019s diagram is sparse and its velocity components/range are less clearly and less accurately positioned or emphasized."
     },
     "interactivity": {
       "winner": "archer_v7",
       "confidence": 0.62,
-      "rationale": "Both lessons include a real, wired fill-in gate with prompt, answer, hint, and success handling, but Lesson 1 is slightly stronger because its checkpoint asks for a component calculation with multiple accepted input formats after the decomposition act, whereas Lesson 2 asks for a value that its preceding act says has already been shown and only accepts one exact rounded format."
+      "rationale": "Lesson 2 is slightly better because its well-formed fill-in gate is wired immediately after a dedicated decomposition act and includes a clear checkpoint label, while Lesson 1\u2019s equally functional gate is placed after a broader introduction and is marginally less cleanly integrated despite also rendering a real question with an answer."
     },
     "narration_quality": {
       "winner": "archer_v7",
-      "confidence": 0.82,
-      "rationale": "Lesson 1 is smoother and consistently well-paced with clear spoken math, while Lesson 2 has a notably awkward fragment\u2014\u201cAbout thirty-four point six meters per second for just over four seconds\u201d\u2014that sounds incomplete and less natural despite otherwise clear narration."
+      "confidence": 0.93,
+      "rationale": "Lesson 2 has smooth, natural narration with appropriate spoken math, while Lesson 1 includes an awkward/incorrect range line saying \u201cthirty-four point six meters per second for just over four seconds,\u201d which is confusing and narratively defective."
     },
     "sync": {
-      "winner": "archer_v3",
-      "confidence": 0.78,
-      "rationale": "Lesson 2\u2019s cues generally occur closer to the moments the narration references the trajectory, decomposition, vertical focus, time transfer, and final range, whereas Lesson 1 has more noticeable early or missing visual changes, such as projecting the vertical shadow well before it is mentioned, lacking cues for displayed equations/solutions, and drawing the range label before the narration reaches the final distance."
+      "winner": "archer_v7",
+      "confidence": 0.92,
+      "rationale": "Lesson 2\u2019s cues generally fire when the narration names the relevant visual elements, while Lesson 1 has several missing or poorly timed visual changes, especially around the trig formulas, kinematic equation/solution, and double-angle identity."
     },
     "concept_accuracy": {
       "winner": "archer_v7",
-      "confidence": 0.68,
-      "rationale": "Lesson 1 is slightly better because it more clearly explains the vertical-time derivation, including the two roots and why the nonzero root is the flight time, while Lesson 2 is correct but skips more of that reasoning and leaves the horizontal range multiplication less explicitly stated before the final confirmation."
+      "confidence": 0.93,
+      "rationale": "Lesson 2 is more conceptually accurate and pedagogically clear because it explicitly shows the vertical kinematics derivation, identifies the nonzero flight-time root, computes components/time/range step by step, and derives the range formula, whereas Lesson 1 mostly narrates these steps without displaying the key equations or algebra and therefore relies more on the visualization to supply essential reasoning."
     },
     "polish": {
       "winner": "archer_v7",
       "confidence": 0.93,
-      "rationale": "Lesson 1 is better polished because its mid-lesson diagram is larger, more legible, and better composed within the left panel, while Lesson 2\u2019s diagram is tiny, pushed into the lower-left with excessive empty space and very small labels."
+      "rationale": "Lesson 2 has a cleaner, more balanced mid-lesson layout with larger, more legible diagram and equation panels, while Lesson 1\u2019s mid-frame is sparse/off-center with tiny faint labels and a low-contrast prompt box that makes the presentation feel unfinished."
     }
   },
   "aggregator": {
     "winner": "archer_v7",
-    "confidence": 0.82,
-    "explanation": "Lesson 1 wins clearly, taking five of six dimensions and with strong weighted support. It was preferred for visual accuracy, interactivity, narration quality, concept accuracy, and polish, including clearer component depiction, a better-placed interactive checkpoint, smoother narration, more complete explanation of the vertical-time derivation, and a much more legible/composed diagram. Lesson 2 was favored only for synchronization, where its visual cues were judged better aligned with narration. Overall, the single sync advantage is outweighed by Lesson 1's broader and higher-confidence strengths, especially polish and narration."
+    "confidence": 0.95,
+    "explanation": "All six dimension agents prefer Lesson 2, with mostly high confidence. Lesson 2 is judged superior in visual accuracy, narration, synchronization, conceptual accuracy, and polish, and it also has a slight edge in interactivity. Across the rationales, Lesson 2 more clearly aligns visuals with equations, times cues to narration, presents projectile-motion derivations step by step, uses smoother spoken math, and offers a cleaner, more legible layout. Since the votes are unanimous and the strongest-confidence agents all favor Lesson 2, the overall winner is clearly Lesson 2."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-13T14:04:03.113844+00:00"
+  "evaluatedAt": "2026-07-14T15:48:37.717743+00:00"
 }

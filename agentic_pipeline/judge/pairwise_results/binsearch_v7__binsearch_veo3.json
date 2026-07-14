@@ -2,45 +2,45 @@
   "setupA": "binsearch_v7",
   "setupB": "binsearch_veo3",
   "subject": "binsearch",
-  "lesson1Setup": "binsearch_veo3",
-  "lesson2Setup": "binsearch_v7",
+  "lesson1Setup": "binsearch_v7",
+  "lesson2Setup": "binsearch_veo3",
   "dimensions": {
     "visual_accuracy": {
       "winner": "binsearch_v7",
-      "confidence": 0.91,
-      "rationale": "Lesson 2 accurately shows the correct sorted array, indices, and binary-search comparison for target 45, whereas Lesson 1 uses garbled labels and incorrect array values/positions that do not faithfully represent the given binary search problem."
+      "confidence": 0.98,
+      "rationale": "Lesson 1 accurately shows the given sorted array, target 45, index positions, and the binary-search progression toward index 7, while Lesson 2 uses incorrect/gibberish labels and wrong array values/indices that do not represent the stated problem."
     },
     "interactivity": {
       "winner": "binsearch_v7",
       "confidence": 0.99,
-      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_first_cut with a real question, plausible options, and a marked correct answer, whereas Lesson 1 has no available gate specs or plan and therefore no functioning checkpoints."
+      "rationale": "Lesson 1 includes a well-formed quiz gate with a real question, plausible options, a marked correct answer, and wiring after act_found, whereas Lesson 2 provides no gate specs or plan at all, so it has no functioning interactivity."
     },
     "narration_quality": {
       "winner": "binsearch_v7",
-      "confidence": 0.95,
-      "rationale": "Lesson 2 has clear, well-paced narration with natural spoken math and no obvious TTS defects, while Lesson 1 has no available narration transcript to evaluate and therefore cannot demonstrate acceptable narration quality."
+      "confidence": 0.98,
+      "rationale": "Lesson 1 has clear, natural narration with appropriate pacing and spoken math, while Lesson 2 has no transcript available and therefore cannot demonstrate any narration quality."
     },
     "sync": {
       "winner": "binsearch_v7",
-      "confidence": 0.96,
-      "rationale": "Lesson 2 provides visual cues that are mostly timed to the narrated references, while Lesson 1 has no transcript or beat data at all, making its visual-narration sync absent and unevaluable."
+      "confidence": 0.98,
+      "rationale": "Lesson 1 provides timed cues that generally fire near the narration references, while Lesson 2 has no transcript or cue data at all, making its synchronization impossible to verify and therefore worse on this dimension."
     },
     "concept_accuracy": {
       "winner": "binsearch_v7",
       "confidence": 0.98,
-      "rationale": "Lesson 2 is mostly mathematically correct and explains sortedness, pointer updates, halving, and O(log n), whereas Lesson 1 has no available transcript or script to establish any accurate teaching content, though Lesson 2 does weaken the trace by skipping the explicit mid=6/value 38 comparison before finding index 7."
+      "rationale": "Lesson 1 gives a mostly correct and pedagogically clear binary-search trace and logarithmic-time explanation, whereas Lesson 2 has no available transcript or lesson content to evaluate and therefore provides no demonstrable conceptual teaching."
     },
     "polish": {
       "winner": "binsearch_v7",
-      "confidence": 0.85,
-      "rationale": "Lesson 2 has a much cleaner, more consistent, and legible layout, while Lesson 1 is visually cluttered with distracting UI artifacts, gibberish labels/buttons, presenter overlap, and a typo on the title screen."
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is cleaner, more legible, and consistently laid out despite minor issues like a raw \\implies and some label crowding, whereas Lesson 2 has distracting UI artifacts, gibberish labels, cluttered/overlapping elements, and a presenter partially blocking the diagram."
     }
   },
   "aggregator": {
     "winner": "binsearch_v7",
-    "confidence": 0.98,
-    "explanation": "All six dimension agents strongly prefer Lesson 2, with high confidence across visual accuracy, interactivity, narration quality, sync, concept accuracy, and polish. Lesson 2 is described as accurate, well narrated, synchronized, interactive, and visually clean, while Lesson 1 lacks usable narration/transcript/beat data, has no functioning checkpoints, and contains visual inaccuracies and clutter. The only noted weakness in Lesson 2 is a minor skipped binary-search trace step, but this does not outweigh its clear overall superiority."
+    "confidence": 0.97,
+    "explanation": "All six dimension agents prefer Lesson 1, with very high confidence on visual accuracy, interactivity, narration quality, synchronization, and concept accuracy, plus a moderately high-confidence polish preference. Lesson 1 accurately represents the binary search problem, includes functional quiz interactivity, provides clear narration and timed cues, and teaches the concept coherently. Lesson 2 lacks usable transcript/cue/interaction data and contains incorrect or cluttered visuals, gibberish labels, and distracting artifacts. The verdict is unanimous and strongly favors Lesson 1."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T13:30:38.768928+00:00"
+  "evaluatedAt": "2026-07-14T15:53:01.574560+00:00"
 }

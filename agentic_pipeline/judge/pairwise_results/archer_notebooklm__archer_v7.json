@@ -2,45 +2,45 @@
   "setupA": "archer_v7",
   "setupB": "archer_notebooklm",
   "subject": "archer",
-  "lesson1Setup": "archer_notebooklm",
-  "lesson2Setup": "archer_v7",
+  "lesson1Setup": "archer_v7",
+  "lesson2Setup": "archer_notebooklm",
   "dimensions": {
     "visual_accuracy": {
       "winner": "archer_v7",
-      "confidence": 0.86,
-      "rationale": "Lesson 2 shows the actual projectile problem with a correctly placed parabolic trajectory, axes, launch components, and correct flight time, while Lesson 1 is more generic and its mid-frame emphasizes 34.64 m/s without enough positional context, making it less visually faithful to the full range problem."
+      "confidence": 0.9,
+      "rationale": "Lesson 1 accurately depicts the projectile trajectory from ground to ground with correct component decomposition and flight-time equations tied to the 40 m/s, 30\u00b0 range problem, while Lesson 2\u2019s visuals are more generic and its mid-frame emphasizes only the horizontal velocity component with less clear positional connection to the actual range being solved."
     },
     "interactivity": {
       "winner": "archer_v7",
       "confidence": 0.99,
-      "rationale": "Lesson 2 includes a well-formed, wired fill-in checkpoint with a real prompt, accepted answers, hint, and remediation path after a specific act, while Lesson 1 has no available gate specs or plan and therefore no evidence of any functioning interactivity."
+      "rationale": "Lesson 1 includes a wired, functional fill-in gate after act_decomposition with a real prompt, answer, hint, and remediation path, while Lesson 2 has no gate specs or plan available, so it provides no demonstrable interactivity."
     },
     "narration_quality": {
       "winner": "archer_v7",
-      "confidence": 0.98,
-      "rationale": "Lesson 2 provides clear, natural narration with spoken math like \u201cv-naught-x\u201d and no obvious raw LaTeX or garbling, while Lesson 1 has no available narration transcript and therefore cannot demonstrate any audio quality."
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, natural narration with spoken math and no obvious defects, while Lesson 2 has no available narration transcript and must be treated as absent."
     },
     "sync": {
       "winner": "archer_v7",
-      "confidence": 0.82,
-      "rationale": "Lesson 2 provides timed visual cues that are mostly aligned with the narration despite a few early triggers, whereas Lesson 1 has no transcript or cue data at all, making its sync effectively unevaluable and worse on this dimension."
+      "confidence": 0.95,
+      "rationale": "Lesson 1 provides timed visual cues that are mostly aligned with the narration despite a few early/late moments, whereas Lesson 2 has no transcript or cue data at all, making its sync effectively unevaluable and worse."
     },
     "concept_accuracy": {
       "winner": "archer_v7",
-      "confidence": 0.97,
-      "rationale": "Lesson 2 gives a mathematically correct projectile-motion solution with appropriate decomposition, flight-time calculation, and range formula, whereas Lesson 1 has no available transcript or plan to demonstrate any correct or pedagogically useful explanation."
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly derives projectile range through component decomposition, vertical flight time, and horizontal motion with clear pedagogical sequencing, while Lesson 2 has no available transcript or lesson content and therefore provides no assessable conceptual explanation."
     },
     "polish": {
-      "winner": "archer_notebooklm",
-      "confidence": 0.88,
-      "rationale": "Lesson 1 is more visually engaging and legible with a consistent sketch style and centered compositions, whereas Lesson 2 has distracting video controls, low-contrast/faded text, excessive empty space, and a mid-lesson layout pushed awkwardly to the left."
+      "winner": "archer_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 is more consistently centered, readable, and professionally composed, while Lesson 2 has stronger visual style but suffers from cropped decorative elements, oversized/awkwardly spaced text, and a more cluttered sketch layout."
     }
   },
   "aggregator": {
     "winner": "archer_v7",
-    "confidence": 0.93,
-    "explanation": "Lesson 2 is the clear overall winner: five of six agents prefer it, mostly with very high confidence, including visual accuracy, interactivity, narration quality, sync, and concept accuracy. These dimensions indicate that Lesson 2 presents the projectile-motion problem accurately, includes functional interaction, provides clear narration, aligns visuals reasonably well with narration, and gives a correct mathematical explanation. Lesson 1 only wins polish, with the agent noting stronger visual style and composition, but that single advantage does not outweigh Lesson 2's broad and high-confidence superiority across the core instructional dimensions."
+    "confidence": 0.97,
+    "explanation": "All six dimension agents prefer Lesson 1, with especially high-confidence wins in interactivity, narration quality, synchronization, conceptual accuracy, and visual accuracy. Lesson 1 is reported to have accurate projectile-motion visuals, a functional interactive gate, clear narration, mostly aligned cue timing, and a correct derivation of range using component decomposition, vertical flight time, and horizontal motion. Lesson 2 is repeatedly disadvantaged by missing transcript, cue, interactivity, and lesson-content evidence, and its visuals/polish are described as more generic or cluttered despite some stylistic strengths. The only lower-confidence dimension is polish, but it still favors Lesson 1. Overall, the verdict is decisively in favor of Lesson 1."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-13T23:07:11.954495+00:00"
+  "evaluatedAt": "2026-07-14T15:52:10.399870+00:00"
 }
