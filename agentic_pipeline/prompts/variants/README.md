@@ -1,5 +1,9 @@
 # Planner prompt variants
 
+> **Status:** `v7_combined.md` is the currently promoted planner (copied to
+> `../planner.md`, commit 587e13d) — validated 17W-1T-0L in pairwise judging.
+
+
 Drop alternate planner prompts here to A/B test them without touching the
 canonical `prompts/planner.md`.
 
