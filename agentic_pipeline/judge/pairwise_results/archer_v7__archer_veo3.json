@@ -2,45 +2,45 @@
   "setupA": "archer_v7",
   "setupB": "archer_veo3",
   "subject": "archer",
-  "lesson1Setup": "archer_veo3",
-  "lesson2Setup": "archer_v7",
+  "lesson1Setup": "archer_v7",
+  "lesson2Setup": "archer_veo3",
   "dimensions": {
     "visual_accuracy": {
       "winner": "archer_v7",
-      "confidence": 0.92,
-      "rationale": "Lesson 2 accurately depicts the projectile setup with axes, parabolic trajectory, launch angle/vector components, and correct flight-time equations, whereas Lesson 1 is mostly decorative and its mid-lesson scale/labels are ambiguous or incorrect relative to the actual 40 m/s at 30\u00b0 range problem."
+      "confidence": 0.95,
+      "rationale": "Lesson 1 accurately shows the projectile launched from ground level with a 30\u00b0-style velocity decomposition, parabolic path, equal-height landing point, and correct flight-time equations, whereas Lesson 2 only provides a generic/stylized arc with nonsensical or unlabeled scale markings and no correct representation of the given velocity, angle, or range setup."
     },
     "interactivity": {
       "winner": "archer_v7",
       "confidence": 0.99,
-      "rationale": "Lesson 2 includes a functional fill-in gate with a real prompt, accepted answer, hint, remediation path, and wiring after act_decomposition, while Lesson 1 has no available gate specs or plan and therefore no evidence of any functioning checkpoint."
+      "rationale": "Lesson 1 includes a well-formed, wired fill-in gate after act_decomposition with a real prompt, expected answer, hint, and remediation path, while Lesson 2 has no available gate specs or plan and therefore no functioning checkpoints."
     },
     "narration_quality": {
       "winner": "archer_v7",
-      "confidence": 0.99,
-      "rationale": "Lesson 2 has clear, natural, well-paced narration with spoken math rendered appropriately, while Lesson 1 has no transcript available and therefore cannot demonstrate any narration quality."
+      "confidence": 0.96,
+      "rationale": "Lesson 1 is clear, naturally paced, and speaks the math in listener-friendly language, while Lesson 2 contains garbled/unnatural phrases like \u201c1 9.8 every second,\u201d \u201c0 verts,\u201d and \u201cX2,\u201d plus awkward repetition that would make the audio feel defective."
     },
     "sync": {
       "winner": "archer_v7",
-      "confidence": 0.9,
-      "rationale": "Lesson 2 at least provides visual cues that generally track the narrated references, despite a few cues firing somewhat early, whereas Lesson 1 has no transcript or timing data at all and therefore shows no evidence of synchronized visual changes."
+      "confidence": 0.73,
+      "rationale": "Lesson 1 provides mostly timed cues that generally align with the referenced narration despite several early/late moments, while Lesson 2 has no beat/timing data at all, making synchronization unverifiable and therefore weaker on this dimension."
     },
     "concept_accuracy": {
       "winner": "archer_v7",
-      "confidence": 0.98,
-      "rationale": "Lesson 2 gives a mathematically correct and pedagogically clear decomposition of projectile motion, solves flight time and horizontal range appropriately, while Lesson 1 has no available transcript or lesson content to verify accuracy or learner support."
+      "confidence": 0.93,
+      "rationale": "Lesson 1 is mathematically correct and builds understanding through component decomposition, vertical time derivation, horizontal range calculation, and the general formula, while Lesson 2 is mostly correct but much more compressed and contains potentially confusing/garbled phrasing like \u201cGravity eats the upward speed, 1 9.8 every second\u201d and \u201cX2,\u201d making it less pedagogically clear."
     },
     "polish": {
-      "winner": "archer_veo3",
-      "confidence": 0.82,
-      "rationale": "Lesson 1 has a much more visually polished, cohesive, and legible presentation with strong centering and consistent cinematic styling, whereas Lesson 2\u2019s mid-lesson layout is cluttered, low-contrast on the graph, and appears partially cropped/overlapped near the top."
+      "winner": "archer_v7",
+      "confidence": 0.68,
+      "rationale": "Lesson 1 is more consistently laid out and readable with clean equation panels, while Lesson 2, despite a more visually striking title screen, has a mid-lesson frame with cluttered/duplicated numeric labels and awkward overlapping axis markings that make the presentation look less polished."
     }
   },
   "aggregator": {
     "winner": "archer_v7",
     "confidence": 0.96,
-    "explanation": "Lesson 2 is the clear overall winner: five of six agents favored it, all with high confidence, across the most instructionally important dimensions\u2014visual accuracy, interactivity, narration quality, synchronization, and concept accuracy. These agents consistently noted that Lesson 2 provides correct projectile-motion diagrams, a functioning interactive checkpoint, clear narration, synchronized visual support, and mathematically accurate problem solving. Lesson 1 won only on polish, with moderate-high confidence, due to its more cohesive visual styling, but this does not outweigh Lesson 2\u2019s strong advantages in correctness, pedagogy, narration, and interactivity."
+    "explanation": "All six dimension agents favor Lesson 1, with especially strong confidence in visual accuracy, interactivity, narration quality, and concept accuracy. Lesson 1 is described as mathematically correct, clearly narrated, visually aligned with the projectile-motion setup, and equipped with a functioning interactive checkpoint. Lesson 2 is repeatedly criticized for generic or inaccurate visuals, lack of interaction/timing data, garbled narration, confusing phrasing, and less polished layout. Although Lesson 1 has minor synchronization and polish issues, the verdicts are unanimous and mostly high-confidence, making Lesson 1 the clear overall winner."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T15:51:34.546654+00:00"
+  "evaluatedAt": "2026-07-14T21:17:29.048385+00:00"
 }

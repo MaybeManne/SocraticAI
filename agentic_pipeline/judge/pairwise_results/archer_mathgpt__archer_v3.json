@@ -2,45 +2,45 @@
   "setupA": "archer_v3",
   "setupB": "archer_mathgpt",
   "subject": "archer",
-  "lesson1Setup": "archer_mathgpt",
-  "lesson2Setup": "archer_v3",
+  "lesson1Setup": "archer_v3",
+  "lesson2Setup": "archer_mathgpt",
   "dimensions": {
     "visual_accuracy": {
       "winner": "archer_mathgpt",
       "confidence": 0.82,
-      "rationale": "Lesson 1 accurately shows the 40 m/s vector at 30\u00b0 decomposed into a longer horizontal component and shorter vertical component with correct formulas, while Lesson 2\u2019s component diagram appears poorly scaled/positioned, with the vertical component visually too large relative to the launch vector and horizontal component."
+      "rationale": "Lesson 2 more clearly and accurately places the 30\u00b0 launch vector and its horizontal/vertical components with correct formulas, while Lesson 1\u2019s projectile diagram is generally correct but the component visualization is tiny/faint and appears to emphasize the vertical component when the prompt is asking for the horizontal speed."
     },
     "interactivity": {
       "winner": "archer_v3",
       "confidence": 0.99,
-      "rationale": "Lesson 2 has a clearly wired, functional fill-in gate after act_introduction with a real prompt, accepted answer, hint, and remediation path, while Lesson 1 provides no gate specs or plan at all, so it has no functioning interactivity."
+      "rationale": "Lesson 1 includes a well-formed, wired fill-in gate with a real prompt, accepted answer, hint, and remediation path after a specific act, while Lesson 2 has no available gate specs or plan JSON and therefore no functioning checkpoints."
     },
     "narration_quality": {
       "winner": "archer_v3",
-      "confidence": 0.92,
-      "rationale": "Lesson 2 provides clear, natural spoken narration with no raw LaTeX or garbled phrasing, while Lesson 1 has no transcript available and therefore cannot demonstrate acceptable audio narration quality."
+      "confidence": 0.67,
+      "rationale": "Lesson 1 is more naturally paced and structured into clear spoken beats with no raw notation defects, while Lesson 2 is a single dense run-on narration with a clipped/grammatically incomplete opening that makes the audio flow less polished."
     },
     "sync": {
       "winner": "archer_v3",
-      "confidence": 0.92,
-      "rationale": "Lesson 2 provides timed visual cues that are mostly aligned with narrated references, whereas Lesson 1 has no transcript or cue data at all, making its synchronization unassessable and effectively absent despite Lesson 2 having some missing cues for equation/formula mentions."
+      "confidence": 0.82,
+      "rationale": "Lesson 1 has several cues that are timed near the narrated references despite some missing or early cues, whereas Lesson 2 provides no beat/timing data or visual cue triggers at all, making its synchronization unsupported and effectively worse on this dimension."
     },
     "concept_accuracy": {
-      "winner": "archer_v3",
-      "confidence": 0.93,
-      "rationale": "Lesson 2 correctly and pedagogically explains projectile range via velocity decomposition, vertical flight time, and constant horizontal motion with the right numerical result, while Lesson 1 has no available transcript or plan, so its conceptual accuracy and explanatory quality cannot be verified."
+      "winner": "archer_mathgpt",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 presents the full correct calculation with explicit components, flight-time formula, and range multiplication, while Lesson 1 has a good conceptual sequence but its script leaves key equations and numerical steps mostly unstated, making the explanation less self-contained for a first-time learner."
     },
     "polish": {
       "winner": "archer_mathgpt",
-      "confidence": 0.82,
-      "rationale": "Lesson 1 has much larger, more legible text and a cleaner two-column mid-lesson layout, while Lesson 2\u2019s mid-lesson diagram and labels are tiny, faint, pushed into the lower-left with excessive empty space, and its right-side prompt is hard to read despite a cleaner title screen."
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has much larger, more legible text and a cleaner mid-lesson composition, while Lesson 1\u2019s mid-lesson diagram is tiny, low-contrast, and pushed into the lower-left with excessive empty space, though Lesson 2 is hurt by visible browser/video UI and a weaker title slide."
     }
   },
   "aggregator": {
     "winner": "archer_v3",
-    "confidence": 0.82,
-    "explanation": "Lesson 2 is the clear overall winner: four high-confidence agents favored it, especially for interactivity, narration quality, synchronization, and conceptual accuracy. These are core lesson-delivery dimensions, and the votes for Lesson 2 were very confident. Lesson 1 was preferred for visual accuracy and polish, with solid confidence, due to its cleaner and more legible diagrams, but those strengths are outweighed by Lesson 2\u2019s functional interaction, verified narration, aligned cues, and accurate pedagogical explanation."
+    "confidence": 0.59,
+    "explanation": "The six dimensions split 3-3, but the higher-confidence wins slightly favor Lesson 1. Lesson 1 was strongly preferred for interactivity, with a functioning fill-in checkpoint and remediation, and also won sync with supported timed cues; it also had a moderate narration-quality advantage. Lesson 2 was better for visual accuracy, concept accuracy, and polish, especially with clearer component diagrams, fuller calculations, and more legible layout. Overall, Lesson 1\u2019s advantages in interactivity and synchronization carry slightly more weighted confidence than Lesson 2\u2019s presentation and conceptual strengths."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T20:42:24.864942+00:00"
+  "evaluatedAt": "2026-07-14T21:14:10.148377+00:00"
 }

@@ -2,45 +2,45 @@
   "setupA": "circles_v7",
   "setupB": "circles_veo3",
   "subject": "circles",
-  "lesson1Setup": "circles_veo3",
-  "lesson2Setup": "circles_v7",
+  "lesson1Setup": "circles_v7",
+  "lesson2Setup": "circles_veo3",
   "dimensions": {
     "visual_accuracy": {
       "winner": "circles_v7",
-      "confidence": 0.98,
-      "rationale": "Lesson 2 accurately shows the problem statement, nested tangent circles sharing a common point, the correct shaded region between paired radii, and correct area formulas, while Lesson 1 is essentially blank at the title and its mid-frame contains garbled, visually and mathematically unusable notation with no correct diagram."
+      "confidence": 0.99,
+      "rationale": "Lesson 1 accurately shows the nested tangent circles sharing a common point and highlights the correct region between radii 1 and 2 with relevant formulas, while Lesson 2 has a blank title frame and a malformed, contextless formula with gibberish text and no correct diagram of the circle regions."
     },
     "interactivity": {
       "winner": "circles_v7",
-      "confidence": 0.98,
-      "rationale": "Lesson 2 includes a well-formed quiz gate wired after act_total_area with a real question, plausible options, and a correct answer, whereas Lesson 1 has no available gate specs or plan JSON and therefore no functioning interactivity."
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has a well-formed, wired quiz gate after act_total_area with a real question, plausible options, and a marked correct answer, while Lesson 2 provides no gate specs or plan at all, so its interactivity is absent."
     },
     "narration_quality": {
       "winner": "circles_v7",
-      "confidence": 0.99,
-      "rationale": "Lesson 2 has clear, well-paced narration with correctly spoken math and no obvious TTS defects, while Lesson 1 has no available narration transcript at all, making it impossible to credit its audio quality."
+      "confidence": 0.98,
+      "rationale": "Lesson 1 has clear, well-paced narration with properly spoken math, while Lesson 2 contains garbled and unnatural phrasing such as \u201cThirth 2\u201d and \u201c64 circles in total whole,\u201d plus less clear spoken algebra."
     },
     "sync": {
       "winner": "circles_v7",
-      "confidence": 0.92,
-      "rationale": "Lesson 2 provides timed visual cues that are generally aligned with the narration references, while Lesson 1 has no transcript or cue timing available, making its synchronization absent and therefore worse."
+      "confidence": 0.86,
+      "rationale": "Lesson 1 provides timed visual cues that generally align with the narration despite some early/late offsets, while Lesson 2 has no beat/timing data or cue information at all, making its visual-narration synchronization unsupported and effectively worse on this dimension."
     },
     "concept_accuracy": {
       "winner": "circles_v7",
-      "confidence": 0.99,
-      "rationale": "Lesson 2 correctly derives each shaded ring area, sums to S_n=\u03c0n(2n+1), solves the threshold, and clarifies that the final circle count is 2n=64, whereas Lesson 1 has no available transcript or plan, so it provides no verifiable or pedagogically assessable explanation."
+      "confidence": 0.88,
+      "rationale": "Lesson 1 is more pedagogically complete and clear, explicitly deriving the ring formula, summing it, checking the meaning of n versus total circles, and solving the threshold carefully, while Lesson 2 is mathematically correct but much more compressed and includes unclear/erroneous narration like \u201cThirth 2\u201d and less support for why 32 is minimal."
     },
     "polish": {
       "winner": "circles_v7",
-      "confidence": 0.96,
-      "rationale": "Lesson 2 has a clean, centered title screen and a consistent, legible two-column mid-lesson layout, while Lesson 1 has an effectively blank title screen and a mid-lesson frame with garbled subtitle text and less controlled composition."
+      "confidence": 0.97,
+      "rationale": "Lesson 1 has readable centered text, a clean structured diagram-and-equations layout, and consistent styling, whereas Lesson 2 starts with an essentially empty title screen and later shows oversized/garbled text and subtitles that look visually broken despite the attractive background."
     }
   },
   "aggregator": {
     "winner": "circles_v7",
-    "confidence": 0.99,
-    "explanation": "All six dimension agents strongly favor Lesson 2, with very high confidence across visual accuracy, interactivity, narration quality, synchronization, concept accuracy, and polish. Lesson 2 is described as complete, accurate, well-narrated, synchronized, interactive, and visually coherent, while Lesson 1 is repeatedly noted as missing key materials, essentially blank, garbled, or not assessable. The unanimous high-confidence verdicts leave no meaningful split, so Lesson 2 is the clear overall winner."
+    "confidence": 0.98,
+    "explanation": "All six dimension agents favor Lesson 1, most with very high confidence. Lesson 1 is judged substantially better in visual accuracy, interactivity, narration quality, synchronization, concept accuracy, and polish. The rationales consistently note that Lesson 1 has correct diagrams, clear derivations, timed cues, a functioning quiz gate, readable layout, and coherent narration, while Lesson 2 lacks key structure, has malformed or garbled text/narration, weak or absent timing/interactivity, and less pedagogical support. With unanimous high-confidence support, Lesson 1 is the clear overall winner."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T15:50:05.366013+00:00"
+  "evaluatedAt": "2026-07-14T21:26:36.285860+00:00"
 }
