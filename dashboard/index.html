@@ -58,7 +58,13 @@
        text-transform:uppercase; letter-spacing:.03em; font-weight:600;
        border-bottom:1px solid var(--border); }
   td { padding:6px 8px; border-bottom:1px solid var(--soft); vertical-align:top; }
-  .best { color:var(--green); font-weight:650; }
+  .best { font-weight:700; }
+  .sc { display:inline-block; min-width:44px; text-align:center; padding:1px 7px;
+        border-radius:6px; font-size:12px; font-weight:600; }
+  .sc-hi  { background:#e6f6ee; color:#0a8a5f; }
+  .sc-mid { background:#fdf3dc; color:#9a6b00; }
+  .sc-lo  { background:#fdeaea; color:#b3352e; }
+  .legend { font-size:12px; color:var(--dim); margin-top:8px; line-height:1.6; }
   .badge { display:inline-block; padding:0 7px; border-radius:6px; font-size:11px; font-weight:600;
            background:var(--accent-soft); color:var(--accent); }
   .btie { background:var(--soft); color:var(--dim); }
@@ -267,14 +273,23 @@ async function loadMetrics() {
   });
   const best = {};
   for (const k of ["overall", ...DIMS]) best[k] = Math.max(...rows.map(r => r[k] ?? -1));
-  const fmt = (v, k) => v == null ? "<span class='muted'>—</span>"
-    : `<span class="${v === best[k] && rows.filter(x=>x[k]!=null).length>1 ? "best":""}">${(v*100).toFixed(1)}</span>`;
+  // v == null  -> never judged on this dimension ("—")
+  // v is real  -> Bradley-Terry strength 0..100 (0 = lost every judged matchup)
+  const band = v => v >= 0.66 ? "sc-hi" : v >= 0.33 ? "sc-mid" : "sc-lo";
+  const fmt = (v, k) => v == null ? "<span class='muted' title='never judged on this dimension'>—</span>"
+    : `<span class="sc ${band(v)} ${v === best[k] && rows.filter(x=>x[k]!=null).length>1 ? "best":""}"
+        title="Bradley-Terry strength from all ${'$'}{'judge'} comparisons in this subject">${(v*100).toFixed(1)}</span>`;
   let html = `<table><tr><th>video</th><th>overall</th>` +
     DIMS.map(d => `<th>${d.split("_")[0]}</th>`).join("") + `<th>W-L-T</th></tr>`;
   for (const r of rows)
     html += `<tr><td><b>${r.id}</b></td><td>${fmt(r.overall,"overall")}</td>` +
       DIMS.map(d => `<td>${fmt(r[d],d)}</td>`).join("") + `<td class="muted">${r.wlt}</td></tr>`;
   html += "</table>";
+  html += `<div class="legend">Scores are <b>Bradley-Terry strength (0–100)</b> computed from every
+    machine-judge comparison in this subject — relative standing, not a grade.
+    <span class="sc sc-hi">≥66</span> strong &nbsp;<span class="sc sc-mid">33–66</span> contested
+    &nbsp;<span class="sc sc-lo">&lt;33</span> weak/losing &nbsp;•&nbsp; <b>0.0</b> = lost every judged
+    matchup so far (real verdicts) &nbsp;•&nbsp; <b>—</b> = never judged on that dimension.</div>`;
 
   const pairs = [];
   for (let i = 0; i < selected.length; i++)
