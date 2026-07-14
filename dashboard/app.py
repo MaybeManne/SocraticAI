@@ -44,27 +44,46 @@ VIDEO_EXTS = (".mp4", ".mov", ".webm")
 # ── Catalog ────────────────────────────────────────────────────────────────────
 
 def catalog():
-    """All comparable items: SocraticAI lesson HTMLs + external tool videos."""
+    """EVERY comparable item in the repo: subject lesson HTMLs, external tool
+    videos, plus all other lesson HTMLs ever built (dist root, examples,
+    demo_bench, AMC demo) under a 'misc' group."""
     items = []
+    seen = set()
+
+    def add(vid, subject, kind, label, url):
+        if vid in seen:
+            return
+        seen.add(vid)
+        items.append({"id": vid, "subject": subject, "kind": kind,
+                      "label": label, "url": url})
+
     for subject, dirname in SUBJECT_DIRS.items():
         ddir = REPO / "dist" / dirname
         if ddir.is_dir():
             for f in sorted(ddir.glob("*.html")):
                 stem = f.stem  # circles_v7 | v7 | circles_v3.1 | v0original
                 vid = stem if stem.startswith(subject) else f"{subject}_{stem}"
-                items.append({"id": vid, "subject": subject, "kind": "lesson",
-                              "label": f"{vid}  (SocraticAI)",
-                              "url": f"/media/dist/{dirname}/{f.name}"})
+                add(vid, subject, "lesson", f"{vid}  (SocraticAI)",
+                    f"/media/dist/{dirname}/{f.name}")
         bdir = REPO / "benchmark_comparison" / subject
         if bdir.is_dir():
             for f in sorted(bdir.iterdir()):
-                if f.suffix in VIDEO_EXTS and f.parent == bdir:
-                    vid = f"{subject}_{f.stem}"
-                    if any(i["id"] == vid for i in items):
-                        continue
-                    items.append({"id": vid, "subject": subject, "kind": "video",
-                                  "label": f"{vid}  (external)",
-                                  "url": f"/media/benchmark_comparison/{subject}/{f.name}"})
+                if f.suffix in VIDEO_EXTS and f.parent == bdir and "_scenes" not in f.parent.name:
+                    add(f"{subject}_{f.stem}", subject, "video",
+                        f"{subject}_{f.stem}  (external)",
+                        f"/media/benchmark_comparison/{subject}/{f.name}")
+
+    # Everything else ever built — dist root, examples, demo_bench, AMC demo.
+    misc_dirs = [("dist", REPO / "dist"),
+                 ("dist/examples", REPO / "dist" / "examples"),
+                 ("demo_bench", REPO / "demo_bench"),
+                 ("AMC demo", REPO / "AMC demo")]
+    for rel, d in misc_dirs:
+        if not d.is_dir():
+            continue
+        for f in sorted(d.glob("*.html")):
+            add(f"misc_{f.stem}", "misc", "lesson", f"{f.stem}  ({rel})",
+                f"/media/{rel}/{f.name}")
     return items
 
 

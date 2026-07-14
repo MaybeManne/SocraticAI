@@ -4,146 +4,133 @@
 <meta charset="UTF-8">
 <title>Pairwise Comparison — SocraticAI</title>
 <style>
-  :root { --bg:#0f0e17; --panel:#16151f; --border:#2b2a38; --text:#e0e7ff;
-          --dim:#8b8aa0; --accent:#818cf8; --green:#34d399; --red:#f87171; --amber:#fbbf24; }
+  :root { --border:#e2e4ea; --text:#1c1e26; --dim:#7a7e8c; --accent:#4f46e5;
+          --green:#0a8a5f; --soft:#f6f7fa; }
   * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--text);
+  body { margin:0; background:#fff; color:var(--text);
          font:14px/1.5 -apple-system, "Segoe UI", sans-serif; }
-  header { display:flex; align-items:center; gap:18px; padding:10px 18px;
-           border-bottom:1px solid var(--border); background:var(--panel); }
-  header h1 { font-size:15px; margin:0; letter-spacing:.04em; }
-  .tab { cursor:pointer; padding:6px 14px; border-radius:8px; color:var(--dim); }
-  .tab.active { background:var(--accent); color:#0f0e17; font-weight:600; }
-  main { padding:16px; max-width:1500px; margin:0 auto; }
-
-  /* comparison screen */
-  .pickers { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:12px; }
-  select { background:var(--panel); color:var(--text); border:1px solid var(--border);
-           border-radius:8px; padding:8px 10px; font-size:13px; min-width:280px; }
-  button { background:var(--panel); color:var(--text); border:1px solid var(--border);
-           border-radius:8px; padding:8px 14px; cursor:pointer; font-size:13px; }
-  button:hover { border-color:var(--accent); }
-  button.primary { background:var(--accent); color:#0f0e17; font-weight:600; border:none; }
-  .videos { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  .vslot { background:var(--panel); border:1px solid var(--border); border-radius:12px;
-           overflow:hidden; display:flex; flex-direction:column; }
-  .vslot .vtitle { padding:8px 12px; font-weight:600; font-size:13px;
-                   border-bottom:1px solid var(--border); }
-  .vslot .vtitle .side { display:inline-block; width:20px; height:20px; border-radius:5px;
-                  text-align:center; line-height:20px; font-size:11px; margin-right:8px; }
-  .sideA { background:#4f46e5; color:#fff; } .sideB { background:#059669; color:#fff; }
-  .vslot iframe, .vslot video { width:100%; height:430px; border:0; background:#000; display:block; }
-
-  /* verdict panel */
-  .verdict { margin-top:14px; background:var(--panel); border:1px solid var(--border);
-             border-radius:12px; padding:14px; }
-  .verdict h3 { margin:0 0 10px; font-size:13px; letter-spacing:.08em; color:var(--dim);
-                text-transform:uppercase; }
-  .vrow { display:grid; grid-template-columns:170px 200px 1fr; gap:10px; align-items:center;
-          padding:5px 0; border-bottom:1px solid rgba(255,255,255,.04); }
-  .vrow.overall { border-top:2px solid var(--border); font-weight:600; }
-  .seg { display:inline-flex; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
-  .seg button { border:0; border-radius:0; padding:6px 14px; background:transparent; }
-  .seg button.selA { background:#4f46e5; color:#fff; }
-  .seg button.selT { background:#475569; color:#fff; }
-  .seg button.selB { background:#059669; color:#fff; }
-  .vrow input { background:var(--bg); border:1px solid var(--border); color:var(--text);
-                border-radius:6px; padding:6px 8px; width:100%; font-size:12px; }
-  .submitrow { margin-top:12px; display:flex; gap:10px; align-items:center; }
-  #saveMsg { color:var(--green); font-size:12px; }
-
-  /* judge panel */
-  .judge { margin-top:14px; background:var(--panel); border:1px solid var(--border);
-           border-radius:12px; }
-  .judge summary { padding:12px 14px; cursor:pointer; font-size:13px; color:var(--dim);
-                   text-transform:uppercase; letter-spacing:.08em; }
-  .judge table { width:100%; border-collapse:collapse; font-size:12.5px; }
-  .judge td, .judge th { padding:7px 12px; border-top:1px solid rgba(255,255,255,.05);
-                          text-align:left; vertical-align:top; }
-  .badge { display:inline-block; padding:2px 9px; border-radius:6px; font-size:11px; font-weight:600; }
-  .bA { background:#4f46e5; color:#fff; } .bB { background:#059669; color:#fff; }
-  .bT { background:#475569; color:#fff; }
-  .fb button { padding:2px 8px; font-size:11px; margin-left:4px; }
-  .fb button.on { border-color:var(--green); color:var(--green); }
-  .fb button.off { border-color:var(--red); color:var(--red); }
-
-  /* leaderboard */
-  .lb-subjects { display:flex; gap:10px; margin-bottom:14px; }
-  .lb table { width:100%; border-collapse:collapse; background:var(--panel);
-              border-radius:12px; overflow:hidden; font-size:13px; margin-bottom:22px; }
-  .lb th { text-align:left; padding:9px 12px; color:var(--dim); font-size:11px;
-           text-transform:uppercase; letter-spacing:.06em; border-bottom:1px solid var(--border); }
-  .lb td { padding:8px 12px; border-bottom:1px solid rgba(255,255,255,.04); }
-  .bar { height:7px; background:#2b2a38; border-radius:4px; overflow:hidden; min-width:120px; }
-  .bar > div { height:100%; background:var(--accent); }
-  .rank1 { color:var(--amber); font-weight:700; }
+  header { display:flex; align-items:center; gap:16px; padding:12px 20px;
+           border-bottom:1px solid var(--border); }
+  header h1 { font-size:15px; margin:0; font-weight:650; }
+  .tab { cursor:pointer; padding:5px 12px; border-radius:7px; color:var(--dim); }
+  .tab.active { background:var(--accent); color:#fff; font-weight:600; }
+  main { padding:16px 20px; max-width:1600px; margin:0 auto; }
   .muted { color:var(--dim); }
+  select, button, input {
+    background:#fff; color:var(--text); border:1px solid var(--border);
+    border-radius:8px; padding:7px 10px; font-size:13px; font-family:inherit; }
+  button { cursor:pointer; }
+  button:hover { border-color:var(--accent); }
+  button.primary { background:var(--accent); color:#fff; border-color:var(--accent); font-weight:600; }
+
+  /* picker row */
+  .pickers { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:14px; }
+  select { min-width:260px; }
+
+  /* n-way video grid */
+  .videos { display:grid; gap:12px; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); }
+  .vslot { border:1px solid var(--border); border-radius:12px; overflow:hidden;
+           background:var(--soft); }
+  .vtitle { display:flex; align-items:center; gap:8px; padding:8px 12px; font-weight:600;
+            font-size:13px; border-bottom:1px solid var(--border); background:#fff; }
+  .vtitle .x { margin-left:auto; border:none; background:none; color:var(--dim);
+               font-size:15px; padding:0 4px; }
+  .vtitle .x:hover { color:#c0392b; }
+  .vslot iframe, .vslot video { width:100%; height:400px; border:0; background:#000; display:block; }
+
+  /* metrics */
+  .panel { margin-top:16px; border:1px solid var(--border); border-radius:12px; padding:14px 16px; }
+  .panel h3 { margin:0 0 10px; font-size:12px; letter-spacing:.08em; color:var(--dim);
+              text-transform:uppercase; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; padding:7px 10px; color:var(--dim); font-size:11px;
+       text-transform:uppercase; letter-spacing:.05em; border-bottom:1px solid var(--border); }
+  td { padding:7px 10px; border-bottom:1px solid var(--soft); vertical-align:top; }
+  .best { color:var(--green); font-weight:650; }
+  .badge { display:inline-block; padding:1px 8px; border-radius:6px; font-size:11px;
+           font-weight:600; border:1px solid var(--border); }
+  .bwin { background:#eef2ff; border-color:#c7d2fe; color:var(--accent); }
+  .btie { background:var(--soft); color:var(--dim); }
+
+  /* verdict (only when exactly 2 selected) */
+  .vrow { display:grid; grid-template-columns:170px 190px 1fr; gap:10px; align-items:center;
+          padding:4px 0; }
+  .vrow.overall { border-top:1px solid var(--border); padding-top:8px; font-weight:600; }
+  .seg { display:inline-flex; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .seg button { border:0; border-radius:0; padding:6px 14px; background:#fff; }
+  .seg button.on { background:var(--accent); color:#fff; }
+  .vrow input { width:100%; }
+  #saveMsg { color:var(--green); font-size:12px; margin-left:10px; }
+
+  details summary { cursor:pointer; font-size:12px; color:var(--dim);
+                    text-transform:uppercase; letter-spacing:.08em; padding:4px 0; }
+  .fb button { padding:1px 7px; font-size:11px; margin-left:4px; }
+  .fb button.on { border-color:var(--green); color:var(--green); }
+  .fb button.off { border-color:#c0392b; color:#c0392b; }
+  .bar { height:6px; background:var(--soft); border-radius:4px; overflow:hidden; min-width:110px; }
+  .bar > div { height:100%; background:var(--accent); }
 </style>
 </head>
 <body>
 <header>
-  <h1>⚖️ Pairwise Comparison</h1>
+  <h1>Pairwise Comparison</h1>
   <div class="tab active" data-tab="compare">Compare</div>
   <div class="tab" data-tab="leaderboard">Leaderboard</div>
   <span id="count" class="muted" style="margin-left:auto"></span>
 </header>
 
 <main>
-  <!-- ═══ COMPARISON (primary) ═══ -->
   <section id="compare">
     <div class="pickers">
-      <select id="selA"><option>— Video A —</option></select>
-      <span class="muted">vs</span>
-      <select id="selB"><option>— Video B —</option></select>
-      <button id="nextPair" class="primary">🎲 Next pair</button>
-      <span class="muted" id="pairHint"></span>
+      <select id="adder"><option value="">＋ Add a video to compare…</option></select>
+      <button id="nextPair" class="primary">Suggest pair</button>
+      <button id="clearAll">Clear</button>
+      <span class="muted" id="hint">Add any number of videos — metrics below update as you go.</span>
     </div>
 
-    <div class="videos">
-      <div class="vslot"><div class="vtitle"><span class="side sideA">A</span><span id="titleA">—</span></div><div id="playerA"></div></div>
-      <div class="vslot"><div class="vtitle"><span class="side sideB">B</span><span id="titleB">—</span></div><div id="playerB"></div></div>
+    <div class="videos" id="grid"></div>
+
+    <div class="panel" id="metricsPanel" style="display:none">
+      <h3>Judge metrics for selected videos</h3>
+      <div id="metricsBody"></div>
     </div>
 
-    <div class="verdict">
-      <h3>Your verdict</h3>
+    <div class="panel" id="verdictPanel" style="display:none">
+      <h3>Your verdict (A = first video, B = second)</h3>
       <div id="verdictRows"></div>
-      <div class="submitrow">
-        <button id="submitVerdict" class="primary">Submit verdict</button>
-        <span id="saveMsg"></span>
+      <div style="margin-top:10px">
+        <button id="submitVerdict" class="primary">Submit verdict</button><span id="saveMsg"></span>
       </div>
+      <details id="judgeDetails" style="display:none; margin-top:12px">
+        <summary>Machine judge verdict for this pair</summary>
+        <table id="judgeTable"></table>
+      </details>
     </div>
-
-    <details class="judge" id="judgePanel" style="display:none">
-      <summary>🤖 Machine judge verdict for this pair (click to expand)</summary>
-      <table id="judgeTable"></table>
-    </details>
   </section>
 
-  <!-- ═══ LEADERBOARD (secondary) ═══ -->
   <section id="leaderboard" style="display:none">
-    <div class="lb-subjects">
+    <div class="pickers">
       <button class="lbsub primary" data-s="circles">circles</button>
       <button class="lbsub" data-s="archer">archer</button>
       <button class="lbsub" data-s="binsearch">binsearch</button>
-      <select id="lbDim">
+      <select id="lbDim" style="min-width:180px">
         <option value="overall">overall</option>
         <option>visual_accuracy</option><option>interactivity</option>
         <option>narration_quality</option><option>sync</option>
         <option>concept_accuracy</option><option>polish</option>
       </select>
     </div>
-    <div class="lb" id="lbBody"></div>
+    <div id="lbBody"></div>
   </section>
 </main>
 
 <script>
 const DIMS = ["visual_accuracy","interactivity","narration_quality","sync","concept_accuracy","polish"];
-let CATALOG = [], current = {a:null, b:null}, verdict = {}, judgeFb = {};
-
+let CATALOG = [], selected = [], verdict = {}, judgeFb = {};
 const $ = id => document.getElementById(id);
-const api = (p, opts) => fetch(p, opts).then(r => r.json());
+const api = (p, o) => fetch(p, o).then(r => r.json());
+const item = id => CATALOG.find(i => i.id === id);
 
-// ── tabs ──
 document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
   document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
   t.classList.add("active");
@@ -152,60 +139,132 @@ document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
   if (t.dataset.tab === "leaderboard") loadLeaderboard();
 });
 
-// ── catalog + pickers ──
 async function init() {
   CATALOG = await api("/api/videos");
   $("count").textContent = CATALOG.length + " videos";
-  for (const sel of [$("selA"), $("selB")]) {
-    sel.innerHTML = "<option value=''>— pick —</option>";
-    let last = "";
-    for (const it of CATALOG) {
-      if (it.subject !== last) {
-        sel.appendChild(Object.assign(document.createElement("optgroup"), {label: it.subject}));
-        last = it.subject;
-      }
-      const o = document.createElement("option");
-      o.value = it.id; o.textContent = it.label;
-      sel.lastChild.appendChild(o);
+  const sel = $("adder");
+  let group = null, last = null;
+  for (const it of CATALOG) {
+    if (it.subject !== last) {
+      group = document.createElement("optgroup"); group.label = it.subject;
+      sel.appendChild(group); last = it.subject;
     }
+    const o = document.createElement("option");
+    o.value = it.id; o.textContent = it.label;
+    group.appendChild(o);
   }
-  $("selA").onchange = () => setSide("a", $("selA").value);
-  $("selB").onchange = () => setSide("b", $("selB").value);
-  $("nextPair").onclick = nextPair;
-  buildVerdictRows();
+  sel.onchange = () => { if (sel.value) { addVideo(sel.value); sel.value = ""; } };
+  $("nextPair").onclick = async () => {
+    const p = await api("/api/next_pair");
+    if (p.a) { clearAll(); addVideo(p.a); addVideo(p.b); }
+  };
+  $("clearAll").onclick = clearAll;
 }
 
-function item(id) { return CATALOG.find(i => i.id === id); }
+function clearAll() { selected = []; render(); }
 
-function setSide(side, id) {
-  current[side] = id || null;
-  const it = item(id);
-  const slot = $(side === "a" ? "playerA" : "playerB");
-  $(side === "a" ? "titleA" : "titleB").textContent = it ? it.id : "—";
-  slot.innerHTML = "";
-  if (!it) return;
-  if (it.kind === "video") {
-    const v = document.createElement("video");
-    v.src = it.url; v.controls = true; v.preload = "metadata";
-    slot.appendChild(v);
-  } else {
-    const f = document.createElement("iframe");
-    f.src = it.url; f.allow = "autoplay";
-    slot.appendChild(f);
+function addVideo(id) {
+  if (!id || selected.includes(id)) return;
+  selected.push(id);
+  render();
+}
+
+function removeVideo(id) {
+  selected = selected.filter(x => x !== id);
+  render();
+}
+
+function render() {
+  const grid = $("grid");
+  grid.innerHTML = "";
+  selected.forEach((id, idx) => {
+    const it = item(id);
+    const slot = document.createElement("div");
+    slot.className = "vslot";
+    const letter = String.fromCharCode(65 + idx);
+    slot.innerHTML = `<div class="vtitle"><span class="badge bwin">${letter}</span> ${it.id}
+      <span class="muted" style="font-weight:400">${it.kind === "video" ? "external" : "SocraticAI"}</span>
+      <button class="x" title="remove">✕</button></div>`;
+    slot.querySelector(".x").onclick = () => removeVideo(id);
+    const media = it.kind === "video"
+      ? Object.assign(document.createElement("video"), { src: it.url, controls: true, preload: "metadata" })
+      : Object.assign(document.createElement("iframe"), { src: it.url });
+    slot.appendChild(media);
+    grid.appendChild(slot);
+  });
+  loadMetrics();
+  setupVerdict();
+}
+
+// ── metrics: BT rows for every selected video + judge verdicts among pairs ──
+async function loadMetrics() {
+  const panel = $("metricsPanel");
+  if (selected.length === 0) { panel.style.display = "none"; return; }
+  panel.style.display = "";
+  const subjects = [...new Set(selected.map(id => item(id).subject))].filter(s => s !== "misc");
+  const rankings = {};
+  for (const s of subjects) rankings[s] = await api(`/api/rankings/${s}`);
+
+  let html = `<table><tr><th>video</th><th>overall BT</th>` +
+             DIMS.map(d => `<th>${d.replace("_"," ")}</th>`).join("") +
+             `<th>W-L-T</th></tr>`;
+  const best = {};   // column max for highlighting
+  const rows = selected.map(id => {
+    const s = item(id).subject;
+    const r = rankings[s];
+    const find = list => (list || []).find(x => x.id === id);
+    const overall = find(r && r.overall);
+    const cells = { id, overall: overall ? overall.score : null,
+                    wlt: overall ? `${overall.wins}-${overall.losses}-${overall.ties}` : "—" };
+    for (const d of DIMS) {
+      const row = find(r && r.dimensions && r.dimensions[d]);
+      cells[d] = row ? row.score : null;
+    }
+    return cells;
+  });
+  for (const key of ["overall", ...DIMS]) {
+    best[key] = Math.max(...rows.map(r => r[key] ?? -1));
   }
-  resetVerdict();
-  if (current.a && current.b) loadPairData();
-  $("pairHint").textContent = (current.a && current.b && item(current.a).subject !== item(current.b).subject)
-    ? "⚠️ cross-subject pair — verdicts should compare lessons of the same problem" : "";
+  for (const r of rows) {
+    const fmt = (v, key) => v == null ? "<span class='muted'>—</span>"
+      : `<span class="${v === best[key] && rows.filter(x=>x[key]!=null).length>1 ? "best" : ""}">${(v*100).toFixed(1)}</span>`;
+    html += `<tr><td><b>${r.id}</b></td><td>${fmt(r.overall,"overall")}</td>` +
+            DIMS.map(d => `<td>${fmt(r[d],d)}</td>`).join("") +
+            `<td class="muted">${r.wlt}</td></tr>`;
+  }
+  html += "</table>";
+
+  // head-to-head judge verdicts among selected pairs
+  const pairs = [];
+  for (let i = 0; i < selected.length; i++)
+    for (let j = i + 1; j < selected.length; j++)
+      pairs.push([selected[i], selected[j]]);
+  const h2h = [];
+  for (const [a, b] of pairs) {
+    const d = await api(`/api/pair/${encodeURIComponent(a)}/${encodeURIComponent(b)}`);
+    if (d.judge) h2h.push({ a, b, j: d.judge, human: d.human.length });
+  }
+  if (h2h.length) {
+    html += `<h3 style="margin-top:16px">Head-to-head (machine judge)</h3><table>
+      <tr><th>pair</th><th>overall</th><th>conf</th>` + DIMS.map(d=>`<th>${d.replace("_"," ")}</th>`).join("") + `<th>human</th></tr>`;
+    for (const { a, b, j, human } of h2h) {
+      const w = x => x === "tie" ? `<span class="badge btie">tie</span>` : `<span class="badge bwin">${x}</span>`;
+      html += `<tr><td>${a} <span class="muted">vs</span> ${b}</td>
+        <td>${w(j.aggregator.winner)}</td><td class="muted">${j.aggregator.confidence}</td>` +
+        DIMS.map(d => `<td>${w(j.dimensions[d].winner)}</td>`).join("") +
+        `<td class="muted">${human || "—"}</td></tr>`;
+    }
+    html += "</table>";
+  }
+  $("metricsBody").innerHTML = html;
 }
 
-async function nextPair() {
-  const p = await api("/api/next_pair");
-  if (p.a) { $("selA").value = p.a; setSide("a", p.a); $("selB").value = p.b; setSide("b", p.b); }
-}
-
-// ── verdict panel ──
-function buildVerdictRows() {
+// ── human verdict: available when exactly 2 videos are selected ──
+function setupVerdict() {
+  const panel = $("verdictPanel");
+  verdict = {}; judgeFb = {};
+  if (selected.length !== 2) { panel.style.display = "none"; return; }
+  panel.style.display = "";
   const host = $("verdictRows");
   host.innerHTML = "";
   for (const dim of [...DIMS, "overall"]) {
@@ -219,24 +278,18 @@ function buildVerdictRows() {
     host.appendChild(row);
   }
   host.querySelectorAll(".seg button").forEach(b => b.onclick = () => {
-    const dim = b.parentElement.dataset.dim;
-    verdict[dim] = b.dataset.w;
-    b.parentElement.querySelectorAll("button").forEach(x => x.className = "");
-    b.className = b.dataset.w === "A" ? "selA" : b.dataset.w === "B" ? "selB" : "selT";
+    verdict[b.parentElement.dataset.dim] = b.dataset.w;
+    b.parentElement.querySelectorAll("button").forEach(x => x.classList.remove("on"));
+    b.classList.add("on");
   });
   $("submitVerdict").onclick = submitVerdict;
-}
-
-function resetVerdict() {
-  verdict = {}; judgeFb = {};
-  document.querySelectorAll(".seg button").forEach(x => x.className = "");
-  document.querySelectorAll("[data-note]").forEach(x => x.value = "");
   $("saveMsg").textContent = "";
+  loadJudgePanel();
 }
 
 async function submitVerdict() {
-  if (!current.a || !current.b) { $("saveMsg").textContent = "pick two videos first"; return; }
-  const resolve = w => w === "A" ? current.a : w === "B" ? current.b : "tie";
+  const [a, b] = selected;
+  const resolve = w => w === "A" ? a : w === "B" ? b : "tie";
   const dims = {};
   for (const d of DIMS) {
     if (!verdict[d]) { $("saveMsg").textContent = `pick a winner for ${d}`; return; }
@@ -244,42 +297,39 @@ async function submitVerdict() {
                 note: document.querySelector(`[data-note="${d}"]`).value || null };
   }
   if (!verdict.overall) { $("saveMsg").textContent = "pick an overall winner"; return; }
-  const body = { setupA: current.a, setupB: current.b, dimensions: dims,
-                 aggregator: { winner: resolve(verdict.overall),
-                               note: document.querySelector('[data-note="overall"]').value || null } };
-  const r = await api("/api/verdict", { method: "POST", body: JSON.stringify(body) });
-  $("saveMsg").textContent = r.saved ? `saved ✓ (${r.saved})` : (r.error || "error");
+  const r = await api("/api/verdict", { method: "POST", body: JSON.stringify({
+    setupA: a, setupB: b, dimensions: dims,
+    aggregator: { winner: resolve(verdict.overall),
+                  note: document.querySelector('[data-note="overall"]').value || null } }) });
+  $("saveMsg").textContent = r.saved ? `saved ✓` : (r.error || "error");
+  loadMetrics();
 }
 
-// ── judge panel ──
-async function loadPairData() {
-  const d = await api(`/api/pair/${encodeURIComponent(current.a)}/${encodeURIComponent(current.b)}`);
-  const panel = $("judgePanel");
-  if (!d.judge) { panel.style.display = "none"; return; }
-  panel.style.display = "";
-  panel.open = false;
+async function loadJudgePanel() {
+  const [a, b] = selected;
+  const d = await api(`/api/pair/${encodeURIComponent(a)}/${encodeURIComponent(b)}`);
+  const det = $("judgeDetails");
+  if (!d.judge) { det.style.display = "none"; return; }
+  det.style.display = ""; det.open = false;
   const j = d.judge;
-  const badge = w => w === "tie" ? `<span class="badge bT">Tie</span>`
-    : w === current.a ? `<span class="badge bA">A</span>` : `<span class="badge bB">B</span>`;
+  const badge = w => w === "tie" ? `<span class="badge btie">Tie</span>`
+    : `<span class="badge bwin">${w === a ? "A" : "B"}</span>`;
   let html = `<tr><th>dimension</th><th>winner</th><th>conf</th><th>rationale</th><th>you</th></tr>`;
-  const rows = [...DIMS.map(dim => [dim, j.dimensions[dim]]),
-                ["overall", {winner: j.aggregator.winner, confidence: j.aggregator.confidence,
-                             rationale: j.aggregator.explanation}]];
-  for (const [dim, r] of rows) {
-    html += `<tr><td>${dim}</td><td>${badge(r.winner)}</td><td>${r.confidence ?? ""}</td>
+  const rows = [...DIMS.map(dm => [dm, j.dimensions[dm]]),
+    ["overall", { winner: j.aggregator.winner, confidence: j.aggregator.confidence,
+                  rationale: j.aggregator.explanation }]];
+  for (const [dm, r] of rows) {
+    html += `<tr><td>${dm}</td><td>${badge(r.winner)}</td><td class="muted">${r.confidence ?? ""}</td>
       <td class="muted">${r.rationale || ""}</td>
-      <td class="fb" data-dim="${dim}">
-        <button data-v="agree">👍</button><button data-v="disagree">👎</button>
-      </td></tr>`;
+      <td class="fb" data-dim="${dm}"><button data-v="agree">👍</button><button data-v="disagree">👎</button></td></tr>`;
   }
   $("judgeTable").innerHTML = html;
-  $("judgeTable").querySelectorAll(".fb button").forEach(b => b.onclick = async () => {
-    const dim = b.parentElement.dataset.dim;
-    judgeFb[dim] = b.dataset.v;
-    b.parentElement.querySelectorAll("button").forEach(x => x.className = "");
-    b.className = b.dataset.v === "agree" ? "on" : "off";
+  $("judgeTable").querySelectorAll(".fb button").forEach(bn => bn.onclick = async () => {
+    judgeFb[bn.parentElement.dataset.dim] = bn.dataset.v;
+    bn.parentElement.querySelectorAll("button").forEach(x => x.classList.remove("on","off"));
+    bn.classList.add(bn.dataset.v === "agree" ? "on" : "off");
     await api("/api/judge_feedback", { method: "POST",
-      body: JSON.stringify({ setupA: current.a, setupB: current.b, feedback: judgeFb }) });
+      body: JSON.stringify({ setupA: a, setupB: b, feedback: judgeFb }) });
   });
 }
 
@@ -297,13 +347,11 @@ async function loadLeaderboard() {
   const data = await api(`/api/rankings/${lbSubject}`);
   const dim = $("lbDim").value;
   const rows = dim === "overall" ? data.overall : (data.dimensions[dim] || []);
-  if (!rows.length) { $("lbBody").innerHTML = "<p class='muted'>No judge data for this subject.</p>"; return; }
+  if (!rows.length) { $("lbBody").innerHTML = "<p class='muted'>No judge data.</p>"; return; }
   const max = rows[0].score || 1;
-  let html = `<table><tr><th>#</th><th>setup</th><th>BT score</th><th></th>
-              <th>W</th><th>L</th><th>T</th><th>n</th></tr>`;
+  let html = `<table><tr><th>#</th><th>setup</th><th>BT score</th><th></th><th>W</th><th>L</th><th>T</th><th>n</th></tr>`;
   rows.forEach((r, i) => {
-    html += `<tr><td class="${i===0?'rank1':'muted'}">${i+1}</td>
-      <td>${r.id}${r.id.includes("_v") && !r.id.match(/veo3|mathgpt|notebooklm|videotutor/) ? "" : " <span class='muted'>(external)</span>"}</td>
+    html += `<tr><td class="${i===0?'best':'muted'}">${i+1}</td><td>${r.id}</td>
       <td>${(r.score*100).toFixed(1)}</td>
       <td><div class="bar"><div style="width:${(r.score/max*100).toFixed(0)}%"></div></div></td>
       <td>${r.wins}</td><td>${r.losses}</td><td>${r.ties}</td><td class="muted">${r.comparisons}</td></tr>`;
