@@ -7,40 +7,40 @@
   "dimensions": {
     "visual_accuracy": {
       "winner": "circles_v5",
-      "confidence": 0.72,
-      "rationale": "Lesson 2 more clearly places the nested circles tangent at a common circumference point and shows the relevant pair/ring at usable scale, whereas Lesson 1's diagram is tiny, partly clipped, and appears to shade the whole disk rather than accurately distinguishing every-other annular regions."
+      "confidence": 0.78,
+      "rationale": "Lesson 2 more accurately shows the nested tangent circles sharing a common point and ties them to the correct ring-area derivation, whereas Lesson 1\u2019s diagram is tiny, partially clipped, poorly positioned, and does not clearly or correctly distinguish the alternating shaded rings."
     },
     "interactivity": {
-      "winner": "circles_v5",
-      "confidence": 0.62,
-      "rationale": "Both lessons include a real, wired quiz gate with valid options and a correct answer, but Lesson 2\u2019s checkpoint question more explicitly states the formula and n=5 context for reliable rendering and input response, while Lesson 1 is slightly less explicit though still functional."
+      "winner": "circles_v3",
+      "confidence": 0.58,
+      "rationale": "Both lessons include a wired, functional quiz with a real question, options, and correct answer, but Lesson 1 is slightly cleaner with a labeled gate and fewer extraneous empty fields, while Lesson 2\u2019s blank title/description and unused empty fields make its gate spec marginally less robust."
     },
     "narration_quality": {
       "winner": "circles_v5",
-      "confidence": 0.88,
-      "rationale": "Lesson 2 is more naturally worded and consistently speaks math with clarifying phrases like \u201cquantity,\u201d while Lesson 1 has several awkward/ambiguous spoken forms such as \u201ctwo-k-minus-one,\u201d \u201ctwo-n circles,\u201d and \u201ctwo-n-squared,\u201d making the narration less clear."
+      "confidence": 0.79,
+      "rationale": "Lesson 2 is smoother and more naturally paced overall, while Lesson 1 has denser, more rushed narration with more awkward spoken-math phrasing like repeated \u201ctwo-k-minus-one\u201d and \u201ctwo-n-plus-one\u201d constructions."
     },
     "sync": {
       "winner": "circles_v3",
-      "confidence": 0.65,
-      "rationale": "Lesson 1 at least sequences most visual changes in roughly the order they are narrated, whereas Lesson 2 often fires broad all-in-one cues at the start of a line and even has narrated transitions/formulas with no corresponding cue, though Lesson 1 still suffers from many cues being too early within long narration lines."
+      "confidence": 0.72,
+      "rationale": "Lesson 1 is better synced overall because it provides staged cues for most referenced visual steps during formulas, sums, inequalities, and graph testing, whereas Lesson 2 often bundles multiple narrated changes into one delayed cue or omits cues entirely, even though Lesson 1\u2019s opening circle-drawing sequence is somewhat rushed ahead of the narration."
     },
     "concept_accuracy": {
       "winner": "circles_v3",
-      "confidence": 0.93,
-      "rationale": "Lesson 1 is mathematically consistent and explains the ring-area, summation, and inequality steps more clearly, while Lesson 2 contains confusing/corrupted problem text, initially calls the circles concentric despite later saying they share a circumference point, and uses slightly imprecise threshold wording like \u201cexceed.\u201d"
+      "confidence": 0.86,
+      "rationale": "Lesson 1 correctly describes the circles as nested and sharing a common point while Lesson 2 repeatedly calls them concentric, which is mathematically incompatible with different radii sharing a circumference point, so despite Lesson 2\u2019s clear algebra, Lesson 1 is conceptually more accurate and less confusing."
     },
     "polish": {
       "winner": "circles_v5",
-      "confidence": 0.86,
-      "rationale": "Lesson 2 is more legible, centered, and cleanly composed overall, while Lesson 1 has severe polish issues including raw unrendered LaTeX, tiny unreadable labels, a diagram shoved into the upper-left with vast empty space, and cluttered/awkward overlapping boxes."
+      "confidence": 0.98,
+      "rationale": "Lesson 2 is far more polished with centered title text, readable sizing, balanced mid-lesson layout, and consistent styling, while Lesson 1 has raw unrendered LaTeX, a tiny off-corner diagram, illegible labels, overlapping/broken-looking boxes, and excessive empty space."
     }
   },
   "aggregator": {
     "winner": "circles_v5",
-    "confidence": 0.68,
-    "explanation": "Lesson 2 wins four of six dimensions, with strong support in narration quality (0.88), polish (0.86), visual accuracy (0.72), and a smaller edge in interactivity (0.62). Lesson 1 has important advantages in concept accuracy (0.93) and sync (0.65), especially because Lesson 2 contains some confusing mathematical/problem wording and weaker cue timing. However, the weighted overall preference still favors Lesson 2 due to its clearer, more legible visuals, smoother narration, cleaner composition, and slightly better quiz presentation, while Lesson 1\u2019s strongest win in concept accuracy lowers but does not overturn the overall result."
+    "confidence": 0.58,
+    "explanation": "The six dimensions split 3-3, but the higher-confidence votes slightly favor Lesson 2. Lesson 2 wins visual accuracy, narration quality, and especially polish, with strong confidence, due to clearer diagrams, smoother pacing, and much better layout/readability. Lesson 1 wins interactivity, sync, and concept accuracy, including a very important conceptual concern that Lesson 2 incorrectly calls the tangent nested circles concentric. However, Lesson 2\u2019s advantages in presentation quality and visual/narrative clarity carry somewhat more weighted support overall, while Lesson 1\u2019s interactivity edge is relatively small. Because the vote is split and Lesson 1 has a significant conceptual-accuracy advantage, the overall confidence is only moderate."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-10T15:58:45.428670+00:00"
+  "evaluatedAt": "2026-07-15T12:59:08.787301+00:00"
 }
