@@ -369,7 +369,7 @@ async function renderRecordsView(scored, stats, h2h) {
     if (!n) return "<span class='muted' title='never judged on this dimension'>—</span>";
     const ratio = (rec.w + rec.t * 0.5) / n;
     const cls = ratio >= 0.66 ? "sc-hi" : ratio >= 0.33 ? "sc-mid" : "sc-lo";
-    return `<span class="sc ${cls}" title="won ${rec.w}, lost ${rec.l}, tied ${rec.t} of ${n} judged matches">${rec.w}/${n}</span>`;
+    return `<span class="sc ${cls}" title="won ${rec.w}, lost ${rec.l}, tied ${rec.t} of ${n} judged matches">${Math.round(ratio * 100)}%<span style="font-size:9px;opacity:.65">&nbsp;${rec.w}/${n}</span></span>`;
   };
   let html = `<table><tr><th>video</th><th>overall</th>` +
     DIMS.map(d => `<th>${d.split("_")[0]}</th>`).join("") + `<th>matches</th></tr>`;
@@ -379,8 +379,9 @@ async function renderRecordsView(scored, stats, h2h) {
       DIMS.map(d => `<td>${recChip(st.dimRecord[d])}</td>`).join("") +
       `<td class="muted">${st.matches.length}</td></tr>`;
   }
-  html += `</table><div class="legend">Cells show <b>dimension wins / judged matches</b> — a match
-    record, NOT a quality score (0/3 just means it lost 3 matchups, often against strong opponents).
+  html += `</table><div class="legend">Cells show <b>win rate (ties count half)</b> with the raw
+    record as subtext — a match record, NOT a quality score (0% just means it lost its matchups,
+    often against strong opponents).
     <span class="sc sc-hi">won most</span> <span class="sc sc-mid">contested</span>
     <span class="sc sc-lo">lost most</span> • — = never judged. Few matches = weak evidence.</div>`;
 

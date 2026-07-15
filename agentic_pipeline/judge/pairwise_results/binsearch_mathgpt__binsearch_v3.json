@@ -1,46 +1,46 @@
 {
-  "setupA": "binsearch_v3",
-  "setupB": "binsearch_mathgpt",
+  "setupA": "binsearch_mathgpt",
+  "setupB": "binsearch_v3",
   "subject": "binsearch",
-  "lesson1Setup": "binsearch_mathgpt",
-  "lesson2Setup": "binsearch_v3",
+  "lesson1Setup": "binsearch_v3",
+  "lesson2Setup": "binsearch_mathgpt",
   "dimensions": {
     "visual_accuracy": {
       "winner": "binsearch_mathgpt",
       "confidence": 0.86,
-      "rationale": "Lesson 1 accurately highlights the active binary-search range and new middle index 8/value 56 for the given array, whereas Lesson 2\u2019s mid-lesson visualization is mathematically broken with undefined low/high in the mid formula, a clipped array display, and an unrelated prompt panel despite having a correct title screen."
+      "rationale": "Lesson 2\u2019s mid-lesson diagram correctly shows the binary-search state with indices 6\u201310 active and index 8/value 56 selected, whereas Lesson 1\u2019s mid frame is visually/algorithmically wrong with the array clipped, an irrelevant side prompt, and the formula displaying undefined bounds."
     },
     "interactivity": {
       "winner": "binsearch_v3",
-      "confidence": 0.98,
-      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after a specific act with a real question, plausible answer options, and a marked correct response, whereas Lesson 1 has no available gate specs or plan and therefore no functioning checkpoint evidence."
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed quiz gate with a real question, plausible options, a marked correct answer, and wiring after act_search_trace, whereas Lesson 2 has no gate specs or plan JSON at all, so it provides no functioning interactivity."
     },
     "narration_quality": {
       "winner": "binsearch_v3",
-      "confidence": 0.72,
-      "rationale": "Lesson 2 has more natural, conversational phrasing and explicitly verbalizes formulas in spoken-friendly language, while Lesson 1 is clear but denser and more monolithic, making its pacing feel less polished."
+      "confidence": 0.78,
+      "rationale": "Lesson 1 has clear, well-segmented narration with natural pacing and no read-aloud markup defects, while Lesson 2 is also understandable but presented as one dense uninterrupted paragraph with less evident pacing and phrasing structure."
     },
     "sync": {
       "winner": "binsearch_v3",
-      "confidence": 0.92,
-      "rationale": "Lesson 2 provides mostly well-timed visual cues that track the narration\u2019s mentions of targets, pointers, midpoints, comparisons, and range updates, whereas Lesson 1 provides no beat/timing cue data at all, making its visual-narration synchronization unsupported and effectively unevaluable on this dimension."
+      "confidence": 0.9,
+      "rationale": "Lesson 1 provides visual cues that generally coincide with the narrated references to targets, pointers, midpoints, comparisons, and discarded ranges, while Lesson 2 provides no beat or cue timing data at all, making its visual-narration synchronization unverifiable and therefore weaker on this dimension."
     },
     "concept_accuracy": {
       "winner": "binsearch_v3",
-      "confidence": 0.78,
-      "rationale": "Lesson 2 is more conceptually complete because it explicitly traces all four binary-search comparisons including the final check at index 7 and gives the n/2^k derivation for O(log n), while Lesson 1 is broadly correct but slightly less precise because it effectively jumps from one remaining element to 'found' without clearly counting the final comparison or stating the 4-step result."
+      "confidence": 0.72,
+      "rationale": "Lesson 1 is slightly better because it provides the full step-by-step trace plus an explicit n/2^k-to-log derivation and comparison to linear search, while Lesson 2 is accurate and clear but explains the logarithmic idea more informally and less completely."
     },
     "polish": {
       "winner": "binsearch_mathgpt",
-      "confidence": 0.6,
-      "rationale": "Lesson 1's mid-lesson layout is cleaner, legible, and unclipped, whereas Lesson 2 has a more polished title screen but its mid-lesson frame is visibly broken with clipped array boxes and an 'undefined + undefined' formula."
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has a much cleaner, more legible, and visually consistent mid-lesson layout, while Lesson 1\u2019s mid-frame is cluttered and visibly broken with clipped array elements and an 'undefined + undefined' formula, though Lesson 2 is penalized for its nearly empty title screen."
     }
   },
   "aggregator": {
     "winner": "binsearch_v3",
-    "confidence": 0.76,
-    "explanation": "Lesson 2 wins four of six dimensions, with high-confidence advantages in interactivity, synchronization, conceptual completeness, and narration quality. Its strongest gains are a well-implemented quiz checkpoint, well-timed visual cues, and a fuller binary-search trace including the final comparison and O(log n) derivation. Lesson 1 has important strengths in visual accuracy and polish, especially because Lesson 2\u2019s mid-lesson frame contains serious visual issues such as clipped array boxes and an undefined formula. However, those two Lesson 1 wins are outweighed by the broader and generally higher-confidence Lesson 2 wins across pedagogy, timing, interactivity, and conceptual coverage."
+    "confidence": 0.78,
+    "explanation": "Lesson 1 is the clear overall winner by weighted dimensions: it wins four of six areas, including very high-confidence wins in interactivity and synchronization, plus narration quality and conceptual completeness. Lesson 2 is stronger visually and more polished in the mid-lesson layout, especially because Lesson 1 contains a broken/clipped mid-frame with undefined formula text. However, Lesson 2 lacks functioning interactivity and timing/cue data, and its narration/concept explanation is less structured and complete. Overall, Lesson 1\u2019s stronger instructional design, quiz integration, narration pacing, synchronization, and step-by-step conceptual treatment outweigh its visual defects."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:18:08.864525+00:00"
+  "evaluatedAt": "2026-07-15T12:53:30.722900+00:00"
 }

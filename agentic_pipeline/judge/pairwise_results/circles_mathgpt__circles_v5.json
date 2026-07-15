@@ -1,46 +1,46 @@
 {
-  "setupA": "circles_v5",
-  "setupB": "circles_mathgpt",
+  "setupA": "circles_mathgpt",
+  "setupB": "circles_v5",
   "subject": "circles",
-  "lesson1Setup": "circles_mathgpt",
-  "lesson2Setup": "circles_v5",
+  "lesson1Setup": "circles_v5",
+  "lesson2Setup": "circles_mathgpt",
   "dimensions": {
     "visual_accuracy": {
-      "winner": "circles_v5",
-      "confidence": 0.67,
-      "rationale": "Lesson 2 more accurately represents the nested tangent-circle geometry with a common boundary point, while Lesson 1 mostly shows correct algebra but provides no actual circle diagram at the sampled point to visually connect the formulas to the shaded regions."
+      "winner": "circles_mathgpt",
+      "confidence": 0.78,
+      "rationale": "Lesson 2\u2019s displayed formulas and k examples correctly represent the shaded gap areas, while Lesson 1\u2019s circle diagram misleadingly shades essentially the entire nested disk rather than only the alternating regions between radii (1,2), (3,4), etc."
     },
     "interactivity": {
       "winner": "circles_v5",
       "confidence": 0.99,
-      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_derivation with a real question, plausible options, and a marked correct answer, whereas Lesson 1 has no available gate specs or plan and therefore no functioning interactivity."
+      "rationale": "Lesson 1 has a functional, well-formed quiz gate with a real question, options, correct answer, remediation path, and matching plan node after act_derivation, while Lesson 2 has no available gate specs or plan and therefore no demonstrable interactivity."
     },
     "narration_quality": {
       "winner": "circles_v5",
-      "confidence": 0.86,
-      "rationale": "Lesson 2 is mostly clear and paced like a coherent narration despite some awkward spoken math such as \u201ctwo-k\u201d and \u201ctwo-n-plus-one,\u201d whereas Lesson 1 contains multiple raw/garbled mathematical expressions like \u201c\u03c0x2k\u00b2-\u03c0x2k-1\u00b2\u201d and \u201c\u03c0x4k-1\u201d that would be read unnaturally and make the audio substantially less clear."
+      "confidence": 0.9,
+      "rationale": "Lesson 1 has generally clear, paced narration with only minor awkward spoken math like \u201ctwo-k,\u201d while Lesson 2 contains more raw symbolic/math notation such as \u201c\u03c0x2k\u00b2-\u03c0x2k-1\u00b2\u201d and cramped phrases that would be read unnaturally or ambiguously."
     },
     "sync": {
       "winner": "circles_v5",
-      "confidence": 0.68,
-      "rationale": "Lesson 2 provides mostly aligned visual cues near the narrated references despite a few early cues, while Lesson 1 lacks any cue or timing data, making synchronization unverified and effectively worse on this dimension."
+      "confidence": 0.78,
+      "rationale": "Lesson 1 provides visual cues that are mostly timed near the referenced narration despite some defects like an early graph cue and delayed area-calculation cue, while Lesson 2 provides no beat or cue timing data at all, making its visual-narration synchronization unverifiable and effectively worse on this dimension."
     },
     "concept_accuracy": {
       "winner": "circles_mathgpt",
-      "confidence": 0.75,
-      "rationale": "Lesson 1 correctly represents the circles as nested with a common point and derives the right area formula, while Lesson 2 is more pedagogically detailed but repeatedly and incorrectly calls the circles concentric/annular rings, which is geometrically impossible with different radii sharing a boundary point and misrepresents the original setup."
+      "confidence": 0.72,
+      "rationale": "Lesson 2 more accurately preserves the original nested/common-point setup and still derives the correct arithmetic-series formula, while Lesson 1 is more polished pedagogically but incorrectly describes the circles as concentric while sharing a common circumference point, an impossible and potentially misleading geometric setup."
     },
     "polish": {
-      "winner": "circles_v5",
-      "confidence": 0.78,
-      "rationale": "Lesson 2 has a cleaner fullscreen, centered visual style with consistent dark-theme colors, while Lesson 1 is badly marred by browser/video overlays, a fullscreen notification, visible cursor, excessive empty space, and a nearly invisible subtitle despite otherwise legible content."
+      "winner": "circles_mathgpt",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 is cleaner and more legible with large centered formulas and consistent styling, whereas Lesson 1 is more cramped/cluttered and has polish issues like visible raw LaTeX-style dollar labels and a stray edge artifact."
     }
   },
   "aggregator": {
     "winner": "circles_v5",
-    "confidence": 0.85,
-    "explanation": "Lesson 2 wins five of six dimensions, including very high-confidence wins in interactivity and narration quality, plus clear advantages in polish, visual accuracy, and synchronization. The main dissent is concept accuracy, where Lesson 1 is preferred because Lesson 2 mislabels the tangent nested circles as concentric/annular, a meaningful mathematical issue. However, the overall weighted evidence still strongly favors Lesson 2 due to its much better interactivity, presentation, narration, synchronization, and visual support."
+    "confidence": 0.58,
+    "explanation": "The six dimensions split 3\u20133, but the higher-confidence votes favor Lesson 1 overall. Lesson 1 wins interactivity very strongly, with a functional quiz gate and remediation path, and also wins narration quality and synchronization with high confidence. Lesson 2 wins visual accuracy, conceptual accuracy, and polish, mainly because its formulas and layout better represent the intended geometry while Lesson 1 has a misleading circle setup and some clutter. Because Lesson 2\u2019s advantages are important but lower-confidence than Lesson 1\u2019s strongest wins, the overall judgment narrowly favors Lesson 1 rather than a tie."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:23:00.012905+00:00"
+  "evaluatedAt": "2026-07-15T12:54:24.220789+00:00"
 }

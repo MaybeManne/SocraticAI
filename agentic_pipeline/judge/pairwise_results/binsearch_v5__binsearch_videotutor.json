@@ -2,45 +2,45 @@
   "setupA": "binsearch_v5",
   "setupB": "binsearch_videotutor",
   "subject": "binsearch",
-  "lesson1Setup": "binsearch_videotutor",
-  "lesson2Setup": "binsearch_v5",
+  "lesson1Setup": "binsearch_v5",
+  "lesson2Setup": "binsearch_videotutor",
   "dimensions": {
     "visual_accuracy": {
       "winner": "binsearch_videotutor",
-      "confidence": 0.93,
-      "rationale": "Lesson 1 accurately shows the binary-search midpoint at index 5, eliminates the left half, and keeps the active range [6,10], while Lesson 2 contradicts its own formula mid=floor((7+7)/2)=7 by leaving low and high visually at indices 0 and 10 instead of both at 7."
+      "confidence": 0.86,
+      "rationale": "Lesson 2 more accurately visualizes the binary-search steps by greying out discarded indices and highlighting the correct first midpoint 23 at index 5 before narrowing to [6,10], while Lesson 1 shows the found midpoint 45 at index 7 but leaves low/high markers at indices 0 and 10 despite displaying mid = floor((7+7)/2), making the pointer positions inconsistent with the algorithm state."
     },
     "interactivity": {
       "winner": "binsearch_v5",
       "confidence": 0.99,
-      "rationale": "Lesson 2 includes a concrete, wired quiz gate after act_found with a real question, answer options, and a marked correct answer, while Lesson 1 has no available gate specs or plan JSON and therefore no evidence of any functioning checkpoint."
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate after act_found with a real question, plausible options, and marked correct answer, while Lesson 2 has no gate specs or plan available, so it provides no functioning interactivity."
     },
     "narration_quality": {
       "winner": "binsearch_v5",
       "confidence": 0.93,
-      "rationale": "Lesson 2 has consistently clear, natural, well-paced narration with math spoken appropriately as 'O of log n,' while Lesson 1 is mostly understandable but ends with a defective dangling fragment ('Given the sorted array, 3...') and feels less polished."
+      "rationale": "Lesson 1 has clear, naturally paced narration with math spoken appropriately as 'O of log n,' while Lesson 2 is less polished, lacks beat timing, and ends with a dangling/cut-off phrase ('Given the sorted array, 3...') that would sound defective."
     },
     "sync": {
       "winner": "binsearch_v5",
-      "confidence": 0.95,
-      "rationale": "Lesson 2 provides mostly synchronized visual cues at the moments the narration introduces pointers, midpoints, comparisons, and results, whereas Lesson 1 has no beat/timing cue data at all despite referencing many visual search steps, making its sync unverifiable and effectively absent."
+      "confidence": 0.82,
+      "rationale": "Lesson 1 has several timed cues that generally coincide with narrated references despite some early/late pointer and discard updates, whereas Lesson 2 provides no beat/timing data at all, making its visual changes unverified and effectively unsynchronized for this dimension."
     },
     "concept_accuracy": {
       "winner": "binsearch_v5",
-      "confidence": 0.74,
-      "rationale": "Lesson 2 provides a clearer pedagogical build with low/high/mid pointers, repeated halving, and a stronger O(log n) explanation, while Lesson 1 is more superficial and even has an odd trailing fragment, though Lesson 2 is not perfect because its plan incorrectly says linear search would take 7 steps and the script under-explains the 56 comparison."
+      "confidence": 0.82,
+      "rationale": "Lesson 1 gives a clearer low/high/mid trace and a more pedagogical logarithmic-time explanation, while Lesson 2 is mostly correct but more compressed, less explicit about pointer updates and the log derivation, and includes minor imprecision like saying the search space is cut exactly in half."
     },
     "polish": {
       "winner": "binsearch_v5",
-      "confidence": 0.92,
-      "rationale": "Lesson 2 has a cleaner, more consistent dark theme with legible centered title text and a coherent visualization, while Lesson 1 is cluttered by browser/app chrome, chat widgets/tooltips, excessive empty space, and mid-lesson content pushed awkwardly into the lower right."
+      "confidence": 0.93,
+      "rationale": "Lesson 1 has a cleaner, more cohesive dark theme with legible centered title text and a reasonably readable diagram, while Lesson 2 is dominated by extraneous app/chat UI, huge empty spaces, off-center lesson content, cursors/tooltips, and a cluttered inconsistent layout."
     }
   },
   "aggregator": {
     "winner": "binsearch_v5",
-    "confidence": 0.88,
-    "explanation": "Lesson 2 is the clear overall winner, taking five of six dimensions with generally high confidence: interactivity (0.99), narration quality (0.93), sync (0.95), concept accuracy (0.74), and polish (0.92). These wins indicate it is more complete, better paced, more interactive, and more professionally presented. Lesson 1 strongly wins visual accuracy (0.93) because Lesson 2 contains a notable pointer/midpoint inconsistency, so Lesson 2 is not flawless. However, the majority of high-confidence judgments favor Lesson 2, and the split is not close enough to justify a tie."
+    "confidence": 0.86,
+    "explanation": "Lesson 1 is the clear overall winner: five of six agents favored it, including very high-confidence wins for interactivity, narration quality, and polish, plus solid wins for synchronization and conceptual accuracy. Lesson 2 had a strong advantage in visual accuracy because its binary-search visualization better reflected discarded ranges and midpoint progression, while Lesson 1 had some pointer-state inconsistency. However, Lesson 1 was substantially stronger as a complete lesson, with a functioning quiz gate, clearer narration, better timing support, stronger pedagogical explanation, and a more polished layout. The weighted preferences therefore strongly favor Lesson 1 despite Lesson 2's visual-accuracy edge."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:21:30.494623+00:00"
+  "evaluatedAt": "2026-07-15T12:53:56.307194+00:00"
 }

@@ -1,46 +1,46 @@
 {
-  "setupA": "circles_v3",
-  "setupB": "circles_mathgpt",
+  "setupA": "circles_mathgpt",
+  "setupB": "circles_v3",
   "subject": "circles",
-  "lesson1Setup": "circles_v3",
-  "lesson2Setup": "circles_mathgpt",
+  "lesson1Setup": "circles_mathgpt",
+  "lesson2Setup": "circles_v3",
   "dimensions": {
     "visual_accuracy": {
       "winner": "circles_mathgpt",
-      "confidence": 0.83,
-      "rationale": "Lesson 2 accurately shows the shaded-ring area formula and examples for the alternating gaps, while Lesson 1\u2019s circle visualization is tiny/partly offscreen and appears to shade the whole nested disk rather than clearly alternating the correct rings."
+      "confidence": 0.9,
+      "rationale": "Lesson 1 accurately visualizes the shaded gap areas with the correct annulus formula and examples, whereas Lesson 2\u2019s mid-lesson diagram is cropped and appears to shade the whole nested-circle region rather than alternating rings, with additional raw/incorrect LaTeX visible in the threshold statement."
     },
     "interactivity": {
       "winner": "circles_v3",
       "confidence": 0.99,
-      "rationale": "Lesson 1 includes a well-formed, wired quiz gate with a real question, plausible options, and a marked correct answer after act_summation, while Lesson 2 has no available gate specs or plan and therefore no functioning interactivity."
+      "rationale": "Lesson 2 has a functional quiz gate wired after act_summation with a real question, plausible options, and a marked correct answer, while Lesson 1 has no available gate specs or plan and therefore no evidence of any functioning checkpoint."
     },
     "narration_quality": {
       "winner": "circles_v3",
-      "confidence": 0.92,
-      "rationale": "Lesson 1 uses mostly clear, naturally spoken math with manageable pacing, while Lesson 2 is denser and includes awkward symbol-like phrasing such as \u201c\u03c0x2k\u00b2-\u03c0x2k-1\u00b2\u201d and compressed formulas that would likely be read unnaturally or ambiguously."
+      "confidence": 0.82,
+      "rationale": "Lesson 2 is generally clearer and more naturally paced with math mostly spoken in words, while Lesson 1 contains compact symbolic expressions like \u201c\u03c0x2k\u00b2-\u03c0x2k-1\u00b2\u201d and \u201c2023 \u00d7 \u03c0\u201d that would likely be read unnaturally or verbatim, though Lesson 2 still has some awkward phrasing such as \u201ctwo-k-minus-one.\u201d"
     },
     "sync": {
       "winner": "circles_v3",
       "confidence": 0.86,
-      "rationale": "Lesson 1 has explicit visual cues that are mostly timed near the narrated references despite some early formula/animation cues, while Lesson 2 provides no beat/timing data or cue triggers at all, so it gives no evidence that visuals change when the narration references them."
+      "rationale": "Lesson 2 has explicit visual cues that mostly track the narrated references in sequence, while Lesson 1 provides no beat or cue timing data at all, making its visuals impossible to verify for synchronization and therefore much weaker on this dimension."
     },
     "concept_accuracy": {
       "winner": "circles_v3",
       "confidence": 0.86,
-      "rationale": "Lesson 1 is mathematically correct and pedagogically builds from specific shaded regions to the general formula and inequality, while Lesson 2 has ambiguous or potentially incorrect algebraic narration such as missing parentheses in \\((2k)^2-(2k-1)^2\\) and less clearly explains the geometry despite reaching the right answer."
+      "rationale": "Lesson 2 is mathematically correct and pedagogically builds from concrete shaded regions to the general formula and inequality, while Lesson 1 reaches the right answer but has ambiguous/malformed algebra notation around \\((2k)^2-(2k-1)^2\\) that could confuse learners."
     },
     "polish": {
       "winner": "circles_mathgpt",
-      "confidence": 0.95,
-      "rationale": "Lesson 2 is far cleaner and more legible with centered equations and consistent styling, while Lesson 1 is badly off-center, mostly empty, has tiny/illegible labels, clipped graphics, and visible raw LaTeX artifacts."
+      "confidence": 0.99,
+      "rationale": "Lesson 1 is much more polished with large legible text, centered clean layouts, consistent styling, and readable equations, whereas Lesson 2 has raw unrendered LaTeX visible, tiny unreadable labels, and a mid-lesson diagram pushed into the upper-left with excessive empty space."
     }
   },
   "aggregator": {
     "winner": "circles_v3",
-    "confidence": 0.74,
-    "explanation": "Lesson 1 wins four of six dimensions with high confidence: interactivity (0.99), narration quality (0.92), sync (0.86), and concept accuracy (0.86). These strengths indicate it is more pedagogically complete, mathematically clearer, better narrated, and includes functioning learner interaction. Lesson 2 wins visual accuracy (0.83) and polish (0.95), and is clearly cleaner and more legible visually, while Lesson 1 has significant layout and visualization issues. However, the weighted balance favors Lesson 1 because its advantages cover core instructional delivery and learner engagement, whereas Lesson 2\u2019s strengths are mainly presentation quality."
+    "confidence": 0.68,
+    "explanation": "Lesson 2 wins four of six dimensions, with high-confidence advantages in interactivity, synchronization, concept accuracy, and narration quality. Its functional quiz gate, explicit cue sequencing, clearer pedagogical progression, and mostly correct mathematical development outweigh Lesson 1\u2019s strengths. Lesson 1 has strong high-confidence wins in visual accuracy and polish, especially due to cleaner layouts and fewer rendering issues, while Lesson 2 suffers from visible raw LaTeX and some poor diagram placement. However, the overall weighted evidence favors Lesson 2 because its instructional structure and learner interaction are substantially stronger despite presentation flaws."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:22:36.872421+00:00"
+  "evaluatedAt": "2026-07-15T12:54:18.848230+00:00"
 }

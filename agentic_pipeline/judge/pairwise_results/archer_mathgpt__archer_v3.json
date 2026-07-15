@@ -1,46 +1,46 @@
 {
-  "setupA": "archer_v3",
-  "setupB": "archer_mathgpt",
+  "setupA": "archer_mathgpt",
+  "setupB": "archer_v3",
   "subject": "archer",
   "lesson1Setup": "archer_v3",
   "lesson2Setup": "archer_mathgpt",
   "dimensions": {
     "visual_accuracy": {
       "winner": "archer_mathgpt",
-      "confidence": 0.82,
-      "rationale": "Lesson 2 more clearly and accurately places the 30\u00b0 launch vector and its horizontal/vertical components with correct formulas, while Lesson 1\u2019s projectile diagram is generally correct but the component visualization is tiny/faint and appears to emphasize the vertical component when the prompt is asking for the horizontal speed."
+      "confidence": 0.78,
+      "rationale": "Lesson 2\u2019s vector decomposition is clearly and positionally correct with vx longer than vy and matching the displayed equations, while Lesson 1\u2019s projectile sketch is broadly correct but its component vectors are tiny/low-contrast and less clearly proportional or aligned to the taught horizontal-speed step."
     },
     "interactivity": {
       "winner": "archer_v3",
       "confidence": 0.99,
-      "rationale": "Lesson 1 includes a well-formed, wired fill-in gate with a real prompt, accepted answer, hint, and remediation path after a specific act, while Lesson 2 has no available gate specs or plan JSON and therefore no functioning checkpoints."
+      "rationale": "Lesson 1 includes a functional fill-in gate with a real prompt, accepted answer, hint, remediation path, and matching placement after act_introduction in the plan, whereas Lesson 2 has no gate specs or plan available and therefore no functioning checkpoints."
     },
     "narration_quality": {
-      "winner": "archer_v3",
-      "confidence": 0.67,
-      "rationale": "Lesson 1 is more naturally paced and structured into clear spoken beats with no raw notation defects, while Lesson 2 is a single dense run-on narration with a clipped/grammatically incomplete opening that makes the audio flow less polished."
+      "winner": "archer_mathgpt",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is consistently clear and naturally spoken despite being dense, while Lesson 1 has an awkward and misleading narration defect saying the range is \u201cabout thirty-four point six meters per second for just over four seconds\u201d before later giving a different range."
     },
     "sync": {
       "winner": "archer_v3",
-      "confidence": 0.82,
-      "rationale": "Lesson 1 has several cues that are timed near the narrated references despite some missing or early cues, whereas Lesson 2 provides no beat/timing data or visual cue triggers at all, making its synchronization unsupported and effectively worse on this dimension."
+      "confidence": 0.86,
+      "rationale": "Lesson 1 at least provides timed visual cues that mostly coincide with the narration\u2019s references to the vector, trajectory, vertical focus, horizontal focus, and final range, whereas Lesson 2 provides no beat/timing cues at all, making synchronization between narration and visuals unverified and effectively absent for this dimension."
     },
     "concept_accuracy": {
-      "winner": "archer_mathgpt",
-      "confidence": 0.72,
-      "rationale": "Lesson 2 presents the full correct calculation with explicit components, flight-time formula, and range multiplication, while Lesson 1 has a good conceptual sequence but its script leaves key equations and numerical steps mostly unstated, making the explanation less self-contained for a first-time learner."
+      "winner": "archer_v3",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is equally mathematically correct but does a better pedagogical job building understanding through decomposition, separate vertical/horizontal analyses, time as the link, and a general formula, while Lesson 2 is correct and concise but mostly states the formulas with less conceptual scaffolding for a first-time learner."
     },
     "polish": {
       "winner": "archer_mathgpt",
-      "confidence": 0.72,
-      "rationale": "Lesson 2 has much larger, more legible text and a cleaner mid-lesson composition, while Lesson 1\u2019s mid-lesson diagram is tiny, low-contrast, and pushed into the lower-left with excessive empty space, though Lesson 2 is hurt by visible browser/video UI and a weaker title slide."
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is much more legible and cleanly composed in the working frame with large consistent labels and equations, while Lesson 1\u2019s mid-lesson diagram is tiny, pushed into the lower-left with excessive empty space and low-contrast small text."
     }
   },
   "aggregator": {
     "winner": "archer_v3",
-    "confidence": 0.59,
-    "explanation": "The six dimensions split 3-3, but the higher-confidence wins slightly favor Lesson 1. Lesson 1 was strongly preferred for interactivity, with a functioning fill-in checkpoint and remediation, and also won sync with supported timed cues; it also had a moderate narration-quality advantage. Lesson 2 was better for visual accuracy, concept accuracy, and polish, especially with clearer component diagrams, fuller calculations, and more legible layout. Overall, Lesson 1\u2019s advantages in interactivity and synchronization carry slightly more weighted confidence than Lesson 2\u2019s presentation and conceptual strengths."
+    "confidence": 0.58,
+    "explanation": "The six dimensions split evenly, but the higher-confidence advantages favor Lesson 1 overall. Lesson 1 wins interactivity very strongly because it has a functional checkpoint and remediation flow, and it also wins synchronization due to having timed cues, plus a concept-accuracy edge for stronger pedagogical scaffolding. Lesson 2 is stronger in visual accuracy, narration quality, and polish, with cleaner composition and clearer vector presentation, but those wins are all at moderate confidence. Weighting the confidence levels gives Lesson 1 a slight but meaningful overall advantage rather than a tie."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:14:10.148377+00:00"
+  "evaluatedAt": "2026-07-15T12:52:35.039762+00:00"
 }

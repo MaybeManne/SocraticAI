@@ -2,45 +2,45 @@
   "setupA": "archer_v7",
   "setupB": "archer_videotutor",
   "subject": "archer",
-  "lesson1Setup": "archer_videotutor",
-  "lesson2Setup": "archer_v7",
+  "lesson1Setup": "archer_v7",
+  "lesson2Setup": "archer_videotutor",
   "dimensions": {
     "visual_accuracy": {
       "winner": "archer_v7",
-      "confidence": 0.88,
-      "rationale": "Lesson 2 more accurately visualizes the projectile setup with a ground-level parabolic trajectory, velocity components, flight-time derivation, and correct use of v0y=20 m/s, while Lesson 1 mostly shows Desmos equation entries with warning icons and no plotted trajectory or range representation at the midpoint."
+      "confidence": 0.93,
+      "rationale": "Lesson 1 accurately depicts the projectile path, axes, launch angle, velocity components, landing point, and matching flight-time equations, whereas Lesson 2\u2019s mid-frame shows mostly a blank/errored Desmos setup with no visible trajectory and incomplete/undefined parameter visualization."
     },
     "interactivity": {
       "winner": "archer_v7",
       "confidence": 0.99,
-      "rationale": "Lesson 2 includes a well-formed, wired fill-in checkpoint after act_decomposition with a real prompt, accepted answer, hint, and remediation path, whereas Lesson 1 has no available gate specs or plan and therefore no functioning interactivity."
+      "rationale": "Lesson 1 includes a concrete, wired fill-in gate after act_decomposition with a real prompt, accepted answer, hint, success message, and remediation path, whereas Lesson 2 has no available gate specs or plan and therefore no functioning interactivity."
     },
     "narration_quality": {
       "winner": "archer_v7",
-      "confidence": 0.95,
-      "rationale": "Lesson 2 has clear, natural narration with appropriately spoken math terms, while Lesson 1 contains awkward repetition and an unrelated trailing line ('A golfer hits a ball') that makes the audio feel defective."
+      "confidence": 0.96,
+      "rationale": "Lesson 1 has clear, natural narration with appropriate spoken math and pacing, while Lesson 2 contains an obvious repeated phrase, clunky wording like \u201cx of t,\u201d and an abrupt unrelated ending about a golfer that signals a narration defect."
     },
     "sync": {
       "winner": "archer_v7",
-      "confidence": 0.86,
-      "rationale": "Lesson 2 provides mostly intentional cue offsets that generally align with the narrated references, despite a few early or late triggers, whereas Lesson 1 has no beat/timing data or cue information at all, making its visual-narration synchronization unverifiable and effectively unsupported."
+      "confidence": 0.9,
+      "rationale": "Lesson 1 provides timed visual cues that generally align with the narrated references, while Lesson 2 has no beat/timing cue data at all despite narration describing visual actions, making synchronization impossible to verify and effectively much weaker on this dimension."
     },
     "concept_accuracy": {
       "winner": "archer_v7",
-      "confidence": 0.96,
-      "rationale": "Lesson 2 correctly and clearly builds the projectile-motion solution through component decomposition, vertical flight time, and horizontal range calculation, whereas Lesson 1 mostly reports a Desmos endpoint without explaining the equations or derivation and even ends with irrelevant/confusing narration."
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly derives the range through velocity decomposition, vertical flight time, and horizontal motion with clear equations and assumptions, while Lesson 2 gives the right numerical result but relies on reading a graph/calculator with minimal explanation of the physics and even has an unrelated transcript glitch at the end."
     },
     "polish": {
       "winner": "archer_v7",
-      "confidence": 0.95,
-      "rationale": "Lesson 2 has a clean, centered, visually consistent full-frame layout with readable text and uncluttered panels, whereas Lesson 1 is dominated by browser chrome and platform controls, has off-center content with lots of empty space, and includes distracting chat/overlay UI elements that make the presentation feel cluttered."
+      "confidence": 0.94,
+      "rationale": "Lesson 1 has a clean, centered, consistent dark layout with readable text and organized diagram/formula panels, while Lesson 2 is cluttered with platform UI/chat controls, excessive empty space on the title screen, and overlapping overlays that distract from the lesson content."
     }
   },
   "aggregator": {
     "winner": "archer_v7",
-    "confidence": 0.96,
-    "explanation": "All six dimension agents strongly favored Lesson 2, with high confidence across visual accuracy, interactivity, narration quality, synchronization, concept accuracy, and polish. Lesson 2 was judged to provide a correct projectile-motion visualization, functional checkpoint interactivity, clearer narration, better visual-narration alignment, more rigorous conceptual derivation, and a cleaner presentation. Lesson 1 lacked functional interactivity and timing data, showed weaker or incomplete visuals, had awkward/irrelevant narration, and appeared cluttered or underdeveloped. The unanimous high-confidence verdicts make Lesson 2 the clear overall winner."
+    "confidence": 0.97,
+    "explanation": "All six dimension agents strongly prefer Lesson 1, each with high confidence. Lesson 1 is judged superior in visual accuracy, interactivity, narration quality, synchronization, conceptual accuracy, and overall polish. The rationales consistently note that Lesson 1 has accurate projectile visuals, functioning interaction, clear narration, aligned timing cues, correct physics derivation, and a clean layout, while Lesson 2 suffers from missing or errored visuals, absent interactivity, narration glitches, lack of timing data, weaker conceptual explanation, and distracting UI clutter. With unanimous high-confidence support, Lesson 1 is the clear overall winner."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:17:43.986933+00:00"
+  "evaluatedAt": "2026-07-15T12:52:58.109297+00:00"
 }

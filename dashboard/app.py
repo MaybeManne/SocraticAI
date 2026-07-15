@@ -101,6 +101,8 @@ def catalog():
         bdir = REPO / "benchmark_comparison" / subject
         if bdir.is_dir():
             for f in sorted(bdir.iterdir()):
+                if any(t in f.stem for t in ("_untrimmed", "_precrop", "_backup")):
+                    continue  # pre-edit backups, not comparison candidates
                 if f.suffix in VIDEO_EXTS and f.parent == bdir and "_scenes" not in f.parent.name:
                     add(f"{subject}_{f.stem}", subject, "video",
                         f"{subject}_{f.stem}  (external)",
