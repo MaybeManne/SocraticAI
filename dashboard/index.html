@@ -389,17 +389,18 @@ async function renderRecordsView(scored, stats, h2h) {
   const rankings = {};
   for (const sj of subjects) rankings[sj] = await api(`/api/rankings/${sj}`);
   html += `<h3 style="margin-top:14px">Leaderboard rank <span class="muted" style="text-transform:none;letter-spacing:0">
-    (Bradley-Terry, derived from win/loss record only — not a quality score)</span></h3>
-    <table><tr><th>video</th><th>rank in subject</th><th>strength</th><th>record</th></tr>`;
+    (by win rate, ties count half — a match record, not a quality score)</span></h3>
+    <table><tr><th>video</th><th>rank in subject</th><th>win rate</th><th>record</th><th>BT strength</th></tr>`;
   for (const id of scored) {
-    const r = rankings[item(id).subject];
-    const rows = (r && r.overall) || [];
+    const rows = [...((rankings[item(id).subject] || {}).overall || [])]
+      .sort((a, b) => winRate(b) - winRate(a) || b.comparisons - a.comparisons || b.score - a.score);
     const i = rows.findIndex(x => x.id === id);
     const row = rows[i];
     html += `<tr><td><b>${id}</b></td>
       <td>${i >= 0 ? "#" + (i+1) + " of " + rows.length : "<span class='muted'>unranked</span>"}</td>
-      <td class="muted">${row ? (row.score*100).toFixed(1) : "—"}</td>
-      <td class="muted">${row ? `${row.wins}-${row.losses}-${row.ties} (${row.comparisons} match${row.comparisons===1?"":"es"})` : "no matches"}</td></tr>`;
+      <td>${row ? (winRate(row)*100).toFixed(0) + "%" : "—"}</td>
+      <td class="muted">${row ? `${row.wins}-${row.losses}-${row.ties} (${row.comparisons} match${row.comparisons===1?"":"es"})` : "no matches"}</td>
+      <td class="muted">${row ? (row.score*100).toFixed(1) : "—"}</td></tr>`;
   }
   html += "</table>";
 
@@ -553,20 +554,33 @@ document.querySelectorAll(".lbsub").forEach(b => b.onclick = () => {
 });
 $("lbDim").onchange = loadLeaderboard;
 
+// Win rate (ties count half) is the primary leaderboard metric. Raw
+// Bradley-Terry strength compresses to ~0 for everyone when one setup is
+// undefeated (a 4-2-0 record scored the same 0.0 as 0-4-0), so BT is kept
+// only as a muted secondary column.
+const winRate = r => r.comparisons ? (r.wins + r.ties * 0.5) / r.comparisons : 0;
+
 async function loadLeaderboard() {
   const data = await api(`/api/rankings/${lbSubject}`);
   const dim = $("lbDim").value;
   const rows = dim === "overall" ? data.overall : (data.dimensions[dim] || []);
   if (!rows.length) { $("lbBody").innerHTML = "<p class='muted'>No judge data.</p>"; return; }
-  const max = rows[0].score || 1;
-  let html = `<table><tr><th>#</th><th>setup</th><th>score</th><th></th><th>W</th><th>L</th><th>T</th></tr>`;
+  rows.sort((a, b) => winRate(b) - winRate(a) || b.comparisons - a.comparisons || b.score - a.score);
+  let html = `<table><tr><th>#</th><th>setup</th><th>win rate</th><th></th>
+    <th>record</th><th>matches</th><th>BT strength</th></tr>`;
   rows.forEach((r, i) => {
+    const wr = winRate(r) * 100;
     html += `<tr><td class="${i===0?'best':'muted'}">${i+1}</td><td>${r.id}</td>
-      <td>${(r.score*100).toFixed(1)}</td>
-      <td><div class="lbbar"><div style="width:${(r.score/max*100).toFixed(0)}%"></div></div></td>
-      <td>${r.wins}</td><td>${r.losses}</td><td>${r.ties}</td></tr>`;
+      <td class="${i===0?'best':''}">${wr.toFixed(0)}%</td>
+      <td><div class="lbbar"><div style="width:${wr.toFixed(0)}%"></div></div></td>
+      <td>${r.wins}-${r.losses}-${r.ties}</td>
+      <td class="muted">${r.comparisons}</td>
+      <td class="muted">${(r.score*100).toFixed(1)}</td></tr>`;
   });
-  $("lbBody").innerHTML = html + "</table>";
+  $("lbBody").innerHTML = html + `</table><div class="legend"><b>Win rate</b> = wins / matches,
+    ties count half — the primary ranking. <b>BT strength</b> (Bradley-Terry) is kept for
+    reference only: it compresses toward 0 for every setup when one player is undefeated,
+    hiding real differences between winning and losing records.</div>`;
 }
 
 init();
