@@ -42,6 +42,8 @@
              align-items:center; justify-content:center; z-index:10; }
   #overlay.open { display:flex; }
   #box { width:min(1200px, 94vw); height:min(760px, 88vh); display:flex; flex-direction:column; }
+  #overlay.max #box { width:100vw; height:100vh; padding:8px 10px 10px; }
+  #overlay.max #stage { border-radius:8px; }
   #boxbar { display:flex; align-items:center; gap:10px; color:#fff; padding:0 2px 8px; }
   #boxtitle { font-weight:650; }
   #boxbar button { background:rgba(255,255,255,.14); color:#fff; border:0; border-radius:8px;
@@ -133,13 +135,18 @@ function openItem(item, subjTitle) {
 }
 
 function closeItem() {
-  overlay.classList.remove("open");
+  overlay.classList.remove("open", "max");
   stage.innerHTML = "";   // stops playback
   current = null;
 }
 
 function goFullscreen() {
-  (current || stage).requestFullscreen?.();
+  // Native fullscreen when the browser allows it; otherwise (or additionally,
+  // e.g. embedded contexts that refuse the permission) maximize the lightbox
+  // to fill the viewport. Esc / X still closes.
+  const p = (current || stage).requestFullscreen?.();
+  overlay.classList.toggle("max");
+  if (p && p.catch) p.catch(() => {});
 }
 
 document.getElementById("closeBtn").onclick = closeItem;
