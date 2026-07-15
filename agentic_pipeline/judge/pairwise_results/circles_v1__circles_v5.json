@@ -1,0 +1,46 @@
+{
+  "setupA": "circles_v1",
+  "setupB": "circles_v5",
+  "subject": "circles",
+  "lesson1Setup": "circles_v1",
+  "lesson2Setup": "circles_v5",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v5",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 more accurately depicts the nested tangent circles sharing a common point and aligns the graph/final count with the solution, while Lesson 1 is repeatedly clipped/offscreen, has ambiguous or inconsistent ring highlighting and labels, and ends with key visuals/answer partially broken."
+    },
+    "interactivity": {
+      "winner": "circles_v1",
+      "confidence": 0.65,
+      "rationale": "Lesson 1 has a fully wired fill-in checkpoint with a real prompt, accepted answer, hint, placeholder, and success feedback, while Lesson 2\u2019s quiz is also functional but is less complete with empty explanations/title fields and less feedback support."
+    },
+    "narration_quality": {
+      "winner": "circles_v5",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has smoother, more natural narration with clearer pacing, while Lesson 1 contains more awkward phrasing such as \u201csome two-n,\u201d \u201ceven radius minus an odd radius,\u201d and \u201cshaded ring pairs,\u201d making it sound less polished and potentially confusing."
+    },
+    "sync": {
+      "winner": "circles_v5",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has several cue offsets that land near the referenced narration, especially the tested graph values, while Lesson 1 repeatedly fires major visuals far too early, such as shading before shaded regions are mentioned, boxing the final sum long before the result is stated, and placing value markers before the narrated values."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v1",
+      "confidence": 0.92,
+      "rationale": "Lesson 1 accurately represents the circles as nested and sharing a common point while deriving the area formula clearly, whereas Lesson 2 incorrectly calls them concentric despite also saying they share a circumference point, creating a geometric contradiction that weakens the conceptual explanation."
+    },
+    "polish": {
+      "winner": "circles_v5",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 has a much cleaner, legible, consistently styled two-column layout, while Lesson 1 is repeatedly off-center with large diagrams clipped off the left edge, tiny overlapping labels, raw LaTeX in the prompt, excessive empty space, and partially broken/offscreen elements."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v5",
+    "confidence": 0.76,
+    "explanation": "Lesson 2 is the clear overall winner by weighted dimension votes: it wins visual accuracy, narration quality, synchronization, and polish, including very high-confidence wins for visual accuracy and polish. Lesson 1 wins interactivity and has a strong concept-accuracy advantage because Lesson 2 introduces a geometric contradiction by calling the tangent nested circles concentric. However, the majority of high-confidence judgments favor Lesson 2, especially on the executed visuals, layout quality, narration, and timing, so Lesson 2 wins overall despite the conceptual weakness."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:45:41.476523+00:00"
+}

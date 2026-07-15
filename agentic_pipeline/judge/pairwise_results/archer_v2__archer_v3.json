@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v2",
+  "setupB": "archer_v3",
+  "subject": "archer",
+  "lesson1Setup": "archer_v3",
+  "lesson2Setup": "archer_v2",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v3",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 accurately depicts the projectile with axes, launch angle/components, parabolic path, flight time, and horizontal range at the landing point, whereas Lesson 2 repeatedly shows an incorrect large triangular/diagonal shape instead of a projectile trajectory and only later adds a range arrow without a correct flight path."
+    },
+    "interactivity": {
+      "winner": "archer_v2",
+      "confidence": 0.58,
+      "rationale": "Both lessons include a single well-formed, wired fill-in gate that should render and accept input, but Lesson 2 is slightly better because its gate is placed immediately after a dedicated decomposition act and aligns cleanly with the next vertical-motion step, while Lesson 1\u2019s gate is embedded after a broader introduction and has a slightly less consistent plan hint versus prompt."
+    },
+    "narration_quality": {
+      "winner": "archer_v2",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 has consistently natural, clear narration with appropriate spoken math, while Lesson 1 includes a confusing/incorrectly phrased range statement that says 'thirty-four point six meters per second for just over four seconds' instead of cleanly giving the distance."
+    },
+    "sync": {
+      "winner": "archer_v2",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 generally triggers visuals near the phrases that introduce them (especially vector decomposition, shadows, trig identity, and final range), while Lesson 1 frequently fires cues early or without nearby narration support, such as decomposing before the split is described, focusing vertical motion before it is mentioned, and showing the final range before the answer is spoken."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v2",
+      "confidence": 0.73,
+      "rationale": "Lesson 2 is slightly better because it more clearly motivates why decomposition is needed and explicitly explains the two vertical-time roots, while Lesson 1 is correct but more hand-wavy in the time derivation and range computation, though Lesson 2 is weakened by not checking or stating the horizontal component as explicitly."
+    },
+    "polish": {
+      "winner": "archer_v3",
+      "confidence": 0.92,
+      "rationale": "Lesson 1 has a cleaner, more consistent split layout with readable annotations and fewer visual artifacts, while Lesson 2 is dominated by an oversized off-center/clipped diagram with a huge black triangle, cut-off axis labels, excessive empty right-side space, and a cluttered duplicate inset at the end."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v2",
+    "confidence": 0.66,
+    "explanation": "Lesson 2 wins overall by the confidence-weighted dimension votes: it is preferred in interactivity, narration quality, synchronization, and conceptual accuracy, with especially strong advantages in narration and sync. Lesson 1 has very strong wins in visual accuracy and polish, and those are significant drawbacks for Lesson 2, particularly the incorrect/cluttered trajectory visuals. However, the majority of dimensions favor Lesson 2, including several high-confidence judgments tied to explanation clarity and timing, so the overall edge goes to Lesson 2 rather than a tie."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:40:10.994398+00:00"
+}

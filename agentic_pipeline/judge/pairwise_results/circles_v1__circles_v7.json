@@ -1,0 +1,46 @@
+{
+  "setupA": "circles_v1",
+  "setupB": "circles_v7",
+  "subject": "circles",
+  "lesson1Setup": "circles_v7",
+  "lesson2Setup": "circles_v1",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v7",
+      "confidence": 0.97,
+      "rationale": "Lesson 1 correctly shows internally tangent circles sharing a common boundary point and highlights the appropriate odd-even shaded region, while Lesson 2 mostly shows clipped concentric/nested rings that do not share a common circumference point and has misplaced/offscreen highlights and labels."
+    },
+    "interactivity": {
+      "winner": "circles_v1",
+      "confidence": 0.74,
+      "rationale": "Both lessons include a properly wired, functional checkpoint after the relevant summation act, but Lesson 2's fill-in gate is more explicitly interactive with a prompt, blank answer schema, hint, and success message, whereas Lesson 1's quiz is functional but less fully specified with empty explanations."
+    },
+    "narration_quality": {
+      "winner": "circles_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 has smoother, more concise, natural narration with clear spoken math, while Lesson 2 is generally understandable but includes more awkward phrasing such as \u201ceven radius minus an odd radius,\u201d \u201cvariable 'n',\u201d and \u201cnumber of shaded ring pairs,\u201d making it slightly less polished."
+    },
+    "sync": {
+      "winner": "circles_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 generally triggers visuals close to the relevant narration, while Lesson 2 repeatedly fires cues far before the referenced content in long lines, such as shading rings, boxing the final sum formula, and placing value markers before the narration reaches those ideas."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 is slightly better because it explicitly completes the threshold argument by computing both n=31 and n=32 and converting to 64 circles, while Lesson 2 has stronger example-to-general scaffolding but its script leaves the n=32 verification mostly implicit and uses slightly muddier wording like 'shaded ring pairs.'"
+    },
+    "polish": {
+      "winner": "circles_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 is substantially more polished with a readable, consistent split layout and centered visuals, while Lesson 2 has raw unrendered LaTeX, visible playback controls, severely cropped/off-screen diagrams, mostly empty panels, and tiny overlapping labels."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v7",
+    "confidence": 0.91,
+    "explanation": "Lesson 1 is the clear overall winner: it wins five of six dimensions, including very high-confidence wins in visual accuracy and polish, plus strong wins in sync, narration quality, and concept accuracy. Lesson 2's only win is interactivity at moderate confidence, based on a more explicit checkpoint design, but this is outweighed by Lesson 1's more accurate diagrams, better-timed visual cues, clearer narration, more complete threshold reasoning, and substantially more polished presentation."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:21:44.675939+00:00"
+}

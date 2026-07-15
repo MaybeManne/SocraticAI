@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v4",
+  "setupB": "archer_v5",
+  "subject": "archer",
+  "lesson1Setup": "archer_v5",
+  "lesson2Setup": "archer_v4",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v5",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 consistently shows a correctly placed, readable projectile trajectory with launch angle, velocity components, axes, formulas, and a range marker aligned from launch to landing, whereas Lesson 2 renders the main diagram and equations tiny in the upper-left with much of the visual explanation effectively absent or unreadable."
+    },
+    "interactivity": {
+      "winner": "archer_v5",
+      "confidence": 0.62,
+      "rationale": "Lesson 1 has a clean, well-formed fill-in gate with a real prompt, accepted answers, hint, and correct wiring, while Lesson 2 also has a functional quiz but its spec is slightly messier with irrelevant ordering fields and empty explanations that make it less robust."
+    },
+    "narration_quality": {
+      "winner": "archer_v4",
+      "confidence": 0.68,
+      "rationale": "Lesson 2 has smoother, more natural spoken phrasing and clearly verbalizes equations at an appropriate pace, while Lesson 1 is also readable but has more compressed and slightly awkward phrasing such as the dense component-description sentence and quoted variable language."
+    },
+    "sync": {
+      "winner": "archer_v5",
+      "confidence": 0.68,
+      "rationale": "Lesson 1\u2019s cues generally fire near the narrated references, while Lesson 2 has several noticeably early cues, especially the vertical shadow, equation display, and trig-identity transformation appearing before the narration reaches them."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v4",
+      "confidence": 0.9,
+      "rationale": "Lesson 2 teaches the physics more accurately and pedagogically by explicitly stating the vertical equation, solving to the numerical flight time, and then using it for range, while Lesson 1 is mostly correct but leaves key algebra/numerical steps implicit, only checks one component, and slightly overstates the final formula as generally applicable/more accurate."
+    },
+    "polish": {
+      "winner": "archer_v5",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 has a much more legible, consistently styled, and reasonably composed left-diagram/right-card layout, while Lesson 2 leaves the main diagram tiny and crammed into the upper-left corner with vast empty space and largely unreadable labels/equations."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v5",
+    "confidence": 0.72,
+    "explanation": "Lesson 1 wins overall by a clear weighted majority: four agents favored it, including very high-confidence wins in visual accuracy and polish, plus advantages in interactivity and synchronization. Lesson 2 had important strengths in narration quality and especially concept accuracy, with a high-confidence physics/pedagogy advantage, but those two wins are outweighed by Lesson 1\u2019s much stronger legibility, composition, cue timing, and cleaner interaction design. Overall, Lesson 1 is the better lesson despite Lesson 2\u2019s more complete conceptual derivation."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:41:21.275379+00:00"
+}

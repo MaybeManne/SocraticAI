@@ -1,46 +1,46 @@
 {
-  "setupA": "binsearch_v7",
-  "setupB": "binsearch_v5",
+  "setupA": "binsearch_v5",
+  "setupB": "binsearch_v7",
   "subject": "binsearch",
-  "lesson1Setup": "binsearch_v7",
-  "lesson2Setup": "binsearch_v5",
+  "lesson1Setup": "binsearch_v5",
+  "lesson2Setup": "binsearch_v7",
   "dimensions": {
     "visual_accuracy": {
       "winner": "binsearch_v7",
-      "confidence": 0.92,
-      "rationale": "Lesson 1 more accurately represents the binary search state by highlighting target 45 at index 7 and largely aligning the final mid/high position with the explanation, whereas Lesson 2 explicitly computes low=high=7 but visually leaves low at index 0 and high at index 10, a clear positional contradiction."
+      "confidence": 0.98,
+      "rationale": "Lesson 2 keeps the array, indices, midpoint calculation, search-space update, target index, and O(log n) visuals mostly consistent, while Lesson 1 repeatedly mis-highlights the midpoint/value, shows undefined midpoint formulas and comparisons, has misplaced/offscreen labels, and sustains incorrect binary-search state across many frames."
     },
     "interactivity": {
       "winner": "binsearch_v7",
       "confidence": 0.78,
-      "rationale": "Lesson 1 has a clean, well-formed quiz gate with a real question, plausible options, marked correct answer, and matching placement after act_found, while Lesson 2 is also mostly functional but is slightly weaker because its quiz spec includes extraneous ordering fields and a wrong_path_acts reference to a remediation act that does not appear in the plan."
+      "rationale": "Lesson 2 has a clean, well-formed quiz gate with a real question, plausible options, correct answer, and matching gate node, whereas Lesson 1 is also mostly functional but includes extraneous ordering fields and a wrong_path_acts reference to a nonexistent remediation act, making its interactivity path less reliable."
     },
     "narration_quality": {
       "winner": "binsearch_v5",
       "confidence": 0.78,
-      "rationale": "Lesson 2 uses more natural spoken math and smoother explanatory phrasing, while Lesson 1 has slightly awkward math narration like \u201cn divided by two-to-the-power-of-k elements\u201d and a more compressed ending that could feel less clear when spoken."
+      "rationale": "Lesson 1 is smoother and more naturally paced with spoken math rendered clearly, while Lesson 2 is generally clear but has denser, more awkward formula narration like \u201cn divided by two-to-the-power-of-k\u201d and a rushed quick-succession segment that is less narration-friendly."
     },
     "sync": {
       "winner": "binsearch_v7",
-      "confidence": 0.78,
-      "rationale": "Lesson 1 has some coarse or slightly early cues, but Lesson 2 has more serious timing/order issues, especially discarding and moving pointers before the narration has established the relevant comparison or consequence."
+      "confidence": 0.84,
+      "rationale": "Lesson 2 generally fires cues near the narrated references, whereas Lesson 1 has several notable timing mismatches, especially showing/discarding/moving search elements before or long after the narration mentions them."
     },
     "concept_accuracy": {
-      "winner": "binsearch_v7",
-      "confidence": 0.68,
-      "rationale": "Lesson 1 gives a clearer and more mathematically accurate explanation of the logarithmic runtime with the n/2^k derivation, while Lesson 2 traces the search reasonably but gives a vaguer O(log n explanation and relies more on assertion than derivation."
+      "winner": "binsearch_v5",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 is stronger because it traces the binary search iterations more explicitly for a first-time learner, whereas Lesson 2 has a clearer logarithmic derivation but rushes the crucial middle steps into a montage and therefore weakens the required step-by-step understanding."
     },
     "polish": {
       "winner": "binsearch_v7",
-      "confidence": 0.86,
-      "rationale": "Lesson 1 is more polished with a balanced two-column layout, cleaner typography, and fewer visual distractions, while Lesson 2 is pushed into the left half with a largely empty right side, visible player controls, and a midpoint box where text appears cramped/spilling outside."
+      "confidence": 0.97,
+      "rationale": "Lesson 2 is far more polished with a cleaner split layout, readable rendered formulas, and consistent styling, while Lesson 1 is repeatedly off-center, shows visible player UI, has clipped labels, overlapping elements, and serious visual bugs with 'undefined' text spilling across boxes."
     }
   },
   "aggregator": {
     "winner": "binsearch_v7",
-    "confidence": 0.86,
-    "explanation": "Lesson 1 is the clear overall winner, taking five of six dimensions, including high-confidence wins in visual accuracy and polish. It more accurately keeps the binary search state aligned with the explanation, has a cleaner and more functional quiz interaction, better synchronization, stronger conceptual treatment of logarithmic runtime, and a more polished layout. Lesson 2 wins narration quality due to smoother spoken phrasing, but that single advantage is outweighed by its visual contradictions, timing/order issues, weaker runtime explanation, and layout/polish problems."
+    "confidence": 0.82,
+    "explanation": "Lesson 2 is the clear overall winner: four of six agents favored it, including very high-confidence wins in visual accuracy and polish, plus solid advantages in sync and interactivity. These strengths indicate Lesson 2 is more visually consistent, better timed, cleaner, and more reliable as an interactive lesson. Lesson 1 did win narration quality and concept accuracy with moderate confidence, mainly for smoother pacing and more explicit step-by-step binary search tracing, but those advantages are outweighed by Lesson 2's stronger and higher-confidence wins across execution-critical dimensions."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T15:49:19.606522+00:00"
+  "evaluatedAt": "2026-07-15T17:35:20.446149+00:00"
 }

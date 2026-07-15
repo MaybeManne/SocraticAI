@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v4",
+  "setupB": "archer_veo3",
+  "subject": "archer",
+  "lesson1Setup": "archer_v4",
+  "lesson2Setup": "archer_veo3",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v4",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 consistently shows the correct ground-to-ground parabolic projectile setup and range relationship, while Lesson 2 includes sustained visual/math inaccuracies such as a horizontal launch depiction despite a 30\u00b0 angle, an incorrect horizontal component labeled 40 cos 30 = 20 m/s, and a wrong flight-time display of 3.00 s."
+    },
+    "interactivity": {
+      "winner": "archer_v4",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a functional, wired quiz gate after act_vertical_motion with a real question, options, and marked correct answer, whereas Lesson 2 has no gate specs or plan available, so it provides no verifiable interactivity."
+    },
+    "narration_quality": {
+      "winner": "archer_v4",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 is clear, naturally paced, and uses well-spoken math terminology, while Lesson 2 contains multiple narration defects and garbled phrases such as \u201c1 9.8 every second,\u201d \u201c0 verts,\u201d \u201cX2,\u201d and an awkward repeated line."
+    },
+    "sync": {
+      "winner": "archer_v4",
+      "confidence": 0.88,
+      "rationale": "Lesson 1 provides mostly well-aligned visual cues that fire near the narrated references, while Lesson 2 has no beat or cue timing data at all, making synchronization impossible to verify and therefore materially weaker on this dimension."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v4",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 is more conceptually accurate and pedagogically clear because it explicitly derives vertical time from the height equation, explains independence of components, constant horizontal velocity, and the range formula, while Lesson 2 is mostly correct but much terser and includes confusing/garbled phrasing like \u201cGravity eats the upward speed, 1 9.8 every second\u201d and \u201cX2\u201d that could hinder understanding."
+    },
+    "polish": {
+      "winner": "archer_veo3",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 is far more polished with large, centered, visually consistent full-frame graphics, while Lesson 1 keeps a tiny nearly illegible diagram pushed into the upper-left with vast empty space, cramped top text, and distracting UI/overlay elements despite Lesson 2 having a few garbled labels."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v4",
+    "confidence": 0.94,
+    "explanation": "Five of six dimension agents strongly favor Lesson 1, all with high confidence: it is more visually accurate, interactive, better narrated, better synchronized, and more conceptually accurate. These include several substantive issues in Lesson 2, such as incorrect projectile visuals/math, missing interactivity specs, garbled narration, absent timing data, and confusing phrasing. Lesson 2 wins only on polish, also with high confidence, due to cleaner full-frame graphics and better visual presentation. However, that single advantage is outweighed by Lesson 1's broad and confident superiority across the core instructional and technical dimensions."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:41:42.554404+00:00"
+}

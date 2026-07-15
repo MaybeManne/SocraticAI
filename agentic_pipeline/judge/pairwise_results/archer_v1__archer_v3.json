@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v1",
+  "setupB": "archer_v3",
+  "subject": "archer",
+  "lesson1Setup": "archer_v3",
+  "lesson2Setup": "archer_v1",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v3",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 keeps the projectile path, same-height landing point, range marker, time label, and range formula visually aligned with the 40 m/s at 30\u00b0 problem, while Lesson 2 repeatedly depicts a much steeper launch/vector decomposition with a tiny horizontal component and taller vertical component, which contradicts the actual 30\u00b0 components and makes the motion diagram conceptually misleading."
+    },
+    "interactivity": {
+      "winner": "archer_v1",
+      "confidence": 0.62,
+      "rationale": "Both lessons include a functional fill-in gate with a real prompt, answer, hint, and matching after_act, but Lesson 2 places it after a dedicated decomposition act and accepts slightly more flexible correct inputs, whereas Lesson 1's gate is somewhat less cleanly situated after a broader introduction act."
+    },
+    "narration_quality": {
+      "winner": "archer_v1",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 is consistently clear and naturally phrased, while Lesson 1 has a confusing defective line that states the range as \u201cthirty-four point six meters per second for just over four seconds\u201d before later giving the actual distance, making the narration less coherent."
+    },
+    "sync": {
+      "winner": "archer_v1",
+      "confidence": 0.73,
+      "rationale": "Lesson 2 aligns most major cues with the narration references more closely, while Lesson 1 has more obvious sync gaps where narration explicitly references equations, trig simplification, and calculated results with no corresponding cue or with cues arriving noticeably early/late."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v3",
+      "confidence": 0.64,
+      "rationale": "Lesson 1 is slightly better because its concept check and sequence directly compute the actual projectile components needed for the problem, while Lesson 2 is mostly correct but uses an unrelated decomposition check and is a bit sloppier pedagogically, including the potentially misleading phrase that the motion becomes two simple linear motions."
+    },
+    "polish": {
+      "winner": "archer_v3",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 is cleaner and more visually consistent despite its small, left-heavy diagram, while Lesson 2 has more polish defects including visible raw backtick markup in the problem text, awkward/broken quiz-card layout, dim low-contrast text, and near-empty formula boxes."
+    }
+  },
+  "aggregator": {
+    "winner": "tie",
+    "confidence": 0.54,
+    "explanation": "The six dimensions are genuinely split 3\u20133, and confidence-weighting leaves no clear overall winner: Lesson 1 has strong advantages in visual accuracy and polish, plus a moderate concept-accuracy edge, while Lesson 2 has strong narration quality, a moderate sync advantage, and a smaller interactivity edge. The weighted support is nearly even, with Lesson 1 only marginally ahead numerically, so the overall judgment is a tie rather than a decisive win for either lesson."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:38:44.752820+00:00"
+}

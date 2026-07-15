@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v4",
+  "setupB": "archer_v6",
+  "subject": "archer",
+  "lesson1Setup": "archer_v4",
+  "lesson2Setup": "archer_v6",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v6",
+      "confidence": 0.74,
+      "rationale": "Lesson 2 more accurately places the projectile path, axes, launch vector, and range endpoints for the physics problem, whereas Lesson 1 only shows a small, minimally contextual arc with no velocity/angle/component visuals and provides far less correct visual support across the timeline."
+    },
+    "interactivity": {
+      "winner": "archer_v4",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 has a clearly functional quiz gate with a real question, plausible options, a marked correct answer, and matching after_act wiring, while Lesson 2 is wired but its fill-in gate is less robust because it asks for two blanks using a single blank object with an answer array, making input handling more potentially malformed."
+    },
+    "narration_quality": {
+      "winner": "archer_v6",
+      "confidence": 0.67,
+      "rationale": "Lesson 2 is more concise and naturally paced with clear spoken math, while Lesson 1 is also clear but has slightly more cumbersome phrasing such as \u201csine-theta cosine-theta\u201d and longer, denser narration that may feel less smooth."
+    },
+    "sync": {
+      "winner": "archer_v6",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 keeps most visual changes synchronized with the narration line that introduces them, while Lesson 1 has more noticeable timing gaps, including a numerical substitution/result narration with no visual cue and several delayed cues that lag behind the referenced concepts."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v4",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 is more conceptually accurate and pedagogically clear because it explicitly builds the vertical height equation, explains setting y=0 and interpreting the two time solutions before using horizontal motion, whereas Lesson 2 is mostly correct but more compressed and potentially confusing by referring to calculating the trajectory's 'length' rather than the horizontal range."
+    },
+    "polish": {
+      "winner": "archer_v4",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 is also sparse and off-center after the title, but Lesson 2 has more persistent polish problems including raw unrendered LaTeX, very low-contrast/empty-looking answer boxes, a left-heavy layout with large unused space, and inconsistent visual elements."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v4",
+    "confidence": 0.57,
+    "explanation": "The six dimensions are evenly split 3-3, but confidence-weighted support slightly favors Lesson 1. Lesson 2 is stronger in visual accuracy, narration quality, and synchronization, with reasonably high confidence, especially for its better-aligned projectile visuals and timing. However, Lesson 1 wins interactivity, polish, and most importantly concept accuracy with the highest confidence score of all agents; it more explicitly and correctly develops the vertical equation, time solutions, and horizontal range reasoning. Given the near split but stronger weighted backing for Lesson 1 on core pedagogical correctness, Lesson 1 is the overall winner by a modest margin."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:40:54.655441+00:00"
+}

@@ -1,46 +1,46 @@
 {
-  "setupA": "archer_v7",
-  "setupB": "archer_v5",
+  "setupA": "archer_v5",
+  "setupB": "archer_v7",
   "subject": "archer",
   "lesson1Setup": "archer_v5",
   "lesson2Setup": "archer_v7",
   "dimensions": {
     "visual_accuracy": {
       "winner": "archer_v7",
-      "confidence": 0.78,
-      "rationale": "Lesson 2 more accurately places the projectile trajectory, axes, launch/landing points, component triangle, and flight-time equations in a coherent diagram, while Lesson 1\u2019s diagram is much smaller/cramped with less clear component placement and no clear range/landing emphasis despite being broadly conceptually correct."
+      "confidence": 0.84,
+      "rationale": "Lesson 2 more accurately places the projectile on clear x/y axes with a correct vector-component triangle and range marker, while Lesson 1\u2019s diagram has misleading/slanted ground and labels the vertical component on the y-axis rather than as a proper component of the launch vector."
     },
     "interactivity": {
-      "winner": "archer_v5",
-      "confidence": 0.58,
-      "rationale": "Both lessons include a real, wired fill-in gate that should render and accept input, but Lesson 1 is slightly better because its answer set is more tolerant with both rounded and more precise values, while Lesson 2 only accepts the exact rounded value and is therefore a bit less robust despite otherwise similar gate functionality."
+      "winner": "archer_v7",
+      "confidence": 0.62,
+      "rationale": "Both lessons include a real, wired fill-in gate with prompt, answer, hint, and feedback, but Lesson 2 places it more specifically after the decomposition act and adds a label, while Lesson 1\u2019s gate is attached to the broader introduction and its plan hint inconsistently asks for both components despite the actual gate only accepting the horizontal speed."
     },
     "narration_quality": {
       "winner": "archer_v7",
       "confidence": 0.63,
-      "rationale": "Lesson 2 has slightly smoother, more naturally paced narration with shorter explanatory chunks, while Lesson 1 is also clear but includes denser, longer lines that are a bit more likely to feel rushed or overloaded when spoken."
+      "rationale": "Lesson 2 has slightly smoother, more natural spoken phrasing and clearer math narration, while Lesson 1 is also defect-free but has a few more mildly awkward phrases like quoted 'shadow' and 't' and less polished wording such as 'v-naught-x'."
     },
     "sync": {
       "winner": "archer_v7",
-      "confidence": 0.86,
-      "rationale": "Lesson 2 generally places cues closer to the exact narrated references by breaking the explanation into shorter lines, while Lesson 1 often fires visuals noticeably early within long narration lines, especially trajectory, shadows, substitutions, and final range labels."
+      "confidence": 0.74,
+      "rationale": "Lesson 2 generally places visual changes closer to the words that introduce them, while Lesson 1 has several cues that fire noticeably early or late, such as drawing the full trajectory and vertical shadow before the narration actually references those visuals."
     },
     "concept_accuracy": {
       "winner": "archer_v7",
-      "confidence": 0.96,
-      "rationale": "Lesson 2 is more conceptually accurate pedagogically because it explicitly derives and numerically evaluates the vertical flight time and horizontal range step by step, while Lesson 1 is broadly correct but leaves key algebra and numerical substitutions implicit and even calls the range formula 'more accurate' rather than just an equivalent simplification."
+      "confidence": 0.95,
+      "rationale": "Lesson 2 is more conceptually accurate and pedagogically clear because it explicitly derives the vertical time equation, computes v0y, T, and R step by step, whereas Lesson 1 is mostly high-level narration that omits key algebra/numerical substitutions and relies on visualization actions to carry essential reasoning."
     },
     "polish": {
       "winner": "archer_v7",
-      "confidence": 0.92,
-      "rationale": "Lesson 2 is substantially more polished with a cleaner centered title screen, larger and more legible mid-lesson diagram/formula panels, and a balanced split layout, while Lesson 1\u2019s mid-lesson content is tiny, pushed into the lower-left with excessive empty space and low-contrast/awkwardly placed elements."
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is more polished overall with a larger, clearer diagram, more legible text, and a cleaner split-screen layout, while Lesson 1 leaves excessive empty space, keeps the main diagram cramped in the lower-left with tiny labels, and includes distracting player/control overlays."
     }
   },
   "aggregator": {
     "winner": "archer_v7",
-    "confidence": 0.91,
-    "explanation": "Lesson 2 is the clear overall winner, taking five of six dimensions and with higher-confidence wins in the most substantive areas. It was judged more visually accurate, better synchronized, more conceptually/pedagogically complete, more polished, and slightly stronger in narration. Lesson 1 only won interactivity, and that was a low-confidence, narrow advantage based on more tolerant accepted fill-in answers. Overall, the weighted verdict strongly favors Lesson 2."
+    "confidence": 0.86,
+    "explanation": "All six dimension agents prefer Lesson 2, with moderate-to-very-high confidence. Lesson 2 is judged more visually accurate, with clearer axes, vector components, and range marking; more interactive, with a better-placed fill-in gate; smoother in narration; better synchronized between narration and visuals; substantially stronger conceptually because it derives and computes the projectile-motion quantities step by step; and more polished in layout and readability. Since the verdicts are unanimous and several high-confidence agents, especially concept accuracy, strongly favor Lesson 2, the overall winner is clearly Lesson 2."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T15:48:13.738963+00:00"
+  "evaluatedAt": "2026-07-15T17:37:10.075765+00:00"
 }

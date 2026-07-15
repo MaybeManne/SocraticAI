@@ -2,45 +2,45 @@
   "setupA": "archer_v7",
   "setupB": "archer_veo3",
   "subject": "archer",
-  "lesson1Setup": "archer_v7",
-  "lesson2Setup": "archer_veo3",
+  "lesson1Setup": "archer_veo3",
+  "lesson2Setup": "archer_v7",
   "dimensions": {
     "visual_accuracy": {
       "winner": "archer_v7",
-      "confidence": 0.95,
-      "rationale": "Lesson 1 accurately shows the projectile launched from ground level with a 30\u00b0-style velocity decomposition, parabolic path, equal-height landing point, and correct flight-time equations, whereas Lesson 2 only provides a generic/stylized arc with nonsensical or unlabeled scale markings and no correct representation of the given velocity, angle, or range setup."
+      "confidence": 0.98,
+      "rationale": "Lesson 2 consistently shows a correct projectile trajectory, component decomposition, flight-time/range geometry, and final range labeling, while Lesson 1 has sustained conceptual/positional errors such as incorrect component values/labels, confusing vector triangles, nonsensical scales, and inconsistent timing/speed visuals."
     },
     "interactivity": {
       "winner": "archer_v7",
       "confidence": 0.99,
-      "rationale": "Lesson 1 includes a well-formed, wired fill-in gate after act_decomposition with a real prompt, expected answer, hint, and remediation path, while Lesson 2 has no available gate specs or plan and therefore no functioning checkpoints."
+      "rationale": "Lesson 2 has a concrete, wired fill-in gate after act_decomposition with a real prompt, answer, hint, and remediation path, while Lesson 1 provides no gate specs or plan at all, so it has no functioning interactivity."
     },
     "narration_quality": {
       "winner": "archer_v7",
       "confidence": 0.96,
-      "rationale": "Lesson 1 is clear, naturally paced, and speaks the math in listener-friendly language, while Lesson 2 contains garbled/unnatural phrases like \u201c1 9.8 every second,\u201d \u201c0 verts,\u201d and \u201cX2,\u201d plus awkward repetition that would make the audio feel defective."
+      "rationale": "Lesson 2 has clear, natural narration with spoken math rendered appropriately, while Lesson 1 contains multiple garbled or unnatural phrases such as \u201c1 9.8 every second,\u201d \u201c0 verts,\u201d and \u201cX2,\u201d which would be audible defects."
     },
     "sync": {
       "winner": "archer_v7",
-      "confidence": 0.73,
-      "rationale": "Lesson 1 provides mostly timed cues that generally align with the referenced narration despite several early/late moments, while Lesson 2 has no beat/timing data at all, making synchronization unverifiable and therefore weaker on this dimension."
+      "confidence": 0.86,
+      "rationale": "Lesson 2 provides visual cues that are mostly timed to the narrated references, while Lesson 1 has no beat/timing data at all, making its synchronization unverifiable and therefore weaker on this dimension."
     },
     "concept_accuracy": {
       "winner": "archer_v7",
       "confidence": 0.93,
-      "rationale": "Lesson 1 is mathematically correct and builds understanding through component decomposition, vertical time derivation, horizontal range calculation, and the general formula, while Lesson 2 is mostly correct but much more compressed and contains potentially confusing/garbled phrasing like \u201cGravity eats the upward speed, 1 9.8 every second\u201d and \u201cX2,\u201d making it less pedagogically clear."
+      "rationale": "Lesson 2 is mathematically correct and builds understanding through explicit assumptions, component decomposition, vertical-time derivation, and range calculation, while Lesson 1 reaches the right answer but is much terser, has potentially confusing transcript wording, and relies on unstated assumptions like no air resistance and equal launch/landing height."
     },
     "polish": {
       "winner": "archer_v7",
-      "confidence": 0.68,
-      "rationale": "Lesson 1 is more consistently laid out and readable with clean equation panels, while Lesson 2, despite a more visually striking title screen, has a mid-lesson frame with cluttered/duplicated numeric labels and awkward overlapping axis markings that make the presentation look less polished."
+      "confidence": 0.92,
+      "rationale": "Lesson 2 maintains a consistent, readable split-screen style with clean fonts and mostly well-aligned panels, whereas Lesson 1 has frequent polish defects including garbled/overlapping labels and equations, inconsistent visual styles, cluttered neon diagrams, and even off-screen/mostly empty framing near the end."
     }
   },
   "aggregator": {
     "winner": "archer_v7",
-    "confidence": 0.96,
-    "explanation": "All six dimension agents favor Lesson 1, with especially strong confidence in visual accuracy, interactivity, narration quality, and concept accuracy. Lesson 1 is described as mathematically correct, clearly narrated, visually aligned with the projectile-motion setup, and equipped with a functioning interactive checkpoint. Lesson 2 is repeatedly criticized for generic or inaccurate visuals, lack of interaction/timing data, garbled narration, confusing phrasing, and less polished layout. Although Lesson 1 has minor synchronization and polish issues, the verdicts are unanimous and mostly high-confidence, making Lesson 1 the clear overall winner."
+    "confidence": 0.97,
+    "explanation": "All six dimension agents strongly prefer Lesson 2, with high confidence across visual accuracy, interactivity, narration quality, synchronization, conceptual accuracy, and polish. Lesson 2 is described as mathematically correct, clearly narrated, visually coherent, better synchronized, and containing a functioning interactive gate. Lesson 1 has repeated issues including incorrect or confusing visuals, garbled narration, missing timing data, weaker conceptual framing, no functioning interactivity, and substantial polish defects. The verdict is unanimous and high-confidence, so Lesson 2 is the clear overall winner."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:17:29.048385+00:00"
+  "evaluatedAt": "2026-07-15T17:24:35.717907+00:00"
 }

@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v2",
+  "setupB": "archer_v6",
+  "subject": "archer",
+  "lesson1Setup": "archer_v6",
+  "lesson2Setup": "archer_v2",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v6",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 at least shows a correct projectile setup with axes, a 30\u00b0 launch vector, and an initially plausible parabolic trajectory/range markers, whereas Lesson 2 sustains a clearly incorrect giant triangular filled shape instead of a projectile path for most of the timeline."
+    },
+    "interactivity": {
+      "winner": "archer_v2",
+      "confidence": 0.9,
+      "rationale": "Lesson 2 has a well-formed, single fill-in gate wired after the decomposition act with clear accepted inputs and feedback/remediation, while Lesson 1\u2019s gate asks for two blanks but provides only one blank spec with an answer array, making it more likely to render or grade incorrectly."
+    },
+    "narration_quality": {
+      "winner": "archer_v2",
+      "confidence": 0.62,
+      "rationale": "Lesson 2\u2019s narration is slightly more natural and smoothly paced with clearer spoken math like \u201cv-naught-x,\u201d while Lesson 1 is also clear but a bit more terse and less conversational, making its delivery feel marginally less polished."
+    },
+    "sync": {
+      "winner": "archer_v6",
+      "confidence": 0.89,
+      "rationale": "Lesson 1 generally triggers visual changes exactly when the narration introduces them, while Lesson 2 has notable sync gaps such as discussing the kinematic equation and its time solutions with no corresponding cues, plus some highlights/range labels that appear before or after the referenced words."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v6",
+      "confidence": 0.82,
+      "rationale": "Lesson 1 is more conceptually complete because it explicitly decomposes and checks both velocity components and walks through using vertical motion to get time before applying constant horizontal motion, whereas Lesson 2 is mathematically correct but less pedagogically clear because its script omits explicit equations/calculation of the horizontal component and has a minor 141.3 vs 141.4 rounding inconsistency."
+    },
+    "polish": {
+      "winner": "archer_v2",
+      "confidence": 0.7,
+      "rationale": "Lesson 2 is more visually consistent and avoids raw unrendered LaTeX, while Lesson 1 has a major polish defect with literal LaTeX text appearing, very faint/low-contrast instructional boxes, and a tiny left-shifted diagram leaving excessive empty space."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v6",
+    "confidence": 0.65,
+    "explanation": "Lesson 1 wins overall by a modest but clear margin. The highest-confidence judgments favor Lesson 1: visual accuracy strongly prefers it because it shows a correct projectile setup rather than Lesson 2\u2019s incorrect triangular shape, sync strongly prefers it because its visuals align better with narration, and concept accuracy favors it for more complete component decomposition and projectile-motion reasoning. Lesson 2 does win interactivity with high confidence due to a better-formed fill-in gate, and it also edges out Lesson 1 in narration quality and polish, but those advantages are either lower-confidence or do not outweigh Lesson 1\u2019s stronger wins on core visual, synchronization, and conceptual correctness."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:39:53.100434+00:00"
+}

@@ -1,0 +1,46 @@
+{
+  "setupA": "binsearch_v1",
+  "setupB": "binsearch_v5",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_v1",
+  "lesson2Setup": "binsearch_v5",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_v1",
+      "confidence": 0.67,
+      "rationale": "Lesson 1 is largely incomplete/static but at least keeps the array and target positioned correctly, whereas Lesson 2 attempts the binary-search visualization but repeatedly shows wrong midpoint/highlight relationships and broken 'undefined' formulas, making the algorithm visually incorrect."
+    },
+    "interactivity": {
+      "winner": "binsearch_v1",
+      "confidence": 0.62,
+      "rationale": "Lesson 1 has a clean, fully wired quiz with a real question, plausible options, and a correct answer, while Lesson 2 is also functional but slightly less well-formed due to irrelevant ordering fields mixed into a quiz spec."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v1",
+      "confidence": 0.63,
+      "rationale": "Lesson 1 has smoother pacing with concepts broken into manageable narration beats, while Lesson 2 is also clear but uses longer, denser lines\u2014especially the opening and final recap\u2014that are more likely to feel rushed or overloaded in TTS."
+    },
+    "sync": {
+      "winner": "binsearch_v5",
+      "confidence": 0.9,
+      "rationale": "Lesson 2 generally times cues near the narrated references with only some early or unreferenced transitions, while Lesson 1 has many severe sync problems including non-time offsets like 'low'/'mid'/'5' and discard/pointer cues firing at the start of lines long before the narration mentions them."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v1",
+      "confidence": 0.83,
+      "rationale": "Lesson 1 is more conceptually accurate and pedagogically complete because it explicitly traces every mid calculation, comparison, boundary update, and derives n/2^k = 1 to k = log2(n), while Lesson 2 is mostly correct but less precise in the second comparison and complexity derivation and even has an inconsistency in the plan about linear search taking 7 versus 8 steps."
+    },
+    "polish": {
+      "winner": "binsearch_v1",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 is sparse and somewhat off-center with lots of empty space, but it remains legible and visually consistent, whereas Lesson 2 has repeated polish failures including clipped labels, overflowing/overlapping formula text, visible 'undefined' values, and crowded broken layouts."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v1",
+    "confidence": 0.78,
+    "explanation": "Lesson 1 is the clear overall winner, taking five of six dimensions. It is judged stronger in visual accuracy, interactivity, narration quality, concept accuracy, and polish, with especially high-confidence advantages in conceptual correctness and polish. Lesson 2 wins sync with high confidence, but that single strength is outweighed by repeated issues noted elsewhere, including incorrect or broken visual states, undefined formula text, layout problems, and less precise conceptual presentation. Overall, despite Lesson 1 having notable sync problems and being visually sparse, the weighted dimension verdicts favor Lesson 1 decisively."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:42:05.234918+00:00"
+}

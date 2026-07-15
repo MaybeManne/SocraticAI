@@ -1,46 +1,46 @@
 {
-  "setupA": "circles_v5",
-  "setupB": "circles_v4",
+  "setupA": "circles_v4",
+  "setupB": "circles_v5",
   "subject": "circles",
   "lesson1Setup": "circles_v5",
   "lesson2Setup": "circles_v4",
   "dimensions": {
     "visual_accuracy": {
-      "winner": "circles_v4",
-      "confidence": 0.9,
-      "rationale": "Lesson 2 more accurately depicts internally tangent nested circles with the intended alternating shaded ring highlighted between radii 1 and 2, while Lesson 1 draws the common-point geometry but incorrectly shades essentially the whole disk rather than only the specified alternating regions."
+      "winner": "circles_v5",
+      "confidence": 0.76,
+      "rationale": "Lesson 1 is visually more accurate overall because it consistently shows the nested tangent circles, correct area formulas, threshold graph, and final 64-circle conclusion, whereas Lesson 2 has long stretches with empty or duplicated panels, only reliably highlights the first shaded ring, and leaves much of the visual solution stuck or mispositioned despite a partially correct final circle count."
     },
     "interactivity": {
       "winner": "circles_v4",
-      "confidence": 0.72,
-      "rationale": "Lesson 2 has an equally well-formed quiz gate and wires its wrong path to an existing act, while Lesson 1\u2019s quiz is functional but references a nonexistent remediation act, making its interactivity slightly less robust."
+      "confidence": 0.78,
+      "rationale": "Both lessons include a real, wired multiple-choice quiz with a valid question and correct answer, but Lesson 2 is slightly better because its gate is cleanly connected after an existing act with a plausible existing remediation path, while Lesson 1\u2019s wrong-path act references a non-existent remediation node, making its interactivity wiring less reliable."
     },
     "narration_quality": {
       "winner": "circles_v5",
       "confidence": 0.86,
-      "rationale": "Lesson 1 has generally clear pacing and only minor awkward spoken math like \u201ctwo-k squared,\u201d while Lesson 2 has the same style of awkward math narration plus a major duplicated section after the checkpoint that makes the audio repetitive and poorly paced."
+      "rationale": "Lesson 1 is smoother and non-repetitive, while Lesson 2 has a major narration defect where the entire summing section is repeated after the checkpoint, making the pacing and flow noticeably worse despite otherwise clear speech."
     },
     "sync": {
-      "winner": "circles_v5",
-      "confidence": 0.78,
-      "rationale": "Lesson 1 is better synced overall because most cues occur at the start of lines that immediately introduce the relevant visual or near the referenced values, whereas Lesson 2 often fires formula, marker, shading, and final-answer cues noticeably before the narration actually mentions them, especially in the ring calculations and integer testing."
+      "winner": "circles_v4",
+      "confidence": 0.68,
+      "rationale": "Lesson 2 generally times visual changes more granularly to the narrated calculations and testing steps, while Lesson 1 often uses single broad cues at the start or middle of long lines, causing derivations, ring comparisons, graphing, and value tests to appear before or after the narration specifically references them."
     },
     "concept_accuracy": {
       "winner": "circles_v4",
-      "confidence": 0.78,
-      "rationale": "Lesson 2 is conceptually more accurate because it correctly treats the circles as nested and sharing a common point, while Lesson 1 repeatedly calls them concentric, which is geometrically impossible for different radii sharing a circumference point, even though its algebraic derivation is otherwise clear and correct."
+      "confidence": 0.83,
+      "rationale": "Lesson 2 is geometrically more accurate by describing tangent nested circles sharing a common point and still clearly deriving the area sum, while Lesson 1 repeatedly calls the circles concentric despite also saying they share a circumference point, an impossible setup that could confuse the underlying concept even though its algebra is correct."
     },
     "polish": {
       "winner": "circles_v5",
-      "confidence": 0.82,
-      "rationale": "Lesson 1 is cleaner and more legible with a centered title screen and structured mid-lesson layout, while Lesson 2 has prominent raw LaTeX in the main prompt, tiny/low-contrast labels, visible playback controls, and more off-center/cropped clutter in the mid-lesson frame."
+      "confidence": 0.93,
+      "rationale": "Lesson 1 is substantially more polished with a consistent, legible two-column layout and cleaner composition, while Lesson 2 has persistent player controls, raw LaTeX in the prompt, tiny labels/text, large empty off-center spaces, and awkward duplicated/cut-off panels."
     }
   },
   "aggregator": {
-    "winner": "tie",
-    "confidence": 0.52,
-    "explanation": "The six dimension verdicts are genuinely split 3-3, with nearly equal confidence-weighted support: Lesson 2 is favored for visual accuracy, interactivity, and conceptual accuracy, especially because it better represents the nested tangent-circle geometry and avoids Lesson 1\u2019s incorrect concentric wording and shading issue. Lesson 1 is favored for narration quality, synchronization, and polish, with stronger pacing, cleaner layout, and fewer timing and presentation problems than Lesson 2. Because the weighted confidence totals are effectively even and each lesson has significant strengths in important areas, there is no clear overall winner."
+    "winner": "circles_v5",
+    "confidence": 0.57,
+    "explanation": "The six dimensions are split 3-3, but the higher-confidence wins slightly favor Lesson 1 overall. Lesson 1 has stronger visual accuracy, narration quality, and especially polish, with the polish and narration verdicts carrying high confidence. Lesson 2 is favored for interactivity, sync, and concept accuracy, including an important conceptual issue in Lesson 1\u2019s description of the circle geometry, but its advantages are somewhat offset by major visual/presentation defects and repeated narration. Overall, Lesson 1 has the clearer weighted edge, though confidence is only moderate because Lesson 2 wins several substantive dimensions."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T22:15:04.861315+00:00"
+  "evaluatedAt": "2026-07-15T17:28:14.063798+00:00"
 }

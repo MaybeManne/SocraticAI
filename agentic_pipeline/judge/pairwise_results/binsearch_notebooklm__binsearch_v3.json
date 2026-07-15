@@ -1,46 +1,46 @@
 {
-  "setupA": "binsearch_v3",
-  "setupB": "binsearch_notebooklm",
+  "setupA": "binsearch_notebooklm",
+  "setupB": "binsearch_v3",
   "subject": "binsearch",
   "lesson1Setup": "binsearch_v3",
   "lesson2Setup": "binsearch_notebooklm",
   "dimensions": {
     "visual_accuracy": {
-      "winner": "binsearch_v3",
-      "confidence": 0.72,
-      "rationale": "Lesson 1 at least depicts the given target and sorted array structure for the actual binary-search problem, while Lesson 2 is mostly generic and its mid-lesson pointer table showing Low, Mid, and High all as value 45 is visually misleading and not a correct representation of the search state."
+      "winner": "binsearch_notebooklm",
+      "confidence": 0.92,
+      "rationale": "Lesson 2 at least presents recognizable binary-search pointer/halving diagrams and reaches the target value despite some array/label inconsistencies, while Lesson 1 is visually and algorithmically broken for much of the timeline with the array clipped, the target element not shown/highlighted, and formulas displaying undefined values instead of correct low/high/mid positions."
     },
     "interactivity": {
       "winner": "binsearch_v3",
       "confidence": 0.99,
-      "rationale": "Lesson 1 includes a well-formed quiz gate wired after act_search_trace with a real question, plausible options, and a marked correct answer, whereas Lesson 2 has no gate specs or plan available, so it provides no functioning checkpoint."
+      "rationale": "Lesson 1 includes a concrete, wired quiz gate after act_search_trace with a real question, plausible answer options, and a marked correct answer, whereas Lesson 2 has no available gate specs or plan and therefore provides no functioning interactivity."
     },
     "narration_quality": {
       "winner": "binsearch_v3",
       "confidence": 0.93,
-      "rationale": "Lesson 1 is clearer and more naturally paced with clean spoken math, while Lesson 2 is overly wordy and contains narration defects like saying \u201chaving your problem\u201d and \u201cwe have it again\u201d where \u201chalving\u201d is intended."
+      "rationale": "Lesson 1 is clear, well-paced, and free of read-aloud defects, while Lesson 2 contains garbled phrases like \u201cprinciple of having your problem\u201d and \u201cwe have it again,\u201d plus a more rambling conversational style that makes the narration less clean."
     },
     "sync": {
       "winner": "binsearch_v3",
       "confidence": 0.95,
-      "rationale": "Lesson 1 provides explicit visual cues that generally fire as the narration introduces the array, pointers, comparisons, eliminations, and final match, while Lesson 2 provides no beat/timing data or cue triggers at all, making its visuals impossible to verify for narration-sync and therefore worse on this dimension."
+      "rationale": "Lesson 1 provides visual cues that are generally aligned with the narration\u2019s references to targets, pointers, midpoints, comparisons, and discarded halves, while Lesson 2 has no beat/timing data or triggered visual cues at all, making its visual-narration synchronization unverified and substantially worse."
     },
     "concept_accuracy": {
       "winner": "binsearch_v3",
-      "confidence": 0.86,
-      "rationale": "Lesson 1 more accurately and pedagogically traces the exact indexed binary-search steps and explicitly concludes index 7, while Lesson 2 is broadly correct on halving and O(log n) but is less precise for this problem because it omits the target's index and relies on vague, hype-heavy narration rather than exact low/high/mid values."
+      "confidence": 0.82,
+      "rationale": "Lesson 1 is more conceptually complete and pedagogically precise because it traces the exact indices, pointer updates, final index 7, and halving argument, whereas Lesson 2 explains the general idea well but omits the requested final index and is less explicit about the index calculations despite being broadly correct."
     },
     "polish": {
       "winner": "binsearch_notebooklm",
-      "confidence": 0.95,
-      "rationale": "Lesson 2 is cleaner, centered, legible, and visually consistent, while Lesson 1\u2019s mid-frame has cut-off array elements, an off-balance split layout with large empty space, visible raw/buggy text like \u201cundefined + undefined,\u201d and overall less polished composition."
+      "confidence": 0.99,
+      "rationale": "Lesson 2 is consistently centered, legible, and visually cohesive, while Lesson 1 is badly off-center with large empty regions, cropped array elements, overlapping/cluttered panels, playback UI intrusion, and visible visual bugs like 'undefined' text."
     }
   },
   "aggregator": {
     "winner": "binsearch_v3",
-    "confidence": 0.93,
-    "explanation": "Lesson 1 is the clear overall winner: five of six agents favored it, all with high confidence, citing stronger visual accuracy, functioning interactivity, clearer narration, explicit narration-visual synchronization, and more precise concept accuracy for the binary-search example. Lesson 2 won only on polish, with high confidence, because it is visually cleaner and more consistent, while Lesson 1 has some layout and raw-text issues. However, the combined weight of the other dimensions strongly outweighs that polish advantage."
+    "confidence": 0.72,
+    "explanation": "Lesson 1 wins four of the six dimensions, with high-confidence advantages in interactivity, narration quality, synchronization, and conceptual accuracy. Its strongest edge is that it includes a functioning quiz gate, clear narration, generally aligned visual cues, and a more precise binary-search trace including index updates and the final result. Lesson 2 is strongly preferred for visual accuracy and polish, with recognizable diagrams and a cleaner, more centered presentation, while Lesson 1 has serious visual defects such as clipping, clutter, undefined text, and off-center layout. However, the combined high-confidence wins for Lesson 1 across pedagogy, narration, sync, and interactivity outweigh Lesson 2\u2019s visual/polish advantages, so Lesson 1 is the overall winner."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:19:26.801154+00:00"
+  "evaluatedAt": "2026-07-15T17:34:25.121615+00:00"
 }

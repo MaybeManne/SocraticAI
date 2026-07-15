@@ -7,40 +7,40 @@
   "dimensions": {
     "visual_accuracy": {
       "winner": "binsearch_mathgpt",
-      "confidence": 0.86,
-      "rationale": "Lesson 2\u2019s mid-lesson diagram correctly shows the binary-search state with indices 6\u201310 active and index 8/value 56 selected, whereas Lesson 1\u2019s mid frame is visually/algorithmically wrong with the array clipped, an irrelevant side prompt, and the formula displaying undefined bounds."
+      "confidence": 0.98,
+      "rationale": "Lesson 2 accurately shows the full indexed array, correct middle indices, discarded ranges, target at index 7, and halving complexity, whereas Lesson 1 is visually and conceptually broken for much of the timeline with the array truncated, no correct search progression, and invalid formula text like undefined mid values."
     },
     "interactivity": {
       "winner": "binsearch_v3",
       "confidence": 0.99,
-      "rationale": "Lesson 1 includes a well-formed quiz gate with a real question, plausible options, a marked correct answer, and wiring after act_search_trace, whereas Lesson 2 has no gate specs or plan JSON at all, so it provides no functioning interactivity."
+      "rationale": "Lesson 1 includes a well-formed quiz gate with a real question, plausible options, a marked correct answer, and wiring after act_search_trace, whereas Lesson 2 has no available gate specs or plan and therefore no functioning checkpoint."
     },
     "narration_quality": {
       "winner": "binsearch_v3",
       "confidence": 0.78,
-      "rationale": "Lesson 1 has clear, well-segmented narration with natural pacing and no read-aloud markup defects, while Lesson 2 is also understandable but presented as one dense uninterrupted paragraph with less evident pacing and phrasing structure."
+      "rationale": "Lesson 1 has clearer, more naturally paced narration broken into manageable beats with no read-aloud notation defects, while Lesson 2 is accurate but delivered as a dense continuous paragraph with more awkward phrasing and likely less effective pacing."
     },
     "sync": {
       "winner": "binsearch_v3",
-      "confidence": 0.9,
-      "rationale": "Lesson 1 provides visual cues that generally coincide with the narrated references to targets, pointers, midpoints, comparisons, and discarded ranges, while Lesson 2 provides no beat or cue timing data at all, making its visual-narration synchronization unverifiable and therefore weaker on this dimension."
+      "confidence": 0.93,
+      "rationale": "Lesson 1 provides explicit visual cues that are generally timed near the referenced narration despite a few early/rough offsets, while Lesson 2 has no beat/timing data or cue triggers at all, making its visual-narration synchronization unverifiable and effectively unsupported for this dimension."
     },
     "concept_accuracy": {
       "winner": "binsearch_v3",
-      "confidence": 0.72,
-      "rationale": "Lesson 1 is slightly better because it provides the full step-by-step trace plus an explicit n/2^k-to-log derivation and comparison to linear search, while Lesson 2 is accurate and clear but explains the logarithmic idea more informally and less completely."
+      "confidence": 0.7,
+      "rationale": "Lesson 1 gives a fuller pedagogical build-up with pointers, midpoint calculations, the exact four-step trace, and an explicit logarithmic derivation, while Lesson 2 is correct and clear but less formal and slightly glosses over the final single-element midpoint check and the algebraic reason for O(log n)."
     },
     "polish": {
       "winner": "binsearch_mathgpt",
-      "confidence": 0.72,
-      "rationale": "Lesson 2 has a much cleaner, more legible, and visually consistent mid-lesson layout, while Lesson 1\u2019s mid-frame is cluttered and visibly broken with clipped array elements and an 'undefined + undefined' formula, though Lesson 2 is penalized for its nearly empty title screen."
+      "confidence": 0.97,
+      "rationale": "Lesson 2 has consistently legible, clean, centered slide-style visuals, while Lesson 1 is frequently off-center and cropped, leaves half the frame empty, shows broken 'undefined' text, and has overlapping/cluttered elements in later frames."
     }
   },
   "aggregator": {
     "winner": "binsearch_v3",
-    "confidence": 0.78,
-    "explanation": "Lesson 1 is the clear overall winner by weighted dimensions: it wins four of six areas, including very high-confidence wins in interactivity and synchronization, plus narration quality and conceptual completeness. Lesson 2 is stronger visually and more polished in the mid-lesson layout, especially because Lesson 1 contains a broken/clipped mid-frame with undefined formula text. However, Lesson 2 lacks functioning interactivity and timing/cue data, and its narration/concept explanation is less structured and complete. Overall, Lesson 1\u2019s stronger instructional design, quiz integration, narration pacing, synchronization, and step-by-step conceptual treatment outweigh its visual defects."
+    "confidence": 0.64,
+    "explanation": "Lesson 1 wins four of the six dimensions, including very high-confidence wins for interactivity and synchronization, plus additional wins for narration quality and conceptual accuracy. Lesson 2 has very strong high-confidence advantages in visual accuracy and polish, with Lesson 1 described as visually broken or cluttered in places. However, the weighted balance of the dimension verdicts favors Lesson 1 overall because it provides a functioning quiz checkpoint, clearer pacing, explicit timing cues, and a fuller conceptual walkthrough. The result is not a tie because the votes are not genuinely split evenly, though confidence is moderated by Lesson 2's decisive visual and polish advantages."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-15T12:53:30.722900+00:00"
+  "evaluatedAt": "2026-07-15T17:34:48.818193+00:00"
 }

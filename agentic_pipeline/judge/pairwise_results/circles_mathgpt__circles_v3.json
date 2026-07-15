@@ -2,45 +2,45 @@
   "setupA": "circles_mathgpt",
   "setupB": "circles_v3",
   "subject": "circles",
-  "lesson1Setup": "circles_mathgpt",
-  "lesson2Setup": "circles_v3",
+  "lesson1Setup": "circles_v3",
+  "lesson2Setup": "circles_mathgpt",
   "dimensions": {
     "visual_accuracy": {
       "winner": "circles_mathgpt",
-      "confidence": 0.9,
-      "rationale": "Lesson 1 accurately visualizes the shaded gap areas with the correct annulus formula and examples, whereas Lesson 2\u2019s mid-lesson diagram is cropped and appears to shade the whole nested-circle region rather than alternating rings, with additional raw/incorrect LaTeX visible in the threshold statement."
+      "confidence": 0.92,
+      "rationale": "Lesson 2 consistently uses correct pairings, gap-area diagrams, summation, inequality, and final conversion to 64 circles, while Lesson 1\u2019s visuals are frequently offscreen/blank, uniformly shade or distort the nested-circle diagram rather than highlighting alternating rings, and introduce irrelevant or broken graphics."
     },
     "interactivity": {
       "winner": "circles_v3",
       "confidence": 0.99,
-      "rationale": "Lesson 2 has a functional quiz gate wired after act_summation with a real question, plausible options, and a marked correct answer, while Lesson 1 has no available gate specs or plan and therefore no evidence of any functioning checkpoint."
+      "rationale": "Lesson 1 includes a well-formed quiz gate wired after act_summation with a real question, plausible options, and a marked correct answer, whereas Lesson 2 has no gate specs or plan available and therefore no functioning checkpoints."
     },
     "narration_quality": {
       "winner": "circles_v3",
-      "confidence": 0.82,
-      "rationale": "Lesson 2 is generally clearer and more naturally paced with math mostly spoken in words, while Lesson 1 contains compact symbolic expressions like \u201c\u03c0x2k\u00b2-\u03c0x2k-1\u00b2\u201d and \u201c2023 \u00d7 \u03c0\u201d that would likely be read unnaturally or verbatim, though Lesson 2 still has some awkward phrasing such as \u201ctwo-k-minus-one.\u201d"
+      "confidence": 0.93,
+      "rationale": "Lesson 1 uses clear, naturally spoken math phrases with manageable pacing cues, while Lesson 2 contains raw symbolic notation like \u201c\u03c0x2k\u00b2-\u03c0x2k-1\u00b2\u201d and run-on phrasing that would be read awkwardly and ambiguously by TTS."
     },
     "sync": {
       "winner": "circles_v3",
-      "confidence": 0.86,
-      "rationale": "Lesson 2 has explicit visual cues that mostly track the narrated references in sequence, while Lesson 1 provides no beat or cue timing data at all, making its visuals impossible to verify for synchronization and therefore much weaker on this dimension."
+      "confidence": 0.82,
+      "rationale": "Lesson 1 provides explicit visual cues that mostly track the referenced narration, whereas Lesson 2 has no beat/timing data or triggered visual cues, so its synchronization cannot be verified and is effectively unsupported."
     },
     "concept_accuracy": {
       "winner": "circles_v3",
-      "confidence": 0.86,
-      "rationale": "Lesson 2 is mathematically correct and pedagogically builds from concrete shaded regions to the general formula and inequality, while Lesson 1 reaches the right answer but has ambiguous/malformed algebra notation around \\((2k)^2-(2k-1)^2\\) that could confuse learners."
+      "confidence": 0.91,
+      "rationale": "Lesson 1 is mathematically correct and builds understanding through concrete ring examples, a clear general formula, summation, and integer testing, while Lesson 2 reaches the right answer but has noticeably garbled/ambiguous algebraic notation such as the square-difference expression, making the concept explanation less reliable for a first-time learner."
     },
     "polish": {
       "winner": "circles_mathgpt",
-      "confidence": 0.99,
-      "rationale": "Lesson 1 is much more polished with large legible text, centered clean layouts, consistent styling, and readable equations, whereas Lesson 2 has raw unrendered LaTeX visible, tiny unreadable labels, and a mid-lesson diagram pushed into the upper-left with excessive empty space."
+      "confidence": 0.98,
+      "rationale": "Lesson 2 is far more polished with large legible typography, clean centered slide layouts, consistent colors and mostly uncluttered visuals, whereas Lesson 1 is severely off-center, often tiny or nearly invisible, includes raw LaTeX and broken/empty boxes, and has awkward cropped diagrams with excessive unused space."
     }
   },
   "aggregator": {
     "winner": "circles_v3",
-    "confidence": 0.68,
-    "explanation": "Lesson 2 wins four of six dimensions, with high-confidence advantages in interactivity, synchronization, concept accuracy, and narration quality. Its functional quiz gate, explicit cue sequencing, clearer pedagogical progression, and mostly correct mathematical development outweigh Lesson 1\u2019s strengths. Lesson 1 has strong high-confidence wins in visual accuracy and polish, especially due to cleaner layouts and fewer rendering issues, while Lesson 2 suffers from visible raw LaTeX and some poor diagram placement. However, the overall weighted evidence favors Lesson 2 because its instructional structure and learner interaction are substantially stronger despite presentation flaws."
+    "confidence": 0.69,
+    "explanation": "Lesson 1 wins four of six dimensions with high confidence: interactivity (0.99), narration quality (0.93), concept accuracy (0.91), and sync (0.82). These indicate it is more instructionally complete, mathematically reliable, better narrated, and includes a functioning quiz checkpoint. Lesson 2 strongly wins visual accuracy (0.92) and polish (0.98), with much cleaner layouts and more accurate diagrams, while Lesson 1 has significant visual execution problems. However, the weighted overall preference favors Lesson 1 because its strengths cover the core learning experience and outnumber Lesson 2\u2019s primarily presentation-focused advantages."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-15T12:54:18.848230+00:00"
+  "evaluatedAt": "2026-07-15T17:34:33.059630+00:00"
 }

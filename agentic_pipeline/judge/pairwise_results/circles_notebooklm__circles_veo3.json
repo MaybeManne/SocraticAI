@@ -1,46 +1,46 @@
 {
-  "setupA": "circles_veo3",
-  "setupB": "circles_notebooklm",
+  "setupA": "circles_notebooklm",
+  "setupB": "circles_veo3",
   "subject": "circles",
-  "lesson1Setup": "circles_veo3",
-  "lesson2Setup": "circles_notebooklm",
+  "lesson1Setup": "circles_notebooklm",
+  "lesson2Setup": "circles_veo3",
   "dimensions": {
     "visual_accuracy": {
       "winner": "circles_notebooklm",
-      "confidence": 0.92,
-      "rationale": "Lesson 2 at least shows the correct arithmetic-sum-to-area structure with (4k\u22121), multiplying by \u03c0, and total n(2n+1)\u03c0, whereas Lesson 1 is essentially blank at the title and its mid-frame formula/subtitles are malformed and visually fail to represent the intended computation clearly."
+      "confidence": 0.72,
+      "rationale": "Lesson 1 at least includes the correct ring-area model, arithmetic progression, and final n=32 despite lots of irrelevant filler, whereas Lesson 2 repeatedly misrepresents or garbles key visuals/formulas, including an unclear ring diagram and nonsensical algebra text."
     },
     "interactivity": {
       "winner": "tie",
-      "confidence": 1.0,
-      "rationale": "Both lessons have no available gate specs or plan JSON, so neither shows any functioning checkpoints or input-rendering interactivity."
+      "confidence": 0.99,
+      "rationale": "Both lessons have absent gate specs and absent plan JSON, so neither shows any functional checkpoints or input-accepting questions."
     },
     "narration_quality": {
       "winner": "circles_notebooklm",
-      "confidence": 0.86,
-      "rationale": "Lesson 2 is consistently clear and correctly spoken despite being verbose, while Lesson 1 has noticeable narration defects such as the garbled 'Thirth 2' and awkward '64 circles in total whole.'"
+      "confidence": 0.97,
+      "rationale": "Lesson 1 has clear, natural narration with correctly spoken math and no obvious garbling, while Lesson 2 contains noticeable narration defects such as \u201cThirth 2\u201d and \u201c64 circles in total whole,\u201d plus more clipped/awkward mathematical phrasing."
     },
     "sync": {
       "winner": "tie",
       "confidence": 0.9,
-      "rationale": "Both lessons are external transcripts without any beat or visual-cue timing data, so neither demonstrates better or worse alignment between narration references and on-screen changes."
+      "rationale": "Both lessons lack beat/timing visual cue data entirely, so neither demonstrates whether on-screen changes align with narration references, making them indistinguishable on sync."
     },
     "concept_accuracy": {
       "winner": "circles_notebooklm",
-      "confidence": 0.72,
-      "rationale": "Lesson 2 is more pedagogically effective because it carefully builds the k-th ring formula, summation, inequality, and final conversion from rings to circles, while Lesson 1 is mathematically correct but much more compressed and less supportive for a first-time learner, though Lesson 2 has a minor potentially confusing phrase about planting the compass at the shared point."
+      "confidence": 0.78,
+      "rationale": "Lesson 1 gives a much clearer conceptual progression from individual ring areas to the arithmetic sum and then explicitly distinguishes shaded rings from number of circles, while Lesson 2 is mathematically correct but very compressed and gives little pedagogical support for why 32 rings becomes 64 circles."
     },
     "polish": {
       "winner": "circles_notebooklm",
-      "confidence": 0.98,
-      "rationale": "Lesson 2 is much more polished with centered, legible titles, clean consistent notebook-style layouts and readable cards, whereas Lesson 1 opens on an empty screen and later shows a poorly composed frame with awkward/gibberish subtitle text despite a large formula."
+      "confidence": 0.88,
+      "rationale": "Lesson 1 maintains a consistent, legible notebook-style layout with centered diagrams despite occasional decorative clutter, while Lesson 2 has a blank opening frame and a visibly broken/garbled equation-and-caption frame that significantly undermines its polish."
     }
   },
   "aggregator": {
     "winner": "circles_notebooklm",
-    "confidence": 0.91,
-    "explanation": "Lesson 2 is the clear overall winner. Four high-confidence agents favored Lesson 2: visual accuracy, narration quality, concept accuracy, and polish. These judgments emphasized that Lesson 2 presents the arithmetic-area structure more clearly, has cleaner and more readable visuals, stronger narration, and a more supportive mathematical explanation. The two tie verdicts were for interactivity and sync, where neither lesson showed evidence of functioning checkpoints or timing alignment data. No dimension favored Lesson 1, so the tied dimensions do not outweigh Lesson 2's strong advantages."
+    "confidence": 0.86,
+    "explanation": "Lesson 1 is the clear overall winner: four dimensions favor it, including strong advantages in narration quality and polish, plus meaningful wins in visual accuracy and concept accuracy. Lesson 2 has notable garbling in visuals, equations, captions, and narration, while Lesson 1 more clearly presents the ring-area model, arithmetic progression, and conclusion. The two remaining dimensions, interactivity and sync, are ties because both lessons lack the relevant checkpoint and timing data, not because Lesson 2 is stronger. With no dimensions favoring Lesson 2, the weighted judgment clearly favors Lesson 1."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:24:44.173625+00:00"
+  "evaluatedAt": "2026-07-15T17:33:10.512081+00:00"
 }

@@ -1,0 +1,46 @@
+{
+  "setupA": "binsearch_v2",
+  "setupB": "binsearch_v3",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_v3",
+  "lesson2Setup": "binsearch_v2",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_v2",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 at least consistently renders the full sorted array with correct indices and target 45 at index 7, while Lesson 1 repeatedly clips off the target portion of the array, shows broken formulas with undefined values, and later displays misleading mini-diagrams that omit the sought element."
+    },
+    "interactivity": {
+      "winner": "binsearch_v2",
+      "confidence": 0.62,
+      "rationale": "Both lessons include a real, wired quiz gate with plausible options and a correct answer, but Lesson 2\u2019s gate spec is cleaner and less likely to confuse rendering, while Lesson 1 includes extraneous ordering fields like correctOrder and slots in a quiz gate."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v2",
+      "confidence": 0.68,
+      "rationale": "Lesson 2\u2019s narration is slightly more natural and polished, with clearer spoken phrasing like \u201cbase-two logarithm\u201d and \u201cbig-oh of log n,\u201d while Lesson 1 is also clear but has a few more awkward constructions such as \u201cO of log n complexity\u201d and denser explanations that feel less smoothly paced."
+    },
+    "sync": {
+      "winner": "binsearch_v3",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 generally staggers midpoints, comparisons, discards, and pointer moves near the narration that references them, while Lesson 2 often fires multiple related cues simultaneously at line start well before the words occur, especially in the first middle-check and discard steps."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v3",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is more conceptually accurate and pedagogically clear because it traces all pointer updates and the final mid=7 check more explicitly and reinforces integer mid calculation in the quiz, while Lesson 2 is slightly vaguer about floor/integer division for mid and skips explicitly deriving the final midpoint, which could confuse learners despite being mostly correct."
+    },
+    "polish": {
+      "winner": "binsearch_v2",
+      "confidence": 0.94,
+      "rationale": "Lesson 2 is consistently cleaner and more legible despite being left-heavy with some empty outline boxes, while Lesson 1 has severe polish issues including clipped array elements, raw/buggy 'undefined' formula text, overlapping panels, and cluttered late-frame layouts."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v2",
+    "confidence": 0.72,
+    "explanation": "Lesson 2 is the overall winner. Four of the six agents preferred Lesson 2, including high-confidence wins in visual accuracy and polish, where Lesson 1 had serious issues such as clipped array elements, broken undefined formula text, overlapping layouts, and cluttered diagrams. Lesson 2 was also favored for narration quality and interactivity, though with more moderate confidence. Lesson 1 did receive strong wins in sync and concept accuracy: its timing of visual cues better matched the narration, and it more explicitly traced pointer updates and midpoint calculation. However, these strengths do not outweigh Lesson 2\u2019s broader advantages in correctness of rendering, legibility, polish, and overall presentation quality."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:43:52.238938+00:00"
+}

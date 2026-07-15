@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v3",
+  "setupB": "archer_v4",
+  "subject": "archer",
+  "lesson1Setup": "archer_v3",
+  "lesson2Setup": "archer_v4",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v3",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 consistently shows a correctly positioned projectile diagram with axes, velocity components, flight time, and the 141.4 m range marked along the ground, whereas Lesson 2 keeps the key trajectory, formulas, and range annotation tiny and cramped in the upper-left with little clear positional correspondence to the teaching prompts."
+    },
+    "interactivity": {
+      "winner": "archer_v3",
+      "confidence": 0.62,
+      "rationale": "Lesson 1 has a clean, fully wired fill-in gate with a concrete prompt and accepted answer, while Lesson 2 also has a usable quiz gate but includes extraneous/mismatched ordering fields that make its spec slightly less clean and potentially more error-prone."
+    },
+    "narration_quality": {
+      "winner": "archer_v4",
+      "confidence": 0.93,
+      "rationale": "Lesson 2\u2019s narration is consistently clear, natural, and correctly paced, while Lesson 1 contains a confusing spoken defect in the range step\u2014\u201cAbout thirty-four point six meters per second for just over four seconds\u201d\u2014which states a speed instead of the final distance and makes the narration misleading."
+    },
+    "sync": {
+      "winner": "archer_v4",
+      "confidence": 0.82,
+      "rationale": "Lesson 2 generally triggers visual changes near the corresponding narration references, while Lesson 1 has several major sync gaps where narration explicitly refers to equations, trig identities, and computed results with no visual cue or cues that arrive noticeably too early."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v4",
+      "confidence": 0.88,
+      "rationale": "Lesson 2 is more conceptually accurate and pedagogically clear because it explicitly states the vertical position equation, explains setting y=0, factoring to get the nonzero flight time, and connects that time to horizontal range, whereas Lesson 1 is mostly correct but leaves key equations and algebra implicit and therefore gives learners less support for understanding why the 4.08 s and 141.4 m results follow."
+    },
+    "polish": {
+      "winner": "archer_v3",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 is much more polished with a larger, readable, consistently composed left-side diagram and clearer annotations, while Lesson 2 leaves the main visual tiny and cramped in the upper-left with massive empty space and mostly illegible labels throughout."
+    }
+  },
+  "aggregator": {
+    "winner": "tie",
+    "confidence": 0.56,
+    "explanation": "The six dimensions are genuinely split. Lesson 1 wins visual accuracy, interactivity, and polish, with especially high confidence on visual accuracy and polish due to its readable, well-composed projectile diagram and cleaner annotations. Lesson 2 wins narration quality, sync, and concept accuracy, also with high confidence, because its spoken explanation is clearer, its timing better matches the visuals, and it more explicitly explains the vertical equation, flight time, and range calculation. Confidence-weighted totals are nearly even, with Lesson 2 only slightly ahead, so there is no clear overall winner."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:41:21.296192+00:00"
+}

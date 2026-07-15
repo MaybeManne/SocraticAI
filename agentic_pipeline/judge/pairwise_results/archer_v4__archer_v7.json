@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v4",
+  "setupB": "archer_v7",
+  "subject": "archer",
+  "lesson1Setup": "archer_v7",
+  "lesson2Setup": "archer_v4",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 consistently shows a correctly scaled projectile path, axes, velocity decomposition, flight-time/range markers, and final range in the relevant locations, whereas Lesson 2 leaves the main canvas largely empty with a tiny, poorly positioned diagram and barely legible/insufficient visual elements for the math being taught."
+    },
+    "interactivity": {
+      "winner": "archer_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 has a cleaner, fully specified fill-in gate with prompt, expected answer, hint, success message, and matching wiring after the decomposition act, while Lesson 2 also has a functional quiz gate but its spec is somewhat muddied by irrelevant ordering fields and empty explanations."
+    },
+    "narration_quality": {
+      "winner": "archer_v4",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 has slightly more natural and conventional spoken math phrasing such as \u201cv-naught-x\u201d and a clearer verbalization of the height equation, while Lesson 1 is also clear but uses less natural variable narration like \u201cv-zero-x\u201d and is a bit more generic in pacing and phrasing."
+    },
+    "sync": {
+      "winner": "archer_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 has fewer clear timing mismatches, while Lesson 2 repeatedly fires visuals noticeably before they are mentioned, such as the full trajectory, y-axis shadow, equation display, and final range label."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 is both correct and much clearer because it explicitly shows the component formulas, vertical-time derivation, numerical substitutions, and range formula, whereas Lesson 2 is mostly accurate but relies on unspecified visualization actions and narration without presenting enough mathematical steps for a first-time learner."
+    },
+    "polish": {
+      "winner": "archer_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has a coherent split-screen layout with readable labels and consistent styling, while Lesson 2 is dominated by a tiny off-corner diagram, excessive empty space, illegible annotations, and persistent playback UI clutter."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v7",
+    "confidence": 0.93,
+    "explanation": "Lesson 1 is the clear overall winner, taking five of six dimensions with generally high confidence. It is especially stronger in visual accuracy and polish, with a readable, coherent layout and correctly placed projectile-motion visuals, while Lesson 2\u2019s main visuals are tiny, poorly positioned, and often insufficient. Lesson 1 also wins concept accuracy with clearer component formulas, vertical-time derivation, substitutions, and range calculation, plus better synchronization and a cleaner interactive gate. Lesson 2 only wins narration quality, where its spoken math phrasing is judged slightly more natural, but that single moderate-confidence advantage is outweighed by Lesson 1\u2019s broad and high-confidence strengths."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:42:43.748323+00:00"
+}

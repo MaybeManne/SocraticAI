@@ -1,0 +1,46 @@
+{
+  "setupA": "binsearch_v4",
+  "setupB": "binsearch_v7",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_v7",
+  "lesson2Setup": "binsearch_v4",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly depicts the array, indices, narrowing search range, target at index 7, and O(log n) halving, while Lesson 2 repeatedly shows an incomplete/clipped array, undefined low/high/mid values, inconsistent eliminations, and a misleading complexity graph."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 0.96,
+      "rationale": "Both lessons include a single well-formed quiz gate wired after an existing act, with a real binary-search question, plausible options, and a marked correct answer, so neither is meaningfully more interactive than the other."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v4",
+      "confidence": 0.74,
+      "rationale": "Lesson 2 has smoother, more evenly paced narration with spoken math phrased naturally, while Lesson 1 is also clear but becomes denser and more rushed in places, especially during the quick-succession steps and logarithm derivation."
+    },
+    "sync": {
+      "winner": "binsearch_v4",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 times most visual changes closely to the exact referenced words with granular cues, while Lesson 1 often uses coarse or early cues such as initializing pointers before they are mentioned, eliminating the half before the narration reaches elimination, and showing complexity/log derivation visuals before the relevant statements."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v4",
+      "confidence": 0.74,
+      "rationale": "Lesson 2 gives a clearer and more complete step-by-step trace of each mid comparison and boundary update, whereas Lesson 1\u2019s quick montage skips over the important second and third iterations even though Lesson 1 is slightly stronger on the algebraic log derivation."
+    },
+    "polish": {
+      "winner": "binsearch_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 is much more consistently composed and legible despite a few minor overlaps/raw notation, while Lesson 2 has persistent video-player UI overlays, clipped/off-center arrays, large empty areas, repeated 'undefined' calculation text, and serious overlapping elements."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v4",
+    "confidence": 0.57,
+    "explanation": "The verdicts are closely split. Lesson 1 wins very strongly on visual accuracy and polish, with high-confidence concerns that Lesson 2 has clipped arrays, undefined values, UI overlays, and composition problems. Interactivity is a high-confidence tie. However, Lesson 2 wins three substantive instructional dimensions\u2014narration quality, synchronization, and conceptual step-by-step explanation\u2014with moderate to high confidence, giving it a slight overall edge when aggregating the weighted preferences. Because Lesson 1\u2019s strengths are substantial, the overall confidence is only moderate-low."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:45:11.736796+00:00"
+}

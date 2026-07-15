@@ -2,45 +2,45 @@
   "setupA": "circles_v5",
   "setupB": "circles_veo3",
   "subject": "circles",
-  "lesson1Setup": "circles_veo3",
-  "lesson2Setup": "circles_v5",
+  "lesson1Setup": "circles_v5",
+  "lesson2Setup": "circles_veo3",
   "dimensions": {
     "visual_accuracy": {
       "winner": "circles_v5",
-      "confidence": 0.95,
-      "rationale": "Lesson 2 accurately presents the problem, derivation, and a plausible nested tangent-circle diagram with relevant formulas, whereas Lesson 1 is largely blank/garbled and does not visually represent the circle regions or the mathematical steps correctly."
+      "confidence": 0.86,
+      "rationale": "Lesson 1 at least consistently depicts nested tangent circles sharing a common point and aligns the formulas/graph with the solution, whereas Lesson 2 repeatedly shows incorrect concentric or unrelated ring visuals, gibberish formulas, and decorative scenes that do not accurately represent the given geometry."
     },
     "interactivity": {
       "winner": "circles_v5",
       "confidence": 0.99,
-      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_derivation with a real question, plausible options, and a marked correct answer, while Lesson 1 has no available gate specs or plan and therefore no functional checkpoints."
+      "rationale": "Lesson 1 includes a well-formed quiz gate wired after act_derivation with a real question, plausible options, and a marked correct answer, while Lesson 2 has no available gate specs or plan JSON, so it provides no functioning checkpoint."
     },
     "narration_quality": {
       "winner": "circles_v5",
-      "confidence": 0.9,
-      "rationale": "Lesson 2 is clearer and better paced with only mildly awkward spoken algebra like \u201ctwo-k,\u201d while Lesson 1 has noticeable narration defects including the garbled \u201cThirth 2,\u201d awkward formula phrasing, and the nonsensical ending \u201cin total whole.\u201d"
+      "confidence": 0.88,
+      "rationale": "Lesson 1 is generally clear and well-paced with only mildly awkward spoken math like \u201ctwo-k,\u201d while Lesson 2 contains obvious narration defects such as the garbled \u201cThirth 2\u201d and unnatural phrase \u201c64 circles in total whole,\u201d making it less polished and harder to follow."
     },
     "sync": {
       "winner": "circles_v5",
-      "confidence": 0.82,
-      "rationale": "Lesson 2 provides mostly well-timed cues that appear near the narration references, while Lesson 1 has no beat/timing data or visual cue information at all, making its sync unverified and effectively unsupported on this dimension."
+      "confidence": 0.86,
+      "rationale": "Lesson 1 provides timed visual cues that generally coincide with the narrated references despite some early/all-at-once reveals, whereas Lesson 2 provides no beat or cue timing data at all, making visual-narration synchronization unsupported and effectively worse on this dimension."
     },
     "concept_accuracy": {
-      "winner": "circles_veo3",
-      "confidence": 0.82,
-      "rationale": "Lesson 1 correctly describes the circles as nested and sharing a point and gives the right area/sum argument, while Lesson 2 is more scaffolded but repeatedly and incorrectly calls the circles concentric despite also saying they share a common point, an impossible geometric setup that could confuse the core concept."
+      "winner": "circles_v5",
+      "confidence": 0.7,
+      "rationale": "Lesson 1 gives a much clearer pedagogical build-up with explicit ring-area, summation, inequality, and final conversion steps, while Lesson 2 is mostly correct but more rushed and less explanatory; Lesson 1\u2019s main weakness is the inaccurate use of \u201cconcentric\u201d for circles sharing a common point, but this does not affect the area computation."
     },
     "polish": {
-      "winner": "circles_v5",
-      "confidence": 0.86,
-      "rationale": "Lesson 2 has a clean, centered title screen and a structured, legible mid-lesson layout, whereas Lesson 1 opens with an essentially blank screen and its mid-lesson subtitle is garbled despite the large centered equation."
+      "winner": "circles_veo3",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 is generally much more visually polished with large centered elements, cinematic consistency, and uncluttered layouts, whereas Lesson 1 is persistently crowded with tiny header text, clipped/offscreen panels, overlapping boxes, and raw-looking LaTeX fragments despite being more systematic."
     }
   },
   "aggregator": {
     "winner": "circles_v5",
-    "confidence": 0.88,
-    "explanation": "Lesson 2 is the clear overall winner, taking five of the six dimensions with generally high confidence: visual accuracy, interactivity, narration quality, sync, and polish. These wins are especially strong for interactivity and visual presentation, where Lesson 1 appears largely incomplete or garbled. The main reservation is concept accuracy, where Lesson 1 wins because Lesson 2 incorrectly describes the tangent/nested circles as concentric, which is a meaningful mathematical flaw. However, the broader evidence strongly favors Lesson 2 as the more complete, coherent, interactive, and polished lesson overall."
+    "confidence": 0.91,
+    "explanation": "Lesson 1 is the clear overall winner: five of six dimension agents prefer it, mostly with high confidence. It is substantially stronger in visual accuracy, interactivity, narration quality, synchronization, and conceptual accuracy, with especially decisive advantages in having accurate geometry representations, a functioning quiz checkpoint, coherent narration, timed cues, and a clearer mathematical derivation. Lesson 2 only wins polish, with moderate confidence, due to cleaner and more cinematic visual presentation, but that advantage is outweighed by its incorrect or unsupported visuals, missing interactivity/timing data, and narration issues."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:26:03.654604+00:00"
+  "evaluatedAt": "2026-07-15T17:37:32.282426+00:00"
 }

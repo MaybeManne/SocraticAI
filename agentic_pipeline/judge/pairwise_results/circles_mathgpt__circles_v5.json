@@ -6,41 +6,41 @@
   "lesson2Setup": "circles_mathgpt",
   "dimensions": {
     "visual_accuracy": {
-      "winner": "circles_mathgpt",
-      "confidence": 0.78,
-      "rationale": "Lesson 2\u2019s displayed formulas and k examples correctly represent the shaded gap areas, while Lesson 1\u2019s circle diagram misleadingly shades essentially the entire nested disk rather than only the alternating regions between radii (1,2), (3,4), etc."
+      "winner": "circles_v5",
+      "confidence": 0.74,
+      "rationale": "Lesson 1 at least consistently draws the nested tangent circles sharing a common point, while Lesson 2 mostly replaces the actual geometry with separate circles or concentric annuli that do not represent the common-point circle configuration, despite Lesson 1\u2019s sustained flaw of visually shading too much rather than only alternating gaps."
     },
     "interactivity": {
       "winner": "circles_v5",
       "confidence": 0.99,
-      "rationale": "Lesson 1 has a functional, well-formed quiz gate with a real question, options, correct answer, remediation path, and matching plan node after act_derivation, while Lesson 2 has no available gate specs or plan and therefore no demonstrable interactivity."
+      "rationale": "Lesson 1 includes a well-formed quiz gate wired after act_derivation with a real question, plausible options, and a marked correct answer, while Lesson 2 provides no gate specs or plan at all, so it has no functioning interactivity."
     },
     "narration_quality": {
       "winner": "circles_v5",
-      "confidence": 0.9,
-      "rationale": "Lesson 1 has generally clear, paced narration with only minor awkward spoken math like \u201ctwo-k,\u201d while Lesson 2 contains more raw symbolic/math notation such as \u201c\u03c0x2k\u00b2-\u03c0x2k-1\u00b2\u201d and cramped phrases that would be read unnaturally or ambiguously."
+      "confidence": 0.94,
+      "rationale": "Lesson 1 has some slightly awkward spoken math like \u201ctwo-k squared,\u201d but it is generally clear and paced, whereas Lesson 2 contains compact raw math strings such as \u201c\u03c0x2k\u00b2-\u03c0x2k-1\u00b2\u201d and \u201c\u03c0x4k-1\u201d that would be read unnaturally and ambiguously by TTS."
     },
     "sync": {
       "winner": "circles_v5",
-      "confidence": 0.78,
-      "rationale": "Lesson 1 provides visual cues that are mostly timed near the referenced narration despite some defects like an early graph cue and delayed area-calculation cue, while Lesson 2 provides no beat or cue timing data at all, making its visual-narration synchronization unverifiable and effectively worse on this dimension."
+      "confidence": 0.72,
+      "rationale": "Lesson 1 has timed cues that generally occur near the narrated references despite a few early/late derivation reveals, whereas Lesson 2 provides no beat or cue timing data at all, so it offers no evidence that visuals change in sync with the narration."
     },
     "concept_accuracy": {
       "winner": "circles_mathgpt",
-      "confidence": 0.72,
-      "rationale": "Lesson 2 more accurately preserves the original nested/common-point setup and still derives the correct arithmetic-series formula, while Lesson 1 is more polished pedagogically but incorrectly describes the circles as concentric while sharing a common circumference point, an impossible and potentially misleading geometric setup."
+      "confidence": 0.68,
+      "rationale": "Lesson 2 preserves the correct nested/common-point setup and reaches the right formula and answer, while Lesson 1 is more polished pedagogically but repeatedly misdescribes the geometry as concentric circles sharing a circumference point, which is impossible and conceptually misleading."
     },
     "polish": {
       "winner": "circles_mathgpt",
-      "confidence": 0.72,
-      "rationale": "Lesson 2 is cleaner and more legible with large centered formulas and consistent styling, whereas Lesson 1 is more cramped/cluttered and has polish issues like visible raw LaTeX-style dollar labels and a stray edge artifact."
+      "confidence": 0.74,
+      "rationale": "Lesson 2 is generally cleaner, more spacious, consistently styled, and highly legible, whereas Lesson 1 is more crowded with small text, clipped/scrolling equation panels, overlapping diagram cards, and repeated raw LaTeX-like labels, despite Lesson 2 also having some cursor/video UI and a visible LaTeX escape bug."
     }
   },
   "aggregator": {
     "winner": "circles_v5",
-    "confidence": 0.58,
-    "explanation": "The six dimensions split 3\u20133, but the higher-confidence votes favor Lesson 1 overall. Lesson 1 wins interactivity very strongly, with a functional quiz gate and remediation path, and also wins narration quality and synchronization with high confidence. Lesson 2 wins visual accuracy, conceptual accuracy, and polish, mainly because its formulas and layout better represent the intended geometry while Lesson 1 has a misleading circle setup and some clutter. Because Lesson 2\u2019s advantages are important but lower-confidence than Lesson 1\u2019s strongest wins, the overall judgment narrowly favors Lesson 1 rather than a tie."
+    "confidence": 0.73,
+    "explanation": "Lesson 1 is the clear overall winner by weighted dimension votes: it wins four of six dimensions, including very high-confidence wins for interactivity and narration quality, plus moderate-confidence wins for visual accuracy and synchronization. Lesson 2 is favored for concept accuracy and polish, but those wins have lower confidence and are outweighed by Lesson 1\u2019s stronger performance across implementation, pacing, narration, and functional quiz design. The main caveat is that Lesson 1 has conceptual/geometry wording issues, while Lesson 2 is cleaner and more mathematically correct in places, but overall the evidence favors Lesson 1."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-15T12:54:24.220789+00:00"
+  "evaluatedAt": "2026-07-15T17:36:38.805717+00:00"
 }

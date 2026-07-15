@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v1",
+  "setupB": "archer_v7",
+  "subject": "archer",
+  "lesson1Setup": "archer_v7",
+  "lesson2Setup": "archer_v1",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.87,
+      "rationale": "Lesson 1 consistently shows the correct projectile setup, component vectors at a plausible 30\u00b0 angle, flight path, landing point, and final range marker, whereas Lesson 2\u2019s launch vector/component diagram is visually too steep/misaligned for 30\u00b0 and later leaves sustained unrelated/faded quiz/formula artifacts that obscure the intended solution visuals."
+    },
+    "interactivity": {
+      "winner": "archer_v1",
+      "confidence": 0.62,
+      "rationale": "Both lessons include a real wired fill-in gate after act_decomposition, but Lesson 2 is slightly more functional as an interactive check because its prompt is more self-contained with supplied trig approximations and multiple accepted answer formats, while Lesson 1 relies on rounding to a single exact accepted string and has the same plan/spec mismatch about asking for both components versus only one."
+    },
+    "narration_quality": {
+      "winner": "archer_v1",
+      "confidence": 0.65,
+      "rationale": "Lesson 2 sounds slightly more natural and conversational with clearer spoken math like \u201cv-naught-x,\u201d while Lesson 1 is also clear but has somewhat more awkward phrasing such as \u201cv-zero-x\u201d and a less smooth explanatory flow."
+    },
+    "sync": {
+      "winner": "archer_v7",
+      "confidence": 0.88,
+      "rationale": "Lesson 1\u2019s cues generally appear when the narration introduces the corresponding vector, trajectory, equations, and focus shifts, whereas Lesson 2 has several poorly timed or missing visual changes, such as decomposing well before it is mentioned and referencing equations, substitutions, and numeric results without synchronized cues."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 is more conceptually accurate and pedagogically clear because it explicitly decomposes velocity, solves the vertical kinematics equation for flight time, computes the horizontal range, and derives the range formula, whereas Lesson 2 mostly asserts these steps without showing the equations/calculations and even ends with the misleading phrase that the motion splits into \u201ctwo simple linear motions\u201d despite vertical motion being accelerated."
+    },
+    "polish": {
+      "winner": "archer_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 maintains a more coherent, legible split-screen layout with consistent styling despite some cramped/cropped right-panel content, while Lesson 2 has visible player controls, raw backtick-style notation, excessive empty space, dim/faded elements lingering, and a less polished off-center composition."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v7",
+    "confidence": 0.88,
+    "explanation": "Lesson 1 is the clear overall winner: four of six agents favored it, and those wins were all high-confidence, especially for concept accuracy, synchronization, visual accuracy, and polish. Lesson 2 had modest advantages in interactivity and narration, but both were lower-confidence and relatively slight. The strongest factors favor Lesson 1 because it more accurately presents the projectile setup, better synchronizes visuals with narration, explicitly shows the kinematics reasoning, and maintains a cleaner, more coherent visual layout."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:39:18.555678+00:00"
+}

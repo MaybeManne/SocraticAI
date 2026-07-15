@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v2",
+  "setupB": "archer_v7",
+  "subject": "archer",
+  "lesson1Setup": "archer_v7",
+  "lesson2Setup": "archer_v2",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 consistently shows a conceptually correct projectile setup with axes, parabolic trajectory, launch angle/components, landing point, and range annotation, whereas Lesson 2 incorrectly represents the motion with a sustained large diagonal triangular/straight-line shape and lacks the actual parabolic projectile path for most of the lesson."
+    },
+    "interactivity": {
+      "winner": "archer_v2",
+      "confidence": 0.62,
+      "rationale": "Both lessons include a real, wired fill-in gate after the decomposition act, but Lesson 2 is slightly more robust because its accepted answers include both common numeric formats, while Lesson 1 is more brittle with only one accepted formatting and both have the same weakness of referencing a missing remediation act."
+    },
+    "narration_quality": {
+      "winner": "archer_v2",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has more natural, conversational phrasing and clearer spoken math terms like \"v-naught-x,\" while Lesson 1 is still clear but slightly less polished with phrases like \"v-zero-x\" and a more scripted cadence."
+    },
+    "sync": {
+      "winner": "archer_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 generally triggers visuals near the narrated references and includes cues for key equation/solving steps, while Lesson 2 has notable sync gaps where equations and time solutions are narrated with no visual cue and several cues fire well before the referenced idea is spoken."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 is more conceptually accurate and pedagogically clear because it explicitly derives velocity components, flight time from the vertical equation, horizontal range, and the range formula, while Lesson 2 is mostly correct but often asserts key equations and results without showing the math needed for a learner to understand them."
+    },
+    "polish": {
+      "winner": "archer_v7",
+      "confidence": 0.97,
+      "rationale": "Lesson 1 maintains a coherent, readable split layout with consistent styling and mostly legible formulas, whereas Lesson 2 is dominated by an off-center oversized black triangular graphic, lots of empty space, clipped labels, dim text, and persistent video controls that make the presentation look broken and unpolished."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v7",
+    "confidence": 0.88,
+    "explanation": "Lesson 1 is the clear overall winner. Four of six agents preferred Lesson 1, and those wins carried higher confidence: visual accuracy, concept accuracy, polish, and sync all favored Lesson 1, with especially strong confidence on the correctness and presentation of the projectile setup, parabolic trajectory, derivations, and coherent layout. Lesson 2 was preferred for interactivity and narration quality, but those advantages were lower-confidence and relatively modest, mainly involving answer-format robustness and slightly more natural phrasing. Overall, the higher-confidence judgments strongly favor Lesson 1 despite Lesson 2's smaller narration/interactivity strengths."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:40:17.815378+00:00"
+}

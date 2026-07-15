@@ -1,46 +1,46 @@
 {
-  "setupA": "circles_v3",
-  "setupB": "circles_notebooklm",
+  "setupA": "circles_notebooklm",
+  "setupB": "circles_v3",
   "subject": "circles",
-  "lesson1Setup": "circles_v3",
-  "lesson2Setup": "circles_notebooklm",
+  "lesson1Setup": "circles_notebooklm",
+  "lesson2Setup": "circles_v3",
   "dimensions": {
     "visual_accuracy": {
-      "winner": "circles_v3",
-      "confidence": 0.86,
-      "rationale": "Lesson 1 at least depicts nested concentric circles corresponding to the problem, whereas Lesson 2 uses unrelated overlapping-circle doodles and decorative flow graphics that do not accurately represent the alternating annular rings being summed."
+      "winner": "circles_notebooklm",
+      "confidence": 0.68,
+      "rationale": "Lesson 1 at least shows the ring-area formula, summation structure, and final 32/64 relationship with readable supporting diagrams, whereas Lesson 2\u2019s main circle visual largely appears as uniformly shaded/cropped nested disks and then becomes mostly empty or tiny unreadable elements with even a broken image near the end, making the taught geometry and highlighted shaded regions much less visually reliable."
     },
     "interactivity": {
       "winner": "circles_v3",
       "confidence": 0.99,
-      "rationale": "Lesson 1 includes a well-formed, wired quiz gate after act_summation with a real question, plausible options, and a marked correct answer, whereas Lesson 2 has no available gate specs or plan and therefore no functioning checkpoint."
+      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_summation with a real question, plausible options, and a correct answer, whereas Lesson 1 has no available gate specs or plan and therefore no functional checkpoint evidence."
     },
     "narration_quality": {
-      "winner": "circles_notebooklm",
-      "confidence": 0.72,
-      "rationale": "Lesson 2\u2019s narration is more natural and consistently spoken, while Lesson 1 has more awkward math phrasing such as \u201ctwo-k-minus-one,\u201d \u201ctwo-n circles,\u201d and tightly timed cue offsets that suggest rushed pacing around dense explanations."
+      "winner": "circles_v3",
+      "confidence": 0.67,
+      "rationale": "Lesson 2 is more concise and appropriately paced overall, while Lesson 1 is clear but much more verbose and slow for the content, with extended hype and filler that makes the narration feel less tightly paced despite having fewer awkward spoken-math phrases."
     },
     "sync": {
       "winner": "circles_v3",
       "confidence": 0.82,
-      "rationale": "Lesson 1 has several timing issues, especially compressed early cues, but it at least provides visual changes near the relevant narration, whereas Lesson 2 provides no beat/timing cues at all despite many references to slides, drawings, and formulas, making synchronization effectively unverifiable and often absent."
+      "rationale": "Lesson 2 provides timed visual cues that generally track the narrated references, while Lesson 1 has no beat/timing data or cue mapping despite many visual-dependent statements, making its synchronization impossible to verify and effectively much weaker on this dimension."
     },
     "concept_accuracy": {
-      "winner": "circles_notebooklm",
-      "confidence": 0.64,
-      "rationale": "Lesson 2 is mathematically correct while more explicitly explaining the geometric setup, the ring-to-sum pattern, and especially the common trap of confusing shaded rings with total circles, whereas Lesson 1 is also correct but more dependent on visual actions and uses slightly less clear wording like \u201cshaded pairs\u201d and \u201ctwo-k\u201d that could confuse a first-time learner."
+      "winner": "circles_v3",
+      "confidence": 0.68,
+      "rationale": "Lesson 2 presents the same correct algebra in a more structured learner-friendly sequence with a clear 2n-to-n relationship, while Lesson 1 is mathematically correct overall but has misleading setup language about planting the compass on the shared point and a slightly oversimplified final 'two-to-one' explanation."
     },
     "polish": {
       "winner": "circles_notebooklm",
-      "confidence": 0.98,
-      "rationale": "Lesson 2 is far more polished with large legible text, clean centered composition, consistent notebook-style visuals, and no obvious rendering bugs, whereas Lesson 1 has tiny unreadable labels, severe off-center layout with huge empty space, cluttered/awkward boxes, and raw unrendered LaTeX visible."
+      "confidence": 0.99,
+      "rationale": "Lesson 1 is visually polished with large legible text, centered compositions, consistent notebook styling, and no obvious rendering bugs, whereas Lesson 2 is frequently off-center with tiny unreadable diagrams, excessive empty space, visible player UI, raw LaTeX text, and even a broken image placeholder."
     }
   },
   "aggregator": {
     "winner": "circles_v3",
-    "confidence": 0.58,
-    "explanation": "The verdicts are somewhat close: Lesson 1 wins visual accuracy, interactivity, and sync with high confidence, while Lesson 2 wins narration quality, concept accuracy, and polish. Weighting by confidence gives Lesson 1 a modest edge, especially because its wins include very high-confidence judgments for interactivity and strong wins for visual accuracy and synchronization. Lesson 2 is more polished and has smoother narration, but its lack of a functioning checkpoint and missing timing/beat structure are significant drawbacks. Overall, Lesson 1 is the stronger lesson despite presentation issues."
+    "confidence": 0.68,
+    "explanation": "Lesson 2 wins four of the six dimensions, including a very high-confidence interactivity advantage and a strong synchronization advantage, plus moderate wins in narration quality and concept accuracy. Lesson 1 has important strengths in visual accuracy and especially polish, with Lesson 2 showing notable rendering and layout issues. However, the overall weighted evidence favors Lesson 2 because its instructional structure, functional quiz checkpoint, timing support, and clearer conceptual sequencing outweigh Lesson 1\u2019s superior visual presentation."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:23:44.009037+00:00"
+  "evaluatedAt": "2026-07-15T17:39:10.721929+00:00"
 }

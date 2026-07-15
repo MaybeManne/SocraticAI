@@ -1,0 +1,46 @@
+{
+  "setupA": "circles_v1",
+  "setupB": "circles_v6",
+  "subject": "circles",
+  "lesson1Setup": "circles_v6",
+  "lesson2Setup": "circles_v1",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v1",
+      "confidence": 0.82,
+      "rationale": "Lesson 2 at least consistently shows a nested common-point circle diagram with moving highlighted rings and reaches the relevant outer radius, while Lesson 1 mostly shows unshaded contour circles, lacks correct shaded-region highlighting, and eventually breaks into an empty/undefined display."
+    },
+    "interactivity": {
+      "winner": "circles_v6",
+      "confidence": 0.78,
+      "rationale": "Lesson 1\u2019s gate is fully wired with matching IDs/after_act and includes both a real question/prompt and accepted answer, while Lesson 2\u2019s gate is also mostly functional but is slightly weaker because its plan node lacks a direct question field and its wrong_path references a remediation act that does not exist."
+    },
+    "narration_quality": {
+      "winner": "circles_v1",
+      "confidence": 0.88,
+      "rationale": "Lesson 2 uses more natural spoken math and has no obvious raw markup defects, while Lesson 1 contains more symbolic/awkward phrasing like \u201ck -th,\u201d \u201ck=1,\u201d and especially the raw markdown \u201c*pairs*,\u201d which would likely be read aloud unnaturally."
+    },
+    "sync": {
+      "winner": "circles_v6",
+      "confidence": 0.74,
+      "rationale": "Lesson 1 generally stages visual changes near the narration that introduces them, while Lesson 2 has several clear early cues\u2014especially shading in the long setup, the boxed sum formula, n-value markers, and the final answer appearing before the narration reaches those points."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v6",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 is slightly better because it explicitly completes the key inequality check by stating both n=31 gives 1953\u03c0 and n=32 gives 2080\u03c0 before converting to 64 circles, whereas Lesson 2 is mathematically correct but its script skips the explicit n=32 computation in narration and relies more on visualization/actions, making the final minimality less clearly justified for a first-time learner."
+    },
+    "polish": {
+      "winner": "circles_v1",
+      "confidence": 0.67,
+      "rationale": "Lesson 2 is more visually developed and stylistically consistent with clearer use of color and panels, while Lesson 1 spends long stretches with mostly empty space, an off-left oversized diagram, raw LaTeX in the header, and a conspicuous broken 'Total shaded area: undefined' label near the end."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v1",
+    "confidence": 0.55,
+    "explanation": "The six dimensions are evenly split 3-3, but the higher-confidence wins slightly favor Lesson 2 overall. Lesson 2 wins visual accuracy, narration quality, and polish, with especially strong confidence in narration and visual presentation: it has a more consistent nested-circle diagram, more natural spoken math, and a more developed visual style. Lesson 1 wins interactivity, sync, and concept accuracy, with solid but slightly lower aggregate confidence: its interaction gate is better wired, its visuals are better timed to narration, and it more explicitly verifies the key inequality for minimality. Overall, Lesson 2 has a narrow weighted edge because its strongest advantages are judged with higher confidence, though the result is close."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:45:47.264684+00:00"
+}

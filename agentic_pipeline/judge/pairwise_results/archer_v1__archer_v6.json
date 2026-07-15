@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v1",
+  "setupB": "archer_v6",
+  "subject": "archer",
+  "lesson1Setup": "archer_v6",
+  "lesson2Setup": "archer_v1",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v1",
+      "confidence": 0.74,
+      "rationale": "Lesson 2 consistently shows the projectile path, launch/landing points, range marker, and final numerical range in the relevant places, whereas Lesson 1 loses the trajectory for much of the timeline and leaves mostly incomplete or stuck component visuals, even though Lesson 2\u2019s launch angle/components look somewhat too steep for 30\u00b0."
+    },
+    "interactivity": {
+      "winner": "archer_v1",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 has a well-formed, wired fill-in gate with a single clear input and acceptable answers, while Lesson 1 is wired but its prompt asks for two blanks despite providing only one fill-in blank object, making the interaction likely malformed or only partially functional."
+    },
+    "narration_quality": {
+      "winner": "archer_v1",
+      "confidence": 0.62,
+      "rationale": "Lesson 2 has slightly more natural, standard spoken math phrasing like \u201cv-naught-x\u201d and smoother explanatory sentences, while Lesson 1 is clear but a bit less polished with less standard terms like \u201cv-zero-x\u201d and slightly more abrupt phrasing."
+    },
+    "sync": {
+      "winner": "archer_v6",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 keeps most visual changes close to the narration that references them, while Lesson 2 has several clear sync problems, including missing cues for equation/value narration and cues like decomposeVector and projectShadowY firing well before the narration reaches the corresponding ideas."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v6",
+      "confidence": 0.76,
+      "rationale": "Lesson 1 is slightly stronger because it explicitly builds the actual component values, vertical time equation, time transfer, and range derivation, while Lesson 2 is conceptually correct overall but more hand-wavy about the kinematic equation and includes the potentially misleading phrase that the decomposition gives 'two simple linear motions' even though vertical motion is accelerated."
+    },
+    "polish": {
+      "winner": "archer_v1",
+      "confidence": 0.9,
+      "rationale": "Lesson 2 is more visually polished with a larger, more legible trajectory diagram, clearer color consistency, and better use of the split layout, whereas Lesson 1 is persistently under-composed with tiny/off-left visuals, excessive empty space, dim panels, and a serious raw unrendered LaTeX bug around t=60s."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v1",
+    "confidence": 0.72,
+    "explanation": "Lesson 2 wins four of six dimensions, including high-confidence advantages in interactivity and polish plus a solid visual-accuracy edge and a modest narration-quality edge. Lesson 1 has important high-confidence strengths in synchronization and conceptual rigor, especially with better-timed visual changes and a more explicit derivation. However, the overall weighted balance favors Lesson 2 because its interaction is better formed, its visuals are more complete and polished, and its narration is slightly smoother, despite its sync issues and slightly less precise conceptual framing."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:39:02.728331+00:00"
+}

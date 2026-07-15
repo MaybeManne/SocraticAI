@@ -6,41 +6,41 @@
   "lesson2Setup": "archer_v5",
   "dimensions": {
     "visual_accuracy": {
-      "winner": "archer_v5",
-      "confidence": 0.74,
-      "rationale": "Lesson 2 more accurately and explicitly depicts the projectile setup with the launch point, parabolic path, component labels v0cos\u03b8 and v0sin\u03b8, and the vertical-motion equation, while Lesson 1\u2019s smaller component diagram is less clear and its component arrows/labels are harder to read and less positionally informative."
+      "winner": "archer_v3",
+      "confidence": 0.93,
+      "rationale": "Lesson 1\u2019s projectile arc, launch angle, landing point, and range marker are positionally consistent with a 30\u00b0 same-height launch, while Lesson 2\u2019s trajectory is far too steep/high for 30\u00b0 and its component arrows/ground depiction are more misleading."
     },
     "interactivity": {
       "winner": "archer_v5",
-      "confidence": 0.62,
-      "rationale": "Both lessons include a well-formed fill-in gate wired after the introduction, but Lesson 2 is slightly better because its prompt is clearer and it accepts both rounded and plausible unrounded numeric input, whereas Lesson 1 is a bit stricter with only one accepted answer despite otherwise functioning similarly."
+      "confidence": 0.65,
+      "rationale": "Both lessons include a real, wired fill-in gate after the introduction, but Lesson 2 is slightly better because its gate is cleaner and accepts multiple plausible numeric inputs, while Lesson 1 is more rigid with only one accepted answer despite an approximate calculation."
     },
     "narration_quality": {
       "winner": "archer_v5",
-      "confidence": 0.88,
-      "rationale": "Lesson 2's narration is consistently natural, clear, and well-paced, while Lesson 1 contains an awkward/incorrect spoken line describing the range as \u201cthirty-four point six meters per second for just over four seconds,\u201d which is confusing and less polished."
+      "confidence": 0.94,
+      "rationale": "Lesson 2 has clearer, more natural pacing and phrasing throughout, while Lesson 1 includes an awkward/incorrect spoken result in the horizontal section ('thirty-four point six meters per second for just over four seconds') that sounds like a defect and creates confusion before the final answer."
     },
     "sync": {
       "winner": "archer_v5",
-      "confidence": 0.78,
-      "rationale": "Lesson 2 generally times cues closer to the narrated references and includes visual changes for key mentioned items like component labels and equations, while Lesson 1 has more missing or early cues, especially around trigonometry, equations, and final formula/range references."
+      "confidence": 0.84,
+      "rationale": "Lesson 2 generally times cues closer to the referenced narration, such as the vertical shadow, equation overlay, and trig identity, while Lesson 1 has several clear sync defects including early vertical-focus cues and missing cues when it says 'this kinematic equation,' discusses components, and references the trig identity."
     },
     "concept_accuracy": {
       "winner": "archer_v3",
-      "confidence": 0.78,
-      "rationale": "Lesson 1 is more conceptually complete because it explicitly connects vertical motion to a numerical flight time and then to the range, while Lesson 2 has good qualitative explanations but skips the actual numeric time calculation in the script and leaves more of the core computation implicit in visualization actions."
+      "confidence": 0.68,
+      "rationale": "Lesson 1 is slightly more conceptually accurate and pedagogically useful because it explicitly gives the computed vertical component and flight time before using them for range, whereas Lesson 2 explains the decomposition well but omits key numerical intermediate results in the script and overgeneralizes the range formula as applying to \u201cany projectile\u201d without clearly restating the same-height/no-air-resistance conditions."
     },
     "polish": {
-      "winner": "archer_v5",
-      "confidence": 0.82,
-      "rationale": "Lesson 2 is more polished overall because its mid-lesson diagram is larger, better composed, and supplemented by a clean formula box, whereas Lesson 1\u2019s mid-lesson visual is tiny, pushed into the lower-left with excessive empty space, and has barely legible labels."
+      "winner": "archer_v3",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 is cleaner and more visually consistent with fewer overlaps, while Lesson 2 has a more cluttered mixed-style diagram, tiny/clipped labels, and later formula boxes overlapping the graph and crowding the trajectory."
     }
   },
   "aggregator": {
-    "winner": "archer_v5",
-    "confidence": 0.84,
-    "explanation": "Lesson 2 is the clear overall winner, taking five of six dimensions with generally moderate-to-high confidence. It was judged stronger in visual accuracy, interactivity, narration quality, synchronization, and polish, with especially strong advantages in narration and polish. Lesson 1\u2019s main advantage is conceptual accuracy, where it more explicitly carries the numerical flight-time calculation through to range, but this single high-confidence win is outweighed by Lesson 2\u2019s broader and consistently better execution across the other dimensions."
+    "winner": "tie",
+    "confidence": 0.58,
+    "explanation": "The six dimensions are genuinely split 3-3, and confidence-weighting leaves the overall result nearly even. Lesson 1 has strong advantages in visual accuracy, plus modest advantages in concept accuracy and polish. Lesson 2 has strong advantages in narration quality and sync, plus a smaller interactivity edge. The weighted support is very close, with Lesson 2 only narrowly ahead by confidence totals, so there is no clear overall winner."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-10T20:39:37.606531+00:00"
+  "evaluatedAt": "2026-07-15T17:33:45.333600+00:00"
 }

@@ -1,0 +1,46 @@
+{
+  "setupA": "binsearch_v2",
+  "setupB": "binsearch_v6",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_v6",
+  "lesson2Setup": "binsearch_v2",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_v2",
+      "confidence": 0.96,
+      "rationale": "Lesson 2 accurately shows the full sorted array with correct values and indices including 45 at index 7, while Lesson 1 omits values/indices, appears to draw the wrong number of cells, and incorrectly highlights the far-right cell rather than the target position."
+    },
+    "interactivity": {
+      "winner": "binsearch_v6",
+      "confidence": 0.62,
+      "rationale": "Both lessons include a real, wired quiz gate with plausible options and a correct answer, but Lesson 1 is cleaner and fully consistent while Lesson 2 adds a wrong-path act reference that is not present in the plan, which could make incorrect-answer handling less functional."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v2",
+      "confidence": 0.68,
+      "rationale": "Lesson 2 has slightly more natural spoken phrasing for the math and comparisons, while Lesson 1 is clear overall but includes a more awkward phrase like \u201cn divided by two-to-the-k\u201d and relies more on compact wording that could sound less smooth."
+    },
+    "sync": {
+      "winner": "binsearch_v2",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 generally staggers visual cues to match when narration mentions targets, comparisons, discards, pointer moves, and complexity visuals, while Lesson 1 fires almost every multi-step search cue at offset 0, causing many visual changes to occur before the narration references them."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v2",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 teaches the concept more clearly by explicitly emphasizing the sorted prerequisite, mid-index calculation, pointer updates, and why halves can be discarded, while Lesson 1 is mostly correct but more compressed and less explicit about the mechanics, despite Lesson 2 having a minor plan inconsistency about linear search taking 7 versus 8 steps."
+    },
+    "polish": {
+      "winner": "binsearch_v2",
+      "confidence": 0.94,
+      "rationale": "Lesson 2 is much more polished with legible numbered array cells, consistent styling, and a cleaner layout, while Lesson 1 has empty/unlabeled boxes, off-screen arrows/markers, large blank periods, and a poorly centered diagram pushed into the left side."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v2",
+    "confidence": 0.92,
+    "explanation": "Lesson 2 is the clear overall winner: it wins five of six dimensions, including very high-confidence wins in visual accuracy, sync, and polish. The strongest factors are that Lesson 2 shows the sorted array correctly with labels and indices, times visual changes to the narration much better, and has a more polished, legible layout. It also wins narration quality and concept accuracy with moderate confidence by explaining the sorted prerequisite, midpoint logic, pointer updates, and halving process more clearly. Lesson 1 only wins interactivity, and that win is lower confidence, based mainly on Lesson 2 having a minor wrong-path reference issue. Overall, the weighted evidence strongly favors Lesson 2."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:43:31.966668+00:00"
+}

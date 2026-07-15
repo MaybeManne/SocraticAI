@@ -2,45 +2,45 @@
   "setupA": "binsearch_mathgpt",
   "setupB": "binsearch_v7",
   "subject": "binsearch",
-  "lesson1Setup": "binsearch_v7",
-  "lesson2Setup": "binsearch_mathgpt",
+  "lesson1Setup": "binsearch_mathgpt",
+  "lesson2Setup": "binsearch_v7",
   "dimensions": {
     "visual_accuracy": {
-      "winner": "binsearch_v7",
-      "confidence": 0.72,
-      "rationale": "Lesson 1 correctly presents the problem and visually highlights the target 45 at index 7, while Lesson 2's mid-step is mostly accurate for testing index 8 but its title screen is essentially blank and fails to represent the given task at all."
+      "winner": "binsearch_mathgpt",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 accurately shows the binary search states, highlighted indices, discarded halves, found target, and O(log n) shrinkage, while Lesson 2 skips/misplaces key middle checks after the first comparison, prematurely highlights index 7, has overlapping low/high/mid markers, and even displays an unrelated target-40 prompt during the complexity section."
     },
     "interactivity": {
       "winner": "binsearch_v7",
       "confidence": 0.99,
-      "rationale": "Lesson 1 includes a well-formed quiz gate wired after act_found with a real question, options, and correct answer, while Lesson 2 provides no gate specs or plan at all, so it has no functioning interactivity."
+      "rationale": "Lesson 2 has a well-formed, wired quiz gate after act_found with a real question, plausible options, and a marked correct answer, while Lesson 1 provides no gate specs or plan at all, so its interactivity is absent."
     },
     "narration_quality": {
       "winner": "binsearch_v7",
-      "confidence": 0.76,
-      "rationale": "Lesson 1 has clearer, more naturally paced narration with beat-separated explanations and no read-aloud notation defects, while Lesson 2 is understandable but more like a dense continuous script with less controlled pacing and flatter phrasing."
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has more natural, well-segmented narration with spoken math rendered clearly, while Lesson 1 is clear but denser and more repetitive, with less apparent pacing structure and slightly clunkier phrases like \u201cBig O of Log N.\u201d"
     },
     "sync": {
       "winner": "binsearch_v7",
-      "confidence": 0.76,
-      "rationale": "Lesson 1 provides timed visual cues that are mostly aligned with the narrated references despite a few early cues, while Lesson 2 has no beat/timing data or cue triggers at all, making its visual-narration synchronization impossible to verify and therefore weaker on this dimension."
+      "confidence": 0.66,
+      "rationale": "Lesson 2 provides mostly timed visual cues near the narrated references despite a few early cues, while Lesson 1 has no beat/timing cue data at all, so its many described visual changes cannot be verified as synchronized and are effectively unsupported on this dimension."
     },
     "concept_accuracy": {
       "winner": "binsearch_mathgpt",
-      "confidence": 0.82,
-      "rationale": "Lesson 2 gives a fully explicit and correct step-by-step trace with a clear intuitive logarithmic explanation, while Lesson 1 has a plan/script inconsistency and an incorrect claim in the lesson plan that linear search would take 7 rather than 8 checks, and it relies on a fast visualization rather than narrating the intermediate binary-search steps clearly."
+      "confidence": 0.78,
+      "rationale": "Lesson 1 gives a fully accurate, explicit trace of every binary-search comparison and the halving idea, while Lesson 2 is mostly correct but is less transparent about the middle steps and contains an accuracy inconsistency by saying in the plan that linear search would take 7 steps even though the correct comparison count is 8."
     },
     "polish": {
-      "winner": "binsearch_v7",
-      "confidence": 0.92,
-      "rationale": "Lesson 1 has a complete, centered, legible title screen and a coherent dark themed layout despite some mid-frame crowding/label overlap, whereas Lesson 2 opens as an almost blank white screen with only a logo and visible player controls and later includes excessive empty space and a cursor artifact."
+      "winner": "binsearch_mathgpt",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 is generally cleaner, larger, and more visually polished despite a few offscreen/empty-space moments, while Lesson 2 has smaller cramped text, visible raw backticks/formatting artifacts, overlapping labels, and a more cluttered off-center split layout."
     }
   },
   "aggregator": {
-    "winner": "binsearch_v7",
-    "confidence": 0.83,
-    "explanation": "Lesson 1 is the clear overall winner, taking 5 of 6 dimensions, including very high-confidence wins in interactivity and polish and solid wins in visual accuracy, narration quality, and synchronization. Lesson 2 wins concept accuracy with fairly high confidence because it gives a more explicit and correct binary-search trace, while Lesson 1 has a noted inconsistency and less clearly narrated intermediate steps. However, Lesson 2's lack of functional interactivity, missing timing/cue structure, weak opening visuals, and less polished presentation outweigh its conceptual advantage. Overall, the confidence-weighted verdict favors Lesson 1 decisively."
+    "winner": "binsearch_mathgpt",
+    "confidence": 0.6,
+    "explanation": "The dimension votes are split 3-3, but Lesson 1 has the stronger weighted case overall. It wins visual_accuracy and polish with very high confidence and concept_accuracy with solid confidence, indicating a cleaner, more accurate binary search trace and better visual execution. Lesson 2 clearly wins interactivity and also has advantages in narration and sync, but its visual and conceptual issues are significant. Given the slightly higher confidence-weighted support for Lesson 1, especially on accuracy-related dimensions, Lesson 1 is the overall winner."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-15T12:53:30.614872+00:00"
+  "evaluatedAt": "2026-07-15T17:24:44.508148+00:00"
 }

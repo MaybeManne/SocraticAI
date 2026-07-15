@@ -7,40 +7,40 @@
   "dimensions": {
     "visual_accuracy": {
       "winner": "circles_v5",
-      "confidence": 0.78,
-      "rationale": "Lesson 1 at least depicts the nested tangent circles sharing a common point and places the area derivation alongside them, while Lesson 2 shows a largely clipped set of faint outlines with no shaded annular regions or clear pairwise ring representation, making the visual much less accurate to the problem."
+      "confidence": 0.95,
+      "rationale": "Lesson 1 at least consistently shows nested tangent circles sharing a common point and correct formulas/threshold for the solution, whereas Lesson 2 is mostly empty or offscreen, never accurately shades the specified alternating regions, and even displays 'Total shaded area: undefined' near the end."
     },
     "interactivity": {
       "winner": "circles_v5",
-      "confidence": 0.75,
-      "rationale": "Lesson 1 has a fully valid, well-formed quiz gate wired after an existing act with clear options and a marked correct answer, while Lesson 2\u2019s fill-in gate is conceptually interactive but its question/prompt string appears malformed with the placeholder embedded in a way that could prevent proper rendering."
+      "confidence": 0.78,
+      "rationale": "Lesson 1 has a clearly valid, well-wired multiple-choice quiz with real options and a marked correct answer, while Lesson 2\u2019s fill-in gate is conceptually interactive but its question/prompt formatting appears malformed around the blank, making it less reliably functional."
     },
     "narration_quality": {
       "winner": "circles_v5",
       "confidence": 0.86,
-      "rationale": "Lesson 1 is generally smoother and more naturally spoken despite some awkward math phrasing like \u201ctwo-k squared,\u201d while Lesson 2 contains more TTS-unfriendly raw notation and symbols, including spaced formulas and literal asterisks around \u201cpairs,\u201d making the narration more defective."
+      "rationale": "Lesson 1 is mostly smooth spoken prose with only mildly awkward math phrasing like \u201ctwo-k squared,\u201d whereas Lesson 2 repeatedly includes notation-like narration such as \u201ck=1,\u201d \u201cf(n) =,\u201d parentheses, and literal asterisks around \u201cpairs,\u201d making the audio more likely to sound raw and unnatural."
     },
     "sync": {
       "winner": "circles_v6",
-      "confidence": 0.82,
-      "rationale": "Lesson 2 generally times visual changes progressively with the exact referenced steps, while Lesson 1 often fires broad cues too early or late, such as showing ring-area calculations after the first result is stated and revealing the final answer before the narration reaches the final answer."
+      "confidence": 0.9,
+      "rationale": "Lesson 2 times most visual changes granularly to the exact concepts being introduced, while Lesson 1 often uses single broad cues at line starts or delayed offsets that cover multiple narrated references too early or too late, such as the area derivation, pattern, summation, and shading steps."
     },
     "concept_accuracy": {
       "winner": "circles_v6",
-      "confidence": 0.72,
-      "rationale": "Lesson 2 is more conceptually accurate because it preserves the intended non-concentric nested/common-point geometry, while Lesson 1 repeatedly calls the circles concentric despite different-radius concentric circles being unable to share a common point, even though Lesson 1's algebraic derivation is somewhat clearer."
+      "confidence": 0.86,
+      "rationale": "Lesson 2 is conceptually cleaner because it preserves the intended geometry of nested tangent circles sharing a point while correctly deriving and applying the area formula, whereas Lesson 1 repeatedly describes the circles as concentric despite also sharing a common circumference point, which is geometrically impossible and could confuse learners even though its algebra is correct."
     },
     "polish": {
       "winner": "circles_v5",
-      "confidence": 0.96,
-      "rationale": "Lesson 1 is much cleaner and more legible with a composed diagram/formula layout, while Lesson 2 has visible raw LaTeX, player controls, a badly off-center/cropped circle diagram, and excessive empty space."
+      "confidence": 0.98,
+      "rationale": "Lesson 1 is far more polished with readable, consistently styled equations and a coherent two-column layout, whereas Lesson 2 has raw LaTeX in the title, persistent playback UI overlays, long mostly empty screens, an off-center/cropped barely legible circle graphic, faint text, and a visible 'undefined' bug."
     }
   },
   "aggregator": {
     "winner": "circles_v5",
-    "confidence": 0.69,
-    "explanation": "Lesson 1 wins four of six dimensions with strong weighted support: visual accuracy, interactivity, narration quality, and especially polish. Lesson 2 is favored on sync and concept accuracy, including an important concern that Lesson 1 mislabels the geometry as concentric, but those two advantages are outweighed by Lesson 1\u2019s clearer visuals, cleaner presentation, better narration, and more reliable interactive element. Overall the votes are not genuinely split, so Lesson 1 is the clear winner despite notable conceptual and timing weaknesses."
+    "confidence": 0.78,
+    "explanation": "Lesson 1 wins four of the six dimensions, with especially high-confidence advantages in visual accuracy and polish: it consistently shows the nested tangent-circle setup, presents readable equations, and avoids the severe display bugs, empty/offscreen visuals, raw LaTeX, overlays, and 'undefined' output seen in Lesson 2. It also has stronger narration and more reliable interactivity. Lesson 2 does have meaningful strengths in sync and concept accuracy, particularly avoiding Lesson 1's confusing 'concentric' wording and timing its visuals more granularly, but these two advantages are outweighed by Lesson 1's much stronger execution and presentation across the remaining dimensions."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T22:36:47.346956+00:00"
+  "evaluatedAt": "2026-07-15T17:34:39.480566+00:00"
 }

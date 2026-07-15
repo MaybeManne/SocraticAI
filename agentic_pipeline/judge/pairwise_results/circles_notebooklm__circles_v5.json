@@ -1,46 +1,46 @@
 {
-  "setupA": "circles_v5",
-  "setupB": "circles_notebooklm",
+  "setupA": "circles_notebooklm",
+  "setupB": "circles_v5",
   "subject": "circles",
-  "lesson1Setup": "circles_v5",
-  "lesson2Setup": "circles_notebooklm",
+  "lesson1Setup": "circles_notebooklm",
+  "lesson2Setup": "circles_v5",
   "dimensions": {
     "visual_accuracy": {
       "winner": "circles_v5",
-      "confidence": 0.86,
-      "rationale": "Lesson 1 correctly depicts the nested circles sharing a common point and places the derivation beside that geometry, though it over-shades the whole disk instead of only alternating annular regions, whereas Lesson 2 uses largely decorative overlapping-circle graphics that do not match the required common-point/nested-circle configuration at all."
+      "confidence": 0.93,
+      "rationale": "Lesson 2 consistently shows the nested circles sharing a common point and aligns the graph/answer with the solution, while Lesson 1 repeatedly uses misleading concentric annuli, generic unrelated stock diagrams, and inconsistent ring visuals that do not accurately represent the shaded regions of the problem."
     },
     "interactivity": {
       "winner": "circles_v5",
       "confidence": 0.99,
-      "rationale": "Lesson 1 includes a well-formed, wired quiz gate after act_derivation with a real question, plausible options, and a marked correct answer, whereas Lesson 2 has no available gate specs or plan and therefore no functioning interactivity."
+      "rationale": "Lesson 2 includes a well-formed quiz gate wired after act_derivation with a real question, plausible options, and a correct answer, whereas Lesson 1 has no available gate specs or plan JSON and therefore no functioning checkpoints."
     },
     "narration_quality": {
-      "winner": "circles_notebooklm",
-      "confidence": 0.72,
-      "rationale": "Lesson 2\u2019s narration is more natural and consistently speaks the math clearly, while Lesson 1 has several awkward/ambiguous formula readings like \u201ctwo-k squared,\u201d \u201cfour-k-squared,\u201d and \u201ctwo-n-squared plus n\u201d that could confuse listeners even though it is more concise."
+      "winner": "circles_v5",
+      "confidence": 0.75,
+      "rationale": "Lesson 2 is clearer and more appropriately paced with concise spoken math, while Lesson 1 is substantially more verbose and meandering, making the narration feel slower and less focused despite being generally free of raw-LaTeX defects."
     },
     "sync": {
       "winner": "circles_v5",
-      "confidence": 0.78,
-      "rationale": "Lesson 1 at least times most major visual changes near the narration that references them, despite some early or overly broad cues, whereas Lesson 2 provides no beat/timing cues at all despite frequent references to slides, steps, and visuals, making its on-screen synchronization unsupported."
+      "confidence": 0.93,
+      "rationale": "Lesson 2 provides mostly well-timed visual cues that align with the narrated references, whereas Lesson 1 has no beat/timing cues at all despite many visual references, making its on-screen synchronization absent or unverifiable."
     },
     "concept_accuracy": {
       "winner": "circles_notebooklm",
-      "confidence": 0.76,
-      "rationale": "Lesson 2 is more conceptually faithful to the non-concentric, internally tangent nested-circle geometry and clearly emphasizes the rings-to-circles distinction, while Lesson 1 incorrectly calls the circles concentric despite sharing a circumference point, an impossible setup that could mislead learners even though its area algebra is correct."
+      "confidence": 0.74,
+      "rationale": "Lesson 1 is more conceptually faithful to the original non-concentric, common-point nested-circle geometry and clearly walks through the shaded-ring-to-circle-count distinction, while Lesson 2\u2019s repeated claim that the circles are \u201cconcentric\u201d yet share a common point on their circumference is geometrically impossible and risks misleading learners despite having the same correct algebraic solution."
     },
     "polish": {
       "winner": "circles_notebooklm",
-      "confidence": 0.88,
-      "rationale": "Lesson 2 has a cleaner, more legible, consistently styled notebook layout with well-sized text and centered compositions, while Lesson 1 is denser, less balanced, has overlapping/competing elements, and shows raw LaTeX-style dollar-sign labels in the mid-lesson frame."
+      "confidence": 0.93,
+      "rationale": "Lesson 1 maintains a more polished, legible, centered notebook-style presentation throughout, while Lesson 2 has dense tiny top text, off-center/cropped diagrams, overlapping panels, clipped scrolling content, and visible raw LaTeX-style labels like ($A_k$) and ($S_n$)."
     }
   },
   "aggregator": {
     "winner": "circles_v5",
-    "confidence": 0.58,
-    "explanation": "The six dimensions are split 3\u20133, but the confidence-weighted balance slightly favors Lesson 1. Lesson 1 wins strongly on interactivity, visual accuracy, and synchronization: it has a functioning quiz gate, better-matched geometry, and actual timing cues. Lesson 2 wins narration, conceptual accuracy, and polish, with especially strong polish and a clearer treatment of the non-concentric tangent-circle concept. However, Lesson 2\u2019s lack of interactivity and timing support, plus inaccurate decorative visuals, are major production weaknesses. Overall, Lesson 1 has the narrow edge despite Lesson 2\u2019s cleaner presentation and stronger conceptual narration."
+    "confidence": 0.78,
+    "explanation": "Lesson 2 wins overall, with four of six dimensions favoring it, three of them at very high confidence: visual accuracy, interactivity, and synchronization, plus a moderate narration-quality advantage. These indicate Lesson 2 is better structured as an interactive lesson and more consistently aligns visuals, timing, and explanation. Lesson 1 does have important strengths: it is judged more conceptually faithful to the geometry and substantially more polished visually. However, the combined high-confidence advantages for Lesson 2 across implementation, timing, visual alignment, and narration outweigh Lesson 1\u2019s two wins, so the overall winner is Lesson 2 rather than a tie."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:24:04.430013+00:00"
+  "evaluatedAt": "2026-07-15T17:35:57.072423+00:00"
 }

@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v2",
+  "setupB": "archer_v5",
+  "subject": "archer",
+  "lesson1Setup": "archer_v5",
+  "lesson2Setup": "archer_v2",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v5",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 consistently shows a correct projectile arc, launch angle, velocity components, equations, and final range at the appropriate positions, whereas Lesson 2\u2019s only instructional diagram is a large nonsensical triangular wedge with no visible projectile trajectory or correct component/range visualization."
+    },
+    "interactivity": {
+      "winner": "archer_v2",
+      "confidence": 0.65,
+      "rationale": "Both lessons include a real fill-in gate with prompt, acceptable answers, hint, success message, and valid after_act wiring, but Lesson 2 places the checkpoint immediately after decomposition before the next needed step, whereas Lesson 1\u2019s act appears to have already shown the calculated component values before asking, making its interaction less meaningful."
+    },
+    "narration_quality": {
+      "winner": "archer_v2",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has smoother, more naturally paced narration with shorter digestible beats, while Lesson 1 is also clear but has denser, longer sentences that would be harder to follow in audio."
+    },
+    "sync": {
+      "winner": "archer_v5",
+      "confidence": 0.74,
+      "rationale": "Lesson 1 has several early cues, especially the shadow projections and trig highlight, but it at least triggers visuals for the equation and symbolic substitution when those ideas are narrated, whereas Lesson 2 more often omits cues for narrated visual/math changes and fires shadow/highlight cues well before the narration references them."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v2",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 is more pedagogically complete because it explicitly gives the vertical component, flight time, and numerical range in sequence, whereas Lesson 1 explains decomposition better but leaves the actual vertical equation/time calculation and numerical substitution largely implicit, making the solution harder for a first-time learner to follow."
+    },
+    "polish": {
+      "winner": "archer_v5",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 is imperfect with a left-heavy layout, lots of empty right-side space, and some tiny/low-contrast labels, but it maintains a coherent dark theme and readable cards, whereas Lesson 2 quickly devolves into a very unpolished, oversized/clipped diagram with a giant black triangle, partially cut-off axis label, and poor composition."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v5",
+    "confidence": 0.62,
+    "explanation": "The votes are split 3-3, but Lesson 1 has the stronger confidence-weighted support. Its wins in visual accuracy and polish are especially high-confidence, with agents noting a correct projectile arc, components, equations, range placement, and a more coherent visual design, while Lesson 2\u2019s diagram is described as nonsensical, oversized, clipped, and poorly composed. Lesson 1 also wins synchronization with moderate confidence. Lesson 2 is favored for interactivity, narration, and conceptual completeness, but those wins are lower-confidence and mainly concern pacing and step sequencing rather than the core visual correctness. Overall, the high-confidence visual and polish advantages give Lesson 1 the clearer edge."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:39:50.715623+00:00"
+}

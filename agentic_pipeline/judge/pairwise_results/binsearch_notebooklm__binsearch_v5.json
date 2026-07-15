@@ -1,46 +1,46 @@
 {
-  "setupA": "binsearch_v5",
-  "setupB": "binsearch_notebooklm",
+  "setupA": "binsearch_notebooklm",
+  "setupB": "binsearch_v5",
   "subject": "binsearch",
-  "lesson1Setup": "binsearch_v5",
-  "lesson2Setup": "binsearch_notebooklm",
+  "lesson1Setup": "binsearch_notebooklm",
+  "lesson2Setup": "binsearch_v5",
   "dimensions": {
     "visual_accuracy": {
       "winner": "binsearch_notebooklm",
-      "confidence": 0.71,
-      "rationale": "Lesson 2 is visually less contradictory because its mid-lesson table plausibly represents the final collapsed low/mid/high state at value 45, whereas Lesson 1 correctly highlights 45 but incorrectly leaves low and high positioned at the array ends while simultaneously calculating mid from low=high=7."
+      "confidence": 0.78,
+      "rationale": "Lesson 1 has some inconsistent/example-switching visuals, but it mostly depicts halving and pointer progression plausibly, whereas Lesson 2's core binary-search animation repeatedly shows wrong mid positioning, undefined midpoint/comparison values, stale pointers, and an unrelated prompt, making its visual representation substantially less accurate."
     },
     "interactivity": {
       "winner": "binsearch_v5",
       "confidence": 0.99,
-      "rationale": "Lesson 1 includes a well-formed quiz gate with a real question, answer options, correct answer, wrong-path act, and matching placement after act_found in the plan, while Lesson 2 has no gate specs or plan available and therefore no functioning interactivity."
+      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_found with a real question, plausible options, and a marked correct answer, whereas Lesson 1 provides no gate specs or plan at all, so it has no functioning interactivity."
     },
     "narration_quality": {
       "winner": "binsearch_v5",
-      "confidence": 0.9,
-      "rationale": "Lesson 1 is clearer and more naturally paced with clean spoken math, while Lesson 2 is overly verbose and includes garbled/incorrect phrasing like \u201chaving your problem\u201d and \u201cwe have it again\u201d that would be read aloud awkwardly."
+      "confidence": 0.93,
+      "rationale": "Lesson 2 has clear, concise, naturally spoken narration with appropriate pacing and no defects, while Lesson 1 is overly verbose and contains garbled phrases like \u201cprinciple of having your problem\u201d and \u201cwe have it again,\u201d which would sound incorrect in audio."
     },
     "sync": {
       "winner": "binsearch_v5",
       "confidence": 0.9,
-      "rationale": "Lesson 1 provides timed cues that mostly occur near the narrated references despite a few early or late pointer/discard actions, whereas Lesson 2 has no beat/timing cues at all, so its visuals cannot be verified as synchronized to the many referenced arrays, pointers, sections, and comparisons."
+      "rationale": "Lesson 2 provides visual cues that mostly occur near the narrated references despite a few early or extra transitions, whereas Lesson 1 has no beat/timing cues at all while describing many visual changes, making its synchronization impossible or effectively unsupported."
     },
     "concept_accuracy": {
-      "winner": "binsearch_v5",
-      "confidence": 0.68,
-      "rationale": "Lesson 1 is more faithful to the specific problem because it explicitly traces the correct indices and concludes that 45 is at index 7, while Lesson 2 explains the logarithmic idea well but never clearly states the found index and is less precise about the indexed walkthrough."
+      "winner": "binsearch_notebooklm",
+      "confidence": 0.84,
+      "rationale": "Lesson 1 gives the correct full trace and a clearer derivation of n/2^k leading to O(log n), while Lesson 2 is mostly correct but less explicit about the second comparison/high-pointer update and contains an inconsistency in the plan versus script about linear-search step count."
     },
     "polish": {
       "winner": "binsearch_notebooklm",
-      "confidence": 0.78,
-      "rationale": "Lesson 2 has a cleaner, more centered, legible presentation overall, while Lesson 1\u2019s mid-lesson frame is noticeably pushed to the left with excessive empty space and less balanced composition despite consistent dark styling."
+      "confidence": 0.98,
+      "rationale": "Lesson 1 maintains a cohesive, legible, centered hand-drawn style with only occasional clutter, while Lesson 2 is consistently off-center with excessive empty space, visible player UI, clipped labels, overlapping text, and obvious visual bugs such as 'undefined' values."
     }
   },
   "aggregator": {
     "winner": "binsearch_v5",
-    "confidence": 0.78,
-    "explanation": "Lesson 1 is the clear overall winner by weighted dimensions: it wins four of six categories, including very high-confidence wins in interactivity, narration quality, and synchronization, plus a moderate concept-accuracy win. These strengths indicate Lesson 1 is more complete, better paced, interactive, and more faithful to the target binary-search walkthrough. Lesson 2 wins visual accuracy and polish with moderate confidence, mainly due to cleaner composition and fewer visual contradictions, but it lacks functioning interactivity, timing cues, and a clearly stated final found index. Overall, the higher-confidence advantages strongly favor Lesson 1 despite its visual/layout weaknesses."
+    "confidence": 0.56,
+    "explanation": "The six dimensions split evenly 3-3, with Lesson 1 preferred for visual accuracy, concept accuracy, and polish, and Lesson 2 preferred for interactivity, narration quality, and synchronization. Weighting by confidence gives Lesson 2 a slight overall edge: its wins are all high-confidence, especially interactivity, narration, and sync, while Lesson 1\u2019s strongest advantages are polish and conceptual/visual correctness. Because the weighted preference narrowly favors Lesson 2 rather than being perfectly balanced, Lesson 2 is the winner, but confidence is low due to the close split and Lesson 2\u2019s significant visual/polish weaknesses."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:19:50.621555+00:00"
+  "evaluatedAt": "2026-07-15T17:36:28.175840+00:00"
 }

@@ -1,0 +1,46 @@
+{
+  "setupA": "circles_v2",
+  "setupB": "circles_v5",
+  "subject": "circles",
+  "lesson1Setup": "circles_v2",
+  "lesson2Setup": "circles_v5",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v5",
+      "confidence": 0.82,
+      "rationale": "Lesson 2 at least draws the intended nested tangent circles and supports the correct area/sum solution, whereas Lesson 1 provides only a static problem statement with no meaningful diagram or positional visual representation of the rings, despite Lesson 2's imperfect all-purple shading and contradictory 'concentric' wording."
+    },
+    "interactivity": {
+      "winner": "circles_v5",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has a functional, well-formed multiple-choice checkpoint placed mid-lesson after the derivation, while Lesson 1\u2019s fill-in gate is also functional but appears only after the final answer and checks a trivial already-revealed conversion, making its interactivity weaker."
+    },
+    "narration_quality": {
+      "winner": "circles_v5",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is more natural and clearly paced, especially around the final conversion to circles, while Lesson 1 has more awkward math phrasing like \u201ctwo-n circles,\u201d \u201ctwo-k,\u201d and denser explanatory sentences that are more likely to sound unnatural or confusing when spoken."
+    },
+    "sync": {
+      "winner": "circles_v2",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 generally triggers visuals close to the narrated references with only minor early reveals, while Lesson 2 has more noticeable sync gaps and delays, such as no shading cue when shading is introduced and area/pattern visuals appearing well after or without matching narration."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v2",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is more conceptually accurate because it correctly describes nested tangent circles sharing a common point and derives the correct ring/sum/inequality sequence, while Lesson 2 has clearer algebra cards but repeatedly calls the circles concentric while also saying they share a circumference point, which is geometrically impossible and could confuse the learner."
+    },
+    "polish": {
+      "winner": "circles_v5",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is more visually developed and consistently styled with legible diagrams and panels, while Lesson 1 is just a sparse title card with visible playback controls and raw unrendered LaTeX in the main prompt, though Lesson 2 is penalized for clutter, occasional clipping, and some raw LaTeX-like labels."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v5",
+    "confidence": 0.68,
+    "explanation": "Lesson 2 wins four of the six dimensions, with fairly strong confidence across visual accuracy, interactivity, narration quality, and polish. It provides a meaningful diagram, clearer pacing, a better-placed checkpoint, and a more developed visual presentation. Lesson 1 wins synchronization and conceptual accuracy, including an important criticism that Lesson 2 incorrectly refers to the tangent circles as concentric. However, the overall weighted preference still favors Lesson 2 because its advantages are broader and supported by multiple moderately high-confidence agents, while Lesson 1\u2019s strengths do not fully overcome its sparse visuals, weaker interactivity, less natural narration, and lower polish."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:46:46.703413+00:00"
+}

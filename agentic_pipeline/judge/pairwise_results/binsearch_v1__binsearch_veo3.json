@@ -1,0 +1,46 @@
+{
+  "setupA": "binsearch_v1",
+  "setupB": "binsearch_veo3",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_v1",
+  "lesson2Setup": "binsearch_veo3",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_v1",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 at least consistently shows the correct target and sorted array with correct indices, whereas Lesson 2 repeatedly displays wrong arrays, missing or altered values, unsorted data labeled as sorted, incorrect comparisons like 45 > 56, and inconsistent found-index visuals."
+    },
+    "interactivity": {
+      "winner": "binsearch_v1",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate after a specific act with a real question, plausible options, and a marked correct answer, whereas Lesson 2 has no available gate specs or plan and therefore no functional checkpoints."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v1",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 is consistently clear and naturally paced with spoken math phrased appropriately, while Lesson 2 is mostly clear but has a noticeable garbled phrase, \u201cToo big cried,\u201d and a more rushed fragment-heavy delivery."
+    },
+    "sync": {
+      "winner": "binsearch_v1",
+      "confidence": 0.6,
+      "rationale": "Lesson 1 at least provides timed visual cues that are often roughly aligned with narration in the setup and conclusion, whereas Lesson 2 provides no beat/timing data at all, making its visual-narration synchronization unverifiable despite Lesson 1\u2019s malformed or poorly timed search-step offsets."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v1",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 is more conceptually complete and pedagogically clear, accurately tracing the low/high/mid updates and deriving O(log n) from repeated halving, whereas Lesson 2 is correct but more compressed, skips explicit boundary updates and the formal logarithm derivation, and therefore builds less understanding for a first-time learner."
+    },
+    "polish": {
+      "winner": "binsearch_veo3",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is more visually engaging, centered, and consistently styled with large readable elements, while Lesson 1 is persistently left-weighted with huge empty space, visible player UI, tiny/faint text, raw backtick-style formatting, and occasional clipped/awkward panels despite Lesson 2's own garbled-label artifacts."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v1",
+    "confidence": 0.92,
+    "explanation": "Five of six dimension agents prefer Lesson 1, including very high-confidence wins in visual accuracy, interactivity, concept accuracy, and narration quality. Lesson 1 is judged more accurate, complete, pedagogically clear, and functionally interactive, with at least some usable timing alignment. Lesson 2 only wins polish, with moderate-high confidence, due to stronger visual styling, but this is outweighed by its serious accuracy issues, lack of quiz gating, weaker conceptual scaffolding, and missing synchronization data."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:43:03.853545+00:00"
+}

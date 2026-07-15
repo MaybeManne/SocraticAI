@@ -1,0 +1,46 @@
+{
+  "setupA": "circles_v1",
+  "setupB": "circles_v3",
+  "subject": "circles",
+  "lesson1Setup": "circles_v1",
+  "lesson2Setup": "circles_v3",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v1",
+      "confidence": 0.88,
+      "rationale": "Lesson 1 at least consistently shows nested internally tangent circles with a highlighted alternating shaded band, while Lesson 2 often fills the whole disk rather than alternating rings, later leaves diagrams nearly invisible or empty, and even shows a broken image/final unrelated sphere graphic."
+    },
+    "interactivity": {
+      "winner": "circles_v1",
+      "confidence": 0.62,
+      "rationale": "Lesson 1 and Lesson 2 both include a functional gate wired after the summation act, but Lesson 1 is slightly stronger because its fill-in gate includes a concrete prompt, accepted answer, hint, placeholder, and success feedback, whereas Lesson 2\u2019s quiz is functional but has empty explanations and offers less feedback support."
+    },
+    "narration_quality": {
+      "winner": "circles_v3",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 is generally clearer and more naturally paced with complete spoken checks, while Lesson 1 has more awkward phrasing such as \u201cup to some two-n\u201d and skips verbally confirming the n=32 calculation, making the narration slightly less smooth and clear."
+    },
+    "sync": {
+      "winner": "circles_v3",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 sequences visual cues much more closely with the narration\u2019s step-by-step references, especially in the initial ring construction and inequality/graph sections, while Lesson 1 often fires major cues too early or in coarse batches, such as value markers appearing before the narrated values are mentioned."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v1",
+      "confidence": 0.68,
+      "rationale": "Lesson 1 is slightly stronger because it more explicitly builds the shaded-ring pattern through examples, generalizes to the kth ring, and connects n to 2n throughout, while Lesson 2 is mathematically correct but a bit more compressed and slightly less clear about the unshaded gaps and the integer nature of the crossing before testing values."
+    },
+    "polish": {
+      "winner": "circles_v1",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 is still cluttered/off-center with clipped circles and raw LaTeX, but Lesson 2 is markedly less polished with long stretches of tiny illegible diagrams in the corner, excessive empty space, inconsistent scaling, and a visible broken image icon."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v1",
+    "confidence": 0.74,
+    "explanation": "Lesson 1 wins overall: four of six agents preferred it, including high-confidence advantages in visual accuracy and polish. It more consistently depicts the nested tangent-circle/shaded-ring structure, has a slightly better supported interaction, and presents the mathematical pattern and generalization more explicitly. Lesson 2 was preferred for narration quality and synchronization, with strong confidence on sync, but its severe visual/polish issues\u2014tiny or missing diagrams, incorrect full-disk fills, and a broken/unrelated final graphic\u2014outweigh those strengths."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:45:22.763673+00:00"
+}

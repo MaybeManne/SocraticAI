@@ -7,40 +7,40 @@
   "dimensions": {
     "visual_accuracy": {
       "winner": "circles_v3",
-      "confidence": 0.93,
-      "rationale": "Lesson 1 at least displays the correct problem context and a nested-circle diagram resembling circles sharing a common point, whereas Lesson 2 lacks the problem display at the title and shows a garbled, visually incorrect formula/text with no accurate geometric representation."
+      "confidence": 0.62,
+      "rationale": "Lesson 1 at least depicts many nested tangent circles sharing a common point and reaches the correct final count, whereas Lesson 2 repeatedly shows concentric/3D decorative rings instead of common-point nested circles and includes visibly garbled or incorrect formula visuals like the nonsensical expression at 40s."
     },
     "interactivity": {
       "winner": "circles_v3",
       "confidence": 0.99,
-      "rationale": "Lesson 1 includes a well-formed quiz gate wired after act_summation with a real question, plausible options, and a marked correct answer, while Lesson 2 has no available gate specs or plan JSON and therefore no functioning checkpoints."
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate after act_summation with a real question, plausible answer options, and a marked correct answer, whereas Lesson 2 has no available gate specs or plan and therefore no functioning interactivity."
     },
     "narration_quality": {
       "winner": "circles_v3",
-      "confidence": 0.95,
-      "rationale": "Lesson 1 is generally clear and well-paced with spoken math rendered naturally, while Lesson 2 has noticeable narration defects including garbled 'Thirth 2,' awkward 'total whole,' and less clear spoken formulas like 'pi 2k squared.'"
+      "confidence": 0.94,
+      "rationale": "Lesson 1\u2019s narration is generally clear and correctly verbalizes the math with acceptable pacing, while Lesson 2 contains obvious garbled/unnatural phrases like \u201cThirth 2\u201d and \u201c64 circles in total whole\u201d and less polished spoken math."
     },
     "sync": {
       "winner": "circles_v3",
-      "confidence": 0.88,
-      "rationale": "Lesson 1 at least schedules visual cues near the narrated references, while Lesson 2 provides no beat/timing cue data at all, making its visual-narration synchronization absent or unverifiable."
+      "confidence": 0.82,
+      "rationale": "Lesson 1 provides timed visual cues that generally follow the narrated references as circles, rings, formulas, graphs, and final answers are mentioned, whereas Lesson 2 has no beat/timing data or cue offsets, making synchronization unverifiable and effectively unsupported on this dimension."
     },
     "concept_accuracy": {
       "winner": "circles_v3",
-      "confidence": 0.88,
-      "rationale": "Lesson 1 is equally mathematically correct but more pedagogically complete, explicitly building from examples to the general ring formula, sum, inequality, and minimality check, while Lesson 2 is correct but much more compressed and has minor clarity issues in narration such as ambiguous spoken formulas and awkward wording."
+      "confidence": 0.9,
+      "rationale": "Lesson 1 is equally mathematically correct but builds understanding more clearly through specific ring examples, a general formula, summation, inequality solving, and a final check, whereas Lesson 2 is correct but much more compressed with minor verbal imprecision and less pedagogical support for first-time learners."
     },
     "polish": {
       "winner": "circles_veo3",
-      "confidence": 0.66,
-      "rationale": "Lesson 2 is more visually polished overall with a centered, large, uncluttered mid-lesson composition, whereas Lesson 1 has raw unrendered LaTeX, tiny unreadable labels, empty-looking boxes, and a diagram shoved into the upper-left with excessive empty space, though Lesson 2 is hurt by its blank title screen and garbled caption text."
+      "confidence": 0.95,
+      "rationale": "Lesson 2 is far more polished with centered, cinematic visuals, large readable text, and consistent glowing styling, whereas Lesson 1 is frequently off-center or cropped, leaves huge empty areas, uses tiny unreadable elements, shows raw LaTeX, and even includes broken/empty UI-like boxes."
     }
   },
   "aggregator": {
     "winner": "circles_v3",
-    "confidence": 0.95,
-    "explanation": "Lesson 1 is the clear overall winner: five of six dimension agents preferred it, all with high confidence (0.88\u20130.99), covering visual accuracy, interactivity, narration quality, synchronization, and conceptual accuracy. These strengths are central to lesson effectiveness: Lesson 1 presents the correct problem context, includes a functioning quiz gate, has clearer narration, provides usable timing cues, and develops the mathematics more completely. Lesson 2 only wins polish, and with lower confidence (0.66); even that rationale notes significant issues such as a blank title screen and garbled caption text. Overall, the weighted verdict strongly favors Lesson 1."
+    "confidence": 0.86,
+    "explanation": "Lesson 1 is the clear overall winner: five of six agents preferred it, including very high-confidence wins for interactivity, narration quality, synchronization, and concept accuracy, plus a moderate win for visual accuracy. These dimensions indicate Lesson 1 is more mathematically clear, better narrated, properly interactive, and better aligned between visuals and narration. Lesson 2\u2019s sole win was polish, with high confidence, noting stronger cinematic styling and cleaner visual presentation, but this does not outweigh Lesson 1\u2019s broad advantages across instructional substance and functionality."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-14T21:25:28.569378+00:00"
+  "evaluatedAt": "2026-07-15T17:34:08.331144+00:00"
 }

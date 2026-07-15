@@ -1,0 +1,46 @@
+{
+  "setupA": "circles_v1",
+  "setupB": "circles_veo3",
+  "subject": "circles",
+  "lesson1Setup": "circles_v1",
+  "lesson2Setup": "circles_veo3",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v1",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 at least depicts internally tangent nested circles sharing a common point and highlights successive crescent regions, while Lesson 2 repeatedly uses concentric annuli or unrelated/glitched visuals that misrepresent the required common-point circle configuration."
+    },
+    "interactivity": {
+      "winner": "circles_v1",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed fill-in gate wired after a specific act with a real prompt, accepted answer, hint, success message, and remediation path, whereas Lesson 2 has no available gate specs or plan and therefore no functioning checkpoints."
+    },
+    "narration_quality": {
+      "winner": "circles_v1",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 is mostly clear and paced with only mildly awkward spoken math like \u201ctwo-n,\u201d while Lesson 2 contains obvious narration defects such as the garbled \u201cThirth 2\u201d and unnatural phrase \u201cin total whole,\u201d plus less clear spoken formulas."
+    },
+    "sync": {
+      "winner": "circles_v1",
+      "confidence": 0.74,
+      "rationale": "Lesson 1 at least provides timed visual cues that generally correspond to the narrated concepts, even though several are compressed too early within long lines, whereas Lesson 2 provides no beat/timing cues at all, making exact narration-visual synchronization unverified and effectively unsupported."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v1",
+      "confidence": 0.88,
+      "rationale": "Lesson 1 is equally mathematically correct but explains the setup, single-ring formula, summation, inequality, and conversion from n to circles much more clearly and pedagogically, while Lesson 2 is correct but compressed, skips the summation details, and has minor narration glitches that make it less helpful for a first-time learner."
+    },
+    "polish": {
+      "winner": "circles_veo3",
+      "confidence": 0.94,
+      "rationale": "Lesson 2 is far more visually polished with centered, cinematic, legible graphics and consistent styling, whereas Lesson 1 is persistently off-center and clipped, shows raw unrendered LaTeX, visible player UI, overlapping tiny labels, empty panels, and cluttered/broken layout elements."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v1",
+    "confidence": 0.91,
+    "explanation": "Five of the six dimension agents favor Lesson 1, most with high confidence: it is judged more visually accurate to the tangent-circle setup, much stronger in interactivity, clearer in narration, better synchronized with timed cues, and more pedagogically complete in concept explanation. Lesson 2 wins only on polish, with strong confidence, due to cleaner and more cinematic visuals. However, that single advantage does not outweigh Lesson 1's broad strengths across accuracy, teaching quality, interactivity, and synchronization. Overall, Lesson 1 is the clear winner despite its weaker visual polish."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:45:47.179721+00:00"
+}

@@ -1,0 +1,46 @@
+{
+  "setupA": "binsearch_v1",
+  "setupB": "binsearch_v7",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_v7",
+  "lesson2Setup": "binsearch_v1",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_v7",
+      "confidence": 0.97,
+      "rationale": "Lesson 1 correctly visualizes the binary search progression to index 7 and the halving/O(log n) idea despite some abbreviated intermediate steps, while Lesson 2 remains largely static, gives an apparently wrong narration cue about the target being less than the middle, and later shows an incorrect/truncated search-space inset."
+    },
+    "interactivity": {
+      "winner": "binsearch_v7",
+      "confidence": 0.7,
+      "rationale": "Both lessons include a real quiz gate wired after an existing act with plausible options and a correct answer, but Lesson 1 is cleaner and fully self-contained while Lesson 2 references a wrong-path remediation act that is not present in the plan, which could make incorrect-answer handling nonfunctional."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v1",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 uses shorter, more naturally paced narration with clear spoken math, while Lesson 1 is also clean but has denser, more compressed explanatory lines near the logarithm derivation that are slightly harder to follow aloud."
+    },
+    "sync": {
+      "winner": "binsearch_v7",
+      "confidence": 0.92,
+      "rationale": "Lesson 1 has some cues that fire a bit early, but Lesson 2\u2019s search steps are largely unsynchronized because many cues use non-time offsets like \u201clow,\u201d \u201cmid,\u201d or element values and some changes such as discarding halves fire at the start of lines long before the narration references them."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v1",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 more accurately and pedagogically traces all four binary-search comparisons with the correct indices and decisions, while Lesson 1 compresses the middle steps and even contains an incorrect lesson-plan claim that linear search would take 7 rather than 8 checks, though Lesson 1\u2019s logarithmic derivation is somewhat more explicit."
+    },
+    "polish": {
+      "winner": "binsearch_v7",
+      "confidence": 0.94,
+      "rationale": "Lesson 1 is more intentionally composed with consistent split-panel styling and generally legible diagrams, while Lesson 2 is dominated by video-player controls, excessive empty space, static/off-center content, dim tiny text, and a clipped inset diagram near the end."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v7",
+    "confidence": 0.79,
+    "explanation": "Lesson 1 is the clear overall winner by weighted dimension votes: it wins four of six categories, including very high-confidence wins in visual accuracy, synchronization, and polish, plus a moderate win in interactivity. Lesson 2 is favored for narration quality and concept accuracy, both at moderate confidence, but those advantages are outweighed by Lesson 2\u2019s major presentation and timing problems, including largely static visuals, synchronization errors, a clipped/truncated inset, and weaker interaction handling. Although Lesson 1 has some compressed explanation and a concept-plan flaw, its overall execution is more accurate visually, better synchronized, more polished, and more reliable as an interactive lesson."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:42:44.227971+00:00"
+}

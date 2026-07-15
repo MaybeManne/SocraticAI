@@ -1,0 +1,46 @@
+{
+  "setupA": "archer_v1",
+  "setupB": "archer_v5",
+  "subject": "archer",
+  "lesson1Setup": "archer_v5",
+  "lesson2Setup": "archer_v1",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_v5",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 consistently shows a shallow ~30\u00b0 launch, correct parabolic path, component labels, and a range bracket matching the computed 141.4 m, whereas Lesson 2\u2019s launch vector and initial trajectory are drawn much too steep for 30\u00b0 and its component diagram is visually inconsistent with the stated angle."
+    },
+    "interactivity": {
+      "winner": "archer_v1",
+      "confidence": 0.62,
+      "rationale": "Both lessons include a functional fill-in gate with a real prompt, accepted answers, hint, and wiring to an existing act, but Lesson 2 places it immediately after the dedicated decomposition act with a clear concept-check prompt, while Lesson 1 wires it after a broader introduction and its plan hint is slightly less aligned with the single blank being asked."
+    },
+    "narration_quality": {
+      "winner": "archer_v5",
+      "confidence": 0.66,
+      "rationale": "Lesson 1 has slightly clearer spoken math and more natural pacing, while Lesson 2 is generally clear but has a more awkward phrase like \u201ctwo sine-theta cosine-theta\u201d and tighter cue timing that could feel a bit rushed."
+    },
+    "sync": {
+      "winner": "archer_v5",
+      "confidence": 0.82,
+      "rationale": "Lesson 1 generally triggers visuals near the narration that references them and includes cues for most described changes, whereas Lesson 2 has several missing or early cues, such as no visual cue for equations/substitutions/final numeric plugging and shadow/decomposition cues that appear before the narration actually reaches those ideas."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v1",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is more conceptually and pedagogically accurate because it explicitly computes the vertical component, flight time, and range in sequence, whereas Lesson 1 gives mostly qualitative references to solving and plugging in values without clearly stating the intermediate numerical results, though Lesson 2 is slightly sloppy in calling the separated motions \u201clinear.\u201d"
+    },
+    "polish": {
+      "winner": "archer_v5",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 has weaker centering and many tiny, low-contrast labels, but Lesson 2 repeatedly shows raw backtick-style markup in the problem text and has an awkward quiz card with a stray parenthesis/placeholder formatting, making its presentation visibly less polished despite its cleaner diagram."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v5",
+    "confidence": 0.74,
+    "explanation": "Lesson 1 is the clear overall winner by weighted dimension votes. Four agents favored Lesson 1, including high-confidence wins in visual accuracy (0.86) and synchronization (0.82), plus additional wins in polish (0.72) and narration quality (0.66). Lesson 2 did win concept accuracy with fairly high confidence (0.78) and interactivity with moderate confidence (0.62), mainly because it better walks through the numerical decomposition, flight time, and range and places its concept check more cleanly. However, Lesson 2\u2019s steep/inconsistent visual trajectory, weaker cue synchronization, and visible formatting/polish problems outweigh those strengths. Overall, the confident visual and sync advantages make Lesson 1 stronger despite Lesson 2\u2019s conceptual sequencing advantage."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-15T17:38:30.818758+00:00"
+}
