@@ -34,3 +34,7 @@ benchmark_comparison/**/*.webm
 benchmark_comparison/**/*.mov
 benchmark_comparison/**/*.png
 benchmark_comparison/**/*.txt
+
+# static benchmark site build output + vercel project link
+benchmark_site/socraticai-benchmark/
+.vercel
