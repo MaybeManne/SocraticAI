@@ -4,4 +4,4 @@ Respond ONLY with valid JSON — no explanation, no markdown:
 
 DIMENSION: visual_accuracy — Is the animation conceptually and positionally correct? Does it draw the right shapes/diagrams representing the actual math/physics/CS concept, in the right place relative to what's being taught (e.g. does highlighting the correct ring/element actually happen)? This is about CORRECTNESS of content, not how pretty it looks.
 
-You will receive rendered screenshots of Lesson 1 and Lesson 2.
+You will receive a DENSE SEQUENCE of rendered frames for each lesson — one frame roughly every 10 seconds across the FULL timeline, in chronological order and labeled with their timestamps. You are seeing the whole lesson play out, not a sample of two moments. Flag correctness problems ANYWHERE in the sequence: a diagram that is right at the midpoint but wrong/broken/empty at other timestamps is a defect. Weigh a lesson by its worst sustained failures across the timeline, not by its best single frame.

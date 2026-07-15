@@ -1,0 +1,37 @@
+{
+  "setupA": "circles_v7",
+  "setupB": "circles_v6",
+  "subject": "circles",
+  "source": "human",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_v7",
+      "note": null
+    },
+    "interactivity": {
+      "winner": "circles_v7",
+      "note": null
+    },
+    "narration_quality": {
+      "winner": "circles_v7",
+      "note": null
+    },
+    "sync": {
+      "winner": "circles_v7",
+      "note": null
+    },
+    "concept_accuracy": {
+      "winner": "circles_v7",
+      "note": null
+    },
+    "polish": {
+      "winner": "circles_v7",
+      "note": null
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v7",
+    "note": null
+  },
+  "evaluatedAt": "2026-07-15T16:57:33.446484+00:00"
+}

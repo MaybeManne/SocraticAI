@@ -38,3 +38,6 @@ benchmark_comparison/**/*.txt
 # static benchmark site build output + vercel project link
 benchmark_site/socraticai-benchmark/
 .vercel
+
+# judge timeline frames (regenerated on demand)
+*_frames/

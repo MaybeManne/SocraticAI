@@ -139,9 +139,7 @@ class LessonAssets:
             # External mode: no pipeline metadata at all.
             self.is_external = True
             self.html_path = None
-            self.screenshot_path = self.video_path.with_suffix(".png")
-            self.mid_screenshot_path = self.video_path.with_name(
-                self.video_path.stem + "_mid.png")
+            self.frames_dir = self.video_path.with_name(self.video_path.stem + "_frames")
             self.work_dir = None
             self.plan_json = None
             self.gates = None
@@ -157,17 +155,22 @@ class LessonAssets:
                 f"No lesson found for {variant_id!r}: neither an external video in "
                 f"{BENCH_DIR_NAME}/{subject}/ nor {self.html_path}"
             )
-        # Precomputed screenshots live alongside the HTML:
-        #   <name>.png     — t=0 title/problem card (catches text-render bugs)
-        #   <name>_mid.png — lesson actively driven to ~50% of its timeline
-        self.screenshot_path = self.html_path.with_suffix(".png")
-        self.mid_screenshot_path = self.html_path.with_name(self.html_path.stem + "_mid.png")
+        # Precomputed timeline frames live alongside the HTML in
+        # <name>_frames/ — one frame every FRAME_INTERVAL_S seconds across the
+        # full lesson (capped at MAX_FRAMES), f00_t0s.png .. fNN_t<sec>s.png.
+        self.frames_dir = self.html_path.with_name(self.html_path.stem + "_frames")
 
         # Work-dir artifacts (may be absent, e.g. for *_v0original).
         self.work_dir = PIPELINE_DIR / "work" / variant_id.replace(".", "_")
         self.plan_json = self._read_optional(self.work_dir / "lesson_plan.json")
         self.gates = self._read_gates()
         self.content_js = self._read_content_js()
+
+    def frame_paths(self):
+        """Sorted timeline frames (empty list if not yet extracted)."""
+        if not self.frames_dir.is_dir():
+            return []
+        return sorted(self.frames_dir.glob("f*.png"))
 
     def transcript(self):
         """Best-available narration transcript for this lesson.
@@ -304,41 +307,73 @@ _PAUSE_JS = """
 """
 
 
-def _screenshot_mid(html_path, out_path, fraction=0.5, load_wait_ms=4000, settle_ms=2500):
+FRAME_INTERVAL_S = 10   # one frame every N seconds of timeline
+MAX_FRAMES = 20         # cap for long videos: switch to even spacing
+
+
+def _frame_timestamps(duration):
+    """Sample times: every FRAME_INTERVAL_S from t=0, capped at MAX_FRAMES.
+    Past the cap, spread MAX_FRAMES evenly across the full duration instead
+    (so long videos still get end-of-timeline coverage, just coarser)."""
+    n_regular = int(duration // FRAME_INTERVAL_S) + 1
+    if n_regular <= MAX_FRAMES:
+        return [i * FRAME_INTERVAL_S for i in range(n_regular)]
+    end = duration * 0.98  # avoid seeking past the final frame
+    return [end * i / (MAX_FRAMES - 1) for i in range(MAX_FRAMES)]
+
+
+def _frame_name(idx, ts):
+    return f"f{idx:02d}_t{int(round(ts))}s.png"
+
+
+def _lesson_frames(html_path, frames_dir, load_wait_ms=4000, settle_ms=1500):
     """
-    Capture the lesson actively driven to `fraction` of its default-path
-    timeline (default 50% — the mid-derivation point, where the viz is
-    richest). Requires playwright.
+    Dense timeline capture of a pipeline lesson: one browser session, one
+    frame every FRAME_INTERVAL_S seconds (capped at MAX_FRAMES). Frame 0 is
+    the untouched t=0 title/problem card; later frames are actively driven
+    via the engine's own seek API. Requires playwright.
     """
     from playwright.sync_api import sync_playwright
 
+    frames_dir.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page(viewport={"width": 1280, "height": 800})
         page.goto(f"file://{Path(html_path).resolve()}")
         page.wait_for_timeout(load_wait_ms)
-        status = page.evaluate(_DRIVE_TO_MID_JS, fraction)
-        if not str(status).startswith("ok:"):
+
+        # t=0 title/problem card, captured before any playback.
+        page.screenshot(path=str(frames_dir / _frame_name(0, 0)), full_page=False)
+
+        total = page.evaluate(
+            "() => (window._graph && window._graph.totalDefaultDuration) || 0")
+        if not total or total <= 0:
             browser.close()
-            raise RuntimeError(f"Mid-lesson drive failed for {html_path}: {status}")
-        # Let the snapshot renders + seek-target GSAP calls settle, then freeze.
-        page.wait_for_timeout(settle_ms)
-        page.evaluate(_PAUSE_JS)
-        page.wait_for_timeout(300)
-        page.screenshot(path=str(out_path), full_page=False)
+            raise RuntimeError(f"totalDefaultDuration unavailable for {html_path}")
+
+        stamps = _frame_timestamps(total)
+        for idx, ts in enumerate(stamps[1:], start=1):
+            status = page.evaluate(_DRIVE_TO_MID_JS, ts / total)
+            if not str(status).startswith("ok:"):
+                browser.close()
+                raise RuntimeError(f"Seek to {ts:.1f}s failed for {html_path}: {status}")
+            page.wait_for_timeout(settle_ms)
+            page.evaluate(_PAUSE_JS)
+            page.wait_for_timeout(300)
+            page.screenshot(path=str(frames_dir / _frame_name(idx, ts)), full_page=False)
         browser.close()
-    print(f"  Screenshot (mid-lesson, {status}): {out_path}")
-    return out_path
+    print(f"  Frames (lesson, {len(stamps)} @ ~{FRAME_INTERVAL_S}s): {frames_dir}")
+    return frames_dir
 
 
-def _video_screenshots(video_path, t0_out, mid_out):
-    """Extract t=0 and 50% frames from an arbitrary video file via ffmpeg.
-    Mirrors the two-shot capture used for pipeline lessons."""
+def _video_frames(video_path, frames_dir):
+    """Dense timeline capture of an external video via ffmpeg: one frame
+    every FRAME_INTERVAL_S seconds (capped at MAX_FRAMES)."""
     import shutil
     import subprocess
     if not (shutil.which("ffmpeg") and shutil.which("ffprobe")):
         raise RuntimeError(
-            f"ffmpeg/ffprobe required to screenshot external video {video_path} "
+            f"ffmpeg/ffprobe required to extract frames from {video_path} "
             "(brew install ffmpeg)"
         )
     probe = subprocess.run(
@@ -350,58 +385,50 @@ def _video_screenshots(video_path, t0_out, mid_out):
         duration = float(probe.stdout.strip())
     except ValueError:
         raise RuntimeError(f"Could not read duration of {video_path}: {probe.stderr.strip()[:200]}")
-    for ts, out in ((0.0, t0_out), (duration * 0.5, mid_out)):
+
+    frames_dir.mkdir(parents=True, exist_ok=True)
+    stamps = _frame_timestamps(duration)
+    for idx, ts in enumerate(stamps):
+        out = frames_dir / _frame_name(idx, ts)
         r = subprocess.run(
             ["ffmpeg", "-y", "-ss", f"{ts:.2f}", "-i", str(video_path),
              "-frames:v", "1", "-q:v", "2", str(out)],
             capture_output=True, text=True, timeout=120,
         )
-        if r.returncode != 0 or not Path(out).exists():
+        if r.returncode != 0 or not out.exists():
             raise RuntimeError(f"ffmpeg frame extraction failed at {ts:.1f}s: {r.stderr.strip()[:300]}")
-        print(f"  Screenshot (video @{ts:.1f}s/{duration:.1f}s): {out}")
-    return t0_out
+    print(f"  Frames (video, {len(stamps)} @ ~{FRAME_INTERVAL_S}s over {duration:.0f}s): {frames_dir}")
+    return frames_dir
 
 
 def ensure_screenshot(assets, force=False):
     """
-    One-time prep, two shots per lesson (reused on later runs, never
-    re-rendered per comparison):
-      1. t=0 title/problem card — orchestrator.take_screenshot (passive).
-      2. mid-lesson (~50% of the timeline) — active drive via the engine API,
-         since audio-gated lessons never advance on passive waits.
-    External videos get the same two frames via ffmpeg instead.
+    One-time frame prep per lesson, cached in <name>_frames/ and reused on
+    later runs: one frame every FRAME_INTERVAL_S seconds across the FULL
+    timeline (capped at MAX_FRAMES). Pipeline lessons are actively driven
+    via the engine seek API (audio-gated lessons never advance on passive
+    waits); external videos go through ffmpeg.
+
+    The cache is invalidated when the source html/video is newer than the
+    extracted frames — silently judging stale imagery is worse than the
+    cost of re-rendering.
     """
-    def stale(png, source):
-        # A cached frame older than its source shows a lesson/video that no
-        # longer exists — silently judging stale imagery is worse than the
-        # cost of re-rendering.
-        return png.exists() and png.stat().st_mtime < source.stat().st_mtime
+    import shutil as _shutil
+    source = assets.video_path if assets.is_external else assets.html_path
+    frames = assets.frame_paths()
+    stale = frames and any(f.stat().st_mtime < source.stat().st_mtime for f in frames)
 
-    if assets.is_external:
-        if (force or not (assets.screenshot_path.exists() and assets.mid_screenshot_path.exists())
-                or stale(assets.screenshot_path, assets.video_path)
-                or stale(assets.mid_screenshot_path, assets.video_path)):
-            _video_screenshots(assets.video_path, assets.screenshot_path,
-                               assets.mid_screenshot_path)
-        return assets.screenshot_path
-
-    if force or stale(assets.screenshot_path, assets.html_path):
-        assets.screenshot_path.unlink(missing_ok=True)
-    if stale(assets.mid_screenshot_path, assets.html_path):
-        assets.mid_screenshot_path.unlink(missing_ok=True)
-
-    if not (assets.screenshot_path.exists() and not force):
-        sys.path.insert(0, str(PIPELINE_DIR))
-        from orchestrator import take_screenshot  # lazy: playwright optional elsewhere
-        ok = take_screenshot(assets.html_path, assets.screenshot_path, wait_ms=4000)
-        if not ok or not assets.screenshot_path.exists():
-            raise RuntimeError(
-                f"Failed to screenshot {assets.html_path} — is playwright installed? "
-                "(pip install playwright && playwright install chromium)"
-            )
-    if not (assets.mid_screenshot_path.exists() and not force):
-        _screenshot_mid(assets.html_path, assets.mid_screenshot_path)
-    return assets.screenshot_path
+    if force or stale or not frames:
+        if assets.frames_dir.exists():
+            _shutil.rmtree(assets.frames_dir)
+        if assets.is_external:
+            _video_frames(assets.video_path, assets.frames_dir)
+        else:
+            _lesson_frames(assets.html_path, assets.frames_dir)
+        frames = assets.frame_paths()
+        if not frames:
+            raise RuntimeError(f"Frame extraction produced no frames for {source}")
+    return frames
 
 
 # ── OpenAI call ────────────────────────────────────────────────────────────────
@@ -480,14 +507,20 @@ def build_dimension_content(dimension, lesson1, lesson2):
     """
     parts = []
     if dimension in ("visual_accuracy", "polish"):
-        # Two frames per lesson: the t=0 title/problem card AND a mid-lesson
-        # frame (actively driven to ~50% of the timeline) so the judge sees
-        # the actual diagrams/animation state, not just the paused intro.
+        # Dense timeline sample per lesson: one frame every ~FRAME_INTERVAL_S
+        # seconds across the FULL duration (capped at MAX_FRAMES), in
+        # chronological order, so the judge sees the whole lesson play out —
+        # not just the intro and midpoint.
         for label, lesson in (("Lesson 1", lesson1), ("Lesson 2", lesson2)):
-            parts.append(_text(f"{label} — title/problem screen (t=0):"))
-            parts.append(_image(lesson.screenshot_path))
-            parts.append(_text(f"{label} — mid-lesson frame (~50% through the timeline):"))
-            parts.append(_image(lesson.mid_screenshot_path))
+            frames = lesson.frame_paths()
+            parts.append(_text(
+                f"{label} — {len(frames)} frames sampled every ~{FRAME_INTERVAL_S}s "
+                f"across the full timeline, in chronological order:"))
+            for f in frames:
+                # filename f07_t70s.png -> "t=70s"
+                ts = f.stem.split("_", 1)[1] if "_" in f.stem else f.stem
+                parts.append(_text(f"{label} frame at {ts.replace('t', 't=')}:"))
+                parts.append(_image(f))
     elif dimension == "interactivity":
         for label, lesson in (("Lesson 1", lesson1), ("Lesson 2", lesson2)):
             gates = "\n\n".join(lesson.gates) if lesson.gates else None

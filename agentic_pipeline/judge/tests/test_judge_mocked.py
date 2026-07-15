@@ -59,8 +59,10 @@ def fake_lessons(tmp_path, monkeypatch):
         dist = tmp_path / "dist" / "circle problem"
         dist.mkdir(parents=True, exist_ok=True)
         (dist / f"{v}.html").write_text("<html>fake lesson</html>")
-        (dist / f"{v}.png").write_bytes(FAKE_PNG)      # precomputed t=0 shot
-        (dist / f"{v}_mid.png").write_bytes(FAKE_PNG)  # precomputed mid-lesson shot
+        fdir = dist / f"{v}_frames"                    # precomputed timeline frames
+        fdir.mkdir(exist_ok=True)
+        for i, ts in enumerate((0, 10, 20)):
+            (fdir / f"f{i:02d}_t{ts}s.png").write_bytes(FAKE_PNG)
 
         work = tmp_path / "agentic_pipeline" / "work" / v
         (work / "gates").mkdir(parents=True)
@@ -78,8 +80,10 @@ def fake_lessons(tmp_path, monkeypatch):
     bench.mkdir(parents=True)
     (bench / "veo3.mp4").write_bytes(b"\x00\x00\x00\x18ftypmp42fake")
     (bench / "veo3.transcript.txt").write_text("Narrated circles explanation.")
-    (bench / "veo3.png").write_bytes(FAKE_PNG)
-    (bench / "veo3_mid.png").write_bytes(FAKE_PNG)
+    vdir = bench / "veo3_frames"
+    vdir.mkdir()
+    for i, ts in enumerate((0, 10, 20)):
+        (vdir / f"f{i:02d}_t{ts}s.png").write_bytes(FAKE_PNG)
     return ("circles_v98", "circles_v99")
 
 
@@ -133,9 +137,9 @@ def test_pairwise_end_to_end_mocked(fake_lessons, monkeypatch):
 
     # Input routing: each dimension gets ONLY what it needs.
     for dim in ("visual_accuracy", "polish"):
-        assert _n_images(by_dim[dim]) == 4, f"{dim} must get 2 screenshots per lesson (t=0 + mid)"
+        assert _n_images(by_dim[dim]) == 6, f"{dim} must get every timeline frame of both lessons"
         txt = _parts_text(by_dim[dim])
-        assert "title/problem screen (t=0)" in txt and "mid-lesson frame" in txt
+        assert "frames sampled every" in txt and "t=20s" in txt
         assert "gate specs" not in txt
     for dim in ("interactivity", "narration_quality", "sync", "concept_accuracy"):
         assert _n_images(by_dim[dim]) == 0, f"{dim} must get no images"
@@ -206,9 +210,9 @@ def test_external_video_pair_end_to_end(fake_lessons, monkeypatch):
             if f"DIMENSION: {dim}" in sys_prompt:
                 by_dim[dim] = content
 
-    # Image dims still get 4 frames (video frames stand in for renders).
+    # Image dims get every timeline frame (video frames stand in for renders).
     for dim in ("visual_accuracy", "polish"):
-        assert _n_images(by_dim[dim]) == 4
+        assert _n_images(by_dim[dim]) == 6
 
     # Concept gets the problem statement + the video's sidecar transcript,
     # and is told the video side has no plan/script.

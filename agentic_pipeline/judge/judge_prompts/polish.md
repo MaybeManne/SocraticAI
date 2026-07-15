@@ -10,4 +10,4 @@ DIMENSION: polish — Presentation quality, independent of whether the content i
 - No visual bugs — no raw unrendered LaTeX showing as literal text ($...$ symbols visible), no overlapping UI elements, no empty/broken boxes
 A lesson can score HIGH on visual_accuracy (correct content) but LOW on polish (ugly/off-center/cluttered presentation) — these are deliberately separate axes, judge them independently.
 
-You will receive rendered screenshots of Lesson 1 and Lesson 2.
+You will receive a DENSE SEQUENCE of rendered frames for each lesson — one frame roughly every 10 seconds across the FULL timeline, in chronological order and labeled with their timestamps. You are seeing the whole lesson play out, not a sample of two moments. Judge presentation across the entire sequence: clutter, overlap, off-center layouts, raw LaTeX, or broken/empty screens at ANY timestamp count against a lesson, and inconsistency BETWEEN frames (styles or layouts that jump around over time) is itself a polish defect.
