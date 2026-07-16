@@ -35,6 +35,8 @@ import bradley_terry  # noqa: E402  (read-only use of the judge's ranking math)
 
 JUDGE_RESULTS = REPO / "agentic_pipeline" / "judge" / "pairwise_results"
 HUMAN_RESULTS = REPO / "human_pairwise_results"
+VIDEO_SCORES = REPO / "agentic_pipeline" / "judge" / "video_scores"
+HUMAN_VIDEO_SCORES = REPO / "human_video_scores"   # per-video human narration/sync
 PORT = 8765
 
 # Python used to RUN the judge (needs openai + playwright for screenshot prep).
@@ -297,6 +299,36 @@ class Handler(BaseHTTPRequestHandler):
             return self._json({"video": vid, "matches": matches,
                                "dimRecord": dim_rec, "overallRecord": ov_rec})
 
+        if path == "/api/video_meta":
+            # Per-video metadata (duration/solved/explained/visualCount from
+            # video_meta.py) + per-video HUMAN narration/sync score averages.
+            # Kept fully separate from AI pairwise results.
+            meta = {}
+            if VIDEO_SCORES.is_dir():
+                for p in sorted(VIDEO_SCORES.glob("*.json")):
+                    try:
+                        m = json.loads(p.read_text())
+                        meta[m["id"]] = m
+                    except (json.JSONDecodeError, KeyError):
+                        pass
+            if HUMAN_VIDEO_SCORES.is_dir():
+                agg = {}
+                for p in sorted(HUMAN_VIDEO_SCORES.glob("*.json")):
+                    try:
+                        h = json.loads(p.read_text())
+                        a = agg.setdefault(h["video"], {"narration": [], "sync": []})
+                        a["narration"].append(h["narration"])
+                        a["sync"].append(h["sync"])
+                    except (json.JSONDecodeError, KeyError):
+                        pass
+                for vid, a in agg.items():
+                    meta.setdefault(vid, {"id": vid})["human"] = {
+                        "narration": round(sum(a["narration"]) / len(a["narration"]), 1),
+                        "sync": round(sum(a["sync"]) / len(a["sync"]), 1),
+                        "n": len(a["narration"]),
+                    }
+            return self._json(meta)
+
         if path.startswith("/api/job/"):
             job = JOBS.get(path.rsplit("/", 1)[1])
             return self._json(job or {"status": "unknown"}, 200 if job else 404)
@@ -349,6 +381,24 @@ class Handler(BaseHTTPRequestHandler):
                             "startedAt": datetime.now(timezone.utc).isoformat(), "error": None}
             threading.Thread(target=_run_judge_job, args=(job_id, a, b), daemon=True).start()
             return self._json({"job": job_id})
+
+        if url.path == "/api/human_video_score":
+            # Per-VIDEO human scores for narration & sync (1-5), stored in
+            # human_video_scores/ — never mixed with AI judge results.
+            vid = data.get("video")
+            narr, sync = data.get("narration"), data.get("sync")
+            ok = (vid and isinstance(narr, (int, float)) and isinstance(sync, (int, float))
+                  and 1 <= narr <= 5 and 1 <= sync <= 5)
+            if not ok:
+                return self._json({"error": "video, narration (1-5), sync (1-5) required"}, 400)
+            HUMAN_VIDEO_SCORES.mkdir(exist_ok=True)
+            ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+            record = {"video": vid, "narration": narr, "sync": sync,
+                      "note": data.get("note") or None, "source": "human",
+                      "scoredAt": datetime.now(timezone.utc).isoformat()}
+            out = HUMAN_VIDEO_SCORES / f"{vid}__{ts}.json"
+            out.write_text(json.dumps(record, indent=2))
+            return self._json({"saved": out.name})
 
         if url.path == "/api/judge_feedback":
             a, b = data.get("setupA"), data.get("setupB")

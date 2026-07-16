@@ -658,7 +658,26 @@ def run_pairwise(variant_a, variant_b, model=JUDGE_MODEL):
         },
         "evalModel": model,
         "evaluatedAt": datetime.now(timezone.utc).isoformat(),
+        # Additive, read-only join: per-video metadata (duration, solved,
+        # explained, visualCount) from video_scores/ if already computed by
+        # video_meta.py. Never computed here; absent -> {}. Has no effect on
+        # the pairwise verdicts above.
+        "videoMeta": {
+            v: _cached_video_meta(v) for v in (variant_a, variant_b)
+        },
     }
+
+
+def _cached_video_meta(variant_id):
+    p = JUDGE_DIR / "video_scores" / f"{variant_id}.json"
+    if p.exists():
+        try:
+            m = json.loads(p.read_text())
+            return {k: m.get(k) for k in
+                    ("durationSeconds", "solved", "explained", "visualCount")}
+        except json.JSONDecodeError:
+            pass
+    return {}
 
 
 def save_result(result):

@@ -1,0 +1,14 @@
+{
+  "circles": {
+    "answer": "64 circles (n = 32 shaded rings, so 2n = 64)",
+    "acceptable": ["64", "sixty-four circles", "2n = 64"]
+  },
+  "archer": {
+    "answer": "approximately 141 m (141.4 m with g = 9.8 m/s^2; 138.6 m acceptable if g = 10)",
+    "acceptable": ["141", "141.4", "138.6", "about 140 meters"]
+  },
+  "binsearch": {
+    "answer": "target 45 is found at index 7 (in 4 steps), and binary search runs in O(log n)",
+    "acceptable": ["index 7", "position 7", "O(log n)"]
+  }
+}

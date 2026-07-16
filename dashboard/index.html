@@ -114,6 +114,15 @@
     <div id="empty">Pick videos on the left to compare them.</div>
     <div class="videos" id="grid"></div>
 
+    <div class="panel" id="factsPanel" style="display:none">
+      <h3>Video facts <span class="muted" style="text-transform:none;letter-spacing:0">
+        (duration · solved · explained · visuals — per-video metadata, separate from pairwise verdicts)</span></h3>
+      <div id="factsBody"></div>
+      <h3 style="margin-top:14px">Your narration &amp; sync scores <span class="muted" style="text-transform:none;letter-spacing:0">
+        (human-only, 1–5 per video — stored apart from all AI judge data)</span></h3>
+      <div id="humanScoreBody"></div>
+    </div>
+
     <div class="panel" id="metricsPanel" style="display:none">
       <div style="display:flex; align-items:center; margin-bottom:8px">
         <h3 style="margin:0">Judge metrics</h3>
@@ -263,7 +272,63 @@ function render() {
     grid.appendChild(slot);
   });
   loadMetrics();
+  loadFacts();
   setupVerdict();
+}
+
+// ── Per-video facts (duration/solved/explained/visuals) + human 1-5 scores ──
+let VMETA = null;
+const fmtDur = s => s == null ? "—"
+  : `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
+const yn = v => v === true ? `<span class="sc sc-hi">✓ yes</span>`
+  : v === false ? `<span class="sc sc-lo">✗ no</span>` : "<span class='muted'>—</span>";
+
+async function loadFacts() {
+  const panel = $("factsPanel");
+  const scored = selected.filter(id => item(id).subject !== "misc");
+  if (!scored.length) { panel.style.display = "none"; return; }
+  panel.style.display = "";
+  VMETA = await api("/api/video_meta");
+
+  let h = `<table><tr><th>video</th><th>duration</th><th>solved</th><th>explained</th>
+    <th>visuals</th><th>human narration</th><th>human sync</th></tr>`;
+  for (const id of scored) {
+    const m = VMETA[id] || {};
+    const hu = m.human || {};
+    h += `<tr><td><b>${id}</b></td>
+      <td>${fmtDur(m.durationSeconds)}</td>
+      <td>${yn(m.solved)}</td><td>${yn(m.explained)}</td>
+      <td title="${(m.visualBreakdown || "").replace(/"/g, "&quot;")}">${m.visualCount ?? "—"}
+        <span class="muted" style="font-size:10px">${m.visualCountSource === "vision-llm" ? "(vision)" : m.visualCountSource === "lesson_plan" ? "(plan)" : ""}</span></td>
+      <td>${hu.narration ? `${hu.narration}/5 <span class="muted">(${hu.n})</span>` : "<span class='muted'>—</span>"}</td>
+      <td>${hu.sync ? `${hu.sync}/5 <span class="muted">(${hu.n})</span>` : "<span class='muted'>—</span>"}</td></tr>`;
+  }
+  h += `</table>`;
+  $("factsBody").innerHTML = h;
+
+  const sel = name => `<select data-h="${name}">` + ["", 1, 2, 3, 4, 5].map(v =>
+    `<option value="${v}">${v === "" ? "—" : v}</option>`).join("") + `</select>`;
+  let f = "";
+  for (const id of scored) {
+    f += `<div class="hrow" data-vid="${id}" style="display:flex;gap:8px;align-items:center;margin:4px 0">
+      <span style="min-width:170px"><b>${id}</b></span>
+      narration ${sel("narration")} sync ${sel("sync")}
+      <input placeholder="note…" data-h="note" style="flex:1;border:1px solid var(--border);border-radius:7px;padding:5px 8px;font-size:12px">
+      <button data-h="save">Save</button><span class="muted" data-h="msg"></span></div>`;
+  }
+  $("humanScoreBody").innerHTML = f;
+  $("humanScoreBody").querySelectorAll(".hrow").forEach(row => {
+    row.querySelector('[data-h="save"]').onclick = async () => {
+      const val = n => row.querySelector(`[data-h="${n}"]`).value;
+      const narr = +val("narration"), sync = +val("sync");
+      const msg = row.querySelector('[data-h="msg"]');
+      if (!narr || !sync) { msg.textContent = "pick both 1–5"; return; }
+      const r = await api("/api/human_video_score", { method: "POST", body: JSON.stringify({
+        video: row.dataset.vid, narration: narr, sync: sync, note: val("note") || null }) });
+      msg.textContent = r.saved ? "saved ✓" : (r.error || "error");
+      if (r.saved) loadFacts();
+    };
+  });
 }
 
 // Per-match credit out of 100 from the judge's verdict + confidence:
@@ -562,19 +627,22 @@ const winRate = r => r.comparisons ? (r.wins + r.ties * 0.5) / r.comparisons : 0
 
 async function loadLeaderboard() {
   const data = await api(`/api/rankings/${lbSubject}`);
+  if (!VMETA) VMETA = await api("/api/video_meta");
   const dim = $("lbDim").value;
   const rows = dim === "overall" ? data.overall : (data.dimensions[dim] || []);
   if (!rows.length) { $("lbBody").innerHTML = "<p class='muted'>No judge data.</p>"; return; }
   rows.sort((a, b) => winRate(b) - winRate(a) || b.comparisons - a.comparisons || b.score - a.score);
   let html = `<table><tr><th>#</th><th>setup</th><th>win rate</th><th></th>
-    <th>record</th><th>matches</th><th>BT strength</th></tr>`;
+    <th>record</th><th>matches</th><th>⏱ length</th><th>BT strength</th></tr>`;
   rows.forEach((r, i) => {
     const wr = winRate(r) * 100;
+    const m = (VMETA || {})[r.id] || {};
     html += `<tr><td class="${i===0?'best':'muted'}">${i+1}</td><td>${r.id}</td>
       <td class="${i===0?'best':''}">${wr.toFixed(0)}%</td>
       <td><div class="lbbar"><div style="width:${wr.toFixed(0)}%"></div></div></td>
       <td>${r.wins}-${r.losses}-${r.ties}</td>
       <td class="muted">${r.comparisons}</td>
+      <td class="muted">${fmtDur(m.durationSeconds)}</td>
       <td class="muted">${(r.score*100).toFixed(1)}</td></tr>`;
   });
   $("lbBody").innerHTML = html + `</table><div class="legend"><b>Win rate</b> = wins / matches,
