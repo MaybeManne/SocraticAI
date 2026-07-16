@@ -45,3 +45,6 @@ benchmark_site/socraticai-benchmark/
 # static results site build output
 results_site/socraticai-results/
 results_site/site/
+
+# static dashboard clone build output
+dashboard_share/socraticai-dashboard/
