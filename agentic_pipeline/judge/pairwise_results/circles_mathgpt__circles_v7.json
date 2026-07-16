@@ -1,46 +1,46 @@
 {
-  "setupA": "circles_mathgpt",
-  "setupB": "circles_v7",
+  "setupA": "circles_v7",
+  "setupB": "circles_mathgpt",
   "subject": "circles",
-  "lesson1Setup": "circles_v7",
-  "lesson2Setup": "circles_mathgpt",
+  "lesson1Setup": "circles_mathgpt",
+  "lesson2Setup": "circles_v7",
   "dimensions": {
     "visual_accuracy": {
       "winner": "circles_v7",
-      "confidence": 0.94,
-      "rationale": "Lesson 1 accurately depicts the circles as internally tangent at a common circumference point with the correct shaded odd-even regions, while Lesson 2 often uses disjoint or concentric-circle schematics that do not match the actual shared-point/nested geometry even though the algebra is mostly correct."
+      "confidence": 0.88,
+      "rationale": "Lesson 2 more accurately depicts the actual geometry with circles sharing a common boundary point and correctly highlighted tangent gaps, while Lesson 1 often represents gaps as separate circles or concentric annuli, which preserves area algebra but is visually inaccurate for the stated configuration."
     },
     "interactivity": {
       "winner": "circles_v7",
       "confidence": 0.99,
-      "rationale": "Lesson 1 includes a well-formed quiz gate wired after act_total_area with a real question, plausible options, and a marked correct answer, whereas Lesson 2 has no gate specs or plan at all, so it provides no functional interactivity."
+      "rationale": "Lesson 2 includes a well-formed quiz gate wired after act_total_area with a real question, plausible answer choices, and a correct option, whereas Lesson 1 has no available gate specs or plan and therefore provides no functioning interactivity."
     },
     "narration_quality": {
       "winner": "circles_v7",
-      "confidence": 0.98,
-      "rationale": "Lesson 1 uses clear, natural spoken math and well-paced phrasing, while Lesson 2 contains raw/garbled symbolic expressions like \u201c\u03c0x2k\u00b2-\u03c0x2k-1\u00b2\u201d and \u201c\u03c0x4k-1\u201d that would be read unnaturally and ambiguously by TTS."
+      "confidence": 0.91,
+      "rationale": "Lesson 2 has mostly clear, well-paced narration with only minor awkward spoken algebra like \u201ctwo-k-minus-one,\u201d while Lesson 1 repeatedly includes compact symbolic text such as \u201c\u03c0x2k\u00b2-\u03c0x2k-1\u00b2\u201d and \u201c\u03c0x4k-1\u201d that would be read unnaturally or ambiguously aloud."
     },
     "sync": {
       "winner": "circles_v7",
-      "confidence": 0.76,
-      "rationale": "Lesson 1 provides timed visual cues that are mostly aligned despite some early/late triggers during value testing and the final reveal, whereas Lesson 2 has no beat/timing or cue data at all, making its visual-narration synchronization unsubstantiated and effectively worse for this dimension."
+      "confidence": 0.84,
+      "rationale": "Lesson 2 provides mostly well-aligned visual cues at the moments circles, rings, algebra, inequality, graph tests, and the final answer are referenced, while Lesson 1 has no beat/cue timing data at all, leaving its many referenced visual transitions unverifiable and effectively unsynchronized for this dimension."
     },
     "concept_accuracy": {
       "winner": "circles_v7",
-      "confidence": 0.91,
-      "rationale": "Lesson 1 gives a clear, correct derivation with proper parentheses and summation notation, while Lesson 2 reaches the right answer but its transcript contains ambiguous or incorrect algebra such as treating the gap formula as something like 2k\u00b2\u22122k\u22121\u00b2 instead of (2k)^2\u2212(2k\u22121)^2, which weakens conceptual clarity."
+      "confidence": 0.88,
+      "rationale": "Lesson 2 is more conceptually accurate and pedagogically clear because it explicitly derives the k-th shaded area with correct notation, sums the series step by step, checks the meaning of n, and solves the inequality, while Lesson 1 is mostly correct but more compressed and its transcript contains ambiguous/misleading algebra notation around (2k)^2 and (2k-1)^2 that could confuse a learner."
     },
     "polish": {
       "winner": "circles_mathgpt",
       "confidence": 0.72,
-      "rationale": "Lesson 2 is generally cleaner, brighter, better centered, and more legible with consistent slide styling, whereas Lesson 1 is frequently cramped with a persistent long header, crowded side panels, clipped/partially offscreen formulas, and less balanced layouts despite Lesson 2\u2019s notable raw LaTeX/control-overlay blemishes."
+      "rationale": "Lesson 1 is generally much cleaner, larger, and more consistently laid out, while Lesson 2 has cramped tiny formulas, persistent crowded header text, off-balance empty/overfull regions, and some clipped equation content, despite Lesson 1\u2019s notable raw LaTeX text bug near the threshold slide."
     }
   },
   "aggregator": {
     "winner": "circles_v7",
-    "confidence": 0.93,
-    "explanation": "Lesson 1 is the clear overall winner: five of six agents prefer it, with high confidence across visual accuracy, interactivity, narration quality, synchronization, and conceptual accuracy. These dimensions emphasize that Lesson 1 better represents the geometry, includes functional quiz interactivity, has clearer spoken math, provides usable timing cues, and presents the derivation more correctly. Lesson 2 only wins polish, with moderate confidence, due to cleaner styling and layout, but this is outweighed by its missing interactivity, lack of timing data, weaker/ambiguous narration, and less accurate visuals."
+    "confidence": 0.91,
+    "explanation": "Lesson 2 is the clear overall winner: five of six agents favored it, all with high confidence, across visual accuracy, interactivity, narration quality, synchronization, and conceptual accuracy. These dimensions indicate Lesson 2 more faithfully represents the geometry, includes functioning quiz interactivity, has clearer spoken explanations, better aligns visuals with narration, and presents the mathematics more accurately and pedagogically. Lesson 1 won only polish, with moderate confidence, due to cleaner layout, but that advantage is outweighed by Lesson 2's stronger performance on the core instructional and functional dimensions."
   },
   "evalModel": "gpt-5.5",
-  "evaluatedAt": "2026-07-15T17:24:10.550841+00:00"
+  "evaluatedAt": "2026-07-15T17:52:53.526727+00:00"
 }
