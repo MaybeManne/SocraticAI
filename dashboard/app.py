@@ -72,7 +72,12 @@ def _run_judge_job(job_id, a, b):
 DIMENSIONS = ["visual_accuracy", "interactivity", "narration_quality",
               "sync", "concept_accuracy", "polish"]
 
-SUBJECT_DIRS = {"circles": "circle problem", "archer": "archer", "binsearch": "binary search"}
+# Problem set comes from the single manifest (benchmark/problems.json);
+# adding a problem there is all the dashboard needs.
+PROBLEMS_MANIFEST = REPO / "agentic_pipeline" / "benchmark" / "problems.json"
+_problems = json.loads(PROBLEMS_MANIFEST.read_text())["problems"]
+SUBJECT_DIRS = {p["id"]: p["dist_dir"] for p in _problems}
+SUBJECT_TITLES = {p["id"]: p.get("title", p["id"]) for p in _problems}
 VIDEO_EXTS = (".mp4", ".mov", ".webm")
 
 
@@ -251,18 +256,26 @@ class Handler(BaseHTTPRequestHandler):
                 })
 
         if path == "/api/next_pair":
+            # Same-subject pairs only, with judged/human lookups precomputed
+            # as filename sets (two glob passes total) instead of two disk
+            # probes per candidate pair — stays fast at hundreds of videos.
             items = catalog()
+            judged = {p.stem for p in JUDGE_RESULTS.glob("*.json")} \
+                if JUDGE_RESULTS.is_dir() else set()
+            humaned = {p.name.split("__human_")[0] for p in
+                       HUMAN_RESULTS.glob("*__human_*.json")} \
+                if HUMAN_RESULTS.is_dir() else set()
             by_subject = {}
             for i in items:
-                by_subject.setdefault(i["subject"], []).append(i["id"])
+                if i["subject"] != "misc":
+                    by_subject.setdefault(i["subject"], []).append(i["id"])
             candidates = []
             for subject, ids in by_subject.items():
                 for x in range(len(ids)):
                     for y in range(x + 1, len(ids)):
-                        a, b = ids[x], ids[y]
-                        has_human = bool(human_results_for(a, b))
-                        has_judge = judge_result_for(a, b) is not None
-                        candidates.append((has_human, not has_judge, a, b))
+                        key = pair_key(ids[x], ids[y])
+                        candidates.append((key in humaned, key not in judged,
+                                           ids[x], ids[y]))
             if not candidates:
                 return self._json({"error": "no pairs"}, 404)
             # Prefer: no human review first; among those, judged pairs first
@@ -271,6 +284,34 @@ class Handler(BaseHTTPRequestHandler):
             candidates.sort(key=lambda c: (c[0], c[1]))
             _, _, a, b = candidates[0]
             return self._json({"a": a, "b": b})
+
+        if path == "/api/aggregate":
+            # Cross-problem view: per variant/tool suffix, win rate averaged
+            # over the problems where it has judged matches.
+            per = {}   # suffix -> {subject -> [w, l, t]}
+            for r in load_judge_results():
+                w = (r.get("aggregator") or {}).get("winner")
+                for s in (r["setupA"], r["setupB"]):
+                    suffix = s.split("_", 1)[1] if "_" in s else s
+                    rec = per.setdefault(suffix, {}).setdefault(r["subject"], [0, 0, 0])
+                    rec[2 if w == "tie" else 0 if w == s else 1] += 1
+            rows = []
+            for suffix, subs in per.items():
+                rates, tw = [], [0, 0, 0]
+                for rec in subs.values():
+                    n = sum(rec)
+                    if n:
+                        rates.append((rec[0] + 0.5 * rec[2]) / n)
+                    for i in range(3):
+                        tw[i] += rec[i]
+                rows.append({
+                    "id": suffix, "problems": len(subs),
+                    "avgWinRate": round(sum(rates) / len(rates), 4) if rates else 0,
+                    "wins": tw[0], "losses": tw[1], "ties": tw[2],
+                    "comparisons": sum(tw),
+                })
+            rows.sort(key=lambda r: (-r["avgWinRate"], -r["comparisons"]))
+            return self._json({"rows": rows, "subjects": list(SUBJECT_TITLES)})
 
         if path.startswith("/api/stats/"):
             vid = unquote(path.rsplit("/", 1)[1])

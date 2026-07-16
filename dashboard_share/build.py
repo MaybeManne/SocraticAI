@@ -84,7 +84,7 @@ def main():
     all_results = app.load_judge_results()
 
     rankings = {s: bradley_terry.rank_all(app.load_judge_results(s))
-                for s in ("circles", "archer", "binsearch")}
+                for s in app.SUBJECT_DIRS}  # subjects come from the manifest via app.py
     stats = {vid: stats_for(vid, all_results) for vid in ids}
     pairs = {}
     for i in range(len(ids)):

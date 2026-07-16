@@ -1,0 +1,48 @@
+{
+  "_readme": [
+    "SINGLE SOURCE OF TRUTH for the benchmark problem set. Consumed by:",
+    "  judge/pairwise_evaluator.py (subject -> dist dir / html naming / problem file)",
+    "  judge/video_meta.py         (canonical answers for the 'solved' check)",
+    "  dashboard/app.py            (catalog subject dirs)",
+    "  benchmark_site/build.py, results_site/build.py, dashboard_share/build.py (titles/order)",
+    "Add new problems here FIRST; nothing else needs editing for a new problem",
+    "that follows the conventions below."
+  ],
+  "conventions": {
+    "id": "kebab-or-plain slug, NO underscores (variant ids are '<id>_vN')",
+    "dist_dir": "dist/<id>/  — same slug as id, no spaces (legacy entries are grandfathered)",
+    "html_naming": "variant_id  — lesson files are <id>_vN.html (legacy 'bare_version' entries use vN.html)",
+    "problem_file": "path relative to agentic_pipeline/ with the exact problem statement",
+    "answer": "canonical final answer, phrased so equivalent forms count; put non-essential detail in parentheses marked as not required",
+    "external_videos": "benchmark_comparison/<id>/<tool>.{mp4,mov,webm} + optional <tool>.transcript.txt"
+  },
+  "problems": [
+    {
+      "id": "circles",
+      "title": "Nested Circles (AMC 10A 2023 P15)",
+      "dist_dir": "circle problem",
+      "html_naming": "variant_id",
+      "problem_file": "amc10a_2023_p15.md",
+      "answer": "64 circles (n = 32 shaded rings, so 2n = 64)",
+      "acceptable": ["64", "sixty-four circles", "2n = 64"]
+    },
+    {
+      "id": "archer",
+      "title": "Archer / Projectile Range",
+      "dist_dir": "archer",
+      "html_naming": "bare_version",
+      "problem_file": "archer_problem.md",
+      "answer": "approximately 141 m (141.4 m with g = 9.8 m/s^2; 138.6 m acceptable if g = 10)",
+      "acceptable": ["141", "141.4", "138.6", "about 140 meters"]
+    },
+    {
+      "id": "binsearch",
+      "title": "Binary Search",
+      "dist_dir": "binary search",
+      "html_naming": "bare_version",
+      "problem_file": "tests/binary_search_problem.md",
+      "answer": "target 45 is found at index 7, and binary search runs in O(log n). (Reaching it in 4 steps is supporting detail, NOT required for a correct final answer.)",
+      "acceptable": ["index 7", "position 7", "O(log n)"]
+    }
+  ]
+}

@@ -25,7 +25,8 @@ Computes, per lesson/external video, and caches to video_scores/<id>.json:
                        how frames are extracted/cached).
 
 solved/explained come from ONE LLM call over the transcript + the canonical
-answer from benchmark/answers.json. Everything is cached and only recomputed
+answer from benchmark/problems.json (the problem-set manifest). Everything is
+cached and only recomputed
 with --force. This module never touches pairwise_results/.
 
     python3 judge/video_meta.py --id circles_v7
@@ -43,12 +44,11 @@ from pathlib import Path
 JUDGE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(JUDGE_DIR))
 from pairwise_evaluator import (  # noqa: E402
-    JUDGE_MODEL, LessonAssets, REPO_ROOT, PIPELINE_DIR,
+    JUDGE_MODEL, LessonAssets, REPO_ROOT, PIPELINE_DIR, answer_for,
     _call_openai, _image, _text, ensure_screenshot, parse_agent_json,
 )
 
 SCORES_DIR = JUDGE_DIR / "video_scores"
-ANSWERS_PATH = PIPELINE_DIR / "benchmark" / "answers.json"
 VISUAL_CARD_TYPES = {"derivation", "bar-chart", "figure", "plot-2d", "split"}
 
 VISUAL_DEFINITION = (
@@ -158,8 +158,7 @@ def score_video(variant_id, force=False):
         return json.loads(out_path.read_text())
 
     assets = LessonAssets(variant_id)
-    answers = json.loads(ANSWERS_PATH.read_text())
-    answer = (answers.get(assets.subject) or {}).get("answer", "(no canonical answer recorded)")
+    answer = answer_for(assets.subject) or "(no canonical answer recorded)"
 
     if assets.is_external:
         duration = _duration_video(assets.video_path)

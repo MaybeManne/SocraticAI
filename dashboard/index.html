@@ -96,7 +96,10 @@
 
 <aside>
   <div class="top"><input id="search" placeholder="Search 91 videos…"></div>
-  <div class="chips" id="chips"></div>
+  <div style="padding:6px 12px">
+    <select id="subjectSel" style="width:100%; border:1px solid var(--border); border-radius:9px;
+      padding:7px 9px; font:inherit; font-size:13px" title="Problem (type to jump)"></select>
+  </div>
   <div id="list"></div>
   <button id="showAll">Show all versions…</button>
 </aside>
@@ -158,9 +161,9 @@
 
   <section id="leaderboard" style="display:none">
     <div class="bar">
-      <button class="lbsub primary" data-s="circles">circles</button>
-      <button class="lbsub" data-s="archer">archer</button>
-      <button class="lbsub" data-s="binsearch">binsearch</button>
+      <select id="lbSubject" style="border:1px solid var(--border); border-radius:9px; padding:6px 10px">
+        <option value="__all__">ALL problems (aggregate)</option>
+      </select>
       <select id="lbDim" style="border:1px solid var(--border); border-radius:9px; padding:6px 10px; margin-left:8px">
         <option value="overall">overall</option>
         <option>visual_accuracy</option><option>interactivity</option>
@@ -202,17 +205,14 @@ document.querySelectorAll(".tab2").forEach(t => t.onclick = () => {
 async function init() {
   CATALOG = await api("/api/videos");
   $("search").placeholder = `Search ${CATALOG.length} videos…`;
+  // Problem picker: a dropdown scales to ~100 problems (native type-to-jump
+  // does the searching); the search box above already matches across ALL
+  // problems' videos regardless of this filter.
   const subjects = [...new Set(CATALOG.map(i => i.subject))];
-  $("chips").innerHTML = "";
-  for (const s of subjects) {
-    const c = document.createElement("div");
-    c.className = "chip" + (s === subjectFilter ? " on" : "");
-    c.textContent = s;
-    c.onclick = () => { subjectFilter = s;
-      document.querySelectorAll(".chip").forEach(x => x.classList.remove("on"));
-      c.classList.add("on"); renderList(); };
-    $("chips").appendChild(c);
-  }
+  $("subjectSel").innerHTML = subjects.map(s =>
+    `<option value="${s}" ${s === subjectFilter ? "selected" : ""}>${s}</option>`).join("");
+  $("subjectSel").onchange = e => { subjectFilter = e.target.value; renderList(); };
+  initLbSubjects();
   $("search").oninput = renderList;
   $("showAll").onclick = () => { showAll = !showAll;
     $("showAll").textContent = showAll ? "Show fewer…" : "Show all versions…"; renderList(); };
@@ -611,13 +611,42 @@ async function loadJudgePanel() {
 }
 
 let lbSubject = "circles";
-document.querySelectorAll(".lbsub").forEach(b => b.onclick = () => {
-  lbSubject = b.dataset.s;
-  document.querySelectorAll(".lbsub").forEach(x => x.classList.remove("primary"));
-  b.classList.add("primary");
-  loadLeaderboard();
-});
+function initLbSubjects() {
+  // Populated once the catalog is known; keeps the aggregate option on top.
+  const subjects = [...new Set(CATALOG.map(i => i.subject))].filter(s => s !== "misc");
+  $("lbSubject").innerHTML = `<option value="__all__">ALL problems (aggregate)</option>` +
+    subjects.map(s => `<option value="${s}" ${s === lbSubject ? "selected" : ""}>${s}</option>`).join("");
+}
+$("lbSubject").onchange = e => { lbSubject = e.target.value; loadLeaderboard(); };
 $("lbDim").onchange = loadLeaderboard;
+
+// Stale-response guard: only the most recent leaderboard request may render
+// (fast subject switches otherwise let a slow earlier fetch overwrite lbBody).
+let lbSeq = 0;
+
+async function loadAggregate() {
+  const my = ++lbSeq;
+  const data = await api("/api/aggregate");
+  if (my !== lbSeq) return;
+  if (!data.rows || !data.rows.length) {
+    $("lbBody").innerHTML = "<p class='muted'>No judge data.</p>"; return;
+  }
+  let html = `<table><tr><th>#</th><th>variant / tool</th><th>avg win rate</th><th></th>
+    <th>problems</th><th>total record</th><th>matches</th></tr>`;
+  data.rows.forEach((r, i) => {
+    const wr = r.avgWinRate * 100;
+    html += `<tr><td class="${i===0?'best':'muted'}">${i+1}</td><td>${r.id}</td>
+      <td class="${i===0?'best':''}">${wr.toFixed(0)}%</td>
+      <td><div class="lbbar"><div style="width:${wr.toFixed(0)}%"></div></div></td>
+      <td class="muted">${r.problems} of ${data.subjects.length}</td>
+      <td>${r.wins}-${r.losses}-${r.ties}</td>
+      <td class="muted">${r.comparisons}</td></tr>`;
+  });
+  $("lbBody").innerHTML = html + `</table><div class="legend"><b>Avg win rate</b> = each
+    problem's win rate (ties count half) averaged over the problems where this variant/tool
+    has judged matches — every problem weighs equally regardless of match count.
+    Overall verdicts only; pick a single problem for per-dimension boards.</div>`;
+}
 
 // Win rate (ties count half) is the primary leaderboard metric. Raw
 // Bradley-Terry strength compresses to ~0 for everyone when one setup is
@@ -626,8 +655,11 @@ $("lbDim").onchange = loadLeaderboard;
 const winRate = r => r.comparisons ? (r.wins + r.ties * 0.5) / r.comparisons : 0;
 
 async function loadLeaderboard() {
+  if (lbSubject === "__all__") return loadAggregate();
+  const my = ++lbSeq;
   const data = await api(`/api/rankings/${lbSubject}`);
   if (!VMETA) VMETA = await api("/api/video_meta");
+  if (my !== lbSeq) return;   // a newer request superseded this one
   const dim = $("lbDim").value;
   const rows = dim === "overall" ? data.overall : (data.dimensions[dim] || []);
   if (!rows.length) { $("lbBody").innerHTML = "<p class='muted'>No judge data.</p>"; return; }

@@ -20,11 +20,11 @@ RES = REPO / "agentic_pipeline" / "judge" / "pairwise_results"
 
 DIMS = ["visual_accuracy", "interactivity", "narration_quality", "sync",
         "concept_accuracy", "polish"]
-SUBJECT_TITLES = {
-    "circles": "Nested Circles (AMC 10A 2023 P15)",
-    "archer": "Archer / Projectile Range",
-    "binsearch": "Binary Search",
-}
+# Problem set from the single manifest (benchmark/problems.json).
+_problems = json.loads(
+    (REPO / "agentic_pipeline" / "benchmark" / "problems.json").read_text())["problems"]
+SUBJECT_ORDER = [p["id"] for p in _problems]
+SUBJECT_TITLES = {p["id"]: p.get("title", p["id"]) for p in _problems}
 TOOLS = ("veo3", "mathgpt", "notebooklm", "videotutor")
 
 
@@ -72,7 +72,7 @@ def main():
             {"id": s, "title": SUBJECT_TITLES.get(s, s),
              "setups": sorted(setups[s],
                               key=lambda v: (kind_of(v) == "external", v))}
-            for s in ("circles", "archer", "binsearch") if s in setups
+            for s in SUBJECT_ORDER if s in setups
         ],
         "kinds": {v: kind_of(v) for s in setups for v in setups[s]},
         "videoSite": "https://socraticai-benchmark.vercel.app",

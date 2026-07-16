@@ -20,12 +20,11 @@ SITE = Path(__file__).resolve().parent
 OUT = SITE / "socraticai-benchmark"
 MEDIA = OUT / "media"
 
-SUBJECT_DIRS = {"circles": "circle problem", "archer": "archer", "binsearch": "binary search"}
-SUBJECT_TITLES = {
-    "circles": "Nested Circles (AMC 10A 2023 P15)",
-    "archer": "Archer / Projectile Range",
-    "binsearch": "Binary Search",
-}
+# Problem set from the single manifest (benchmark/problems.json).
+_problems = json.loads(
+    (REPO / "agentic_pipeline" / "benchmark" / "problems.json").read_text())["problems"]
+SUBJECT_DIRS = {p["id"]: p["dist_dir"] for p in _problems}
+SUBJECT_TITLES = {p["id"]: p.get("title", p["id"]) for p in _problems}
 TOOLS = ["veo3", "mathgpt", "notebooklm", "videotutor"]
 TOOL_LABELS = {"veo3": "Google Veo 3", "mathgpt": "MathGPT (Mathos AI)",
                "notebooklm": "NotebookLM", "videotutor": "VideoTutor"}

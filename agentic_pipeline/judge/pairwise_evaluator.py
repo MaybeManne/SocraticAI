@@ -84,24 +84,40 @@ DIMENSIONS = [
 BENCH_DIR_NAME = "benchmark_comparison"
 VIDEO_EXTS = (".mp4", ".webm", ".mov")
 
+# The problem set lives in ONE manifest — benchmark/problems.json. Adding a
+# problem there is all that's needed; the legacy html-naming quirks of the
+# first three problems are grandfathered via the "html_naming" field.
+PROBLEMS_MANIFEST = PIPELINE_DIR / "benchmark" / "problems.json"
+
+
+def _html_namer(style):
+    if style == "bare_version":        # legacy: dist/<dir>/v3.html
+        return lambda v: v.split("_", 1)[1] + ".html"
+    return lambda v: f"{v}.html"       # convention: dist/<dir>/<id>_v3.html
+
+
+def load_problems():
+    """Parsed manifest entries, keyed by problem id."""
+    data = json.loads(PROBLEMS_MANIFEST.read_text())
+    return {p["id"]: p for p in data["problems"]}
+
+
+_PROBLEMS = load_problems()
 # Subject -> problem statement source (used as concept context when a lesson
 # has no lesson_plan.json, i.e. external videos).
-PROBLEM_FILES = {
-    "circles": "amc10a_2023_p15.md",
-    "archer": "archer_problem.md",
-    "binsearch": "tests/binary_search_problem.md",
-}
+PROBLEM_FILES = {pid: p["problem_file"] for pid, p in _PROBLEMS.items()}
+_SUBJECTS = {pid: {"dist": p["dist_dir"], "html": _html_namer(p.get("html_naming"))}
+             for pid, p in _PROBLEMS.items()}
 
 
 def problem_text_for(subject):
     path = PIPELINE_DIR / PROBLEM_FILES[subject]
     return path.read_text().strip() if path.exists() else None
 
-_SUBJECTS = {
-    "circles": {"dist": "circle problem", "html": lambda v: f"{v}.html"},
-    "archer": {"dist": "archer", "html": lambda v: v.split("_", 1)[1] + ".html"},
-    "binsearch": {"dist": "binary search", "html": lambda v: v.split("_", 1)[1] + ".html"},
-}
+
+def answer_for(subject):
+    """Canonical final answer for a problem (None if not recorded)."""
+    return (_PROBLEMS.get(subject) or {}).get("answer")
 
 
 def subject_of(variant_id):
