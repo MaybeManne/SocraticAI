@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SocraticAI — Benchmark Results</title>
+<meta name="robots" content="noindex">
+<style>
+  :root { --border:#e8eaef; --text:#1c1e26; --dim:#9094a2; --accent:#4f46e5;
+          --accent-soft:#eef2ff; --soft:#f8f9fb; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#fff; color:var(--text);
+         font:15px/1.55 -apple-system, "Segoe UI", sans-serif; }
+  header { max-width:1000px; margin:0 auto; padding:26px 24px 4px; }
+  h1 { margin:0 0 4px; font-size:22px; }
+  header p { margin:0 0 4px; color:var(--dim); font-size:14px; }
+  header a { color:var(--accent); text-decoration:none; }
+  main { max-width:1000px; margin:0 auto; padding:8px 24px 60px; }
+  .tabs { display:flex; gap:6px; margin:14px 0 4px; border-bottom:1px solid var(--border); }
+  .tab { padding:8px 14px; cursor:pointer; color:var(--dim); font-size:14px;
+         border-bottom:2px solid transparent; margin-bottom:-1px; }
+  .tab.on { color:var(--accent); font-weight:650; border-bottom-color:var(--accent); }
+  .chips { display:flex; gap:6px; margin:14px 0; flex-wrap:wrap; }
+  .chip { padding:4px 13px; border-radius:20px; cursor:pointer; font-size:13px;
+          color:var(--dim); border:1px solid var(--border); background:#fff; }
+  .chip.on { background:var(--accent-soft); color:var(--accent); border-color:transparent; font-weight:650; }
+  h2 { font-size:15px; margin:22px 0 8px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; margin-top:6px; }
+  th { text-align:left; padding:6px 8px; color:var(--dim); font-size:11px;
+       text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--border); }
+  td { padding:6px 8px; border-bottom:1px solid var(--soft); vertical-align:top; }
+  .best { font-weight:700; }
+  .muted { color:var(--dim); }
+  .sc { display:inline-block; min-width:40px; text-align:center; padding:1px 7px;
+        border-radius:6px; font-size:12px; font-weight:600; }
+  .sc-hi { background:#e6f6ee; color:#0a8a5f; } .sc-mid { background:#fdf3dc; color:#9a6b00; }
+  .sc-lo { background:#fdeaea; color:#b3352e; }
+  .bar { height:6px; background:var(--soft); border-radius:4px; overflow:hidden; min-width:90px; }
+  .bar > div { height:100%; background:var(--accent); }
+  .badge { display:inline-block; padding:0 8px; border-radius:6px; font-size:11px; font-weight:600;
+           background:var(--accent-soft); color:var(--accent); }
+  .btie { background:var(--soft); color:var(--dim); }
+  .tag { font-size:10px; padding:0 6px; border-radius:10px; margin-left:6px; }
+  .t-ext { background:#fdf3dc; color:#9a6b00; } .t-ours { background:var(--accent-soft); color:var(--accent); }
+  select { border:1px solid var(--border); border-radius:8px; padding:7px 10px; font:inherit; font-size:14px; }
+  .h2h-pick { display:flex; gap:10px; align-items:center; margin:14px 0; flex-wrap:wrap; }
+  .legend { font-size:12px; color:var(--dim); margin-top:10px; line-height:1.6; }
+  .rationale { color:var(--dim); font-size:12.5px; font-weight:400; }
+</style>
+</head>
+<body>
+<header>
+  <h1>SocraticAI — Benchmark Results</h1>
+  <p>Blind AI-judge verdicts across 6 quality dimensions — visual accuracy, interactivity,
+     narration, sync, concept accuracy, polish. Every score is baked from the judge's
+     actual pairwise results; this page is read-only.</p>
+  <p>Watch the videos themselves at <a id="videoLink" href="#" target="_blank">the benchmark video site ↗</a>.</p>
+</header>
+<main>
+  <div class="tabs" id="tabs">
+    <div class="tab on" data-t="leaderboard">Leaderboard</div>
+    <div class="tab" data-t="scores">AI-judge scores</div>
+    <div class="tab" data-t="h2h">Head-to-head</div>
+  </div>
+  <div class="chips" id="subjectChips"></div>
+  <div id="view"></div>
+</main>
+
+<script src="data.js"></script>
+<script>
+const D = window.DATA, DIMS = D.dims;
+const $ = id => document.getElementById(id);
+let tab = "leaderboard", subject = D.subjects[0].id;
+$("videoLink").href = D.videoSite;
+
+// ── per-match credit out of 100 (mirrors the live dashboard) ──
+const credit = (res, conf) => res === "t" ? 50 : (res === "w" ? 100*(conf??.75) : 100*(1-(conf??.75)));
+const scoreCls = v => v >= 60 ? "sc-hi" : v > 40 ? "sc-mid" : "sc-lo";
+const chip = v => v==null ? "<span class='muted'>—</span>"
+  : `<span class="sc ${scoreCls(v)}">${Math.round(v)}</span>`;
+const tag = id => D.kinds[id]==="external"
+  ? `<span class="tag t-ext">ext</span>` : `<span class="tag t-ours">ours</span>`;
+
+// Build per-setup records + per-dimension match lists for a subject.
+function statsFor(sid) {
+  const st = {};
+  const ensure = id => st[id] ||= {w:0,l:0,t:0, dims:Object.fromEntries(DIMS.map(d=>[d,[]])), overall:[]};
+  for (const r of D.results) {
+    if (r.subject !== sid) continue;
+    for (const id of [r.a, r.b]) {
+      const s = ensure(id);
+      const ov = r.overall.winner;
+      const res = ov==="tie" ? "t" : ov===id ? "w" : "l";
+      s[res]++; s.overall.push({result:res, confidence:r.overall.confidence});
+      for (const d of DIMS) {
+        const w = r.dimensions[d].winner;
+        s.dims[d].push({result: w==="tie"?"t":w===id?"w":"l", confidence:r.dimensions[d].confidence});
+      }
+    }
+  }
+  return st;
+}
+const winRate = s => { const n=s.w+s.l+s.t; return n?(s.w+0.5*s.t)/n:0; };
+const aiScore = list => list.length ? list.reduce((a,m)=>a+credit(m.result,m.confidence),0)/list.length : null;
+
+function renderLeaderboard() {
+  const st = statsFor(subject);
+  const rows = Object.entries(st).map(([id,s])=>({id,s,wr:winRate(s)}))
+    .sort((a,b)=> b.wr-a.wr || (b.s.w+b.s.l+b.s.t)-(a.s.w+a.s.l+a.s.t));
+  let h = `<table><tr><th>#</th><th>setup</th><th>win rate</th><th></th><th>record</th><th>matches</th></tr>`;
+  rows.forEach((r,i)=>{
+    const n=r.s.w+r.s.l+r.s.t, wr=(r.wr*100).toFixed(0);
+    h += `<tr><td class="${i===0?'best':'muted'}">${i+1}</td>
+      <td class="${i===0?'best':''}">${r.id}${tag(r.id)}</td>
+      <td class="${i===0?'best':''}">${wr}%</td>
+      <td><div class="bar"><div style="width:${wr}%"></div></div></td>
+      <td class="muted">${r.s.w}-${r.s.l}-${r.s.t}</td><td class="muted">${n}</td></tr>`;
+  });
+  h += `</table><div class="legend"><b>Win rate</b> = wins / matches, ties count half.
+    <span class="tag t-ours">ours</span> = SocraticAI planner variant ·
+    <span class="tag t-ext">ext</span> = external tool.</div>`;
+  $("view").innerHTML = h;
+}
+
+function renderScores() {
+  const st = statsFor(subject);
+  const rows = Object.entries(st).map(([id,s])=>({id,s,ov:aiScore(s.overall)}))
+    .sort((a,b)=>(b.ov??-1)-(a.ov??-1));
+  let h = `<table><tr><th>setup</th><th>overall</th>`+DIMS.map(d=>`<th>${d.split("_")[0]}</th>`).join("")+`<th>matches</th></tr>`;
+  for (const {id,s} of rows) {
+    const n=s.w+s.l+s.t;
+    h += `<tr><td><b>${id}</b>${tag(id)}</td><td>${chip(aiScore(s.overall))}</td>`
+      + DIMS.map(d=>`<td>${chip(aiScore(s.dims[d]))}</td>`).join("")
+      + `<td class="muted">${n}</td></tr>`;
+  }
+  h += `</table><div class="legend"><b>AI-judge score, out of 100</b> — built from the judge's
+    verdict and confidence in every match (win at 0.9 → 90, narrow loss at 0.58 → 42, tie → 50),
+    averaged. <span class="sc sc-hi">60+</span> favored · <span class="sc sc-mid">41–59</span> contested ·
+    <span class="sc sc-lo">≤40</span> outmatched · 50 = even. Relative to opponents, not % working.</div>`;
+  $("view").innerHTML = h;
+}
+
+function renderH2H() {
+  const setups = D.subjects.find(s=>s.id===subject).setups;
+  const opt = sel => setups.map(id=>`<option ${id===sel?"selected":""}>${id}</option>`).join("");
+  const a = window._h2hA && setups.includes(window._h2hA) ? window._h2hA : setups[0];
+  const b = window._h2hB && setups.includes(window._h2hB) ? window._h2hB : setups[1];
+  let h = `<div class="h2h-pick">Compare
+    <select id="selA">${opt(a)}</select><span class="muted">vs</span><select id="selB">${opt(b)}</select></div>`;
+  const r = D.results.find(x => (x.a===a&&x.b===b)||(x.a===b&&x.b===a));
+  if (a===b) h += `<p class="muted">Pick two different setups.</p>`;
+  else if (!r) h += `<p class="muted">These two were never judged head-to-head.</p>`;
+  else {
+    const badge = w => w==="tie"?`<span class="badge btie">tie</span>`
+      : `<span class="badge">${w}</span>`;
+    const rows = [["overall",{winner:r.overall.winner,confidence:r.overall.confidence,rationale:r.overall.explanation}],
+      ...DIMS.map(d=>[d,r.dimensions[d]])];
+    h += `<table><tr><th>dimension</th><th>winner</th><th>conf</th><th>why</th></tr>`;
+    for (const [d,v] of rows)
+      h += `<tr${d==="overall"?' style="font-weight:650"':''}><td>${d.replace(/_/g," ")}</td>
+        <td>${badge(v.winner)}</td><td class="muted">${v.confidence??""}</td>
+        <td class="rationale">${v.rationale||""}</td></tr>`;
+    h += `</table>`;
+  }
+  $("view").innerHTML = h;
+  $("selA").onchange = e => { window._h2hA=e.target.value; renderH2H(); };
+  $("selB").onchange = e => { window._h2hB=e.target.value; renderH2H(); };
+}
+
+function render() {
+  $("subjectChips").innerHTML = D.subjects.map(s =>
+    `<div class="chip ${s.id===subject?"on":""}" data-s="${s.id}">${s.title}</div>`).join("");
+  document.querySelectorAll("#subjectChips .chip").forEach(c =>
+    c.onclick = () => { subject=c.dataset.s; render(); });
+  ({leaderboard:renderLeaderboard, scores:renderScores, h2h:renderH2H})[tab]();
+}
+document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
+  t.classList.add("on"); tab=t.dataset.t; render();
+});
+render();
+</script>
+</body>
+</html>

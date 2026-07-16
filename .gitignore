@@ -41,3 +41,7 @@ benchmark_site/socraticai-benchmark/
 
 # judge timeline frames (regenerated on demand)
 *_frames/
+
+# static results site build output
+results_site/socraticai-results/
+results_site/site/
