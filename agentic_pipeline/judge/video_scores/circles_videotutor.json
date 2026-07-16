@@ -1,0 +1,15 @@
+{
+  "id": "circles_videotutor",
+  "subject": "circles",
+  "durationSeconds": 139.3,
+  "durationSource": "ffprobe",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: The narration explicitly states that k rounds up to 32 and the total number of circles is 2k = 64, matching the canonical answer. Explained: The narration outlines the setup of the shaded-area function, compares it to 2023\u03c0, rounds up to the needed integer number of shaded rings, and doubles to get the number of circles.",
+  "visualCount": 1,
+  "visualCountSource": "vision-llm",
+  "visualBreakdown": "Desmos graph/plot of area function with target line and intersection",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:29:31.247417+00:00"
+}

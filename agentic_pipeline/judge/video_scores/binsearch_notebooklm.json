@@ -1,0 +1,15 @@
+{
+  "id": "binsearch_notebooklm",
+  "subject": "binsearch",
+  "durationSeconds": 414.3,
+  "durationSource": "ffprobe",
+  "solved": false,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration states the target 45 is found in four checks and explains O(log n), but it never explicitly states the required final index 7. Explained: it walks through the binary search comparisons and derives the halving/logarithmic time complexity.",
+  "visualCount": 10,
+  "visualCountSource": "vision-llm",
+  "visualBreakdown": "binary search definition/halving sketch, checklist with sorted bars and arrows, low-mid-high pointer array, pointer-value table with updates, best vs worst case comparison, halving process flow diagram, linear search vs binary search panels, magnifier over grid target, 20-step halving visual, final linear-vs-binary recap diagram",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:44:31.452718+00:00"
+}

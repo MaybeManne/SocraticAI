@@ -1,0 +1,15 @@
+{
+  "id": "archer_mathgpt",
+  "subject": "archer",
+  "durationSeconds": 91.8,
+  "durationSource": "ffprobe",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly states the arrow travels about 141 meters, matching the canonical answer. Explained: it shows the projectile-motion steps by resolving velocity components, finding flight time from vertical motion, and multiplying by horizontal velocity for range.",
+  "visualCount": 4,
+  "visualCountSource": "vision-llm",
+  "visualBreakdown": "launch velocity component diagram/derivation, vertical motion flight-time trajectory graph/derivation, horizontal range trajectory diagram/derivation, final range summary derivation table",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:31:18.545810+00:00"
+}

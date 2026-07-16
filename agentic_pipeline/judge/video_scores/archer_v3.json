@@ -1,0 +1,15 @@
+{
+  "id": "archer_v3",
+  "subject": "archer",
+  "durationSeconds": 135.0,
+  "durationSource": "engine",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly states the final range as about 141.4 meters, matching the canonical answer. Explained: it walks through decomposing velocity, finding flight time from vertical motion, and multiplying by horizontal velocity to obtain the range.",
+  "visualCount": 4,
+  "visualCountSource": "lesson_plan",
+  "visualBreakdown": "main custom viz, act_introduction:derivation, act_vertical_motion:derivation, act_payoff:derivation",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:29:57.748505+00:00"
+}

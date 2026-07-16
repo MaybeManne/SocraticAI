@@ -1,0 +1,15 @@
+{
+  "id": "circles_notebooklm",
+  "subject": "circles",
+  "durationSeconds": 466.1,
+  "durationSource": "ffprobe",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly states that the least number of circles is exactly 64. Explained: it derives the shaded ring area formula, sums the first n shaded rings, solves the inequality for n=32, and converts shaded rings to 64 circles.",
+  "visualCount": 12,
+  "visualCountSource": "vision-llm",
+  "visualBreakdown": "circle generation infographic, ring k annulus diagram, ring progression table, circle-processing funnel scene, increasing annuli sequence, executing the sum infographic, speedometer-to-grid scene, balance scale comparison, trial-error-success arrows diagram, 32-circle result diagram, 2-to-1 rule infographic, 64-circle result diagram",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:26:59.868832+00:00"
+}

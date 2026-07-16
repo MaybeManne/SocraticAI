@@ -1,0 +1,15 @@
+{
+  "id": "binsearch_v2",
+  "subject": "binsearch",
+  "durationSeconds": 214.0,
+  "durationSource": "engine",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly states that 45 is found at index 7 in four comparisons and that binary search has O(log n) runtime. Explained: it traces each binary-search comparison and pointer update, then derives the logarithmic runtime from halving the search space.",
+  "visualCount": 2,
+  "visualCountSource": "lesson_plan",
+  "visualBreakdown": "main custom viz, act_complexity:derivation",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:33:41.892026+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "archer_v2",
+  "subject": "archer",
+  "durationSeconds": 180.0,
+  "durationSource": "engine",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly gives the range as about 141.3 meters and later 141.4 meters, matching the canonical answer. Explained: it describes decomposing velocity, finding flight time from vertical motion, multiplying by horizontal velocity, and confirming with the range formula.",
+  "visualCount": 5,
+  "visualCountSource": "lesson_plan",
+  "visualBreakdown": "main custom viz, act_decomposition:derivation, act_vertical_motion:derivation, act_general_formula:derivation, act_general_formula:derivation",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:29:48.096424+00:00"
+}

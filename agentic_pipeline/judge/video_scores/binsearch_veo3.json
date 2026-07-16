@@ -1,0 +1,15 @@
+{
+  "id": "binsearch_veo3",
+  "subject": "binsearch",
+  "durationSeconds": 88.0,
+  "durationSource": "ffprobe",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly states that 45 is at index 7 and found in 4 comparisons with logarithmic time; Explained: it walks through the binary search comparisons and explains that each comparison halves the search space, giving O(log n).",
+  "visualCount": 6,
+  "visualCountSource": "vision-llm",
+  "visualBreakdown": "target array search scene, sorting row animation, sorted number grid table, low/high pointer UI array, binary search low-high-mid/found array sequence, O(n) vs O(log n) step bars",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:36:57.510832+00:00"
+}

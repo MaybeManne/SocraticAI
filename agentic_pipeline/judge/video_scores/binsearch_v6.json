@@ -1,0 +1,15 @@
+{
+  "id": "binsearch_v6",
+  "subject": "binsearch",
+  "durationSeconds": 117.0,
+  "durationSource": "engine",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: The narration explicitly states that target 45 is located at index 7 in four comparisons and explains the logarithmic time. Explained: It walks through each binary-search comparison and derives O(log n) from repeatedly halving the search space.",
+  "visualCount": 1,
+  "visualCountSource": "lesson_plan",
+  "visualBreakdown": "main custom viz",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:34:26.409061+00:00"
+}

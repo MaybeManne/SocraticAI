@@ -1,0 +1,15 @@
+{
+  "id": "circles_v6",
+  "subject": "circles",
+  "durationSeconds": 161.0,
+  "durationSource": "engine",
+  "solved": false,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration finds n=32 and says the total number of circles is 2n, but it never explicitly states the final answer as 64 circles. Explained: the narration derives the shaded ring areas, sums them to get pi*n*(2n+1), and checks n=31 and n=32 against 2023pi.",
+  "visualCount": 1,
+  "visualCountSource": "lesson_plan",
+  "visualBreakdown": "main custom viz",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:28:29.052990+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "binsearch_v3",
+  "subject": "binsearch",
+  "durationSeconds": 172.0,
+  "durationSource": "engine",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly states that the value 45 is found at index 7 and that binary search took four steps with O(log n) complexity. Explained: the narration traces each binary search comparison and pointer update, then derives O(log n) from halving the search space each step.",
+  "visualCount": 3,
+  "visualCountSource": "lesson_plan",
+  "visualBreakdown": "main custom viz, act_search_trace:derivation, act_complexity:derivation",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:33:54.428436+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "binsearch_mathgpt",
+  "subject": "binsearch",
+  "durationSeconds": 118.6,
+  "durationSource": "ffprobe",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: The narration explicitly says the target remains at index 7 where the value is 45 and that binary search runs in logarithmic time instead of O(n). Explained: It walks through the binary search comparisons and range updates, then explains repeated halving as the reason for O(log n).",
+  "visualCount": 4,
+  "visualCountSource": "vision-llm",
+  "visualBreakdown": "initial index/value array table with middle calculation, binary-search array card animation with eliminations, shrinking-range halving flow diagram, linear-vs-binary checks table",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:35:24.629351+00:00"
+}

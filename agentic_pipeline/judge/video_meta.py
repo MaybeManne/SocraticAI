@@ -134,7 +134,7 @@ def _visuals_from_frames(assets):
         ts = f.stem.split("_", 1)[1] if "_" in f.stem else f.stem
         parts.append(_text(f"frame at {ts.replace('t', 't=')}:"))
         parts.append(_image(f))
-    raw = _call_openai(VISION_COUNT_PROMPT, parts, model=JUDGE_MODEL)
+    raw = _call_openai(VISION_COUNT_PROMPT, parts, model=JUDGE_MODEL, max_tokens=8192)
     out = parse_agent_json(raw)
     return int(out["visualCount"]), str(out.get("breakdown", ""))
 
@@ -147,7 +147,7 @@ def _solved_explained(assets, answer):
         f"The problem:\n{assets.problem_text}\n\n"
         f"Canonical correct answer:\n{answer}\n\n"
         f"Transcript:\n{transcript[:30000]}")]
-    out = parse_agent_json(_call_openai(SOLVED_PROMPT, content, model=JUDGE_MODEL))
+    out = parse_agent_json(_call_openai(SOLVED_PROMPT, content, model=JUDGE_MODEL, max_tokens=8192))
     return bool(out["solved"]), bool(out["explained"]), str(out.get("rationale", ""))
 
 

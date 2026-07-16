@@ -1,0 +1,15 @@
+{
+  "id": "circles_mathgpt",
+  "subject": "circles",
+  "durationSeconds": 133.6,
+  "durationSource": "ffprobe",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly states the least number of circles needed is 64; Explained: it derives the shaded area as a sum of alternating ring areas, forms and solves the inequality, and converts the shaded-gap count to total circles.",
+  "visualCount": 6,
+  "visualCountSource": "vision-llm",
+  "visualBreakdown": "circle-pairing shaded gaps diagram, one-gap area difference/annulus diagram, gap formula simplification derivation with k examples, shaded gap terms arithmetic series summation derivation, valid m comparison table, convert pairs to circles annulus diagram",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:28:50.844984+00:00"
+}

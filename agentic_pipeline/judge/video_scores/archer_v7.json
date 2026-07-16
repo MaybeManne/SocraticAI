@@ -1,0 +1,15 @@
+{
+  "id": "archer_v7",
+  "subject": "archer",
+  "durationSeconds": 172.0,
+  "durationSource": "engine",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly states the final horizontal distance as 141.4 meters, matching the canonical answer. Explained: it walks through decomposing velocity, finding flight time from vertical motion, and multiplying by horizontal velocity/deriving the range formula.",
+  "visualCount": 5,
+  "visualCountSource": "lesson_plan",
+  "visualBreakdown": "main custom viz, act_decomposition:derivation, act_vertical_journey:derivation, act_horizontal_journey:derivation, act_payoff:derivation",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:30:44.200796+00:00"
+}

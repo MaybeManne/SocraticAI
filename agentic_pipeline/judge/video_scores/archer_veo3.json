@@ -1,0 +1,15 @@
+{
+  "id": "archer_veo3",
+  "subject": "archer",
+  "durationSeconds": 88.0,
+  "durationSource": "ffprobe",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly states the range is 141 meters, matching the canonical answer. Explained: it decomposes velocity into horizontal and vertical components, computes time of flight using gravity, then multiplies by horizontal speed to get the range.",
+  "visualCount": 6,
+  "visualCountSource": "vision-llm",
+  "visualBreakdown": "launch setup diagram with angle and initial speed, velocity component/decomposition diagram, vertical-motion projectile path scene, full projectile range/vector diagram, horizontal speed dot-trace scene, final arrow flight animation",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:32:26.763958+00:00"
+}

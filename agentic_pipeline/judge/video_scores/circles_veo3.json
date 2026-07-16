@@ -1,0 +1,15 @@
+{
+  "id": "circles_veo3",
+  "subject": "circles",
+  "durationSeconds": 88.0,
+  "durationSource": "ffprobe",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: The narration explicitly states that 32 shaded rings means 64 circles, which matches the canonical answer. Explained: It derives the area of each shaded ring, sums the first n rings, checks the inequality against 2023\u03c0, and concludes the minimum number of circles.",
+  "visualCount": 3,
+  "visualCountSource": "vision-llm",
+  "visualBreakdown": "concentric rings with highlighted annulus, labeled circle/ring dimensions, circle labeled 7\u03c0",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:29:08.718653+00:00"
+}

@@ -445,10 +445,16 @@ def require_api_key():
     return key
 
 
-def _call_openai(system_prompt, user_content, model=JUDGE_MODEL):
+def _call_openai(system_prompt, user_content, model=JUDGE_MODEL,
+                 max_tokens=MAX_OUTPUT_TOKENS):
     """
     One chat completion. `user_content` is a list of OpenAI content parts
     ({"type":"text",...} / {"type":"image_url",...}). Patched out in tests.
+
+    `max_tokens` counts hidden reasoning tokens too — callers whose tasks
+    trigger long reasoning (e.g. video_meta's frame counting) pass a larger
+    budget, otherwise the model can burn the whole allowance thinking and
+    return an empty visible message (finish_reason=length).
     """
     require_api_key()
     from openai import OpenAI  # lazy import so mocked tests don't need it
@@ -459,7 +465,7 @@ def _call_openai(system_prompt, user_content, model=JUDGE_MODEL):
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_content},
         ],
-        max_completion_tokens=MAX_OUTPUT_TOKENS,
+        max_completion_tokens=max_tokens,
     )
     return resp.choices[0].message.content
 

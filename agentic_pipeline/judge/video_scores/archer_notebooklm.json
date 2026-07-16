@@ -1,0 +1,15 @@
+{
+  "id": "archer_notebooklm",
+  "subject": "archer",
+  "durationSeconds": 487.7,
+  "durationSource": "ffprobe",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly states the final range as 141.4 m away, matching the canonical answer. Explained: it walks through resolving velocity components, finding time of flight from vertical motion, and multiplying by horizontal velocity to get the range.",
+  "visualCount": 12,
+  "visualCountSource": "vision-llm",
+  "visualBreakdown": "archer-target projectile problem scene, given/unknown variables table, horizontal vs vertical motion split diagram, three-step solving flow diagram, vector resolution diagram, velocity component result diagrams, vertical time-of-flight stopwatch diagram, time-of-flight result diagram, horizontal speed vs time chart, range with ruler/stopwatch/target diagram, x-y component summary diagram, cliff projectile scenario",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:43:38.187499+00:00"
+}

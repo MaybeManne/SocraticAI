@@ -1,0 +1,15 @@
+{
+  "id": "circles_v3",
+  "subject": "circles",
+  "durationSeconds": 211.0,
+  "durationSource": "engine",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: The narration explicitly states the final answer is sixty-four circles, matching the canonical answer. Explained: It derives individual ring areas, sums them to get the total shaded area formula, solves the inequality, and checks n = 31 and n = 32.",
+  "visualCount": 7,
+  "visualCountSource": "lesson_plan",
+  "visualBreakdown": "main custom viz, act_setup_ring_area:derivation, act_setup_ring_area:derivation, act_general_formula:derivation, act_summation:derivation, act_solve_inequality:derivation, act_solve_inequality:plot-2d",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:27:54.913908+00:00"
+}

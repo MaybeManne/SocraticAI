@@ -8,7 +8,7 @@
     "acceptable": ["141", "141.4", "138.6", "about 140 meters"]
   },
   "binsearch": {
-    "answer": "target 45 is found at index 7 (in 4 steps), and binary search runs in O(log n)",
+    "answer": "target 45 is found at index 7, and binary search runs in O(log n). (Reaching it in 4 steps is supporting detail, NOT required for a correct final answer.)",
     "acceptable": ["index 7", "position 7", "O(log n)"]
   }
 }

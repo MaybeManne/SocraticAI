@@ -1,0 +1,15 @@
+{
+  "id": "circles_v7",
+  "subject": "circles",
+  "durationSeconds": 175.0,
+  "durationSource": "engine",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly states the final answer is 64 circles, matching the canonical answer. Explained: it derives the shaded ring area, sums the series, solves the inequality, and converts 32 rings to 64 circles.",
+  "visualCount": 3,
+  "visualCountSource": "lesson_plan",
+  "visualBreakdown": "main custom viz, act_ring_area:derivation, act_total_area:derivation",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:26:26.188245+00:00"
+}

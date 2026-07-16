@@ -1,0 +1,15 @@
+{
+  "id": "binsearch_videotutor",
+  "subject": "binsearch",
+  "durationSeconds": 224.7,
+  "durationSource": "ffprobe",
+  "solved": true,
+  "explained": true,
+  "solvedExplainedRationale": "Solved: the narration explicitly states that target 45 is found at index 7 in 4 steps and that binary search runs in logarithmic time. Explained: it traces the binary search comparisons and states that each step halves the remaining search space, which is why the runtime is O(log n) rather than O(n).",
+  "visualCount": 1,
+  "visualCountSource": "vision-llm",
+  "visualBreakdown": "binary search array diagram/animation with highlighted range, mid, and target",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T15:37:21.908092+00:00"
+}
