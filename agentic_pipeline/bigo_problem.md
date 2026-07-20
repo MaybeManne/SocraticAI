@@ -1,1 +1,1 @@
-Rank these five running-time functions from slowest-growing to fastest-growing for large n: n^2, log n, 2^n, n, n log n. Which algorithm class would you prefer for very large inputs?
+Two divide-and-conquer algorithms have these recurrences: Algorithm A satisfies T(n) = 2T(n/2) + n, and Algorithm B satisfies T(n) = 2T(n/2) + c for a constant c. Solve both recurrences (for example by drawing the recursion tree) and give the Big-O running time of each. Which algorithm is faster for large n?

@@ -1,0 +1,1 @@
+A linked list has nodes 1 → 2 → 3 → 4 → 5, but node 5 points back to node 3, creating a cycle. Using Floyd's tortoise-and-hare algorithm (slow pointer moves 1 step, fast pointer moves 2 steps, both starting at node 1), at which node do the two pointers first meet? Then, using the second phase of the algorithm, which node is the start of the cycle?

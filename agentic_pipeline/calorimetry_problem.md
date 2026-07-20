@@ -1,1 +1,1 @@
-How much heat energy is required to raise the temperature of 0.5 kg of water from 20°C to 80°C? The specific heat capacity of water is 4186 J/(kg·°C).
+0.2 kg of ice at exactly 0°C is dropped into 1.0 kg of water at 50°C in an insulated container. All the ice melts. What is the final equilibrium temperature? Use latent heat of fusion 334,000 J/kg and specific heat of water 4186 J/(kg·°C). (Account for both the melting and the warming of the melted ice.)

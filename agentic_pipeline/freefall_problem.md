@@ -1,1 +1,1 @@
-A ball is dropped from rest off a cliff 44.1 meters high. Using g = 9.8 m/s^2 and ignoring air resistance, how long does it take to reach the ground?
+A ball is thrown straight upward at 19.6 m/s from the edge of a cliff 58.8 meters above the ground. Using g = 9.8 m/s^2, how long after the throw does the ball hit the ground at the base of the cliff? (Set up the quadratic equation for the height and solve it.)

@@ -1,1 +1,1 @@
-A car travels around a circular track of radius 50 meters at a constant speed of 20 m/s. What is the magnitude of its centripetal acceleration?
+A car rounds a flat (unbanked) curve of radius 50 meters. The coefficient of static friction between the tires and the road is 0.8. Using g = 9.8 m/s^2, what is the maximum speed at which the car can take the curve without skidding? (Friction must supply the centripetal force.)

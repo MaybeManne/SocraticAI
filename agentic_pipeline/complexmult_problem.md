@@ -1,1 +1,1 @@
-Multiply the complex numbers (2 + 3i) and (1 - 4i), and express the result in the form a + bi.
+Compute (1 + i)^8, where i is the imaginary unit. (Hint: square (1 + i) first and look for a pattern instead of expanding all eight factors.)

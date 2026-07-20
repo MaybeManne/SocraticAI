@@ -1,1 +1,1 @@
-Find the sum of the infinite geometric series 27 + 9 + 3 + 1 + ... where each term is one third of the previous term.
+A ball is dropped from a height of 12 meters. Each time it hits the ground, it rebounds to 2/3 of its previous height, and it keeps bouncing forever. What is the total vertical distance the ball travels? (Hint: the downward and upward bounce distances each form an infinite geometric series.)

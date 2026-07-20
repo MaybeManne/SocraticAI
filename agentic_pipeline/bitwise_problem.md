@@ -1,1 +1,1 @@
-For the numbers 13 and 10, compute the bitwise AND, OR, and XOR. Show the 4-bit binary representations.
+Represent -13 in 8-bit two's complement binary. Show the three steps (write +13 in binary, invert the bits, add 1), and verify your answer by adding it to +13 in binary and showing the result is zero.

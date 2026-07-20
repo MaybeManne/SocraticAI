@@ -19,16 +19,44 @@
     "difficulty": "easy | medium | hard — informal, for reporting/spread only"
   },
   "tools": [
-    {"id": "veo3", "label": "Google Veo 3", "audio": true},
-    {"id": "mathgpt", "label": "MathGPT (Mathos AI)", "audio": true},
-    {"id": "notebooklm", "label": "NotebookLM", "audio": true},
-    {"id": "videotutor", "label": "VideoTutor", "audio": true},
-    {"id": "code2video", "label": "Code2Video (Gemini Flash)", "audio": false,
-     "note": "arXiv 2510.01174; silent Manim output — no narration by design"},
-    {"id": "manimator", "label": "Manimator (Gemini Flash)", "audio": false,
-     "note": "arXiv 2507.14306; silent Manim output — narration on their roadmap"},
-    {"id": "paper2video", "label": "Paper2Video (Gemini Flash)", "audio": true,
-     "note": "arXiv 2510.05096; input adapted: problem+solution wrapped as a LaTeX paper — received the worked solution, unlike other tools"}
+    {
+      "id": "veo3",
+      "label": "Google Veo 3",
+      "audio": true
+    },
+    {
+      "id": "mathgpt",
+      "label": "MathGPT (Mathos AI)",
+      "audio": true
+    },
+    {
+      "id": "notebooklm",
+      "label": "NotebookLM",
+      "audio": true
+    },
+    {
+      "id": "videotutor",
+      "label": "VideoTutor",
+      "audio": true
+    },
+    {
+      "id": "code2video",
+      "label": "Code2Video (Gemini Flash)",
+      "audio": false,
+      "note": "arXiv 2510.01174; silent Manim output — no narration by design"
+    },
+    {
+      "id": "manimator",
+      "label": "Manimator (Gemini Flash)",
+      "audio": false,
+      "note": "arXiv 2507.14306; silent Manim output — narration on their roadmap"
+    },
+    {
+      "id": "paper2video",
+      "label": "Paper2Video (Gemini Flash)",
+      "audio": true,
+      "note": "arXiv 2510.05096; input adapted: problem+solution wrapped as a LaTeX paper — received the worked solution, unlike other tools"
+    }
   ],
   "problems": [
     {
@@ -38,7 +66,11 @@
       "html_naming": "variant_id",
       "problem_file": "amc10a_2023_p15.md",
       "answer": "64 circles (n = 32 shaded rings, so 2n = 64)",
-      "acceptable": ["64", "sixty-four circles", "2n = 64"],
+      "acceptable": [
+        "64",
+        "sixty-four circles",
+        "2n = 64"
+      ],
       "domain": "math",
       "difficulty": "medium"
     },
@@ -49,7 +81,12 @@
       "html_naming": "bare_version",
       "problem_file": "archer_problem.md",
       "answer": "approximately 141 m (141.4 m with g = 9.8 m/s^2; 138.6 m acceptable if g = 10)",
-      "acceptable": ["141", "141.4", "138.6", "about 140 meters"],
+      "acceptable": [
+        "141",
+        "141.4",
+        "138.6",
+        "about 140 meters"
+      ],
       "domain": "physics",
       "difficulty": "easy"
     },
@@ -60,7 +97,11 @@
       "html_naming": "bare_version",
       "problem_file": "tests/binary_search_problem.md",
       "answer": "target 45 is found at index 7, and binary search runs in O(log n). (Reaching it in 4 steps is supporting detail, NOT required for a correct final answer.)",
-      "acceptable": ["index 7", "position 7", "O(log n)"],
+      "acceptable": [
+        "index 7",
+        "position 7",
+        "O(log n)"
+      ],
       "domain": "cs",
       "difficulty": "easy"
     },
@@ -71,7 +112,11 @@
       "html_naming": "variant_id",
       "problem_file": "cointoss_problem.md",
       "answer": "93/256 (sum of P(5,6,7, or 8 heads in 8 flips) = (56+28+8+1)/256)",
-      "acceptable": ["93/256", "0.363", "36.3%"],
+      "acceptable": [
+        "93/256",
+        "0.363",
+        "36.3%"
+      ],
       "domain": "math",
       "difficulty": "medium"
     },
@@ -82,7 +127,11 @@
       "html_naming": "variant_id",
       "problem_file": "boxopt_problem.md",
       "answer": "base side 4 m, height 2 m, minimum surface area 48 square meters",
-      "acceptable": ["side 4, area 48", "x=4, A=48", "48 m^2"],
+      "acceptable": [
+        "side 4, area 48",
+        "x=4, A=48",
+        "48 m^2"
+      ],
       "domain": "math",
       "difficulty": "hard"
     },
@@ -93,7 +142,11 @@
       "html_naming": "variant_id",
       "problem_file": "pendulum_problem.md",
       "answer": "period is pi seconds, approximately 3.14 s",
-      "acceptable": ["3.14 s", "pi seconds", "~3.14 seconds"],
+      "acceptable": [
+        "3.14 s",
+        "pi seconds",
+        "~3.14 seconds"
+      ],
       "domain": "physics",
       "difficulty": "easy"
     },
@@ -104,7 +157,11 @@
       "html_naming": "variant_id",
       "problem_file": "knapsack_problem.md",
       "answer": "items A and B (weight 5, value 7) give the maximum value of 7; solved via O(nW) dynamic programming",
-      "acceptable": ["value 7", "A and B", "max value 7"],
+      "acceptable": [
+        "value 7",
+        "A and B",
+        "max value 7"
+      ],
       "domain": "cs",
       "difficulty": "medium"
     },
@@ -115,7 +172,11 @@
       "html_naming": "variant_id",
       "problem_file": "dijkstra_problem.md",
       "answer": "shortest path S-B-A-C-T with total distance 7",
-      "acceptable": ["distance 7", "S-B-A-C-T", "path length 7"],
+      "acceptable": [
+        "distance 7",
+        "S-B-A-C-T",
+        "path length 7"
+      ],
       "domain": "cs",
       "difficulty": "medium"
     },
@@ -126,7 +187,11 @@
       "html_naming": "variant_id",
       "problem_file": "quadratic_problem.md",
       "answer": "k = 10 (roots are 2 and 5)",
-      "acceptable": ["k=10", "k = 10", "10"],
+      "acceptable": [
+        "k=10",
+        "k = 10",
+        "10"
+      ],
       "domain": "math",
       "difficulty": "medium"
     },
@@ -137,7 +202,10 @@
       "html_naming": "variant_id",
       "problem_file": "gcdeuclid_problem.md",
       "answer": "21",
-      "acceptable": ["21", "gcd = 21"],
+      "acceptable": [
+        "21",
+        "gcd = 21"
+      ],
       "domain": "math",
       "difficulty": "easy"
     },
@@ -148,7 +216,11 @@
       "html_naming": "variant_id",
       "problem_file": "stddev_problem.md",
       "answer": "2 (variance 4, mean 5)",
-      "acceptable": ["2", "std dev = 2", "sigma = 2"],
+      "acceptable": [
+        "2",
+        "std dev = 2",
+        "sigma = 2"
+      ],
       "domain": "math",
       "difficulty": "medium"
     },
@@ -159,7 +231,11 @@
       "html_naming": "variant_id",
       "problem_file": "incline_problem.md",
       "answer": "approximately 7.9 m/s (sqrt(2 * 9.8 * 3.2))",
-      "acceptable": ["7.9 m/s", "7.92 m/s", "about 8 m/s"],
+      "acceptable": [
+        "7.9 m/s",
+        "7.92 m/s",
+        "about 8 m/s"
+      ],
       "domain": "physics",
       "difficulty": "easy"
     },
@@ -170,7 +246,10 @@
       "html_naming": "variant_id",
       "problem_file": "collision_problem.md",
       "answer": "2 m/s",
-      "acceptable": ["2 m/s", "v = 2"],
+      "acceptable": [
+        "2 m/s",
+        "v = 2"
+      ],
       "domain": "physics",
       "difficulty": "easy"
     },
@@ -181,7 +260,11 @@
       "html_naming": "variant_id",
       "problem_file": "circuit_problem.md",
       "answer": "current 1 A; voltage across the 8 ohm resistor is 8 V",
-      "acceptable": ["1 A, 8 V", "I=1A", "8 volts"],
+      "acceptable": [
+        "1 A, 8 V",
+        "I=1A",
+        "8 volts"
+      ],
       "domain": "physics",
       "difficulty": "medium"
     },
@@ -192,7 +275,11 @@
       "html_naming": "variant_id",
       "problem_file": "buoyancy_problem.md",
       "answer": "60% of the cube's height is submerged",
-      "acceptable": ["60%", "0.6", "60 percent"],
+      "acceptable": [
+        "60%",
+        "0.6",
+        "60 percent"
+      ],
       "domain": "physics",
       "difficulty": "medium"
     },
@@ -203,7 +290,10 @@
       "html_naming": "variant_id",
       "problem_file": "mergesort_problem.md",
       "answer": "[1, 2, 3, 5, 8, 9], O(n log n) time complexity",
-      "acceptable": ["1,2,3,5,8,9", "O(n log n)"],
+      "acceptable": [
+        "1,2,3,5,8,9",
+        "O(n log n)"
+      ],
       "domain": "cs",
       "difficulty": "easy",
       "note": "distinct from binsearch: comparison sort vs. search on a sorted array, different complexity class — kept as separate family, not a duplicate"
@@ -215,7 +305,10 @@
       "html_naming": "variant_id",
       "problem_file": "rpn_problem.md",
       "answer": "7",
-      "acceptable": ["7", "result = 7"],
+      "acceptable": [
+        "7",
+        "result = 7"
+      ],
       "domain": "cs",
       "difficulty": "easy"
     },
@@ -226,20 +319,27 @@
       "html_naming": "variant_id",
       "problem_file": "bsttraversal_problem.md",
       "answer": "1, 3, 4, 6, 7, 8, 10, 13, 14",
-      "acceptable": ["1,3,4,6,7,8,10,13,14", "sorted order"],
+      "acceptable": [
+        "1,3,4,6,7,8,10,13,14",
+        "sorted order"
+      ],
       "domain": "cs",
       "difficulty": "medium"
     },
     {
       "id": "geoseries",
-      "title": "Infinite Geometric Series",
+      "title": "Bouncing Ball Geometric Series",
       "dist_dir": "geoseries",
       "html_naming": "variant_id",
       "problem_file": "geoseries_problem.md",
-      "answer": "40.5 (S = 27 / (1 - 1/3) = 81/2)",
-      "acceptable": ["40.5", "81/2"],
+      "answer": "60 meters total (12 down + two geometric series: 12 + 2*(8/(1-2/3)) = 12 + 48)",
+      "acceptable": [
+        "60",
+        "60 m",
+        "60 meters"
+      ],
       "domain": "math",
-      "difficulty": "easy"
+      "difficulty": "medium"
     },
     {
       "id": "loginterest",
@@ -248,7 +348,11 @@
       "html_naming": "variant_id",
       "problem_file": "loginterest_problem.md",
       "answer": "9 years (ln 2 / ln 1.08 = 9.006)",
-      "acceptable": ["9", "9 years", "about 9"],
+      "acceptable": [
+        "9",
+        "9 years",
+        "about 9"
+      ],
       "domain": "math",
       "difficulty": "medium"
     },
@@ -259,42 +363,56 @@
       "html_naming": "variant_id",
       "problem_file": "lawcosines_problem.md",
       "answer": "sqrt(39), approximately 6.24 (c^2 = 25 + 49 - 2*5*7*cos60 = 39)",
-      "acceptable": ["sqrt(39)", "6.24", "6.2"],
+      "acceptable": [
+        "sqrt(39)",
+        "6.24",
+        "6.2"
+      ],
       "domain": "math",
       "difficulty": "medium"
     },
     {
       "id": "permutations",
-      "title": "Permutations with Repetition",
+      "title": "Arrangements with a Restriction (BALLOON)",
       "dist_dir": "permutations",
       "html_naming": "variant_id",
       "problem_file": "permutations_problem.md",
-      "answer": "30 (5! / (2! * 2!))",
-      "acceptable": ["30", "thirty"],
+      "answer": "900 (total 7!/(2!2!) = 1260 minus 6!/2! = 360 with the L's adjacent)",
+      "acceptable": [
+        "900",
+        "1260 - 360"
+      ],
       "domain": "math",
-      "difficulty": "easy"
+      "difficulty": "medium"
     },
     {
       "id": "matrixdet",
-      "title": "Cramer's Rule (2x2 System)",
+      "title": "Determinant and Infinitely Many Solutions",
       "dist_dir": "matrixdet",
       "html_naming": "variant_id",
       "problem_file": "matrixdet_problem.md",
-      "answer": "determinant -3; x = 3, y = 1",
-      "acceptable": ["x=3, y=1", "det = -3", "(3, 1)"],
+      "answer": "k = 6 (determinant 2k - 12 = 0 and the right-hand sides are proportional, so infinitely many solutions; any k != 6 gives a unique solution)",
+      "acceptable": [
+        "k = 6",
+        "k=6",
+        "6"
+      ],
       "domain": "math",
-      "difficulty": "easy"
+      "difficulty": "medium"
     },
     {
       "id": "complexmult",
-      "title": "Complex Number Multiplication",
+      "title": "Powers of a Complex Number",
       "dist_dir": "complexmult",
       "html_naming": "variant_id",
       "problem_file": "complexmult_problem.md",
-      "answer": "14 - 5i",
-      "acceptable": ["14 - 5i", "14-5i"],
+      "answer": "16 ((1+i)^2 = 2i, so (1+i)^8 = (2i)^4 = 16)",
+      "acceptable": [
+        "16",
+        "sixteen"
+      ],
       "domain": "math",
-      "difficulty": "easy"
+      "difficulty": "medium"
     },
     {
       "id": "tangentline",
@@ -303,21 +421,28 @@
       "html_naming": "variant_id",
       "problem_file": "tangentline_problem.md",
       "answer": "y = 10x - 16 (slope 10 at the point (2, 4))",
-      "acceptable": ["y = 10x - 16", "slope 10"],
+      "acceptable": [
+        "y = 10x - 16",
+        "slope 10"
+      ],
       "domain": "math",
       "difficulty": "medium",
       "note": "calculus family adjacency: boxopt = optimization, this = tangent line, defintegral = area; three distinct techniques, kept as separate families"
     },
     {
       "id": "defintegral",
-      "title": "Definite Integral (Area Under a Curve)",
+      "title": "Area Between Two Curves",
       "dist_dir": "defintegral",
       "html_naming": "variant_id",
       "problem_file": "defintegral_problem.md",
-      "answer": "8 (integral of 3x^2 from 0 to 2 = x^3 evaluated 0 to 2)",
-      "acceptable": ["8", "eight"],
+      "answer": "4/3 (curves meet at x = 0 and 2; integral of (2x - x^2) from 0 to 2)",
+      "acceptable": [
+        "4/3",
+        "1.33",
+        "1.333"
+      ],
       "domain": "math",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "note": "calculus family adjacency: see tangentline note"
     },
     {
@@ -327,7 +452,10 @@
       "html_naming": "variant_id",
       "problem_file": "modremainder_problem.md",
       "answer": "1 (7 = 2 mod 5, and 2^4 = 1 mod 5, so 2^100 = (2^4)^25 = 1)",
-      "acceptable": ["1", "remainder 1"],
+      "acceptable": [
+        "1",
+        "remainder 1"
+      ],
       "domain": "math",
       "difficulty": "medium"
     },
@@ -338,67 +466,90 @@
       "html_naming": "variant_id",
       "problem_file": "bayes_problem.md",
       "answer": "approximately 15.4% (0.009 / (0.009 + 0.0495) = 0.1538)",
-      "acceptable": ["15.4%", "0.154", "about 15%"],
+      "acceptable": [
+        "15.4%",
+        "0.154",
+        "about 15%"
+      ],
       "domain": "math",
       "difficulty": "hard",
       "note": "probability family adjacency with cointoss: conditional probability vs binomial counting — different techniques, kept separate"
     },
     {
       "id": "inclusionexclusion",
-      "title": "Inclusion-Exclusion Counting",
+      "title": "Three-Set Inclusion-Exclusion",
       "dist_dir": "inclusionexclusion",
       "html_naming": "variant_id",
       "problem_file": "inclusionexclusion_problem.md",
-      "answer": "5 students (40 - (25 + 20 - 10))",
-      "acceptable": ["5", "five students"],
+      "answer": "20 students (union = 50+40+30-20-15-10+5 = 80; 100 - 80 = 20)",
+      "acceptable": [
+        "20",
+        "twenty"
+      ],
       "domain": "math",
-      "difficulty": "easy"
+      "difficulty": "medium"
     },
     {
       "id": "freefall",
-      "title": "Free Fall Drop Time",
+      "title": "Vertical Throw from a Cliff (Quadratic)",
       "dist_dir": "freefall",
       "html_naming": "variant_id",
       "problem_file": "freefall_problem.md",
-      "answer": "3 seconds (44.1 = 0.5 * 9.8 * t^2)",
-      "acceptable": ["3 s", "3 seconds", "t = 3"],
+      "answer": "6 seconds (58.8 + 19.6t - 4.9t^2 = 0 reduces to t^2 - 4t - 12 = 0, roots 6 and -2)",
+      "acceptable": [
+        "6 s",
+        "6 seconds",
+        "t = 6"
+      ],
       "domain": "physics",
-      "difficulty": "easy",
-      "note": "kinematics family adjacency with archer: 1D vertical drop vs 2D projectile at an angle — kept as separate families"
+      "difficulty": "medium",
+      "note": "kinematics family adjacency with archer: 1D vertical throw with quadratic solve vs 2D projectile range — different techniques, kept separate"
     },
     {
       "id": "centripetal",
-      "title": "Centripetal Acceleration",
+      "title": "Maximum Speed on a Flat Curve (Friction + Circular Motion)",
       "dist_dir": "centripetal",
       "html_naming": "variant_id",
       "problem_file": "centripetal_problem.md",
-      "answer": "8 m/s^2 (a = v^2 / r = 400 / 50)",
-      "acceptable": ["8 m/s^2", "8 m/s2", "a = 8"],
+      "answer": "approximately 19.8 m/s (v = sqrt(mu*g*r) = sqrt(0.8*9.8*50) = sqrt(392))",
+      "acceptable": [
+        "19.8",
+        "sqrt(392)",
+        "about 20 m/s"
+      ],
       "domain": "physics",
-      "difficulty": "easy"
+      "difficulty": "medium"
     },
     {
       "id": "hooke",
-      "title": "Hooke's Law and Spring Energy",
+      "title": "Spring Launcher (Elastic Energy to Kinetic)",
       "dist_dir": "hooke",
       "html_naming": "variant_id",
       "problem_file": "hooke_problem.md",
-      "answer": "force 30 N; stored energy 2.25 J (F = kx, PE = 0.5 k x^2)",
-      "acceptable": ["30 N, 2.25 J", "F=30", "2.25 joules"],
+      "answer": "approximately 9.5 m/s (0.5*k*x^2 = 0.5*m*v^2, v = x*sqrt(k/m) = 0.15*sqrt(4000))",
+      "acceptable": [
+        "9.5",
+        "9.49",
+        "sqrt(90)"
+      ],
       "domain": "physics",
-      "difficulty": "easy",
-      "note": "oscillation-adjacent to pendulum but tests statics/energy, not period — separate family"
+      "difficulty": "medium",
+      "note": "energy-conservation family adjacency with incline: spring PE vs gravitational PE as the source — kept separate"
     },
     {
       "id": "calorimetry",
-      "title": "Heat and Specific Heat Capacity",
+      "title": "Ice Melting in Water (Latent + Specific Heat)",
       "dist_dir": "calorimetry",
       "html_naming": "variant_id",
       "problem_file": "calorimetry_problem.md",
-      "answer": "125,580 J, approximately 1.26 x 10^5 J (Q = mc deltaT = 0.5 * 4186 * 60)",
-      "acceptable": ["125580", "125,580 J", "1.26e5", "about 126 kJ"],
+      "answer": "approximately 28.4 C (heat balance: 1.0*4186*(50-T) = 0.2*334000 + 0.2*4186*T, T = 142500/5023.2)",
+      "acceptable": [
+        "28.4",
+        "28.4 C",
+        "about 28"
+      ],
       "domain": "physics",
-      "difficulty": "easy"
+      "difficulty": "hard"
     },
     {
       "id": "idealgas",
@@ -407,20 +558,29 @@
       "html_naming": "variant_id",
       "problem_file": "idealgas_problem.md",
       "answer": "approximately 99,770 Pa, about 1.0 x 10^5 Pa (P = nRT/V)",
-      "acceptable": ["99768", "99,770 Pa", "1.0e5 Pa", "about 100 kPa"],
+      "acceptable": [
+        "99768",
+        "99,770 Pa",
+        "1.0e5 Pa",
+        "about 100 kPa"
+      ],
       "domain": "physics",
       "difficulty": "medium"
     },
     {
       "id": "wavespeed",
-      "title": "Wave Speed from Frequency and Wavelength",
+      "title": "Standing Wave Harmonics on a String",
       "dist_dir": "wavespeed",
       "html_naming": "variant_id",
       "problem_file": "wavespeed_problem.md",
-      "answer": "343.2 m/s (v = f * lambda = 440 * 0.78)",
-      "acceptable": ["343", "343.2 m/s", "about 343"],
+      "answer": "wavelength 0.8 m (2L/3), wave speed 264 m/s (330 * 0.8)",
+      "acceptable": [
+        "264",
+        "264 m/s",
+        "0.8 m and 264"
+      ],
       "domain": "physics",
-      "difficulty": "easy"
+      "difficulty": "medium"
     },
     {
       "id": "thinlens",
@@ -429,7 +589,12 @@
       "html_naming": "variant_id",
       "problem_file": "thinlens_problem.md",
       "answer": "image at 15 cm on the far side; magnification -0.5 (inverted, half size)",
-      "acceptable": ["15 cm", "v = 15", "-0.5", "m = -1/2"],
+      "acceptable": [
+        "15 cm",
+        "v = 15",
+        "-0.5",
+        "m = -1/2"
+      ],
       "domain": "physics",
       "difficulty": "medium"
     },
@@ -440,7 +605,11 @@
       "html_naming": "variant_id",
       "problem_file": "coulomb_problem.md",
       "answer": "approximately 0.6 N (F = k q1 q2 / r^2 = 8.99e9 * 6e-12 / 0.09)",
-      "acceptable": ["0.6 N", "0.599", "about 0.6"],
+      "acceptable": [
+        "0.6 N",
+        "0.599",
+        "about 0.6"
+      ],
       "domain": "physics",
       "difficulty": "medium"
     },
@@ -451,7 +620,11 @@
       "html_naming": "variant_id",
       "problem_file": "torque_problem.md",
       "answer": "1.5 meters (30 * 2 = 40 * d)",
-      "acceptable": ["1.5 m", "1.5 meters", "d = 1.5"],
+      "acceptable": [
+        "1.5 m",
+        "1.5 meters",
+        "d = 1.5"
+      ],
       "domain": "physics",
       "difficulty": "easy"
     },
@@ -462,21 +635,29 @@
       "html_naming": "variant_id",
       "problem_file": "doppler_problem.md",
       "answer": "approximately 755.6 Hz (f' = 680 * 340 / (340 - 34))",
-      "acceptable": ["755.6", "756 Hz", "about 756"],
+      "acceptable": [
+        "755.6",
+        "756 Hz",
+        "about 756"
+      ],
       "domain": "physics",
       "difficulty": "hard"
     },
     {
       "id": "hydrostatic",
-      "title": "Hydrostatic Pressure at Depth",
+      "title": "Hydrostatic Force on an Aquarium Window",
       "dist_dir": "hydrostatic",
       "html_naming": "variant_id",
       "problem_file": "hydrostatic_problem.md",
-      "answer": "98,000 Pa (P = rho g h = 1000 * 9.8 * 10)",
-      "acceptable": ["98000", "98 kPa", "9.8e4 Pa"],
+      "answer": "approximately 616 N (P = rho*g*h = 19600 Pa at the center; F = P * pi * r^2 = 19600 * 0.0314)",
+      "acceptable": [
+        "616",
+        "615.8",
+        "about 616 N"
+      ],
       "domain": "physics",
-      "difficulty": "easy",
-      "note": "fluids family adjacency with buoyancy: pressure at depth vs floating fraction — different principles (P = rho g h vs Archimedes), kept separate"
+      "difficulty": "medium",
+      "note": "fluids family adjacency with buoyancy: pressure-force on a surface vs floating fraction — different principles, kept separate"
     },
     {
       "id": "binconvert",
@@ -485,7 +666,10 @@
       "html_naming": "variant_id",
       "problem_file": "binconvert_problem.md",
       "answer": "10011100 (156 = 128 + 16 + 8 + 4)",
-      "acceptable": ["10011100", "0b10011100"],
+      "acceptable": [
+        "10011100",
+        "0b10011100"
+      ],
       "domain": "cs",
       "difficulty": "easy"
     },
@@ -496,21 +680,29 @@
       "html_naming": "variant_id",
       "problem_file": "toposort_problem.md",
       "answer": "one valid order is A, B, C, D, E; course E must always come last. (A and B may swap; any order satisfying the prerequisites is acceptable.)",
-      "acceptable": ["A,B,C,D,E", "B,A,C,D,E", "E last"],
+      "acceptable": [
+        "A,B,C,D,E",
+        "B,A,C,D,E",
+        "E last"
+      ],
       "domain": "cs",
       "difficulty": "medium",
       "note": "graph family adjacency with dijkstra: DAG ordering vs weighted shortest path — different algorithms, kept separate"
     },
     {
-      "id": "linkedreverse",
-      "title": "Linked List Reversal",
-      "dist_dir": "linkedreverse",
+      "id": "linkedcycle",
+      "title": "Cycle Detection (Floyd's Tortoise and Hare)",
+      "dist_dir": "linkedcycle",
       "html_naming": "variant_id",
-      "problem_file": "linkedreverse_problem.md",
-      "answer": "new head is 9, which points to 1 (reversed list: 9 -> 1 -> 7 -> 3)",
-      "acceptable": ["9, then 1", "9 -> 1", "head 9"],
+      "problem_file": "linkedcycle_problem.md",
+      "answer": "pointers first meet at node 4; the cycle starts at node 3",
+      "acceptable": [
+        "meet at 4, cycle starts at 3",
+        "4 and 3",
+        "node 3"
+      ],
       "domain": "cs",
-      "difficulty": "easy"
+      "difficulty": "hard"
     },
     {
       "id": "hashcollision",
@@ -519,7 +711,10 @@
       "html_naming": "variant_id",
       "problem_file": "hashcollision_problem.md",
       "answer": "10 in slot 3, 17 in slot 4, 24 in slot 5 (all hash to 3; linear probing walks forward)",
-      "acceptable": ["3, 4, 5", "slots 3 4 5"],
+      "acceptable": [
+        "3, 4, 5",
+        "slots 3 4 5"
+      ],
       "domain": "cs",
       "difficulty": "medium"
     },
@@ -530,43 +725,56 @@
       "html_naming": "variant_id",
       "problem_file": "fibmemo_problem.md",
       "answer": "F(10) = 55; memoization caches each F(k) so every subproblem is computed once (O(n) calls instead of O(2^n))",
-      "acceptable": ["55", "F(10)=55"],
+      "acceptable": [
+        "55",
+        "F(10)=55"
+      ],
       "domain": "cs",
       "difficulty": "medium",
       "note": "DP family adjacency with knapsack: memoized recursion vs 0/1 table-filling — different DP styles, kept separate"
     },
     {
       "id": "bigo",
-      "title": "Big-O Growth Ranking",
+      "title": "Solving Recurrences (Divide and Conquer)",
       "dist_dir": "bigo",
       "html_naming": "variant_id",
       "problem_file": "bigo_problem.md",
-      "answer": "log n < n < n log n < n^2 < 2^n; prefer the logarithmic (or lowest available) class for very large inputs",
-      "acceptable": ["log n, n, n log n, n^2, 2^n", "logarithmic first"],
+      "answer": "A: T(n) = 2T(n/2) + n is O(n log n); B: T(n) = 2T(n/2) + c is O(n); B is faster for large n",
+      "acceptable": [
+        "n log n and n",
+        "O(n log n), O(n)"
+      ],
       "domain": "cs",
-      "difficulty": "easy"
+      "difficulty": "medium"
     },
     {
-      "id": "twosum",
-      "title": "Two-Pointer Pair Sum",
-      "dist_dir": "twosum",
+      "id": "slidingwindow",
+      "title": "Longest Substring Without Repeats (Sliding Window)",
+      "dist_dir": "slidingwindow",
       "html_naming": "variant_id",
-      "problem_file": "twosum_problem.md",
-      "answer": "11 and 14 (the only pair in the array summing to 25)",
-      "acceptable": ["11 and 14", "11 + 14", "(11, 14)"],
+      "problem_file": "slidingwindow_problem.md",
+      "answer": "3 (the window never holds more than 'abc' / 'bca' / 'cab' — any longer window repeats a character)",
+      "acceptable": [
+        "3",
+        "three",
+        "abc"
+      ],
       "domain": "cs",
-      "difficulty": "easy"
+      "difficulty": "medium"
     },
     {
       "id": "bitwise",
-      "title": "Bitwise AND / OR / XOR",
+      "title": "Two's Complement Representation",
       "dist_dir": "bitwise",
       "html_naming": "variant_id",
       "problem_file": "bitwise_problem.md",
-      "answer": "AND = 8 (1000), OR = 15 (1111), XOR = 7 (0111) for 13 (1101) and 10 (1010)",
-      "acceptable": ["8, 15, 7", "AND 8 OR 15 XOR 7"],
+      "answer": "11110011 (13 = 00001101, invert to 11110010, add 1; 11110011 + 00001101 = 0 in 8 bits, carry discarded)",
+      "acceptable": [
+        "11110011",
+        "0b11110011"
+      ],
       "domain": "cs",
-      "difficulty": "easy"
+      "difficulty": "medium"
     },
     {
       "id": "lrucache",
@@ -575,7 +783,10 @@
       "html_naming": "variant_id",
       "problem_file": "lrucache_problem.md",
       "answer": "B is evicted first (when D is inserted), then C (when B is re-inserted)",
-      "acceptable": ["B then C", "B, C"],
+      "acceptable": [
+        "B then C",
+        "B, C"
+      ],
       "domain": "cs",
       "difficulty": "medium"
     },
@@ -586,7 +797,10 @@
       "html_naming": "variant_id",
       "problem_file": "hanoi_problem.md",
       "answer": "15 moves (2^4 - 1; each added disk doubles the work plus one move)",
-      "acceptable": ["15", "2^4 - 1"],
+      "acceptable": [
+        "15",
+        "2^4 - 1"
+      ],
       "domain": "cs",
       "difficulty": "medium",
       "note": "recursion family adjacency with fibmemo: pure recursion pattern vs memoized DP — kept separate"

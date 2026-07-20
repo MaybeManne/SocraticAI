@@ -1,1 +1,1 @@
-In a class of 40 students, 25 like math, 20 like physics, and 10 like both. Using the principle of inclusion-exclusion, how many students like neither subject?
+In a class of 100 students, 50 study math, 40 study physics, and 30 study computer science. 20 study both math and physics, 15 study both physics and CS, and 10 study both math and CS. 5 students study all three. Using inclusion-exclusion for three sets, how many students study none of the three subjects?

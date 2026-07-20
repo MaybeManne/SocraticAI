@@ -1,1 +1,1 @@
-A sound wave has a frequency of 440 Hz and a wavelength of 0.78 meters. What is the speed of the wave?
+A string of length 1.2 meters is fixed at both ends. Its third harmonic (three antinodes) has a frequency of 330 Hz. What is the wavelength of the third harmonic, and what is the wave speed on the string?

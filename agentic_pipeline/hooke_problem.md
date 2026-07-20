@@ -1,1 +1,1 @@
-A spring with spring constant 200 N/m is stretched 0.15 meters from its natural length. What force is required to hold it there, and how much elastic potential energy is stored in the spring?
+A spring with spring constant 200 N/m is compressed 0.15 meters and used to launch a 0.05 kg ball horizontally along a frictionless surface. Using energy conservation, what is the ball's launch speed?
