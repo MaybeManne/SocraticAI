@@ -1,0 +1,1 @@
+A binary search tree has root 8. The root's left child is 3, whose own left child is 1 and right child is 6 (6's left child is 4, right child is 7). The root's right child is 10, whose right child is 14 (14's left child is 13). List the in-order traversal of this tree.

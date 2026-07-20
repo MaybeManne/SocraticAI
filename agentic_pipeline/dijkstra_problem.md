@@ -1,0 +1,1 @@
+A weighted directed graph has nodes S, A, B, C, T and edges: S to A (weight 4), S to B (weight 1), B to A (weight 2), B to C (weight 5), A to C (weight 1), A to T (weight 8), C to T (weight 3). Using Dijkstra's algorithm, find the shortest path from S to T and its total distance.

@@ -1,0 +1,1 @@
+A data set has the values 2, 4, 4, 4, 5, 5, 7, 9. Find the population standard deviation.

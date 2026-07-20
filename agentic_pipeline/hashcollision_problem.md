@@ -1,0 +1,1 @@
+A hash table has 7 slots (indices 0-6) and uses the hash function h(k) = k mod 7 with linear probing for collision resolution. Insert the keys 10, 17, and 24 in that order. Which slot does each key end up in?

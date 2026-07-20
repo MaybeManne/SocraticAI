@@ -1,0 +1,1 @@
+You have a knapsack with capacity 5 and four items: A (weight 2, value 3), B (weight 3, value 4), C (weight 4, value 5), D (weight 5, value 6). Each item can be taken at most once (0/1 knapsack). Which items should you choose to maximize total value without exceeding the capacity, and what is that maximum value?

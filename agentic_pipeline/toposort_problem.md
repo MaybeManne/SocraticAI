@@ -1,0 +1,1 @@
+Five courses have prerequisites: course C requires A and B; course D requires C; course E requires B and D. Courses A and B have no prerequisites. Using a topological sort, give one valid order to take all five courses, and state which course must always come last.

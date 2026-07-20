@@ -1,0 +1,1 @@
+A disease affects 1% of a population. A test for the disease is 90% sensitive (detects the disease when present) and has a 5% false positive rate. If a randomly selected person tests positive, what is the probability they actually have the disease? Round to the nearest tenth of a percent.
