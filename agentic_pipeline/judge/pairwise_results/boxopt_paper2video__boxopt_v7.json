@@ -1,0 +1,50 @@
+{
+  "setupA": "boxopt_v7",
+  "setupB": "boxopt_paper2video",
+  "subject": "boxopt",
+  "lesson1Setup": "boxopt_v7",
+  "lesson2Setup": "boxopt_paper2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "boxopt_paper2video",
+      "confidence": 0.88,
+      "rationale": "Lesson 2 presents the correct formulas, derivative, solution x=4, verification, and minimum area 48 m\u00b2 clearly, while Lesson 1 leaves much of the visual workspace blank, references diagrams/nets that are not actually shown, and never visibly reaches the final dimensions or minimum area in the sampled timeline."
+    },
+    "interactivity": {
+      "winner": "boxopt_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed quiz gate wired after act_setup with a real question, plausible options, and a marked correct answer, while Lesson 2 has no available gate specs or plan JSON, so it provides no functioning checkpoints."
+    },
+    "narration_quality": {
+      "winner": "boxopt_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, natural, correctly paced narration with spoken math rendered understandably, whereas Lesson 2 is heavily garbled, repetitive, and often nonsensical, making the audio narration defective and difficult to follow."
+    },
+    "sync": {
+      "winner": "boxopt_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 provides visual cues that are mostly aligned with the narration\u2019s references despite a few slightly late offsets, while Lesson 2 has no beat/timing cue data at all, so it cannot demonstrate synchronized visual changes."
+    },
+    "concept_accuracy": {
+      "winner": "boxopt_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 presents the correct formulas, substitution, derivative condition, solution, and final area in a coherent learner-friendly sequence, while Lesson 2 is largely garbled and incoherent despite containing a few recognizable correct fragments."
+    },
+    "polish": {
+      "winner": "boxopt_paper2video",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has a consistent, legible, centered slide style despite recurring footer/cursor/subtitle clutter, whereas Lesson 1 is persistently off-center with a huge empty left side, smaller text, and later clipped/scrolling content that looks unfinished."
+    }
+  },
+  "aggregator": {
+    "winner": "boxopt_v7",
+    "confidence": 0.84,
+    "explanation": "Lesson 1 is the clear overall winner: four high-confidence agents favored it, especially in interactivity, narration quality, synchronization, and conceptual accuracy. These were all very strong votes, with confidences from 0.96 to 0.99, indicating Lesson 1 is more coherent, better paced, more learner-friendly, and includes functioning checkpoint interaction. Lesson 2 was preferred for visual accuracy and polish, but those advantages were fewer and collectively lower-weighted, especially since its narration and timing support were judged severely deficient. Overall, Lesson 1 has the stronger instructional experience despite visual layout weaknesses."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:36:38.172945+00:00",
+  "videoMeta": {
+    "boxopt_v7": {},
+    "boxopt_paper2video": {}
+  }
+}

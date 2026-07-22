@@ -1,0 +1,50 @@
+{
+  "setupA": "gcdeuclid_notebooklm",
+  "setupB": "gcdeuclid_v7",
+  "subject": "gcdeuclid",
+  "lesson1Setup": "gcdeuclid_v7",
+  "lesson2Setup": "gcdeuclid_notebooklm",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "gcdeuclid_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 consistently visualizes the correct Euclidean-algorithm tiling for 1071 and 462 with correct partitions and final GCD 21, while Lesson 2 is largely unrelated or generic stock math imagery and repeatedly switches to quadratic, mean, and standard-deviation content with almost no accurate visual representation of the GCD process."
+    },
+    "interactivity": {
+      "winner": "gcdeuclid_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed quiz gate with a real question, plausible options, a marked correct answer, and matching wiring after act_first_division, while Lesson 2 has no available gate specs or plan and therefore provides no functional checkpoint."
+    },
+    "narration_quality": {
+      "winner": "gcdeuclid_v7",
+      "confidence": 0.88,
+      "rationale": "Lesson 1 has clear, concise, well-paced narration tailored to the GCD explanation, while Lesson 2 is much more rambling and overlong with excessive filler and unrelated sections that make the pacing feel slow and unfocused despite having no raw-LaTeX defects."
+    },
+    "sync": {
+      "winner": "gcdeuclid_v7",
+      "confidence": 0.92,
+      "rationale": "Lesson 1 provides concrete visual cues that mostly fire when the narration introduces the rectangle, remainders, zooms, equations, and grid, whereas Lesson 2 has no beat/timing data or cue triggers despite narration referencing visuals like \u201cwatch this\u201d and sliding numbers, making its sync unverified and effectively worse."
+    },
+    "concept_accuracy": {
+      "winner": "gcdeuclid_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 is more accurate and pedagogically effective because it focuses entirely on the Euclidean algorithm, correctly connects each division step to a geometric remainder model and reinforces the recursive structure, while Lesson 2 gives the correct arithmetic but offers only a brief verbal procedure embedded among unrelated topics and gives a less complete explanation of why the remainder process preserves the GCD."
+    },
+    "polish": {
+      "winner": "gcdeuclid_v7",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 maintains a coherent dark split-screen layout with mostly legible labels and consistent styling, while Lesson 2 has long empty/blank-card frames, abrupt template/style changes, excessive decorative clutter, and unrelated-looking slide transitions that make the presentation much less polished overall."
+    }
+  },
+  "aggregator": {
+    "winner": "gcdeuclid_v7",
+    "confidence": 0.97,
+    "explanation": "All six dimension agents strongly favor Lesson 1, with consistently high confidence. Lesson 1 is judged far superior in visual accuracy, interactivity, synchronization, conceptual accuracy, narration quality, and polish. It accurately and coherently teaches the Euclidean algorithm for 1071 and 462 with correct visuals, timing, quiz gating, and focused explanation, while Lesson 2 is described as generic, unfocused, poorly synchronized or undocumented, visually unrelated, and cluttered with irrelevant math content. Since every dimension independently selects Lesson 1, there is no meaningful split."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:39:19.150162+00:00",
+  "videoMeta": {
+    "gcdeuclid_notebooklm": {},
+    "gcdeuclid_v7": {}
+  }
+}

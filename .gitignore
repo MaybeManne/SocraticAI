@@ -9,6 +9,7 @@
 __pycache__/
 *.pyc
 *.pyo
+.pytest_cache/
 
 # Pipeline intermediate artifacts
 work/
@@ -22,10 +23,7 @@ node_modules/
 .claude/
 skills-lock.json
 
-# Scratch/test HTML files in dist
-dist/test_*.html
-__pycache__/
-*.pyc
+# Generated lessons (large HTML; judged artifacts live here locally)
 dist/
 
 # external benchmark videos (large binaries; README is tracked)
@@ -35,16 +33,21 @@ benchmark_comparison/**/*.mov
 benchmark_comparison/**/*.png
 benchmark_comparison/**/*.txt
 
-# static benchmark site build output + vercel project link
-benchmark_site/socraticai-benchmark/
-.vercel
-
 # judge timeline frames (regenerated on demand)
 *_frames/
 
-# static results site build output
-results_site/socraticai-results/
-results_site/site/
-
-# static dashboard clone build output
+# static site build outputs + vercel project links
+benchmark_site/socraticai-benchmark/
 dashboard_share/socraticai-dashboard/
+final_site/socraticai-results/
+.vercel
+
+# external benchmark tool checkouts + their outputs (not ours to commit)
+external_tools/
+
+# Final benchmark deliverable: media is gitignored (295MB of videos/lessons),
+# but the data files (CSVs, workbooks, summary) ARE tracked.
+benchmark_final/*
+!benchmark_final/*.csv
+!benchmark_final/*.xlsx
+!benchmark_final/SUMMARY.md

@@ -1,0 +1,60 @@
+{
+  "setupA": "circles_v7",
+  "setupB": "circles_code2video",
+  "subject": "circles",
+  "lesson1Setup": "circles_code2video",
+  "lesson2Setup": "circles_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_code2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 at least mostly depicts the common-tangent nested circles and crescent-like shaded differences, despite some later inaccurate concentric summary diagrams, while Lesson 2 persistently shows oversized cropped circles with the whole disk shaded instead of the region between successive circles and later uses an unclear threshold curve."
+    },
+    "interactivity": {
+      "winner": "circles_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed, wired fill-in checkpoint after act_pattern with a real prompt and accepted answers, while Lesson 1 has no available gate specs or plan and must be treated as having no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "circles_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 has clear, natural narration with spoken math and no obvious TTS defects, while Lesson 1 has no transcript at all, so its narration quality cannot be credited."
+    },
+    "sync": {
+      "winner": "circles_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 at least provides timed visual cues that generally accompany the referenced narration, despite some early offsets, whereas Lesson 1 has no transcript or cue timing data at all and therefore shows no demonstrable sync."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly derives each shaded area as \u03c0[(2k)^2-(2k-1)^2]=\u03c0(4k-1), sums to \u03c0(2n^2+n), solves the threshold, and explains the final doubling to 64 circles, while Lesson 1 has no available transcript or lesson content to verify correctness or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "circles_v7",
+      "confidence": 0.63,
+      "rationale": "Lesson 2 has more legible typography, consistent modern styling, and cleaner structured panels overall, whereas Lesson 1 often uses tiny serif text, excessive empty space, inconsistent neon coloring, and a few awkward partial-animation artifacts."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v7",
+    "confidence": 0.93,
+    "explanation": "Lesson 2 is the clear overall winner: five of six agents favored it, most with very high confidence, covering interactivity, narration quality, synchronization, conceptual accuracy, and polish. Lesson 1\u2019s only win was visual accuracy, where it better represented the nested tangent-circle shaded regions, but Lesson 2\u2019s deficiencies there are outweighed by its strong functional checkpoint, clear narration, timed cues, correct mathematical derivation, and generally cleaner presentation. Because the weighted votes strongly favor Lesson 2 rather than being genuinely split, this is not a tie."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:23:21.032309+00:00",
+  "videoMeta": {
+    "circles_v7": {
+      "durationSeconds": 175.0,
+      "solved": true,
+      "explained": true,
+      "visualCount": 3
+    },
+    "circles_code2video": {
+      "durationSeconds": 89.8,
+      "solved": null,
+      "explained": null,
+      "visualCount": 0
+    }
+  }
+}

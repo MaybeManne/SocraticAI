@@ -1,0 +1,50 @@
+{
+  "setupA": "cointoss_code2video",
+  "setupB": "cointoss_paper2video",
+  "subject": "cointoss",
+  "lesson1Setup": "cointoss_paper2video",
+  "lesson2Setup": "cointoss_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "cointoss_code2video",
+      "confidence": 0.74,
+      "rationale": "Lesson 2 provides conceptually accurate visual representations of the eight flips, combinations, winning cases, and final fraction, whereas Lesson 1 is mathematically mostly correct but relies almost entirely on static text/formula slides with little positional visual depiction of the probability concept."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have no available gate specs or plan JSON, so neither demonstrates any functional checkpoints that render questions or accept input."
+    },
+    "narration_quality": {
+      "winner": "cointoss_paper2video",
+      "confidence": 0.62,
+      "rationale": "Lesson 1 has extremely garbled and unnatural narration with many defects, but Lesson 2 has no available narration at all, making it worse on narration quality because there is no clear, paced audio to evaluate."
+    },
+    "sync": {
+      "winner": "cointoss_paper2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 1 at least provides narration content, though no beat/timing cues to verify sync, while Lesson 2 provides no transcript or cue data at all, making synchronization entirely unassessable."
+    },
+    "concept_accuracy": {
+      "winner": "cointoss_paper2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is badly garbled and contains some erroneous statements, but it at least presents the correct binomial setup, counts, and final fraction 93/256, whereas Lesson 2 has no transcript/content available and therefore provides no assessable explanation or learning support."
+    },
+    "polish": {
+      "winner": "cointoss_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is cleaner and more visually consistent with no visible UI/caption overlays, while Lesson 1, despite more legible slide text, is repeatedly marred by a persistent red cursor, Beamer navigation/footer elements, and subtitles overlapping the bottom of the slides."
+    }
+  },
+  "aggregator": {
+    "winner": "cointoss_paper2video",
+    "confidence": 0.58,
+    "explanation": "The dimension results are mixed, but the confidence-weighted balance slightly favors Lesson 1. Lesson 2 is stronger on visual accuracy and polish, with relatively high confidence, because it presents cleaner visuals and better depictions of the probability cases. However, Lesson 1 wins on narration quality, synchronization, and especially concept accuracy; the concept-accuracy verdict is high-confidence and notes that Lesson 1 at least provides the correct binomial setup and final result, while Lesson 2 lacks assessable explanatory content. Interactivity is a high-confidence tie because neither lesson demonstrates functional checkpoints. Overall, Lesson 1's advantages in assessable instructional substance narrowly outweigh Lesson 2's visual and polish strengths."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:37:53.174103+00:00",
+  "videoMeta": {
+    "cointoss_code2video": {},
+    "cointoss_paper2video": {}
+  }
+}

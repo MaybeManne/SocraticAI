@@ -1,0 +1,55 @@
+{
+  "setupA": "archer_code2video",
+  "setupB": "archer_paper2video",
+  "subject": "archer",
+  "lesson1Setup": "archer_code2video",
+  "lesson2Setup": "archer_paper2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1\u2019s vector decomposition, gravity/vertical-motion arrows, horizontal motion cue, and final parabolic trajectory/target are visually aligned with the projectile concept, while Lesson 2 is mostly text/formulas with little actual diagrammatic representation and some imprecise wording despite having generally correct equations."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have no available gate specs or plan JSON, so neither shows any functional gates or checkpoints and they are indistinguishable on interactivity."
+    },
+    "narration_quality": {
+      "winner": "archer_paper2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 2 is extremely garbled with many nonsensical phrases and repetitions, but it at least contains some understandable narration, whereas Lesson 1 has no narration transcript and must be treated as absent."
+    },
+    "sync": {
+      "winner": "archer_paper2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 2 at least provides a narration transcript that could support some limited inference, whereas Lesson 1 is entirely absent, though Lesson 2 also lacks beat/timing cue data so its sync cannot be meaningfully verified."
+    },
+    "concept_accuracy": {
+      "winner": "archer_paper2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 2 is badly garbled and gives an incorrect numerical range, but it at least identifies the relevant projectile-range formula and assumptions, whereas Lesson 1 has no available teaching content to assess or credit."
+    },
+    "polish": {
+      "winner": "archer_code2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 is sparse and somewhat small/off-center but consistently clean with no major artifacts, whereas Lesson 2, despite a more professional slide template, is marred throughout by persistent bottom UI/subtitle overlays, a visible red cursor, footer clutter, and occasional crowded text."
+    }
+  },
+  "aggregator": {
+    "winner": "tie",
+    "confidence": 0.62,
+    "explanation": "The dimension results are genuinely split with no clear overall winner. Lesson 1 is favored with relatively high confidence on visual accuracy and polish, due to clearer projectile visuals and fewer artifacts. Lesson 2 is favored on narration quality, sync, and concept accuracy, but only at low confidence because its content is garbled and its advantage mainly comes from Lesson 1 lacking assessable narration/teaching material. Interactivity is a high-confidence tie because neither lesson shows functional gates or checkpoints. Overall, the weighted evidence is nearly balanced, so the final judgment is a tie."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:37:29.126851+00:00",
+  "videoMeta": {
+    "archer_code2video": {
+      "durationSeconds": 76.3,
+      "solved": null,
+      "explained": null,
+      "visualCount": 2
+    },
+    "archer_paper2video": {}
+  }
+}

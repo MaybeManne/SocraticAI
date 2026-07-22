@@ -1,0 +1,60 @@
+{
+  "setupA": "binsearch_v7",
+  "setupB": "binsearch_code2video",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_code2video",
+  "lesson2Setup": "binsearch_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 more consistently places the array, indices, low/mid/high markers, highlighted search space, target index 7, and O(log n) halving equations correctly, while Lesson 1 has sparser visuals with ambiguous/inconsistent pointer states during the trace and a partially incomplete/garbled introductory array/title."
+    },
+    "interactivity": {
+      "winner": "binsearch_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 has a functional wired quiz gate with a real question, plausible options, and a marked correct answer after act_found, while Lesson 1 has no available gate specs or plan and therefore no functioning checkpoints."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 has clear, well-paced narration with spoken math rendered naturally, while Lesson 1 has no available transcript and therefore provides no assessable narration quality."
+    },
+    "sync": {
+      "winner": "binsearch_v7",
+      "confidence": 0.9,
+      "rationale": "Lesson 2 provides timed visual cues that are mostly aligned with the narrated references, while Lesson 1 has no transcript or cue data at all and therefore cannot demonstrate synchronization."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 accurately traces the binary search, explains the sorted-array halving logic and logarithmic derivation clearly, while Lesson 1 has no available transcript or plan to demonstrate any correct or pedagogically useful content."
+    },
+    "polish": {
+      "winner": "binsearch_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 has a much more polished, legible, consistently styled modern layout, while Lesson 1 is sparse, often off-center, uses tiny/dim text and cramped diagrams with occasional awkward overlaps, despite Lesson 2 having minor label overlap and a small raw inline formula artifact."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v7",
+    "confidence": 0.95,
+    "explanation": "All six dimension agents prefer Lesson 2, with high confidence across the board. Lesson 2 is judged more visually accurate, interactive, well-narrated, synchronized, conceptually correct, and polished. The strongest differences are that Lesson 2 includes a functional quiz gate, clear narration, timed visual cues, and an accurate binary search explanation, while Lesson 1 lacks transcript/plan evidence for several dimensions and has sparse or inconsistent visuals. Minor polish issues in Lesson 2 do not outweigh its consistent advantages."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:23:56.304306+00:00",
+  "videoMeta": {
+    "binsearch_v7": {
+      "durationSeconds": 152.0,
+      "solved": true,
+      "explained": true,
+      "visualCount": 2
+    },
+    "binsearch_code2video": {
+      "durationSeconds": 26.8,
+      "solved": null,
+      "explained": null,
+      "visualCount": 2
+    }
+  }
+}

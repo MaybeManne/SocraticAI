@@ -1,0 +1,50 @@
+{
+  "setupA": "permutations_v7",
+  "setupB": "permutations_code2video",
+  "subject": "permutations",
+  "lesson1Setup": "permutations_v7",
+  "lesson2Setup": "permutations_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "permutations_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 consistently shows the correct complement-counting structure, repeated-letter formulas, LL-block count, and final 900 despite some clutter/transitions, whereas Lesson 2 has more visually inaccurate moments such as an unclear intro diagram with missing/mislabeled letters and a prominent incomplete total formula shown as Total = 7! even while claiming 1260."
+    },
+    "interactivity": {
+      "winner": "permutations_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed quiz gate wired after act_unwanted_calc with a real question, plausible options, and a marked correct answer, while Lesson 2 has no available gate specs or plan and therefore no functional checkpoints."
+    },
+    "narration_quality": {
+      "winner": "permutations_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, natural pacing and no raw LaTeX or garbled phrasing, while Lesson 2 provides no narration transcript at all, making its narration quality absent and therefore worse."
+    },
+    "sync": {
+      "winner": "permutations_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 provides timed visual cues that generally align with the narrated references, while Lesson 2 has no transcript or cue data at all, making its sync impossible to verify and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "permutations_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly and clearly teaches the total-minus-adjacent-block method with accurate calculations, while Lesson 2 provides no transcript or lesson content to establish mathematical correctness or pedagogical clarity."
+    },
+    "polish": {
+      "winner": "permutations_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is generally more legible, visually consistent, and cleanly structured despite some clipping/overcrowding and one raw LaTeX line near the end, whereas Lesson 2 is consistently sparse and off-balance with small text, awkward positioning, and several visibly malformed or truncated labels/graphics."
+    }
+  },
+  "aggregator": {
+    "winner": "permutations_v7",
+    "confidence": 0.95,
+    "explanation": "All six dimension agents prefer Lesson 1, with especially high-confidence wins in interactivity, narration quality, sync, and concept accuracy. Lesson 1 is judged mathematically correct, well-paced, synchronized, and includes a functional quiz gate, while Lesson 2 lacks key transcript/cue/gate evidence and shows multiple visual and polish issues. The lower-confidence visual accuracy and polish judgments still favor Lesson 1 despite noting some clutter and minor formatting problems, so the overall result is a clear win for Lesson 1."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:29:00.095388+00:00",
+  "videoMeta": {
+    "permutations_v7": {},
+    "permutations_code2video": {}
+  }
+}

@@ -177,18 +177,27 @@ def _call_anthropic(system_prompt, user_message, output_schema, model):
 
 
 def _call_gemini(system_prompt, user_message, output_schema, model):
-    """Call Gemini API with structured JSON output."""
+    """Call Gemini API with structured JSON output.
+
+    TRANSPORT NOTE (2026-07-20): uses the streaming endpoint and joins the
+    chunks. Long non-streaming calls (>~3 min of model thinking with zero
+    bytes on the wire) were being killed by a NAT/idle timeout between this
+    machine and Google. Streaming keeps the connection alive. Prompts,
+    model, generation config, and the assembled output are unchanged.
+    """
     if genai is None:
         raise RuntimeError("google-genai package not installed. Run: pip install google-genai")
 
-    client = genai.Client()
+    # 10-min request timeout: a stalled stream aborts as ReadTimeout (a
+    # retryable transport failure) instead of blocking forever. 2026-07-20.
+    client = genai.Client(http_options=genai_types.HttpOptions(timeout=600_000))
 
     # Always clean the schema to satisfy Gemini API restrictions
     output_schema = _clean_schema_for_gemini(output_schema)
 
     # Build the full prompt with system instructions + user message
     # and request JSON output matching the schema
-    response = client.models.generate_content(
+    stream = client.models.generate_content_stream(
         model=model,
         contents=user_message,
         config=genai_types.GenerateContentConfig(
@@ -202,8 +211,7 @@ def _call_gemini(system_prompt, user_message, output_schema, model):
             ),
         ),
     )
-
-    text = response.text
+    text = "".join(chunk.text for chunk in stream if chunk.text)
     if not text:
         raise ValueError("Empty response from Gemini API")
 
@@ -231,13 +239,19 @@ def _call_anthropic_text(system_prompt, user_message, model):
 
 
 def _call_gemini_text(system_prompt, user_message, model):
-    """Call Gemini API for plain-text output (no JSON schema)."""
+    """Call Gemini API for plain-text output (no JSON schema).
+
+    TRANSPORT NOTE (2026-07-20): streaming for NAT-timeout resilience —
+    see _call_gemini. Content semantics unchanged.
+    """
     if genai is None:
         raise RuntimeError("google-genai package not installed. Run: pip install google-genai")
 
-    client = genai.Client()
+    # 10-min request timeout: a stalled stream aborts as ReadTimeout (a
+    # retryable transport failure) instead of blocking forever. 2026-07-20.
+    client = genai.Client(http_options=genai_types.HttpOptions(timeout=600_000))
 
-    response = client.models.generate_content(
+    stream = client.models.generate_content_stream(
         model=model,
         contents=user_message,
         config=genai_types.GenerateContentConfig(
@@ -250,8 +264,7 @@ def _call_gemini_text(system_prompt, user_message, model):
             ),
         ),
     )
-
-    text = response.text
+    text = "".join(chunk.text for chunk in stream if chunk.text)
     if not text:
         raise ValueError("Empty response from Gemini API")
 

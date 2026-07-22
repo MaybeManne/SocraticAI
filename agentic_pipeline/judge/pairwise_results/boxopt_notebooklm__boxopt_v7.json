@@ -1,0 +1,50 @@
+{
+  "setupA": "boxopt_notebooklm",
+  "setupB": "boxopt_v7",
+  "subject": "boxopt",
+  "lesson1Setup": "boxopt_v7",
+  "lesson2Setup": "boxopt_notebooklm",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "boxopt_v7",
+      "confidence": 0.68,
+      "rationale": "Lesson 1 is visually sparse and leaves the referenced box/net area essentially empty, but its displayed formulas are mostly correct, whereas Lesson 2 repeatedly uses misleading visuals such as closed-top boxes for an open-top box and an incorrect decreasing graph for S(x) instead of a U-shaped function with a minimum."
+    },
+    "interactivity": {
+      "winner": "boxopt_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz checkpoint after act_setup with a real question, plausible options, and a marked correct answer, whereas Lesson 2 has no available gate specs or plan and therefore no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "boxopt_v7",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 is clear, concise, and appropriately paced with no major read-aloud defects, while Lesson 2 is much more rambling and contains garbled phrasing like \u201ciron-cloud rule,\u201d making its narration less polished."
+    },
+    "sync": {
+      "winner": "boxopt_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 provides timed visual cues that mostly coincide with the narrated references, despite a few questionable offsets like the final box appearing early, whereas Lesson 2 provides no beat/timing cue data at all, making visual-narration synchronization absent or unverifiable."
+    },
+    "concept_accuracy": {
+      "winner": "boxopt_v7",
+      "confidence": 0.68,
+      "rationale": "Lesson 1 is more focused and pedagogically scaffolded, using the box net, an area-formula checkpoint, substitution, graph intuition, and calculus in a coherent sequence, while Lesson 2 is mathematically correct and gives more algebraic detail but buries the lesson under a long irrelevant benchmark introduction and overhyped framing that distracts from the concept."
+    },
+    "polish": {
+      "winner": "boxopt_notebooklm",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 has large legible text, centered compositions, clean illustrated layouts, and consistent notebook-style visuals, whereas Lesson 1 is repeatedly off-center with a largely empty left half, small/right-column text, clipped scrolling content, and edge/UI artifacts that make it look much less polished."
+    }
+  },
+  "aggregator": {
+    "winner": "boxopt_v7",
+    "confidence": 0.81,
+    "explanation": "Five of six dimension agents prefer Lesson 1, including very high-confidence wins for interactivity, narration quality, and synchronization, plus moderate-confidence wins for visual and conceptual accuracy. Lesson 2 only wins polish, albeit with high confidence, due to cleaner layouts and more legible visuals. Overall, Lesson 1 is judged stronger because it is more functional, better timed, clearer, and more pedagogically coherent, while Lesson 2\u2019s polish advantage does not outweigh its lack of interactivity, absent timing data, misleading visuals, and weaker narration."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:39:01.718499+00:00",
+  "videoMeta": {
+    "boxopt_notebooklm": {},
+    "boxopt_v7": {}
+  }
+}

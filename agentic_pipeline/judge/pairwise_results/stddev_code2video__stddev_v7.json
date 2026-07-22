@@ -1,0 +1,50 @@
+{
+  "setupA": "stddev_v7",
+  "setupB": "stddev_code2video",
+  "subject": "stddev",
+  "lesson1Setup": "stddev_v7",
+  "lesson2Setup": "stddev_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "stddev_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 consistently places the dataset points, mean line, squared deviations, variance, and final SD=2 correctly, while Lesson 2 has sustained visual/math inaccuracies including an incomplete mean sum, missing/incorrectly placed data points and duplicates, an incorrect raw-deviation equation, and garbled squaring expressions."
+    },
+    "interactivity": {
+      "winner": "stddev_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a real, wired quiz gate after act_deviations with a concrete question, options, and correct answer, while Lesson 2 has no available gate specs or plan and therefore no functioning checkpoint evidence."
+    },
+    "narration_quality": {
+      "winner": "stddev_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 provides clear, well-paced narration with natural spoken math and no raw LaTeX or garbling, while Lesson 2 has no available narration transcript, making its narration quality absent and unevaluable."
+    },
+    "sync": {
+      "winner": "stddev_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 provides timed visual cues that generally correspond to the narrated references, even if a few are somewhat delayed, whereas Lesson 2 has no transcript or cue timing available and therefore demonstrates no assessable synchronization."
+    },
+    "concept_accuracy": {
+      "winner": "stddev_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly and clearly develops population standard deviation by finding the mean, deviations, squared deviations, variance using division by 8, and square root, while Lesson 2 has no available teaching content or transcript to verify correctness or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "stddev_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 has a much cleaner, more consistent modern layout with generally legible panels and well-composed visuals, while Lesson 2 uses smaller text, sparse/off-balance layouts, and has more obvious visual bugs such as overlapping or partially drawn equations."
+    }
+  },
+  "aggregator": {
+    "winner": "stddev_v7",
+    "confidence": 0.97,
+    "explanation": "All six dimension agents strongly favor Lesson 1, with consistently high confidence. Lesson 1 is judged visually and mathematically accurate, interactive through a functioning quiz gate, clearly narrated, reasonably well synchronized, conceptually correct in its explanation of population standard deviation, and more polished overall. Lesson 2 is repeatedly penalized for missing or unavailable narration, sync, and teaching evidence, along with significant visual/math inaccuracies and weaker layout polish. The verdict is not split, so Lesson 1 is the clear overall winner."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:26:02.984931+00:00",
+  "videoMeta": {
+    "stddev_v7": {},
+    "stddev_code2video": {}
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "setupA": "inclusionexclusion_v7",
+  "setupB": "inclusionexclusion_code2video",
+  "subject": "inclusionexclusion",
+  "lesson1Setup": "inclusionexclusion_v7",
+  "lesson2Setup": "inclusionexclusion_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "inclusionexclusion_v7",
+      "confidence": 0.84,
+      "rationale": "Lesson 1 keeps the three-set Venn, universe, union calculation, and final outside-region result visually aligned with the inclusion\u2013exclusion problem, whereas Lesson 2 is more generic and has positional/content issues such as the final \u201c80 inside\u201d arrow pointing to empty space rather than the circles and not clearly highlighting the none group."
+    },
+    "interactivity": {
+      "winner": "inclusionexclusion_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate after a specific act with a real question, options, and correct answer, while Lesson 2 has no available gate specs or plan and therefore provides no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "inclusionexclusion_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, natural narration with no raw LaTeX or garbled phrasing, while Lesson 2 provides no transcript at all, making its narration absent and therefore worse."
+    },
+    "sync": {
+      "winner": "inclusionexclusion_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 at least provides mostly aligned visual cues despite some early/underspecified triggers, while Lesson 2 has no transcript or timing data at all, making its sync absent and therefore worse."
+    },
+    "concept_accuracy": {
+      "winner": "inclusionexclusion_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly applies three-set inclusion-exclusion, clearly explains the overcounting/subtracting/add-back logic and complement step, while Lesson 2 has no available transcript or plan to demonstrate any conceptual accuracy or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "inclusionexclusion_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 has a more legible, modern, consistently styled layout with clear diagram/text panels, whereas Lesson 2 often uses tiny serif text, excessive empty space, and off-center compositions despite being uncluttered."
+    }
+  },
+  "aggregator": {
+    "winner": "inclusionexclusion_v7",
+    "confidence": 0.96,
+    "explanation": "All six dimension agents favor Lesson 1, most with very high confidence. Lesson 1 is judged superior in visual accuracy, interactivity, narration, sync, concept accuracy, and polish. The strongest factors are that Lesson 1 correctly presents the inclusion-exclusion reasoning, includes functional quiz interactivity, has clear narration, and provides aligned visual support, while Lesson 2 is missing transcript/timing/interactivity evidence and has weaker visual and layout execution. With unanimous dimension votes and high confidence overall, Lesson 1 is the clear winner."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:30:36.060617+00:00",
+  "videoMeta": {
+    "inclusionexclusion_v7": {},
+    "inclusionexclusion_code2video": {}
+  }
+}

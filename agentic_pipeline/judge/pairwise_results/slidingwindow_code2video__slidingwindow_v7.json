@@ -1,0 +1,50 @@
+{
+  "setupA": "slidingwindow_v7",
+  "setupB": "slidingwindow_code2video",
+  "subject": "slidingwindow",
+  "lesson1Setup": "slidingwindow_code2video",
+  "lesson2Setup": "slidingwindow_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "slidingwindow_code2video",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has some minor timing/incompleteness issues but generally places windows and duplicate highlights correctly for the sliding-window process, whereas Lesson 2 repeatedly shows impossible/invalid states such as the whole repeated string as a valid window, max lengths 8/14/27, unrelated text, and invalid highlighted substrings like cbb or abcab."
+    },
+    "interactivity": {
+      "winner": "slidingwindow_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 includes a concrete, wired fill-in checkpoint with a real prompt, accepted answer, hint, and remediation path after a specific act, whereas Lesson 1 has no available gate specs or plan and therefore offers no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "slidingwindow_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 has clear, natural, well-paced narration with no raw LaTeX or garbling, while Lesson 1 has no available narration transcript at all, so its audio quality cannot be credited."
+    },
+    "sync": {
+      "winner": "slidingwindow_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 provides timed visual cues that are generally aligned with the narration references, while Lesson 1 has no transcript or cue timing data at all, making its sync impossible to verify and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "slidingwindow_v7",
+      "confidence": 0.92,
+      "rationale": "Lesson 2 provides a mostly correct and pedagogically clear sliding-window walkthrough for \"abcabcbb\" with expansion, duplicate detection, left-pointer jumps, and final max length 3, whereas Lesson 1 has no available transcript or lesson content to verify or learn from."
+    },
+    "polish": {
+      "winner": "slidingwindow_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is simpler but consistently clean, readable, and free of major visual bugs, whereas Lesson 2 has a slicker modern style but becomes cluttered and shows broken-looking elements like clipped window highlights, empty panels/accordions, faint bottom text, and inconsistent crowded layout."
+    }
+  },
+  "aggregator": {
+    "winner": "slidingwindow_v7",
+    "confidence": 0.72,
+    "explanation": "Lesson 2 wins overall by a clear confidence-weighted majority: it is strongly preferred for interactivity, narration quality, synchronization, and concept accuracy, each with high confidence, while Lesson 1 is preferred for visual accuracy and polish. The main caveat is that the visual_accuracy agent found serious invalid visual states in Lesson 2, and the polish agent also noted clutter and broken-looking elements. However, Lesson 2\u2019s advantages in functioning checkpoints, available narration, timed cue alignment, and pedagogical walkthrough outweigh Lesson 1\u2019s cleaner visuals, especially since several Lesson 1 dimensions lacked available transcript/content data."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:35:43.328576+00:00",
+  "videoMeta": {
+    "slidingwindow_v7": {},
+    "slidingwindow_code2video": {}
+  }
+}

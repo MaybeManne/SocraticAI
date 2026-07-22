@@ -1,0 +1,50 @@
+{
+  "setupA": "boxopt_notebooklm",
+  "setupB": "boxopt_code2video",
+  "subject": "boxopt",
+  "lesson1Setup": "boxopt_code2video",
+  "lesson2Setup": "boxopt_notebooklm",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "boxopt_code2video",
+      "confidence": 0.94,
+      "rationale": "Lesson 1 consistently places the correct open-top box variables and equations in context, while Lesson 2 repeatedly uses generic or misleading visuals such as closed boxes and an incorrect decreasing graph for S(x) instead of the U-shaped objective with a minimum."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have absent gate specs and absent plan JSON, so neither shows any functioning checkpoints or input-accepting questions."
+    },
+    "narration_quality": {
+      "winner": "boxopt_notebooklm",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 provides a coherent, speakable narration with no raw LaTeX or major garbling aside from a minor 'iron-cloud' misphrase, whereas Lesson 1 has no transcript/narration available and therefore fails the narration-quality dimension."
+    },
+    "sync": {
+      "winner": "boxopt_notebooklm",
+      "confidence": 0.55,
+      "rationale": "Lesson 2 at least provides narration from which sync issues could be inferred, while Lesson 1 has no transcript or timing data at all, making it entirely impossible to verify any narration-visual alignment."
+    },
+    "concept_accuracy": {
+      "winner": "boxopt_notebooklm",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly derives the volume constraint, surface-area function, substitution, derivative, optimal side length 4 m, and minimum area 48 m\u00b2 with a generally clear explanation, while Lesson 1 has no available teaching content to verify or learn from."
+    },
+    "polish": {
+      "winner": "boxopt_notebooklm",
+      "confidence": 0.9,
+      "rationale": "Lesson 2 has larger, more legible typography, cleaner centered compositions, and a consistent polished illustrated style, whereas Lesson 1 often uses tiny text, sparse off-balance layouts, and comparatively plain diagrams with excessive empty space."
+    }
+  },
+  "aggregator": {
+    "winner": "boxopt_notebooklm",
+    "confidence": 0.84,
+    "explanation": "Lesson 2 is the clear overall winner. Although Lesson 1 strongly wins visual accuracy because its diagrams better match the open-top box setup, Lesson 2 wins most other dimensions, including very high-confidence wins in concept accuracy, narration quality, and polish, plus a lower-confidence sync advantage. The interactivity dimension is a tie because neither lesson provides functioning checkpoints or input-accepting interactions. Given that Lesson 2 has verified correct mathematical content and coherent narration while Lesson 1 lacks available transcript/teaching content in several judged areas, the weighted verdict favors Lesson 2 despite Lesson 1's visual advantage."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:39:40.331235+00:00",
+  "videoMeta": {
+    "boxopt_notebooklm": {},
+    "boxopt_code2video": {}
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "setupA": "binsearch_v7",
+  "setupB": "binsearch_paper2video",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_v7",
+  "lesson2Setup": "binsearch_paper2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 more accurately visualizes the actual binary search on the given array with boxes, indices, bounds, midpoint, and target found at index 7, while Lesson 2 is mostly static text/table slides with little positional animation of the search process, though Lesson 1 does have some marker overlap and skipped/unclear intermediate bound states."
+    },
+    "interactivity": {
+      "winner": "binsearch_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate after act_found with a real question, plausible options, and a marked correct answer, whereas Lesson 2 has no available gate specs or plan and therefore no functioning checkpoint."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 is clear, well-paced, and speaks the math naturally, while Lesson 2 contains extensive garbled and unnatural phrases that would make the narration hard to understand."
+    },
+    "sync": {
+      "winner": "binsearch_v7",
+      "confidence": 0.84,
+      "rationale": "Lesson 1 at least provides timed visual cues that generally follow the narrated algorithm steps despite a few early triggers, whereas Lesson 2 provides no beat/timing cues at all, so it cannot demonstrate that visuals change when the narration references them."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 accurately traces the binary search and clearly derives the halving-to-logarithm idea despite a minor linear-search step inconsistency in the plan, whereas Lesson 2 is heavily garbled, pedagogically unclear, omits key trace details, and includes confused or inaccurate statements about prerequisites and related algorithms."
+    },
+    "polish": {
+      "winner": "binsearch_v7",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 has a cleaner, more consistent modern layout with mostly legible centered visual elements, while Lesson 2 is marred throughout by visible presentation controls, a persistent red cursor, garbled subtitle overlays colliding with the footer, and a more cluttered slide-template look."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v7",
+    "confidence": 0.97,
+    "explanation": "All six dimension agents prefer Lesson 1, with consistently high confidence. Lesson 1 is judged stronger in visual accuracy, interactivity, narration quality, synchronization, concept accuracy, and polish. The strongest factors are its functioning quiz gate, clear narration, accurate binary search trace, and cleaner presentation. Lesson 2 is repeatedly described as static, garbled, lacking timing cues, missing interactivity, and visually cluttered. Minor issues in Lesson 1, such as some marker overlap and imperfect timing, do not materially offset its broad advantage."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:36:28.678118+00:00",
+  "videoMeta": {
+    "binsearch_v7": {
+      "durationSeconds": 152.0,
+      "solved": true,
+      "explained": true,
+      "visualCount": 2
+    },
+    "binsearch_paper2video": {}
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "setupA": "centripetal_v7",
+  "setupB": "centripetal_code2video",
+  "subject": "centripetal",
+  "lesson1Setup": "centripetal_code2video",
+  "lesson2Setup": "centripetal_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "centripetal_v7",
+      "confidence": 0.73,
+      "rationale": "Lesson 2 more consistently shows the correct curve, inward/tangential force setup, vertical forces, and readable equations, whereas Lesson 1 omits the key horizontal friction/centripetal force in its force diagram and has several sustained moments where the derivation/calculation visuals become garbled or unclear."
+    },
+    "interactivity": {
+      "winner": "centripetal_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed quiz gate wired after act_cancellation with a real question, plausible options, and a correct answer, whereas Lesson 1 has no available gate specs or plan and therefore no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "centripetal_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 has clear, well-paced narration with spoken math rendered naturally, while Lesson 1 has no available narration transcript at all, making it impossible to credit its audio quality."
+    },
+    "sync": {
+      "winner": "centripetal_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 is better because it provides generally timed visual cues near the referenced narration, whereas Lesson 1 has no transcript or cues to evaluate and therefore cannot demonstrate any sync, though Lesson 2 still has some defects such as missing equation-manipulation cues and a few offsets that appear early or late."
+    },
+    "concept_accuracy": {
+      "winner": "centripetal_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 accurately explains that static friction provides the centripetal force, derives mv^2/r = \u03bcsmg, cancels mass, and computes v = sqrt(0.8\u00b79.8\u00b750) \u2248 19.8 m/s, while Lesson 1 has no available transcript or script to verify any correct or pedagogically useful explanation."
+    },
+    "polish": {
+      "winner": "centripetal_v7",
+      "confidence": 0.82,
+      "rationale": "Lesson 2 has a much cleaner, more legible, and visually consistent modern split layout, whereas Lesson 1 uses smaller sparse text and suffers from obvious overlapping/ghosted equation animation artifacts around t=40s and t=60s that make parts look broken despite Lesson 2 having some later clipping/scrolling issues."
+    }
+  },
+  "aggregator": {
+    "winner": "centripetal_v7",
+    "confidence": 0.96,
+    "explanation": "All six dimension agents favor Lesson 2, most with very high confidence. Lesson 2 is judged more visually accurate, interactive, clearly narrated, better synchronized, conceptually correct, and more polished. The strongest factors are that Lesson 2 provides a complete and accurate explanation of static friction as centripetal force, includes functional quiz interactivity, has clear narration and timing cues, and maintains more legible visuals. Lesson 1 is repeatedly penalized for missing or unavailable transcript/interactivity materials and for visual/derivation issues, including unclear or garbled equation animations and an incomplete force diagram. Although Lesson 2 has some minor sync and polish issues, the verdicts are unanimous and strongly weighted toward Lesson 2."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:31:25.648777+00:00",
+  "videoMeta": {
+    "centripetal_v7": {},
+    "centripetal_code2video": {}
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "setupA": "bitwise_v7",
+  "setupB": "bitwise_code2video",
+  "subject": "bitwise",
+  "lesson1Setup": "bitwise_code2video",
+  "lesson2Setup": "bitwise_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "bitwise_code2video",
+      "confidence": 0.97,
+      "rationale": "Lesson 1 consistently shows the correct 8-bit values, inversion, +1 result, and verification addition in the right places, while Lesson 2 is mostly text, skips/obscures the inversion visually, includes an unrelated -6 prompt, and has a sustained broken/empty verification addition diagram."
+    },
+    "interactivity": {
+      "winner": "bitwise_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed, wired fill-in checkpoint with a real prompt, accepted answers, hint, success message, and remediation path after a specific act, whereas Lesson 1 has no available gate specs or plan and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "bitwise_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides clear, natural narration with properly spoken binary and no raw LaTeX or garbling, while Lesson 1 has no available narration transcript and therefore cannot demonstrate any audio quality."
+    },
+    "sync": {
+      "winner": "bitwise_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 2 at least provides timed visual cues that are mostly aligned with the narration, despite a few offsets that seem early or late, whereas Lesson 1 has no transcript or cue timing data at all and therefore cannot demonstrate synchronization."
+    },
+    "concept_accuracy": {
+      "winner": "bitwise_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 accurately and clearly walks through +13 as 00001101, inversion to 11110010, adding 1 to get 11110011, and verifies by overflow-discarding addition to zero, whereas Lesson 1 has no available transcript or plan to establish any correct or pedagogically useful explanation."
+    },
+    "polish": {
+      "winner": "bitwise_code2video",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 is consistently legible, centered, and visually coherent with clean diagrams, while Lesson 2 is often sparse and off-balance with large empty regions, visible UI/progress artifacts, placeholder-like boxes, and raw markdown/backtick-style text that make it look less polished."
+    }
+  },
+  "aggregator": {
+    "winner": "bitwise_v7",
+    "confidence": 0.78,
+    "explanation": "Lesson 2 wins four of six dimensions, all with very high confidence: interactivity, narration quality, synchronization, and concept accuracy. These cover the core instructional experience and indicate Lesson 2 provides a functioning checkpoint, clear narration, mostly aligned cues, and an accurate explanation of two's complement. Lesson 1 wins visual accuracy and polish with high confidence, showing cleaner and more coherent diagrams, but it lacks available evidence for narration, sync, concept delivery, and interactivity. Given the weighted strength and instructional importance of Lesson 2's wins, the overall judgment favors Lesson 2 despite its weaker visual polish."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:35:38.245543+00:00",
+  "videoMeta": {
+    "bitwise_v7": {},
+    "bitwise_code2video": {}
+  }
+}

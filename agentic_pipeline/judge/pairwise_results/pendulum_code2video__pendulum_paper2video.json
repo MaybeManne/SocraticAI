@@ -1,0 +1,50 @@
+{
+  "setupA": "pendulum_code2video",
+  "setupB": "pendulum_paper2video",
+  "subject": "pendulum",
+  "lesson1Setup": "pendulum_code2video",
+  "lesson2Setup": "pendulum_paper2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "pendulum_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 more accurately visualizes the actual pendulum setup, small-angle geometry, formula components, and gravity/length relationships, whereas Lesson 2 is mostly generic static slides with little diagrammatic representation of the physical system and some misleading/irrelevant visual framing despite having mostly correct equations."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have absent gate specs and absent plan JSON, so neither shows any functioning checkpoints or input-rendering gates."
+    },
+    "narration_quality": {
+      "winner": "pendulum_paper2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 2 is severely garbled and unnatural throughout, but Lesson 1 has no narration transcript at all to assess and is treated as absent, making Lesson 2 marginally preferable despite its major narration defects."
+    },
+    "sync": {
+      "winner": "pendulum_paper2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 2 at least provides a narration transcript, but neither lesson supplies visual cue timing needed to verify synchronization, while Lesson 1 is entirely absent and therefore demonstrates even less sync evidence."
+    },
+    "concept_accuracy": {
+      "winner": "pendulum_paper2video",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 is highly garbled and contains a confusing erroneous mention of 0.45 m, but it at least uses the correct pendulum-period relationship implicitly and reaches the correct result of pi seconds, whereas Lesson 1 has no available teaching content to verify or learn from at all."
+    },
+    "polish": {
+      "winner": "pendulum_paper2video",
+      "confidence": 0.62,
+      "rationale": "Lesson 2 has consistently large, legible text and a cohesive slide design, whereas Lesson 1 is sparse with tiny text, weak contrast/faint formula elements, off-center compositions, and some awkward label overlap, though Lesson 2 is held back by persistent cursor/footer/subtitle UI artifacts."
+    }
+  },
+  "aggregator": {
+    "winner": "pendulum_paper2video",
+    "confidence": 0.68,
+    "explanation": "Lesson 2 is the overall winner by a clear confidence-weighted majority. Lesson 1 wins visual accuracy strongly, with better pendulum diagrams and geometry, while interactivity is a full-confidence tie because neither lesson provides functioning gates or plan JSON. However, Lesson 2 is preferred on narration, synchronization evidence, concept accuracy, and polish. These wins are not uniformly strong\u2014narration and sync are only marginal because Lesson 2 is garbled and lacks timing evidence\u2014but Lesson 1 is often treated as absent or insufficient in those areas. Lesson 2 also better conveys the correct pendulum-period result and has more polished, legible slide design despite artifacts. Overall, the accumulated weighted support favors Lesson 2."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:38:30.920510+00:00",
+  "videoMeta": {
+    "pendulum_code2video": {},
+    "pendulum_paper2video": {}
+  }
+}

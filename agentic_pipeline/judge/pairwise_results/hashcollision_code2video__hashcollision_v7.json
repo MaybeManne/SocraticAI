@@ -1,0 +1,50 @@
+{
+  "setupA": "hashcollision_v7",
+  "setupB": "hashcollision_code2video",
+  "subject": "hashcollision",
+  "lesson1Setup": "hashcollision_code2video",
+  "lesson2Setup": "hashcollision_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "hashcollision_code2video",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 correctly shows the 7-slot table and the placements/probing for 10 and 17 and mostly sets up 24 correctly, whereas Lesson 2 persistently shows only slots 0\u20134, mixes up key labels/arrows during the sequence, and never clearly displays the final correct placement of 24 at slot 5, despite Lesson 1 having a serious wrong final recap with unrelated keys."
+    },
+    "interactivity": {
+      "winner": "hashcollision_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_insert_17 with a real question, plausible options, and marked correct answer, whereas Lesson 1 has no available gate specs or plan and therefore no functioning checkpoint."
+    },
+    "narration_quality": {
+      "winner": "hashcollision_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 has clear, natural narration with correctly spoken math and appropriate pacing cues, while Lesson 1 has no available narration transcript at all, making it impossible to verify any audio quality."
+    },
+    "sync": {
+      "winner": "hashcollision_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 provides timed visual cues that mostly align with the narration despite a few early cues, while Lesson 1 has no transcript or timing data at all, making its sync impossible to verify and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "hashcollision_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 correctly computes all hashes, explains collisions and linear probing step by step through slots 3, 4, and 5, while Lesson 1 has no available transcript or lesson content to verify accuracy or support learner understanding."
+    },
+    "polish": {
+      "winner": "hashcollision_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is plainer and sometimes sparse, but it remains mostly readable and uncluttered, whereas Lesson 2 has more modern styling yet suffers from repeated clipping, crowded split-screen panels, overlapping/cut-off elements, and visible raw LaTeX commands like \\pmod."
+    }
+  },
+  "aggregator": {
+    "winner": "hashcollision_v7",
+    "confidence": 0.86,
+    "explanation": "Lesson 2 is the clear overall winner: four agents favor it with very high confidence, especially for interactivity, narration quality, synchronization, and concept accuracy. It has a functioning quiz gate, clear narration, mostly aligned timing, and accurate step-by-step explanation of hashing, collisions, and linear probing. Lesson 1 is favored for visual accuracy and polish, but those wins are lower-confidence and narrower; Lesson 1 also lacks transcript, timing, and interactivity evidence. Although Lesson 2 has notable visual/polish problems such as clipping, crowding, and incomplete table displays, its stronger instructional completeness and highly confident wins outweigh Lesson 1\u2019s advantages."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:33:57.187435+00:00",
+  "videoMeta": {
+    "hashcollision_v7": {},
+    "hashcollision_code2video": {}
+  }
+}

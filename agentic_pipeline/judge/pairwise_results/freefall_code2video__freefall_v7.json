@@ -1,0 +1,50 @@
+{
+  "setupA": "freefall_v7",
+  "setupB": "freefall_code2video",
+  "subject": "freefall",
+  "lesson1Setup": "freefall_code2video",
+  "lesson2Setup": "freefall_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "freefall_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 more consistently represents the coordinate system, height-vs-time setup, signs, trajectory, and final positive root, while Lesson 1 has sparser visuals with some unclear/problem-mismatched elements like the monkey/cliff scene, an unexplained stray red dot, and a mostly broken final graph."
+    },
+    "interactivity": {
+      "winner": "freefall_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 has a properly wired quiz gate after act_setup with a real question, plausible options, and a marked correct answer, while Lesson 1 has no available gate specs or plan and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "freefall_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 provides clear, naturally paced narration with properly spoken math and no obvious TTS defects, while Lesson 1 has no available narration transcript and therefore cannot demonstrate any narration quality."
+    },
+    "sync": {
+      "winner": "freefall_v7",
+      "confidence": 0.9,
+      "rationale": "Lesson 2 provides timed visual cues that mostly align with the narrated references, while Lesson 1 has no transcript or cue timing available at all, making it unable to demonstrate synchronization despite a few early cues in Lesson 2."
+    },
+    "concept_accuracy": {
+      "winner": "freefall_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly sets the coordinate system, derives and solves the quadratic with roots 6 and -2, and explains the physical meaning clearly, whereas Lesson 1 has no available transcript or lesson content to verify any mathematical accuracy or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "freefall_code2video",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 is visually simpler and somewhat sparse but consistently legible with rendered equations, while Lesson 2 is more cluttered/off-center and has major polish defects including raw unrendered LaTeX blocks and tiny labels across multiple frames."
+    }
+  },
+  "aggregator": {
+    "winner": "freefall_v7",
+    "confidence": 0.95,
+    "explanation": "Lesson 2 is the clear overall winner: five of six agents preferred it, all with high confidence, across visual accuracy, interactivity, narration quality, synchronization, and concept accuracy. These verdicts emphasize that Lesson 2 has coherent mathematical setup, correct derivation and solution, functioning quiz interactivity, clear narration, and mostly aligned timing, while Lesson 1 lacks available narration, transcript, interactivity specs, and verifiable lesson content in several dimensions. The only dissenting vote favored Lesson 1 for polish, citing Lesson 2's clutter, off-center composition, raw LaTeX, and tiny labels; however, this single polish advantage is outweighed by Lesson 2's strong wins in the core instructional and functional categories."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:31:07.803680+00:00",
+  "videoMeta": {
+    "freefall_v7": {},
+    "freefall_code2video": {}
+  }
+}

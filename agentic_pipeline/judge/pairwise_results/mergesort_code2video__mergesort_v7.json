@@ -1,0 +1,50 @@
+{
+  "setupA": "mergesort_v7",
+  "setupB": "mergesort_code2video",
+  "subject": "mergesort",
+  "lesson1Setup": "mergesort_v7",
+  "lesson2Setup": "mergesort_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "mergesort_code2video",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 has some incomplete merge-step narration but visually shows the correct array, split structure, final sorted result, and O(n log n) diagram, whereas Lesson 1 is largely broken/incomplete with only partial elements shown for most of the timeline and later empty/unlabeled boxes that fail to trace the actual merge sort."
+    },
+    "interactivity": {
+      "winner": "mergesort_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has a well-formed, wired fill-in checkpoint after act_zipper_merge with a real prompt, acceptable answers, hint, and remediation path, while Lesson 2 has no available gate specs or plan and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "mergesort_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 has clear, natural, well-paced narration with spoken math rendered correctly, while Lesson 2 has no available transcript and therefore cannot demonstrate any narration quality."
+    },
+    "sync": {
+      "winner": "mergesort_v7",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 has mostly timed cues that correspond to the narration references, despite a few slightly early or late triggers, while Lesson 2 has no transcript or cue data at all and therefore cannot demonstrate any synchronization."
+    },
+    "concept_accuracy": {
+      "winner": "mergesort_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly explains the merge sort split/merge process, final sorted array, comparison logic, and O(n log n) reasoning, while Lesson 2 has no available transcript or script to verify or convey any conceptual teaching content."
+    },
+    "polish": {
+      "winner": "mergesort_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is simpler but generally clean, legible, and well-spaced, whereas Lesson 1 repeatedly has off-center/clipped diagrams, excessive empty space, partially visible UI artifacts, subtitle/overlay intrusions, and cropped elements that make the presentation feel buggy."
+    }
+  },
+  "aggregator": {
+    "winner": "mergesort_v7",
+    "confidence": 0.82,
+    "explanation": "Lesson 1 wins four of six dimensions, all with high confidence: interactivity, narration quality, synchronization, and conceptual accuracy. These agents found that Lesson 1 has a functioning checkpoint, clear narration, mostly aligned cues, and correct merge sort teaching content. Lesson 2 wins visual accuracy with high confidence and polish with moderate confidence, reflecting cleaner visuals and better visible structure, while Lesson 1 has notable visual/layout issues. Overall, the stronger and more numerous high-confidence wins for Lesson 1 outweigh Lesson 2's visual advantages."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:27:01.939162+00:00",
+  "videoMeta": {
+    "mergesort_v7": {},
+    "mergesort_code2video": {}
+  }
+}

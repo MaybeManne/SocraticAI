@@ -1,0 +1,50 @@
+{
+  "setupA": "knapsack_code2video",
+  "setupB": "knapsack_paper2video",
+  "subject": "knapsack",
+  "lesson1Setup": "knapsack_paper2video",
+  "lesson2Setup": "knapsack_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "knapsack_paper2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 consistently presents the correct capacity, item weights/values, feasible pair A+B, and optimal value 7, while Lesson 2 has multiple visual inconsistencies such as a nonzero-looking capacity bar labeled 0/5kg, unclear/incomplete item-to-shape mapping, and a final optimal-item diagram with less precise placement/label consistency."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have absent gate specs and absent plan JSON, so neither shows any functional checkpoints or interactive questions."
+    },
+    "narration_quality": {
+      "winner": "knapsack_paper2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 1 is severely garbled and unnatural throughout, but Lesson 2 has no available narration transcript and must be treated as absent, making it worse on narration quality despite Lesson 1's major defects."
+    },
+    "sync": {
+      "winner": "knapsack_paper2video",
+      "confidence": 0.3,
+      "rationale": "Lesson 1 at least provides narration content, though no visual cue timings to verify synchronization, while Lesson 2 provides no transcript or timing data at all, making its sync impossible to assess and therefore worse."
+    },
+    "concept_accuracy": {
+      "winner": "knapsack_paper2video",
+      "confidence": 0.82,
+      "rationale": "Lesson 1 is badly garbled but still communicates the correct 0/1 knapsack approach by exhaustive enumeration and the correct optimal choice A+B with value 7, whereas Lesson 2 has no available transcript or teaching content to assess and therefore provides no demonstrable conceptual explanation."
+    },
+    "polish": {
+      "winner": "knapsack_code2video",
+      "confidence": 0.73,
+      "rationale": "Lesson 2 has small text and sparse/off-center layouts, but it is visually clean without persistent capture artifacts, whereas Lesson 1\u2019s otherwise consistent slide deck is badly marred throughout by visible navigation controls, garbled subtitle overlays, and a red cursor sitting over the content."
+    }
+  },
+  "aggregator": {
+    "winner": "knapsack_paper2video",
+    "confidence": 0.76,
+    "explanation": "Lesson 1 is the clear overall winner. It wins four dimensions, including high-confidence wins in visual accuracy (0.86) and concept accuracy (0.82), because it correctly presents the knapsack setup, feasible combinations, and optimal A+B value 7. It also edges out Lesson 2 in narration and sync because Lesson 2 lacks transcript/timing evidence entirely, though these wins are lower confidence. Interactivity is a high-confidence tie because neither lesson provides functional checkpoints or plan JSON. Lesson 2 wins polish with fairly high confidence due to Lesson 1's visible UI artifacts and garbled overlays, but that single advantage is outweighed by Lesson 1's stronger correctness and instructional substance."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:38:46.214549+00:00",
+  "videoMeta": {
+    "knapsack_code2video": {},
+    "knapsack_paper2video": {}
+  }
+}

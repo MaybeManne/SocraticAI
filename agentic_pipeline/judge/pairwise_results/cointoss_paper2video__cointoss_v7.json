@@ -1,0 +1,50 @@
+{
+  "setupA": "cointoss_v7",
+  "setupB": "cointoss_paper2video",
+  "subject": "cointoss",
+  "lesson1Setup": "cointoss_v7",
+  "lesson2Setup": "cointoss_paper2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "cointoss_paper2video",
+      "confidence": 0.73,
+      "rationale": "Lesson 2 keeps the displayed formulas, table entries, and final probability visually consistent and mathematically correct, while Lesson 1 has several visual-content glitches such as raw LaTeX, long blank diagram space, a wrong/truncated displayed C(8,5)=5, and stray numbers that make parts of the animation positionally or conceptually unreliable."
+    },
+    "interactivity": {
+      "winner": "cointoss_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate with a real question, plausible options, and a marked correct answer after act_calculation, while Lesson 2 has no available gate specs or plan and therefore no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "cointoss_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 is clear, well-paced, and speaks the math naturally, while Lesson 2 is filled with garbled nonsense phrases, unnatural wording, and confusing misread content that severely compromises narration quality."
+    },
+    "sync": {
+      "winner": "cointoss_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 provides visual cues that are generally aligned with the narration despite some early/late offsets, whereas Lesson 2 provides no beat/timing or cue data at all, making its visual references impossible to synchronize and therefore substantially worse on timing alignment."
+    },
+    "concept_accuracy": {
+      "winner": "cointoss_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 correctly and clearly builds the binomial-counting idea from total outcomes to combinations and summing cases, while Lesson 2 is largely garbled, pedagogically incoherent, and contains confusing or erroneous statements despite occasionally mentioning the right numbers."
+    },
+    "polish": {
+      "winner": "cointoss_paper2video",
+      "confidence": 0.88,
+      "rationale": "Lesson 2 is far more visually consistent and legible with clean slide layouts, while Lesson 1 suffers from raw unrendered LaTeX, cropped/offscreen formulas, uneven split-screen composition, and occasional clutter/visual artifacts."
+    }
+  },
+  "aggregator": {
+    "winner": "cointoss_v7",
+    "confidence": 0.88,
+    "explanation": "Lesson 1 is the clear overall winner: four high-confidence agents favor it, including interactivity, narration quality, synchronization, and concept accuracy, all with very strong confidence around 0.96-0.99. These dimensions indicate Lesson 1 teaches the math coherently, has a functioning quiz interaction, and aligns narration and visuals reasonably well. Lesson 2 wins visual accuracy and polish, with moderate-to-high confidence, because its slides are cleaner and more visually consistent, while Lesson 1 has rendering and layout glitches. However, Lesson 2's severe narration problems, lack of interactivity, missing timing data, and pedagogical incoherence outweigh its visual advantages."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:36:39.185358+00:00",
+  "videoMeta": {
+    "cointoss_v7": {},
+    "cointoss_paper2video": {}
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "setupA": "dijkstra_v7",
+  "setupB": "dijkstra_code2video",
+  "subject": "dijkstra",
+  "lesson1Setup": "dijkstra_v7",
+  "lesson2Setup": "dijkstra_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "dijkstra_code2video",
+      "confidence": 0.66,
+      "rationale": "Lesson 2 is visually incomplete because it omits weights/directions and sometimes simplifies the graph, but it at least highlights the correct final route and cost, whereas Lesson 1 draws the original graph well but repeatedly shows incorrect/reset Dijkstra table distances and predecessors, leaving the algorithm state and final table visually wrong for much of the lesson."
+    },
+    "interactivity": {
+      "winner": "dijkstra_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed quiz gate wired after act_first_step with a real question, options, and correct answer, while Lesson 2 has no available gate specs or plan and therefore no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "dijkstra_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, well-paced narration with natural phrasing and no raw LaTeX or garbled text, while Lesson 2 provides no narration transcript at all, making its audio quality absent and unevaluable."
+    },
+    "sync": {
+      "winner": "dijkstra_v7",
+      "confidence": 0.94,
+      "rationale": "Lesson 1 provides mostly timed cues that align with the narration's visual references despite a few early relax/highlight moments, while Lesson 2 has no transcript or cue timing available at all, making its synchronization unassessable and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "dijkstra_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 correctly walks through Dijkstra\u2019s updates and relaxation to the right path and distance, despite a minor imprecision about all nodes being visited, while Lesson 2 has no transcript or plan available and therefore provides no assessable conceptual explanation."
+    },
+    "polish": {
+      "winner": "dijkstra_code2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 is simpler and somewhat sparse but remains clean, legible, and free of visual bugs, whereas Lesson 1 becomes cluttered and has serious polish defects including raw unrendered LaTeX displayed literally and overlapping/accumulating text elements."
+    }
+  },
+  "aggregator": {
+    "winner": "dijkstra_v7",
+    "confidence": 0.9,
+    "explanation": "Lesson 1 is the clear overall winner: it wins four of six dimensions with very high confidence, including interactivity, narration quality, synchronization, and conceptual accuracy. These are core instructional dimensions, and Lesson 2 is repeatedly penalized for lacking transcript, timing, plan, narration, and functional interactivity. Lesson 2 wins visual accuracy and polish, but visual accuracy is only moderate confidence and notes Lesson 2 is still incomplete, while polish is outweighed by Lesson 1's stronger teaching substance and implementation. Overall, despite Lesson 1's clutter and some visual/table issues, the high-confidence majority strongly favors Lesson 1."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:25:18.897069+00:00",
+  "videoMeta": {
+    "dijkstra_v7": {},
+    "dijkstra_code2video": {}
+  }
+}

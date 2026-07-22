@@ -1,0 +1,50 @@
+{
+  "setupA": "cointoss_notebooklm",
+  "setupB": "cointoss_v7",
+  "subject": "cointoss",
+  "lesson1Setup": "cointoss_v7",
+  "lesson2Setup": "cointoss_notebooklm",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "cointoss_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 more consistently shows the correct combinatorial setup, cases 5\u20138, sum 93, and denominator 256, while Lesson 2 relies heavily on generic/irrelevant coin doodles and includes a visibly incorrect binomial formula C(n,k)*p^n before later giving the right table and answer."
+    },
+    "interactivity": {
+      "winner": "cointoss_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate after act_calculation with a real combinations question, plausible answer choices, and a marked correct option, whereas Lesson 2 has no available gate specs or plan and therefore no functioning checkpoints."
+    },
+    "narration_quality": {
+      "winner": "cointoss_v7",
+      "confidence": 0.94,
+      "rationale": "Lesson 1 is clear, concise, and naturally paced with math spoken in listener-friendly language, while Lesson 2 is overly verbose and contains narration defects such as awkward formula reading and the garbled phrase 'one single solitary wave for 8.'"
+    },
+    "sync": {
+      "winner": "cointoss_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 provides mostly well-timed visual cues that align with the narrated references, despite a few offsets that may be slightly late, whereas Lesson 2 has no beat/timing cues at all even while the narration repeatedly references on-screen items, making synchronization impossible to verify and likely deficient."
+    },
+    "concept_accuracy": {
+      "winner": "cointoss_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 is mathematically correct and pedagogically builds from equally likely outcomes to combinations and the final fraction, while Lesson 2 reaches the right answer but states the binomial probability formula incorrectly as C(n,k)p^n and gives less concrete explanation of how the combination counts are obtained."
+    },
+    "polish": {
+      "winner": "cointoss_notebooklm",
+      "confidence": 0.97,
+      "rationale": "Lesson 2 has a clean, centered, visually consistent notebook-style presentation with legible text, while Lesson 1 is cluttered/off-balance with large empty split panels, raw unrendered LaTeX, cut-off/overlapping bottom elements, and stray visual artifacts."
+    }
+  },
+  "aggregator": {
+    "winner": "cointoss_v7",
+    "confidence": 0.9,
+    "explanation": "Lesson 1 is the clear overall winner, taking five of six dimensions with consistently high confidence: it is more visually accurate, has a functioning interactive quiz gate, stronger narration, better synchronization, and more reliable conceptual/mathematical accuracy. Lesson 2 wins polish with high confidence due to a cleaner visual style, but that single advantage is outweighed by Lesson 1's stronger instructional correctness, interactivity, pacing, and alignment."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:39:05.859327+00:00",
+  "videoMeta": {
+    "cointoss_notebooklm": {},
+    "cointoss_v7": {}
+  }
+}

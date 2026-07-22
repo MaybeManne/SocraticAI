@@ -1,0 +1,50 @@
+{
+  "setupA": "hanoi_v7",
+  "setupB": "hanoi_code2video",
+  "subject": "hanoi",
+  "lesson1Setup": "hanoi_v7",
+  "lesson2Setup": "hanoi_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "hanoi_code2video",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 actually depicts Hanoi pegs with correctly sized disk stacks and final 4-disk result, while Lesson 1 sustains a major visual correctness failure by showing mostly empty pegs and highlighting empty regions instead of the actual disks being moved."
+    },
+    "interactivity": {
+      "winner": "hanoi_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate with a real question, plausible options, and a correct answer after act_3_calculation, whereas Lesson 2 provides no gate specs or plan at all, so it has no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "hanoi_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 has clear, well-paced narration with spoken math rendered naturally as 'H three' and no raw LaTeX or garbling, while Lesson 2 has no available narration transcript at all, making its audio quality unevaluable and effectively absent."
+    },
+    "sync": {
+      "winner": "hanoi_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 provides generally timed visual cues that mostly align with the narrated references, while Lesson 2 has no transcript or cue timing available, making its synchronization impossible to verify and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "hanoi_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 correctly explains the Tower of Hanoi recurrence H_n=2H_{n-1}+1 and computes H_4=15 with a clear recursive sequence, while Lesson 2 provides no available transcript or lesson content to verify accuracy or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "hanoi_v7",
+      "confidence": 0.87,
+      "rationale": "Lesson 1 has a much cleaner, modern, consistent split-screen layout with legible text and rendered math, while Lesson 2 uses smaller serif text, sparse/off-balance positioning, inconsistent color emphasis, and a visibly cluttered/overlapped formula area around t=50s."
+    }
+  },
+  "aggregator": {
+    "winner": "hanoi_v7",
+    "confidence": 0.86,
+    "explanation": "Lesson 1 is the clear overall winner: five of six agents favored it, with very high confidence across interactivity, narration quality, synchronization, concept accuracy, and polish. Lesson 2 strongly wins visual accuracy because its Hanoi visuals are correct while Lesson 1 has a major disk/peg depiction flaw, but Lesson 2 lacks available narration, timing, interactivity, and verifiable lesson content. Given the weighted evidence, Lesson 1's functional pedagogy, accurate recurrence explanation, quiz gate, narration, and synchronization outweigh its significant visual weakness."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:42:46.650847+00:00",
+  "videoMeta": {
+    "hanoi_v7": {},
+    "hanoi_code2video": {}
+  }
+}

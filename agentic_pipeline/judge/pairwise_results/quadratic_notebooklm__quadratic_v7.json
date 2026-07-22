@@ -1,0 +1,50 @@
+{
+  "setupA": "quadratic_notebooklm",
+  "setupB": "quadratic_v7",
+  "subject": "quadratic",
+  "lesson1Setup": "quadratic_notebooklm",
+  "lesson2Setup": "quadratic_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "quadratic_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 2 accurately visualizes the quadratic with roots 2 and 5, their distance 3, and the axis of symmetry at 3.5, while Lesson 1 relies mostly on decorative or metaphorical graphics, includes a non-parabola/irrelevant quadratic diagram, and then spends much of the timeline on unrelated GCD and standard deviation content."
+    },
+    "interactivity": {
+      "winner": "quadratic_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_symmetry with a real question, plausible options, and a marked correct answer, while Lesson 1 has no available gate specs or plan and therefore no functional checkpoints."
+    },
+    "narration_quality": {
+      "winner": "quadratic_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 is clearer and better paced with concise, natural spoken math, while Lesson 1 is overly long, meandering, and rhetorically bloated, making the narration feel slow and less focused despite having no major raw-LaTeX defects."
+    },
+    "sync": {
+      "winner": "quadratic_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 provides timed visual cues that generally coincide with the narrated references, while Lesson 1 has no beat/timing or cue data at all despite many narration references to equations, sections, and steps, making its visual synchronization unsubstantiated and effectively worse."
+    },
+    "concept_accuracy": {
+      "winner": "quadratic_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 teaches the quadratic problem more clearly and pedagogically through symmetry and focused reconstruction, while Lesson 1\u2019s Vieta solution is mathematically correct but buried in excessive detective framing and unrelated extra topics that distract from understanding the target concept."
+    },
+    "polish": {
+      "winner": "quadratic_notebooklm",
+      "confidence": 0.82,
+      "rationale": "Lesson 1 is more visually polished overall with generally legible, centered, consistent slide designs, while Lesson 2\u2019s otherwise clean dark layout is undermined by raw unrendered LaTeX, clipped/crowded right-panel text, and occasional awkward equation spacing."
+    }
+  },
+  "aggregator": {
+    "winner": "quadratic_v7",
+    "confidence": 0.92,
+    "explanation": "Lesson 2 is the clear overall winner, taking five of six dimensions with high confidence: visual accuracy, interactivity, narration quality, synchronization, and concept accuracy. The agents consistently found Lesson 2 more focused on the quadratic task, better synchronized with timed visual cues, more pedagogically clear, and the only lesson with a functional quiz gate. Lesson 1 won only polish, with moderate confidence, due to cleaner slide presentation, but this was outweighed by Lesson 2\u2019s stronger mathematical visualization, structure, pacing, and instructional effectiveness."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:39:27.507572+00:00",
+  "videoMeta": {
+    "quadratic_notebooklm": {},
+    "quadratic_v7": {}
+  }
+}

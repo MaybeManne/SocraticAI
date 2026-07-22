@@ -1,0 +1,50 @@
+{
+  "setupA": "collision_v7",
+  "setupB": "collision_code2video",
+  "subject": "collision",
+  "lesson1Setup": "collision_code2video",
+  "lesson2Setup": "collision_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "collision_code2video",
+      "confidence": 0.72,
+      "rationale": "Lesson 1\u2019s visuals generally match the collision setup, momentum arrow, mass addition, and stuck-together final state, while Lesson 2 persistently uses a velocity-vs-mass rectangle labeled \u201c12\u201d in a way that can visually imply an incorrect velocity rather than clearly showing momentum area and the 6 m/s to 2 m/s change."
+    },
+    "interactivity": {
+      "winner": "collision_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 has a real, wired quiz gate after act_setup with a concrete question, plausible options, and a marked correct answer, while Lesson 1 has no available gate specs or plan and therefore no functioning checkpoint evidence."
+    },
+    "narration_quality": {
+      "winner": "collision_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 provides clear, naturally paced narration with spoken math and no raw LaTeX or garbling, whereas Lesson 1 has no available narration transcript and is therefore absent on this dimension."
+    },
+    "sync": {
+      "winner": "collision_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides mostly well-aligned cue timing for each narrated visual reference, whereas Lesson 1 has no transcript or cue data at all, making it impossible to verify any synchronized visual changes."
+    },
+    "concept_accuracy": {
+      "winner": "collision_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly applies conservation of momentum to a perfectly inelastic collision and clearly builds intuition with total initial momentum, combined mass, algebra, and proportional reasoning, whereas Lesson 1 has no available transcript or plan so its accuracy and pedagogy cannot be verified."
+    },
+    "polish": {
+      "winner": "collision_v7",
+      "confidence": 0.82,
+      "rationale": "Lesson 2 has a more coherent, legible, and consistently styled split-screen layout, whereas Lesson 1 is much sparser and often off-balanced with small text/objects, excessive empty space, and less polished composition despite having fewer UI-like artifacts."
+    }
+  },
+  "aggregator": {
+    "winner": "collision_v7",
+    "confidence": 0.96,
+    "explanation": "Lesson 2 is the clear overall winner: five of six agents favored it, mostly with very high confidence, covering interactivity, narration quality, synchronization, concept accuracy, and polish. These are central lesson-quality dimensions, and several Lesson 1 losses were due to missing transcript, cue, plan, or gate evidence. Lesson 1 only won visual accuracy with moderate confidence, mainly because Lesson 2\u2019s momentum-area visual could be misleading. That concern lowers confidence slightly, but it is outweighed by Lesson 2\u2019s strong verified performance across the other dimensions."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:26:17.906952+00:00",
+  "videoMeta": {
+    "collision_v7": {},
+    "collision_code2video": {}
+  }
+}

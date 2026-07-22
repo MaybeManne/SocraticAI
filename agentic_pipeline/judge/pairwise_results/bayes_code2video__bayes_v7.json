@@ -1,0 +1,50 @@
+{
+  "setupA": "bayes_v7",
+  "setupB": "bayes_code2video",
+  "subject": "bayes",
+  "lesson1Setup": "bayes_v7",
+  "lesson2Setup": "bayes_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "bayes_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 consistently uses a correctly counted 10,000-person dot array with 100 sick, 90 true positives, and 495 false positives in sensible positions, whereas Lesson 2 often uses coarse or poorly scaled shapes\u2014especially similar-sized true-positive and false-positive blocks/circles and overlapping base-rate labels\u2014that make the visual proportions misleading despite correct text."
+    },
+    "interactivity": {
+      "winner": "bayes_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a concrete, well-formed quiz gate wired after act_testing with a real question, plausible options, and a marked correct answer, whereas Lesson 2 has no available gate specs or plan JSON, so its interactivity cannot function."
+    },
+    "narration_quality": {
+      "winner": "bayes_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, well-paced narration with no raw LaTeX or garbled phrasing, while Lesson 2 has no available transcript and therefore provides no assessable narration quality."
+    },
+    "sync": {
+      "winner": "bayes_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 at least provides timed cues that are often roughly tied to the referenced visuals despite several early/late triggers, whereas Lesson 2 has no transcript or cue timing available, making its sync effectively absent and worse for evaluation."
+    },
+    "concept_accuracy": {
+      "winner": "bayes_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly and clearly builds the Bayesian calculation with natural frequencies (100 sick, 90 true positives, 495 false positives, 90/585 = 15.4%), while Lesson 2 provides no transcript or lesson content to verify correctness or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "bayes_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 has a cleaner, more consistent modern layout with generally legible typography, whereas Lesson 2 looks much more rudimentary and has obvious label overlap around the base-rate grid, despite Lesson 1\u2019s visible polish issues like escaped percent signs and some clipping near the end."
+    }
+  },
+  "aggregator": {
+    "winner": "bayes_v7",
+    "confidence": 0.96,
+    "explanation": "All six dimension agents prefer Lesson 1, with especially high-confidence wins in interactivity, narration quality, concept accuracy, and visual accuracy. Lesson 1 is judged to have correct Bayesian natural-frequency reasoning, functional quiz interactivity, clear narration, and much more accurate visuals. The lower-confidence sync and polish verdicts still favor Lesson 1, noting only minor timing and presentation issues, while Lesson 2 lacks key evaluable materials and has misleading or rudimentary visuals. The verdict is therefore decisively in favor of Lesson 1."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:30:09.790451+00:00",
+  "videoMeta": {
+    "bayes_v7": {},
+    "bayes_code2video": {}
+  }
+}

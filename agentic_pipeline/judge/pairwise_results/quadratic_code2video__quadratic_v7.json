@@ -1,0 +1,50 @@
+{
+  "setupA": "quadratic_v7",
+  "setupB": "quadratic_code2video",
+  "subject": "quadratic",
+  "lesson1Setup": "quadratic_code2video",
+  "lesson2Setup": "quadratic_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "quadratic_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 2\u2019s core graph consistently places the roots 3 units apart around the correct axis of symmetry at 3.5, while Lesson 1 has a sustained algebra-visual error in the system step by displaying equations like x1=7 and x1=3 instead of the sum/difference equations, making the key solving diagram incorrect despite its correct final answer."
+    },
+    "interactivity": {
+      "winner": "quadratic_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_symmetry with a real question, plausible options, and a marked correct answer, while Lesson 1 has no available gate specs or plan and therefore no functioning checkpoints."
+    },
+    "narration_quality": {
+      "winner": "quadratic_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides clear, naturally paced narration with math spoken appropriately, while Lesson 1 has no transcript available and therefore cannot demonstrate any narration quality."
+    },
+    "sync": {
+      "winner": "quadratic_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 provides timed visual cues that mostly align with the narration\u2019s references, while Lesson 1 has no transcript or cue data at all, making its sync absent and therefore worse despite a few early cues in Lesson 2."
+    },
+    "concept_accuracy": {
+      "winner": "quadratic_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 correctly and clearly uses the fixed axis of symmetry at x=3.5, splits the root difference of 3 into 1.5 on each side to get roots 2 and 5, then derives k=10, while Lesson 1 has no available transcript or lesson content to verify or teach the concept."
+    },
+    "polish": {
+      "winner": "quadratic_code2video",
+      "confidence": 0.84,
+      "rationale": "Lesson 1 is visually sparse and somewhat plain with small left text, but it stays mostly clean and consistently rendered, whereas Lesson 2, despite a more modern layout, has serious polish defects including raw unrendered LaTeX, clipped/overlapped text near the header, crowded right-panel content, and some graph/caption clipping."
+    }
+  },
+  "aggregator": {
+    "winner": "quadratic_v7",
+    "confidence": 0.93,
+    "explanation": "Lesson 2 is the clear overall winner, taking five of six dimensions with high confidence: it is more visually accurate, has functioning interactivity, stronger narration, better sync, and more accurate concept development. Its math presentation correctly uses the axis of symmetry and root spacing to derive the solution, and it includes timed cues and a working quiz gate, while Lesson 1 lacks available transcript/cue/gate evidence and contains a notable algebra-visual error. Lesson 1 wins only on polish because Lesson 2 has rendering and layout defects such as raw LaTeX, clipping, and crowding, but that single concern is outweighed by Lesson 2\u2019s broad advantages across the core instructional dimensions."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:25:15.623654+00:00",
+  "videoMeta": {
+    "quadratic_v7": {},
+    "quadratic_code2video": {}
+  }
+}

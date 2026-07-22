@@ -1,0 +1,50 @@
+{
+  "setupA": "gcdeuclid_v7",
+  "setupB": "gcdeuclid_code2video",
+  "subject": "gcdeuclid",
+  "lesson1Setup": "gcdeuclid_code2video",
+  "lesson2Setup": "gcdeuclid_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "gcdeuclid_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 more accurately shows the 1071\u00d7462 rectangle being partitioned into two 462 squares, a 147\u00d7462 remainder, and ultimately 21-sized tiles, whereas Lesson 1 mostly uses disconnected or schematic shapes and its later strip/grid visuals omit or misrepresent the actual subdivision counts and geometry."
+    },
+    "interactivity": {
+      "winner": "gcdeuclid_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_first_division with a real question, plausible options, and a marked correct answer, while Lesson 1 has no available gate specs or plan and must be treated as having no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "gcdeuclid_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides clear, well-paced narration with spoken-out numbers and no raw LaTeX or garbled phrasing, whereas Lesson 1 has no available narration transcript at all, making its audio quality impossible to verify and effectively absent."
+    },
+    "sync": {
+      "winner": "gcdeuclid_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides timed visual cues that generally align with the narration's references, whereas Lesson 1 has no transcript or cue data at all, making it impossible to demonstrate any synchronization."
+    },
+    "concept_accuracy": {
+      "winner": "gcdeuclid_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 correctly computes the Euclidean algorithm step by step and uses a clear geometric tiling explanation to build understanding, whereas Lesson 1 has no available transcript or plan so its mathematical accuracy and pedagogy cannot be verified."
+    },
+    "polish": {
+      "winner": "gcdeuclid_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 has a much more polished, consistent modern layout with readable typography and organized panels, while Lesson 1 looks sparse and amateurish with small serif text, heavy empty space, and diagrams/text often pushed off-center."
+    }
+  },
+  "aggregator": {
+    "winner": "gcdeuclid_v7",
+    "confidence": 0.96,
+    "explanation": "All six dimension agents favor Lesson 2, most with very high confidence. Lesson 2 is judged superior in visual accuracy, interactivity, narration quality, synchronization, concept accuracy, and polish. The strongest factors are that Lesson 2 has complete, aligned narration and cueing, a functioning quiz gate, accurate Euclidean-algorithm geometry, and a clearer polished layout, while Lesson 1 lacks available transcript/plan data for several dimensions and has weaker visuals where assessable. With unanimous high-confidence votes, Lesson 2 is the clear overall winner."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:25:34.903878+00:00",
+  "videoMeta": {
+    "gcdeuclid_v7": {},
+    "gcdeuclid_code2video": {}
+  }
+}

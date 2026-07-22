@@ -1,0 +1,50 @@
+{
+  "setupA": "cointoss_notebooklm",
+  "setupB": "cointoss_code2video",
+  "subject": "cointoss",
+  "lesson1Setup": "cointoss_notebooklm",
+  "lesson2Setup": "cointoss_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "cointoss_code2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 presents the outcome count, combinations, winning cases, and final 93/256 with consistently correct diagrams, while Lesson 1 includes correct final numbers but has misleading or incorrect visuals such as a flawed binomial formula, nonsensical coin labels/decorations, and a bar/donut summary whose relative sizes conflict with the stated 36% vs 64% split."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have absent gate specs and absent plan JSON, so neither shows any functional gates or checkpoints that render questions or accept input."
+    },
+    "narration_quality": {
+      "winner": "cointoss_notebooklm",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 has coherent, natural narration with only minor wording defects like 'wave' instead of 'way,' while Lesson 2 has no transcript available and therefore provides no assessable narration quality."
+    },
+    "sync": {
+      "winner": "cointoss_notebooklm",
+      "confidence": 0.55,
+      "rationale": "Lesson 1 at least provides a narration transcript, but it lacks beat/timing and visual cue data needed to verify sync, while Lesson 2 provides no transcript or timing data at all, making it even less assessable for narration-visual alignment."
+    },
+    "concept_accuracy": {
+      "winner": "cointoss_notebooklm",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 correctly solves the problem and explains the binomial/counting approach clearly despite a slightly imprecise general formula statement, whereas Lesson 2 has no available instructional content to verify or learn from."
+    },
+    "polish": {
+      "winner": "cointoss_notebooklm",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 has consistently larger, more legible text, centered and visually rich layouts with coherent doodle styling, whereas Lesson 2 is very sparse with tiny serif text pushed to the left, excessive empty black space, and a much less polished slide composition."
+    }
+  },
+  "aggregator": {
+    "winner": "cointoss_notebooklm",
+    "confidence": 0.84,
+    "explanation": "Lesson 1 is the clear overall winner. Four agents favored Lesson 1, including very high-confidence wins in concept accuracy, narration quality, and polish, plus a lower-confidence sync advantage. Lesson 2 won visual accuracy with high confidence, due to cleaner/correcter diagrams and outcome visuals, and interactivity was a true tie because neither lesson had functional gates or checkpoints. Up-weighting confidence still favors Lesson 1 because its strengths are broader and include the core instructional dimensions, while Lesson 2\u2019s main advantage is limited to visual accuracy."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:39:59.102622+00:00",
+  "videoMeta": {
+    "cointoss_notebooklm": {},
+    "cointoss_code2video": {}
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "setupA": "lrucache_v7",
+  "setupB": "lrucache_code2video",
+  "subject": "lrucache",
+  "lesson1Setup": "lrucache_code2video",
+  "lesson2Setup": "lrucache_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "lrucache_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly maintains the LRU cache states and eviction order for A,B,C,A,D,B, while Lesson 1 shows A still in the LRU position after re-access and later omits/incorrectly displays cache contents during eviction despite ending with the right summary."
+    },
+    "interactivity": {
+      "winner": "lrucache_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 has a well-formed quiz gate with a real question, plausible options, a correct answer, and matching wiring after act_refresh in the plan, while Lesson 1 has no available gate specs or plan and therefore no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "lrucache_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 has clear, natural, well-paced narration with no raw LaTeX or garbled phrasing, while Lesson 1 provides no narration transcript at all and therefore cannot demonstrate acceptable narration quality."
+    },
+    "sync": {
+      "winner": "lrucache_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides timed cues that generally align with the narrated references, while Lesson 1 has no transcript or cue data at all, making its sync absent and unevaluable."
+    },
+    "concept_accuracy": {
+      "winner": "lrucache_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly tracks the LRU state through each access and clearly explains why B then C are evicted, while Lesson 1 has no available transcript or plan, so it provides no assessable teaching content or conceptual explanation."
+    },
+    "polish": {
+      "winner": "lrucache_v7",
+      "confidence": 0.82,
+      "rationale": "Lesson 2 has a much more polished, consistent dashboard-style layout with legible typography and coherent colors, while Lesson 1 is sparse, unevenly composed, often pushed to opposite sides with lots of empty space, and uses smaller less refined text despite Lesson 2 having minor UI artifacts and a clipped nested panel near the end."
+    }
+  },
+  "aggregator": {
+    "winner": "lrucache_v7",
+    "confidence": 0.98,
+    "explanation": "All six dimension agents prefer Lesson 2, with very high confidence in visual accuracy, interactivity, narration quality, synchronization, and concept accuracy, plus a moderately high polish advantage. Lesson 2 correctly tracks the LRU cache sequence and evictions, includes functional quiz interactivity, provides clear narration with aligned timing cues, and presents a more coherent visual design. Lesson 1 is repeatedly penalized for missing transcript/plan/cue data and for incorrect or incomplete cache-state visuals. The verdict is therefore decisively in favor of Lesson 2."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:35:34.926446+00:00",
+  "videoMeta": {
+    "lrucache_v7": {},
+    "lrucache_code2video": {}
+  }
+}

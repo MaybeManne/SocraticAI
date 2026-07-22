@@ -1,0 +1,50 @@
+{
+  "setupA": "boxopt_code2video",
+  "setupB": "boxopt_paper2video",
+  "subject": "boxopt",
+  "lesson1Setup": "boxopt_paper2video",
+  "lesson2Setup": "boxopt_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "boxopt_paper2video",
+      "confidence": 0.82,
+      "rationale": "Lesson 1 keeps the mathematical setup, formulas, derivative, optimum, and surface-area result visually consistent throughout, while Lesson 2\u2019s diagrams are more illustrative but include misleading/wrong representations such as a cube-like/open-box ambiguity and a final cargo box drawn/labeled in a way that does not reflect the optimized 4\u00d74\u00d72 open box."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have no available gate specs or plan JSON, so neither shows any functioning checkpoints or interactive questions."
+    },
+    "narration_quality": {
+      "winner": "boxopt_code2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 2 has no transcript to reveal narration defects, whereas Lesson 1 is catastrophically garbled, repetitive, and filled with unnatural phrasing and unreadable math fragments that would make the audio largely unintelligible."
+    },
+    "sync": {
+      "winner": "boxopt_paper2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 1 at least provides a narration track to compare against even though its cue timing is missing, while Lesson 2 has no transcript or beat data at all, making its visual-narration synchronization completely unevaluable and therefore worse."
+    },
+    "concept_accuracy": {
+      "winner": "boxopt_paper2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is garbled but still contains the correct optimization setup and key equations (h=32/x^2, S=x^2+128/x, derivative leading to x^3=64), whereas Lesson 2 has no transcript or teaching content to assess and therefore does not explain the concept at all."
+    },
+    "polish": {
+      "winner": "boxopt_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is sparse and sometimes has small text, but it is visually clean and consistent with no major overlays, while Lesson 1 is repeatedly marred by persistent cursor marks, bottom navigation/footer clutter, and overlapping subtitle/UI bars that make the presentation look buggy despite its larger, more polished slide template."
+    }
+  },
+  "aggregator": {
+    "winner": "boxopt_paper2video",
+    "confidence": 0.66,
+    "explanation": "Lesson 1 is the overall winner. The strongest substantive dimensions favor it: visual accuracy (0.82) and concept accuracy (0.78) both indicate that Lesson 1 preserves the correct optimization setup, equations, derivative, and result, while Lesson 2 lacks adequate teaching content and includes misleading visual representations. Sync also slightly favors Lesson 1 (0.55) because it at least has narration to evaluate, whereas Lesson 2 has essentially none. Lesson 2 does win narration quality (0.55) and polish (0.78), mainly because Lesson 1 is garbled and visually cluttered, but those advantages are outweighed by Lesson 1\u2019s stronger mathematical and instructional correctness. Interactivity is a tie because neither lesson shows functioning checkpoints. Overall, the weighted verdicts clearly lean toward Lesson 1, though confidence is only moderate due to Lesson 1\u2019s serious narration and polish issues."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:38:24.259947+00:00",
+  "videoMeta": {
+    "boxopt_code2video": {},
+    "boxopt_paper2video": {}
+  }
+}

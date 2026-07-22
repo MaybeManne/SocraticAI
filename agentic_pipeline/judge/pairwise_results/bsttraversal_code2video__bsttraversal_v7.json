@@ -1,0 +1,50 @@
+{
+  "setupA": "bsttraversal_v7",
+  "setupB": "bsttraversal_code2video",
+  "subject": "bsttraversal",
+  "lesson1Setup": "bsttraversal_v7",
+  "lesson2Setup": "bsttraversal_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "bsttraversal_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 has a clear but localized visual error labeling the 13 node as 15 during the walkthrough, whereas Lesson 1 repeatedly shows the output list and highlights in incorrect/inconsistent traversal states, including future nodes appearing too early and missing visited nodes."
+    },
+    "interactivity": {
+      "winner": "bsttraversal_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has a well-formed, wired quiz gate with a real question, answer options, and a marked correct answer after a specific act, while Lesson 2 has no available gate specs or plan and therefore provides no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "bsttraversal_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, natural narration with appropriate spoken math and pacing, while Lesson 2 provides no transcript at all, making its narration absent and unevaluable."
+    },
+    "sync": {
+      "winner": "bsttraversal_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 at least provides visual cues that often correspond to the narrated actions, though several sequential moves/records fire too early at offset 0, while Lesson 2 has no transcript or cue timing available at all, making its synchronization effectively absent and worse."
+    },
+    "concept_accuracy": {
+      "winner": "bsttraversal_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 correctly explains in-order traversal as left-node-right, applies it step by step to produce the correct sequence and connects it to BST sorted order, whereas Lesson 2 provides no transcript or lesson content to verify correctness or learner understanding."
+    },
+    "polish": {
+      "winner": "bsttraversal_code2video",
+      "confidence": 0.74,
+      "rationale": "Lesson 2 is simpler but consistently clean and legible with no major broken elements, whereas Lesson 1 has a more modern style but is hurt by cluttered split panels, persistent edge artifacts, a stray empty highlight circle, and a partially cut-off embedded duplicate view near the end."
+    }
+  },
+  "aggregator": {
+    "winner": "bsttraversal_v7",
+    "confidence": 0.87,
+    "explanation": "Lesson 1 is the clear overall winner: four high-confidence agents favored it, including interactivity, narration quality, synchronization, and concept accuracy. These are especially important instructional dimensions, and Lesson 2 was heavily penalized for lacking transcript, lesson content, cue timing, and functional interactivity. Lesson 2 did win visual accuracy and polish with moderate confidence, mainly because Lesson 1 has inconsistent traversal visuals and some clutter/artifacts, while Lesson 2 is cleaner aside from a localized node-labeling error. However, the weight and confidence of the Lesson 1 wins substantially outweigh Lesson 2's advantages."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:27:51.187364+00:00",
+  "videoMeta": {
+    "bsttraversal_v7": {},
+    "bsttraversal_code2video": {}
+  }
+}

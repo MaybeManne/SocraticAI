@@ -1,0 +1,15 @@
+{
+  "id": "archer_code2video",
+  "subject": "archer",
+  "durationSeconds": 76.3,
+  "durationSource": "ffprobe",
+  "solved": null,
+  "explained": null,
+  "solvedExplainedRationale": "no transcript available",
+  "visualCount": 2,
+  "visualCountSource": "vision-llm",
+  "visualBreakdown": "initial velocity vector decomposition diagram, step-by-step strategy goal box diagram",
+  "visualDefinition": "ONE countable visual = one distinct diagram or animation scene (1), one data or derivation table (1), or one chart/plot (1). Progressive mutations/highlights of the SAME diagram count once. Do NOT count: title cards, plain text or a lone formula, decorative backgrounds, watermarks, presenter/avatar overlays, or browser/player chrome.",
+  "model": "gpt-5.5",
+  "scoredAt": "2026-07-16T18:42:31.717646+00:00"
+}

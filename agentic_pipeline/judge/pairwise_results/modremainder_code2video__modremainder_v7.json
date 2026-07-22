@@ -1,0 +1,50 @@
+{
+  "setupA": "modremainder_v7",
+  "setupB": "modremainder_code2video",
+  "subject": "modremainder",
+  "lesson1Setup": "modremainder_code2video",
+  "lesson2Setup": "modremainder_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "modremainder_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 maintains a mostly correct residue diagram and correctly drawn repeating cycle arrows through the lesson, whereas Lesson 1 has several positional mismatches where the highlighted dot is not on the remainder being discussed, especially around the early clock and first-power pattern frames."
+    },
+    "interactivity": {
+      "winner": "modremainder_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed quiz gate with a real question, plausible answer choices, a marked correct option, and wiring after act_closing_loop, whereas Lesson 1 has no available gate specs or plan and therefore appears to have no functioning checkpoints at all."
+    },
+    "narration_quality": {
+      "winner": "modremainder_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides clear, well-paced narration with spoken math rather than raw LaTeX, while Lesson 1 has no transcript available and therefore cannot demonstrate any narration quality."
+    },
+    "sync": {
+      "winner": "modremainder_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 provides timed cues that are mostly aligned with the narration despite some early/clustered arrow cues, while Lesson 1 has no transcript or cue timing available at all, making its sync impossible to verify and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "modremainder_v7",
+      "confidence": 0.97,
+      "rationale": "Lesson 2 correctly builds the modular cycle 2,4,3,1 and uses 100 mod 4 = 0 to explain why the remainder is 1, while Lesson 1 has no transcript or lesson content available, so its mathematical accuracy and pedagogical clarity cannot be verified."
+    },
+    "polish": {
+      "winner": "modremainder_code2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 is simpler but consistently legible, centered enough, and uncluttered across frames, while Lesson 2 has polished styling but suffers from cropped/scrolling content, cluttered duplicated panels, faint/overlapping subtitle elements, and visible raw markdown bold markers."
+    }
+  },
+  "aggregator": {
+    "winner": "modremainder_v7",
+    "confidence": 0.94,
+    "explanation": "Lesson 2 is the clear overall winner: five of six dimensions favor it, most with very high confidence. It is judged substantially better in interactivity, narration quality, synchronization, concept accuracy, and visual accuracy, including a functioning quiz gate, clear narration, mostly aligned cues, correct modular-cycle reasoning, and generally correct residue visuals. Lesson 1 only wins polish, with the agent noting it is simpler and more consistently legible, while Lesson 2 has some cropping, clutter, subtitle, and markdown-display issues. However, that single polish advantage is outweighed by Lesson 2's strong and high-confidence wins across the core instructional dimensions."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:31:17.709173+00:00",
+  "videoMeta": {
+    "modremainder_v7": {},
+    "modremainder_code2video": {}
+  }
+}

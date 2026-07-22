@@ -1,0 +1,50 @@
+{
+  "setupA": "quadratic_notebooklm",
+  "setupB": "quadratic_code2video",
+  "subject": "quadratic",
+  "lesson1Setup": "quadratic_notebooklm",
+  "lesson2Setup": "quadratic_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "quadratic_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 stays visually focused on the quadratic roots problem with mostly correct axis/root/parabola representations despite a flawed stacked-equation display, while Lesson 1 spends much of the timeline on unrelated GCD and standard-deviation material and includes several generic or mangled math visuals rather than accurately illustrating the target problem."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons provide no gate specs or plan JSON, so neither has any functioning checkpoints or input-accepting questions to compare."
+    },
+    "narration_quality": {
+      "winner": "quadratic_notebooklm",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 provides a clear, coherent narration with spoken math rendered naturally, while Lesson 2 has no available narration transcript at all, making its audio quality impossible to verify and therefore worse on this dimension."
+    },
+    "sync": {
+      "winner": "quadratic_notebooklm",
+      "confidence": 0.55,
+      "rationale": "Lesson 1 lacks beat/cue timing so sync cannot really be verified, but Lesson 2 has no transcript or timing data at all, making it even less assessable on narration-visual alignment."
+    },
+    "concept_accuracy": {
+      "winner": "quadratic_notebooklm",
+      "confidence": 0.97,
+      "rationale": "Lesson 1 correctly applies Vieta\u2019s formulas, uses the root difference to derive roots 2 and 5, and finds k=10, while Lesson 2 has no available transcript or content to demonstrate any correct or pedagogically useful explanation."
+    },
+    "polish": {
+      "winner": "quadratic_notebooklm",
+      "confidence": 0.84,
+      "rationale": "Lesson 1 has larger, more readable typography and a cohesive, polished notebook-style visual design, whereas Lesson 2 is very sparse with tiny left-aligned text, excessive empty space, and some awkward/cropped graph placement despite its consistency."
+    }
+  },
+  "aggregator": {
+    "winner": "quadratic_notebooklm",
+    "confidence": 0.84,
+    "explanation": "Lesson 1 is the clear overall winner. Although Lesson 2 is stronger on visual accuracy because it stays focused on the quadratic roots problem while Lesson 1 includes unrelated or mangled visuals, the higher-confidence judgments favor Lesson 1 on the most important dimensions: narration quality, concept accuracy, and polish. Lesson 1 has a coherent narration, correctly solves the problem using Vieta\u2019s formulas to get roots 2 and 5 and k=10, and presents a more readable, cohesive design. Sync also slightly favors Lesson 1 because Lesson 2 lacks transcript/timing data entirely. Interactivity is a tie since neither lesson provides functioning checkpoints. Overall, the strong high-confidence wins for Lesson 1 outweigh Lesson 2\u2019s single visual-accuracy advantage."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:40:19.580455+00:00",
+  "videoMeta": {
+    "quadratic_notebooklm": {},
+    "quadratic_code2video": {}
+  }
+}

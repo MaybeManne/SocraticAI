@@ -1,0 +1,50 @@
+{
+  "setupA": "gcdeuclid_notebooklm",
+  "setupB": "gcdeuclid_code2video",
+  "subject": "gcdeuclid",
+  "lesson1Setup": "gcdeuclid_notebooklm",
+  "lesson2Setup": "gcdeuclid_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "gcdeuclid_code2video",
+      "confidence": 0.96,
+      "rationale": "Lesson 2 consistently depicts the Euclidean algorithm for GCD(1071,462) with correct equations and a mostly coherent tiling interpretation, while Lesson 1 spends much of the timeline on unrelated quadratic and standard-deviation material with only brief GCD-related frames, making its visuals largely incorrect for the target problem."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have absent gate specs and absent plan JSON, so neither provides any functioning checkpoints or interactivity to distinguish them."
+    },
+    "narration_quality": {
+      "winner": "gcdeuclid_notebooklm",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 provides clear, coherent narration with spoken math rendered naturally and no obvious TTS defects, while Lesson 2 has no transcript available and therefore offers no evidence of acceptable narration quality."
+    },
+    "sync": {
+      "winner": "gcdeuclid_notebooklm",
+      "confidence": 0.6,
+      "rationale": "Lesson 1 at least provides a complete narration transcript to infer referenced visual moments from, while Lesson 2 has no transcript or timing data at all, making its sync completely unevaluable and therefore worse on this dimension."
+    },
+    "concept_accuracy": {
+      "winner": "gcdeuclid_notebooklm",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly states and executes the Euclidean algorithm with accurate remainders and stopping rule to get 21, while Lesson 2 has no available transcript or content to demonstrate conceptual correctness or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "gcdeuclid_code2video",
+      "confidence": 0.68,
+      "rationale": "Lesson 2 is plain and somewhat sparse with small text, but it stays visually consistent and avoids broken/empty screens, whereas Lesson 1 has long blank placeholder frames, abrupt style/topic jumps, and frequent clutter despite its more colorful graphics."
+    }
+  },
+  "aggregator": {
+    "winner": "gcdeuclid_notebooklm",
+    "confidence": 0.68,
+    "explanation": "The verdicts are split, but the higher-weighted evidence favors Lesson 1 overall. Lesson 1 wins narration quality and concept accuracy with very high confidence, and also wins sync at moderate confidence because it has usable transcript evidence while Lesson 2 lacks transcript/timing information. Lesson 2 wins visual accuracy very strongly and polish moderately, indicating its visuals are more focused and consistent. Interactivity is a high-confidence tie because neither lesson provides functioning checkpoints. Overall, despite Lesson 2\u2019s stronger visual presentation, Lesson 1\u2019s strong advantages in conceptual correctness and narration carry more weight for the final judgment."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:40:10.348753+00:00",
+  "videoMeta": {
+    "gcdeuclid_notebooklm": {},
+    "gcdeuclid_code2video": {}
+  }
+}

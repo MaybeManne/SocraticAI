@@ -1,0 +1,50 @@
+{
+  "setupA": "stddev_notebooklm",
+  "setupB": "stddev_code2video",
+  "subject": "stddev",
+  "lesson1Setup": "stddev_notebooklm",
+  "lesson2Setup": "stddev_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "stddev_code2video",
+      "confidence": 0.88,
+      "rationale": "Lesson 2 consistently visualizes the standard-deviation process with a number line, deviations, squared deviations, variance, and final formula despite some garbled text, whereas Lesson 1 spends most of the timeline on unrelated quadratic and Euclidean-algorithm visuals and only briefly shows the dataset with a vague/incorrect-looking square-root graphic."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have no available gate specs or plan JSON, so neither shows any functional checkpoints or input-based interactivity."
+    },
+    "narration_quality": {
+      "winner": "stddev_notebooklm",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 provides clear, natural narration with no raw LaTeX or obvious garbling, while Lesson 2 has no transcript available and therefore offers no evidence of acceptable narration quality."
+    },
+    "sync": {
+      "winner": "stddev_notebooklm",
+      "confidence": 0.55,
+      "rationale": "Lesson 1 at least provides narration context despite lacking beat/cue timing, while Lesson 2 provides no transcript or timing data at all, making its visual-narration sync completely unevaluable and worse."
+    },
+    "concept_accuracy": {
+      "winner": "stddev_notebooklm",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 gives the correct mean, population variance, and standard deviation and at least briefly explains the idea of spread, whereas Lesson 2 has no available instructional content to assess or learn from."
+    },
+    "polish": {
+      "winner": "stddev_notebooklm",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 is much more polished with large readable typography, centered compositions, consistent illustrated styling, and clean layouts, while Lesson 2 has tiny text, sparse/off-center slides, and visible formula rendering/overlap issues in several frames."
+    }
+  },
+  "aggregator": {
+    "winner": "stddev_notebooklm",
+    "confidence": 0.86,
+    "explanation": "Lesson 1 is the clear overall winner. Although Lesson 2 strongly wins visual accuracy for showing the standard-deviation process more directly, Lesson 1 wins four dimensions, including very high-confidence wins in narration quality, concept accuracy, and polish, plus a lower-confidence sync advantage. Interactivity is a neutral tie because neither lesson shows functional checkpoints. The most heavily weighted judgments favor Lesson 1, especially because it has correct instructional content, clear narration, and substantially better presentation quality, while Lesson 2 suffers from missing transcript/content evidence and visible rendering/layout issues."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:40:31.044641+00:00",
+  "videoMeta": {
+    "stddev_notebooklm": {},
+    "stddev_code2video": {}
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "setupA": "wavespeed_v7",
+  "setupB": "wavespeed_code2video",
+  "subject": "wavespeed",
+  "lesson1Setup": "wavespeed_code2video",
+  "lesson2Setup": "wavespeed_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "wavespeed_code2video",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 mostly depicts the third harmonic as three half-wave loops over the 1.2 m string and correctly relates each bump to 0.4 m and \u03bb to 0.8 m, whereas Lesson 2 repeatedly shows only about one full wavelength/two loops spanning the drawn string and labels that span as \u03bb = 0.80 m, visually implying the wavelength equals the full string length rather than two-thirds of it."
+    },
+    "interactivity": {
+      "winner": "wavespeed_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_wavelength with a real question, plausible options, and the correct answer marked, whereas Lesson 1 has no available gate specs or plan and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "wavespeed_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 provides clear, natural, well-paced narration with spoken-out numbers and no raw LaTeX or garbled phrasing, while Lesson 1 has no available transcript and therefore offers no assessable narration quality."
+    },
+    "sync": {
+      "winner": "wavespeed_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 provides generally well-aligned visual cues that occur near the narrated references, while Lesson 1 has no transcript or cue timing available, making its synchronization impossible to verify and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "wavespeed_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly explains the fixed-end harmonic geometry (three loops means L=3\u03bb/2, so \u03bb=0.8 m) and applies v=f\u03bb=264 m/s, while Lesson 1 has no available transcript or plan to demonstrate any conceptual accuracy or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "wavespeed_v7",
+      "confidence": 0.65,
+      "rationale": "Lesson 2 has a much more polished, legible, consistent modern layout and uses the frame effectively, while Lesson 1 is sparse, tiny, and often poorly balanced with large empty areas, though Lesson 2 is held back by some cropping and subtitle/element overlap near the bottom."
+    }
+  },
+  "aggregator": {
+    "winner": "wavespeed_v7",
+    "confidence": 0.87,
+    "explanation": "Lesson 2 wins five of the six dimensions, with especially high-confidence advantages in interactivity, narration quality, synchronization, and concept accuracy. It provides a functioning quiz, clear narration, aligned cues, and correct explanation/calculation of the third-harmonic relationship and wave speed. Lesson 1 has a strong high-confidence advantage in visual accuracy because its harmonic drawing better represents three half-wave loops over the 1.2 m string, while Lesson 2\u2019s visual depiction can misleadingly imply the wavelength spans the full string. However, Lesson 1 is otherwise largely unavailable or weak across narration, sync, interactivity, concept explanation, and polish. Overall, Lesson 2 is the clearer winner despite its significant visual flaw."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:32:03.714415+00:00",
+  "videoMeta": {
+    "wavespeed_v7": {},
+    "wavespeed_code2video": {}
+  }
+}

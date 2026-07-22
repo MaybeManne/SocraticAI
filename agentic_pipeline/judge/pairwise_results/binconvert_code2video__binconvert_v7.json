@@ -1,0 +1,50 @@
+{
+  "setupA": "binconvert_v7",
+  "setupB": "binconvert_code2video",
+  "subject": "binconvert",
+  "lesson1Setup": "binconvert_v7",
+  "lesson2Setup": "binconvert_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binconvert_code2video",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly shows the full repeated-division table, remainder column, upward reading order, and final 10011100 result, whereas Lesson 1's main table remains essentially empty/missing rows while text jumps between steps and only an arrow/final answer appear without the supporting visual computation."
+    },
+    "interactivity": {
+      "winner": "binconvert_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed fill-in gate with a real prompt, accepted answers, hints, remediation, and wiring after a specific act, while Lesson 2 has no available gate specs or plan JSON and therefore no functioning checkpoints."
+    },
+    "narration_quality": {
+      "winner": "binconvert_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 has clear, naturally paced narration with spoken math and no LaTeX or garbling, while Lesson 2 provides no narration transcript at all, making its narration quality absent and unevaluable."
+    },
+    "sync": {
+      "winner": "binconvert_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 provides generally well-timed cues that align with the narrated visual references, while Lesson 2 has no transcript or cue timing available, making its sync impossible to verify and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "binconvert_v7",
+      "confidence": 0.97,
+      "rationale": "Lesson 1 correctly walks through the repeated division steps, remainders, stopping condition, and bottom-to-top reading to get 10011100, while Lesson 2 has no available transcript or script to demonstrate any accurate or pedagogically clear explanation."
+    },
+    "polish": {
+      "winner": "binconvert_code2video",
+      "confidence": 0.92,
+      "rationale": "Lesson 2 is more consistently legible, centered, and visually composed, while Lesson 1 has tiny table labels, large awkward empty regions, edge artifacts/progress bars, and a broken/cut-off card at the end."
+    }
+  },
+  "aggregator": {
+    "winner": "binconvert_v7",
+    "confidence": 0.72,
+    "explanation": "Lesson 1 wins four of the six dimensions with very high confidence: interactivity, narration quality, synchronization, and concept accuracy. These agents emphasize that Lesson 1 has functioning checkpoints, clear narration, aligned cues, and an accurate conceptual walkthrough. Lesson 2 is strongly preferred for visual accuracy and polish, with a complete and legible repeated-division table, while Lesson 1 has notable visual shortcomings. However, Lesson 2 appears to lack available narration, sync data, interactivity specs, and explanatory transcript, so the overall weighted judgment favors Lesson 1 despite Lesson 2\u2019s stronger visuals."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:33:14.125791+00:00",
+  "videoMeta": {
+    "binconvert_v7": {},
+    "binconvert_code2video": {}
+  }
+}

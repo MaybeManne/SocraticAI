@@ -1,0 +1,50 @@
+{
+  "setupA": "knapsack_v7",
+  "setupB": "knapsack_code2video",
+  "subject": "knapsack",
+  "lesson1Setup": "knapsack_v7",
+  "lesson2Setup": "knapsack_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "knapsack_code2video",
+      "confidence": 0.73,
+      "rationale": "Lesson 2 uses a simplified but consistently correct visual story ending with the right optimal pair/value, whereas Lesson 1\u2019s DP table is positionally and structurally inaccurate for capacity 5, remains mostly unfilled/incorrect, shows misplaced highlights and inconsistent totals despite stating the right answer."
+    },
+    "interactivity": {
+      "winner": "knapsack_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a functional fill-in checkpoint with a real prompt, answer, hint, remediation path, and wiring after act_core_decision, while Lesson 2 has no available gate specs or plan JSON and therefore no verifiable interactive checkpoint."
+    },
+    "narration_quality": {
+      "winner": "knapsack_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 provides clear, well-paced narration with spoken math rendered naturally, while Lesson 2 has no available transcript/narration to evaluate and therefore fails this dimension."
+    },
+    "sync": {
+      "winner": "knapsack_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 provides timed visual cues that generally align with the narration references, while Lesson 2 has no transcript or cue timing available at all, making its synchronization absent rather than merely imperfect."
+    },
+    "concept_accuracy": {
+      "winner": "knapsack_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 correctly explains the 0/1 knapsack DP recurrence, table meaning, example computations, final value, and backtracking to A+B, while Lesson 2 has no available transcript or script, so its conceptual accuracy and pedagogical clarity cannot be established."
+    },
+    "polish": {
+      "winner": "knapsack_code2video",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 is visually sparse but consistently legible and uncluttered, while Lesson 1 is much more crowded with partially cut-off item cards, overlapping labels/boxes, cramped right-panel text, subtitle overlays, and multiple raw/unrendered LaTeX fragments visible."
+    }
+  },
+  "aggregator": {
+    "winner": "knapsack_v7",
+    "confidence": 0.82,
+    "explanation": "Lesson 1 is the clear overall winner by weighted dimension votes. Four high-confidence agents favored Lesson 1: interactivity, narration quality, synchronization, and concept accuracy, with especially strong confidence around 0.95\u20130.99. These dimensions indicate that Lesson 1 has a verifiable interactive checkpoint, clear narration, aligned timed cues, and correct explanation of the knapsack DP recurrence and solution. Lesson 2 won visual accuracy and polish, including a cleaner and more consistently legible visual presentation, but those two wins are outweighed by the absence of available transcript, timing, interaction specs, or script evidence in several core pedagogical dimensions. Lesson 1 has notable visual and polish flaws, but its instructional substance and implementation are much better established."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:24:29.317039+00:00",
+  "videoMeta": {
+    "knapsack_v7": {},
+    "knapsack_code2video": {}
+  }
+}

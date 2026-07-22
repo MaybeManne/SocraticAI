@@ -1,0 +1,50 @@
+{
+  "setupA": "incline_v7",
+  "setupB": "incline_code2video",
+  "subject": "incline",
+  "lesson1Setup": "incline_code2video",
+  "lesson2Setup": "incline_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "incline_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 more accurately and consistently depicts the incline setup, height drop, initial/final block positions, PE-to-KE conversion, and final speed calculation, while Lesson 1 is mostly correct but more schematic and sometimes less positionally faithful, such as showing the object only at the bottom during the setup and using less connected energy visuals."
+    },
+    "interactivity": {
+      "winner": "incline_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a functional, well-formed quiz gate wired after act_algebra with a real question, options, and correct answer, whereas Lesson 1 has no available gate specs or plan and therefore no functioning checkpoints."
+    },
+    "narration_quality": {
+      "winner": "incline_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 provides clear, natural narration with spoken math and no raw LaTeX or garbling, while Lesson 1 has no available transcript/narration to evaluate and therefore cannot demonstrate acceptable audio quality."
+    },
+    "sync": {
+      "winner": "incline_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 provides timed cues that mostly coincide with the narrated references, while Lesson 1 has no transcript or cue timing at all, making it impossible to establish any synchronized visual changes."
+    },
+    "concept_accuracy": {
+      "winner": "incline_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly and clearly teaches conservation of mechanical energy, mass cancellation, and the calculation v=sqrt(2gh)\u22487.92 m/s, while Lesson 1 has no available transcript or plan, so it provides no assessable conceptual explanation."
+    },
+    "polish": {
+      "winner": "incline_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is visually plain and sometimes sparse but remains clean, readable, and consistent, while Lesson 2 has a more modern style but becomes cluttered with tiny/partly clipped mini-cards, cropped top/right content, and stray UI/progress elements that reduce polish."
+    }
+  },
+  "aggregator": {
+    "winner": "incline_v7",
+    "confidence": 0.94,
+    "explanation": "Lesson 2 is the clear overall winner: five of six dimensions favor it, mostly with very high confidence. It is judged stronger in visual accuracy, interactivity, narration quality, synchronization, and conceptual accuracy, with especially strong evidence that it includes clear narration, timed cues, a functional quiz gate, and correct energy-conservation reasoning leading to v = sqrt(2gh) \u2248 7.92 m/s. Lesson 1 only wins polish, and even there the rationale is mainly that it is cleaner and less cluttered, while Lesson 2 has some cropped or crowded UI elements. This polish concern is outweighed by Lesson 2's substantial advantages across the core instructional dimensions."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:26:07.862876+00:00",
+  "videoMeta": {
+    "incline_v7": {},
+    "incline_code2video": {}
+  }
+}

@@ -184,9 +184,11 @@ const $ = id => document.getElementById(id);
 const api = (p, o) => fetch(p, o).then(r => r.json());
 const item = id => CATALOG.find(i => i.id === id);
 
-// A curated sidebar: the videos you actually compare (main variants +
-// external tools). Everything else appears with "Show all versions".
-const PRIMARY = /_(v\d|veo3|mathgpt|notebooklm|videotutor)$/;
+// A curated sidebar: the videos you actually compare (main vN variants +
+// every external tool video). External tools are recognized by kind, not by
+// name, so new tools appear automatically. Everything else is behind
+// "Show all versions".
+const isPrimary = it => it.kind === "video" || /_v\d$/.test(it.id);
 
 document.querySelectorAll("#mview button").forEach(b => b.onclick = () => {
   metricsView = b.dataset.v;
@@ -224,11 +226,11 @@ async function init() {
   renderList();
 }
 
-function sortKey(id) {
-  // v7 first, then v6..v1, then externals, then the rest
-  const m = id.match(/_v(\d+)(\.\d+)?$/);
+function sortKey(it) {
+  // v7 first, then v6..v1, then external tools (alphabetical), then the rest
+  const m = it.id.match(/_v(\d+)(\.\d+)?$/);
   if (m) return 100 - +m[1];
-  if (/veo3|mathgpt|notebooklm|videotutor/.test(id)) return 200;
+  if (it.kind === "video") return 200;
   return 300;
 }
 
@@ -238,8 +240,8 @@ function renderList() {
   host.innerHTML = "";
   const items = CATALOG
     .filter(it => q ? it.id.toLowerCase().includes(q)
-                    : it.subject === subjectFilter && (showAll || PRIMARY.test(it.id) || selected.includes(it.id)))
-    .sort((a, b) => sortKey(a.id) - sortKey(b.id));
+                    : it.subject === subjectFilter && (showAll || isPrimary(it) || selected.includes(it.id)))
+    .sort((a, b) => sortKey(a) - sortKey(b));
   for (const it of items) {
     const el = document.createElement("div");
     el.className = "vitem" + (selected.includes(it.id) ? " sel" : "");

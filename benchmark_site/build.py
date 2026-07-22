@@ -20,14 +20,14 @@ SITE = Path(__file__).resolve().parent
 OUT = SITE / "socraticai-benchmark"
 MEDIA = OUT / "media"
 
-# Problem set from the single manifest (benchmark/problems.json).
-_problems = json.loads(
-    (REPO / "agentic_pipeline" / "benchmark" / "problems.json").read_text())["problems"]
+# Problem set AND tool registry from the single manifest (benchmark/problems.json).
+_manifest = json.loads(
+    (REPO / "agentic_pipeline" / "benchmark" / "problems.json").read_text())
+_problems = _manifest["problems"]
 SUBJECT_DIRS = {p["id"]: p["dist_dir"] for p in _problems}
 SUBJECT_TITLES = {p["id"]: p.get("title", p["id"]) for p in _problems}
-TOOLS = ["veo3", "mathgpt", "notebooklm", "videotutor"]
-TOOL_LABELS = {"veo3": "Google Veo 3", "mathgpt": "MathGPT (Mathos AI)",
-               "notebooklm": "NotebookLM", "videotutor": "VideoTutor"}
+TOOLS = [t["id"] for t in _manifest.get("tools", [])]
+TOOL_LABELS = {t["id"]: t.get("label", t["id"]) for t in _manifest.get("tools", [])}
 VIDEO_EXTS = (".mp4", ".mov", ".webm")
 
 

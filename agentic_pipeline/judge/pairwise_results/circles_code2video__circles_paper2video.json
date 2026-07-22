@@ -1,0 +1,55 @@
+{
+  "setupA": "circles_code2video",
+  "setupB": "circles_paper2video",
+  "subject": "circles",
+  "lesson1Setup": "circles_code2video",
+  "lesson2Setup": "circles_paper2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_paper2video",
+      "confidence": 0.75,
+      "rationale": "Lesson 2\u2019s visuals are mostly text and formulas that stay consistent with the common-point nested-circle setup, while Lesson 1 includes misleading concentric-circle diagrams in later sections that visually contradict the actual geometry despite having some correct tangent-circle visuals early on."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have absent gate specs and absent plan JSON, so neither shows any functional checkpoints or input-accepting gates."
+    },
+    "narration_quality": {
+      "winner": "circles_code2video",
+      "confidence": 0.62,
+      "rationale": "Lesson 1 has absent narration data, which is a serious limitation, but Lesson 2\u2019s provided narration is overwhelmingly garbled, incoherent, and unnaturally fragmented, making it clearly defective rather than merely unavailable."
+    },
+    "sync": {
+      "winner": "tie",
+      "confidence": 0.72,
+      "rationale": "Both lessons lack usable beat/timing visual cue data for evaluating whether visuals change exactly when referenced, with Lesson 1 entirely absent and Lesson 2 providing only an untimed transcript with no cue offsets."
+    },
+    "concept_accuracy": {
+      "winner": "circles_paper2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 2 is largely incoherent and does not provide a correct derivation or clear pedagogy, but it at least mentions relevant ideas like nested circles, alternating shaded regions, series summation, and annuli, whereas Lesson 1 has no available content at all to demonstrate any accurate teaching."
+    },
+    "polish": {
+      "winner": "circles_code2video",
+      "confidence": 0.83,
+      "rationale": "Lesson 1 is simpler but consistently clean and unobstructed, whereas Lesson 2\u2019s otherwise professional slides are repeatedly marred by visible cursor, playback/navigation controls, and subtitle/footer overlays that clutter and obscure the presentation."
+    }
+  },
+  "aggregator": {
+    "winner": "tie",
+    "confidence": 0.52,
+    "explanation": "The dimension results are genuinely split. Lesson 2 is preferred for visual accuracy and concept accuracy, though concept accuracy is only a low-confidence edge. Lesson 1 is preferred for narration quality and polish, with polish being the strongest non-tie preference. Interactivity and sync are both ties because neither lesson provides usable checkpoint or timing data. The weighted non-tie votes are very close, with Lesson 1 only slightly ahead by confidence, so there is no clear overall winner."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:43:16.350685+00:00",
+  "videoMeta": {
+    "circles_code2video": {
+      "durationSeconds": 89.8,
+      "solved": null,
+      "explained": null,
+      "visualCount": 0
+    },
+    "circles_paper2video": {}
+  }
+}

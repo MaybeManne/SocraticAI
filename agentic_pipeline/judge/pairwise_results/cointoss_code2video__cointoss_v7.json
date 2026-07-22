@@ -1,0 +1,50 @@
+{
+  "setupA": "cointoss_v7",
+  "setupB": "cointoss_code2video",
+  "subject": "cointoss",
+  "lesson1Setup": "cointoss_v7",
+  "lesson2Setup": "cointoss_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "cointoss_code2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 keeps the coin-flip counts, combination cases, winning-scenario bars, and final 93/256 fraction visually aligned with the math throughout, whereas Lesson 1 has sustained empty/irrelevant visual space, unrendered LaTeX text, and a visibly incorrect transient equation showing C(8,5)=5 despite later correct calculations."
+    },
+    "interactivity": {
+      "winner": "cointoss_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed quiz gate with a real question, plausible options, marked correct answer, and matching wiring after act_calculation, while Lesson 2 has no gate specs or plan available and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "cointoss_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, natural pacing and spoken math with no raw LaTeX or garbling, while Lesson 2 provides no narration transcript at all, making its narration quality absent and therefore worse."
+    },
+    "sync": {
+      "winner": "cointoss_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 provides timed visual cues that generally align with the narrated references despite a few potentially early cues, whereas Lesson 2 has no transcript or timing data at all, making its synchronization unevaluable and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "cointoss_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 correctly and clearly teaches the binomial counting approach, including total outcomes, combinations for 5\u20138 heads, and the final fraction 93/256, whereas Lesson 2 has no available transcript or lesson content to verify any mathematical accuracy or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "cointoss_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is plainer and somewhat small, but it stays clean, centered, and visually coherent, whereas Lesson 1 has major polish defects including raw unrendered LaTeX, clipped/overlapping bottom elements, stray artifacts, and increasingly cluttered right-panel layouts."
+    }
+  },
+  "aggregator": {
+    "winner": "cointoss_v7",
+    "confidence": 0.86,
+    "explanation": "Lesson 1 is the clear overall winner by weighted dimension votes: it wins four of six categories with very high confidence, including interactivity, narration quality, synchronization, and concept accuracy. These are substantial instructional dimensions, and the agents consistently noted that Lesson 2 lacked transcript, timing, gate specs, or verifiable pedagogical content in those areas. Lesson 2 wins visual accuracy and polish, with moderately high confidence, because its visuals are cleaner and more mathematically aligned while Lesson 1 has notable rendering, clutter, and artifact issues. However, those visual shortcomings do not outweigh Lesson 1's strong advantages in explanation, correctness, pacing, and functioning interactivity."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:21:58.731324+00:00",
+  "videoMeta": {
+    "cointoss_v7": {},
+    "cointoss_code2video": {}
+  }
+}

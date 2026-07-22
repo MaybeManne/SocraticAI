@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SocraticAI Benchmark — Final Results</title>
+<style>
+  :root{
+    --bg:#0e1016; --surface:#171a22; --surface2:#1e222c; --border:#2a2f3a;
+    --text:#e6e8ee; --muted:#9095a3; --accent:#7c8cff; --good:#4ade80;
+    --v7:#7c8cff; --c2v:#f0883e; --p2v:#38bdf8; --nlm:#f472b6;
+  }
+  @media (prefers-color-scheme: light){
+    :root{--bg:#f6f7f9;--surface:#fff;--surface2:#eef0f4;--border:#dce0e8;
+      --text:#1a1d24;--muted:#5b616e;}
+  }
+  :root[data-theme="dark"]{--bg:#0e1016;--surface:#171a22;--surface2:#1e222c;
+    --border:#2a2f3a;--text:#e6e8ee;--muted:#9095a3;}
+  :root[data-theme="light"]{--bg:#f6f7f9;--surface:#fff;--surface2:#eef0f4;
+    --border:#dce0e8;--text:#1a1d24;--muted:#5b616e;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  header{padding:28px 24px 12px;max-width:1200px;margin:0 auto}
+  h1{margin:0 0 4px;font-size:24px}
+  .sub{color:var(--muted);font-size:14px}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px 60px}
+  h2{font-size:16px;margin:32px 0 12px;letter-spacing:.02em}
+  table{border-collapse:collapse;width:100%;font-size:13.5px}
+  .lb th,.lb td{padding:9px 12px;text-align:center;border-bottom:1px solid var(--border)}
+  .lb th{color:var(--muted);font-weight:600;text-align:center}
+  .lb td:first-child,.lb th:first-child{text-align:left}
+  .method{font-weight:700}
+  .m-v7{color:var(--v7)} .m-Code2Video{color:var(--c2v)}
+  .m-Paper2Video{color:var(--p2v)} .m-NotebookLM{color:var(--nlm)}
+  .cell{border-radius:5px;padding:3px 0;display:inline-block;min-width:46px}
+  .lb-wrap,.tbl-wrap{overflow-x:auto;background:var(--surface);
+    border:1px solid var(--border);border-radius:12px;padding:6px}
+  .search{width:100%;padding:10px 14px;margin:6px 0 4px;border-radius:10px;
+    border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:14px}
+  .prob{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    margin:10px 0;overflow:hidden}
+  .prob>summary{padding:14px 18px;cursor:pointer;list-style:none;
+    display:flex;gap:12px;align-items:baseline}
+  .prob>summary::-webkit-details-marker{display:none}
+  .pid{font-weight:700;font-size:15px}
+  .badge{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--surface2);
+    color:var(--muted);text-transform:capitalize}
+  .ptext{color:var(--muted);font-size:13px;flex:1;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap}
+  .pbody{padding:0 18px 18px}
+  .fullprompt{color:var(--text);font-size:13.5px;background:var(--surface2);
+    padding:10px 12px;border-radius:8px;margin:2px 0 12px}
+  .tbl-wrap{padding:0}
+  .st th,.st td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:center}
+  .st th{color:var(--muted);font-weight:600}
+  .st td:first-child,.st th:first-child{text-align:left;white-space:nowrap}
+  a.vid{color:var(--accent);text-decoration:none;font-size:12px}
+  a.vid:hover{text-decoration:underline}
+  .dur{color:var(--muted);font-size:11px}
+  .foot{color:var(--muted);font-size:12px;margin-top:24px}
+  .nojudge{color:var(--muted);font-style:italic;font-size:12px}
+  .dl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--surface);
+    border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-top:6px}
+  .dl a{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:8px;
+    border:1px solid var(--border);background:var(--surface2);color:var(--text);
+    text-decoration:none;font-size:13px;font-weight:600}
+  .dl a:hover{border-color:var(--accent);color:var(--accent)}
+  .dl a.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .dl a.primary:hover{opacity:.9;color:#fff}
+  .dl .lbl{color:var(--muted);font-size:12px;margin-right:2px}
+</style>
+</head>
+<body>
+<header>
+  <h1>SocraticAI Benchmark — Final Results</h1>
+  <div class="sub" id="sub"></div>
+</header>
+<div class="wrap">
+  <h2>Download the data</h2>
+  <div class="dl">
+    <span class="lbl">Combined workbook:</span>
+    <a class="primary" href="downloads/benchmark_final.xlsx" download>⬇ benchmark_final.xlsx</a>
+    <span class="lbl">(Benchmark · Videos · Scores tabs)</span>
+    <span class="lbl" style="margin-left:12px">Human review:</span>
+    <a href="downloads/human_scoring_sheet.xlsx" download>⬇ human_scoring_sheet.xlsx</a>
+    <span class="lbl" style="margin-left:12px">CSVs:</span>
+    <a href="downloads/benchmark.csv" download>benchmark</a>
+    <a href="downloads/videos.csv" download>videos</a>
+    <a href="downloads/scores.csv" download>scores</a>
+    <a href="downloads/missing.csv" download>missing</a>
+  </div>
+
+  <h2>Leaderboard — average judge score per method (0–100, across all judged problems)</h2>
+  <div class="lb-wrap"><table class="lb" id="lb"></table></div>
+
+  <h2>Per-problem scores</h2>
+  <input class="search" id="q" placeholder="Filter problems by id, prompt, or category…">
+  <div id="probs"></div>
+
+  <div class="foot" id="foot"></div>
+</div>
+<script src="data.js"></script>
+<script>
+const D = window.DATA, DIMS = D.dims;
+const DIMLABEL = {visual_accuracy:"Visual",interactivity:"Interact",
+  narration_quality:"Narration",sync:"Sync",concept_accuracy:"Concept",polish:"Polish"};
+const METHODS = ["v7","Code2Video","Paper2Video","NotebookLM"];
+
+// index helpers
+const scoreOf = {};                       // id|method -> row
+D.scores.forEach(s => scoreOf[s.id+"|"+s.method] = s);
+const vidsBy = {};                        // id -> [video rows]
+D.videos.forEach(v => (vidsBy[v.id] ??= []).push(v));
+
+function color(v){
+  if(v==null) return "transparent";
+  const t=v/100, r=Math.round(120+ (74-120)*t), g=Math.round(60+(222-60)*t), b=Math.round(70+(128-70)*t);
+  return `rgba(${r},${g},${b},${0.14+0.5*t})`;
+}
+function fmt(v){ return v==null? "—" : (Number.isInteger(v)? v : v.toFixed(1)); }
+
+// ---- leaderboard: mean of each dim across judged problems, per method ----
+function leaderboard(){
+  const rows = METHODS.map(m => {
+    const rs = D.scores.filter(s => s.method===m);
+    const cell = d => { const xs = rs.map(r=>r[d]).filter(x=>x!=null);
+      return xs.length? xs.reduce((a,b)=>a+b,0)/xs.length : null; };
+    const per = DIMS.map(cell);
+    const overall = (()=>{ const xs=per.filter(x=>x!=null); return xs.length? xs.reduce((a,b)=>a+b,0)/xs.length:null; })();
+    return {m, n:rs.length, per, overall};
+  }).filter(r=>r.n>0);
+  let h = "<tr><th>Method</th><th># judged</th>" +
+    DIMS.map(d=>`<th>${DIMLABEL[d]}</th>`).join("") + "<th>Overall</th></tr>";
+  rows.sort((a,b)=>(b.overall??0)-(a.overall??0));
+  for(const r of rows){
+    h += `<tr><td class="method m-${r.m}">${r.m}</td><td class="dur">${r.n}</td>` +
+      r.per.map(v=>`<td><span class="cell" style="background:${color(v)}">${fmt(v)}</span></td>`).join("") +
+      `<td><span class="cell" style="background:${color(r.overall)}"><b>${fmt(r.overall)}</b></span></td></tr>`;
+  }
+  document.getElementById("lb").innerHTML = h;
+}
+
+// ---- per-problem cards ----
+function problemCard(p){
+  const vids = vidsBy[p.id] || [];
+  const methodsHere = METHODS.filter(m => vids.some(v=>v.method===m));
+  let rows = "";
+  for(const m of methodsHere){
+    const s = scoreOf[p.id+"|"+m];
+    const v = vids.find(x=>x.method===m);
+    const link = v && v.media ?
+      `<a class="vid" href="${v.media}" target="_blank">▶ open</a>` : "";
+    const dur = v && v.duration ? `<span class="dur"> ${Math.round(v.duration)}s</span>` : "";
+    let cells;
+    if(s){ cells = DIMS.map(d=>`<td><span class="cell" style="background:${color(s[d])}">${fmt(s[d])}</span></td>`).join(""); }
+    else { cells = `<td colspan="${DIMS.length}"><span class="nojudge">no comparison available — not judged</span></td>`; }
+    rows += `<tr><td><span class="method m-${m}">${m}</span> ${link}${dur}</td>${cells}</tr>`;
+  }
+  const head = "<tr><th>Method</th>" + DIMS.map(d=>`<th>${DIMLABEL[d]}</th>`).join("") + "</tr>";
+  return `<details class="prob" data-hay="${(p.id+' '+p.prompt+' '+p.category).toLowerCase().replace(/"/g,'')}">
+    <summary><span class="pid">${p.id}</span>
+      <span class="badge">${p.category}</span>
+      <span class="badge">${p.scenes||'?'} scenes</span>
+      <span class="ptext">${p.prompt}</span></summary>
+    <div class="pbody">
+      <div class="fullprompt">${p.prompt}</div>
+      <div class="tbl-wrap"><table class="st">${head}${rows}</table></div>
+    </div></details>`;
+}
+
+function render(){
+  leaderboard();
+  document.getElementById("probs").innerHTML = D.problems.map(problemCard).join("");
+  const nv = D.videos.length, ns = D.scores.length;
+  document.getElementById("sub").textContent =
+    `${D.problems.length} problems · ${nv} videos · ${ns} judged (id, method) rows · scores are averaged blind-pairwise judge credit (0–100)`;
+  document.getElementById("foot").innerHTML =
+    "Data baked directly from benchmark_final/benchmark.csv, videos.csv, scores.csv. " +
+    "A method row shows no scores when that problem has no second method to compare against (e.g. doppler / Code2Video).";
+}
+render();
+
+document.getElementById("q").addEventListener("input", e=>{
+  const q = e.target.value.toLowerCase();
+  document.querySelectorAll(".prob").forEach(el=>{
+    el.style.display = el.dataset.hay.includes(q) ? "" : "none";
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "setupA": "dijkstra_code2video",
+  "setupB": "dijkstra_paper2video",
+  "subject": "dijkstra",
+  "lesson1Setup": "dijkstra_paper2video",
+  "lesson2Setup": "dijkstra_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "dijkstra_paper2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1\u2019s visual tables and listed edge data stay mathematically consistent with the stated Dijkstra run and final path, whereas Lesson 2\u2019s graph visuals omit weights/directions and include misleading update/highlight moments such as showing the wrong edge for the C update despite correct final distances."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have no available gate specs or plan JSON, so neither shows any functional checkpoints or input-accepting questions."
+    },
+    "narration_quality": {
+      "winner": "dijkstra_paper2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 1 is severely garbled and unnaturally phrased throughout, but Lesson 2 has no available narration transcript and is treated as absent, making it even less assessable as clear, paced narration."
+    },
+    "sync": {
+      "winner": "dijkstra_paper2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 1 at least provides narration content, though without beat/cue timing it cannot truly demonstrate sync, while Lesson 2 provides no transcript or timing data at all, making its visual-narration alignment even less assessable."
+    },
+    "concept_accuracy": {
+      "winner": "dijkstra_paper2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 is badly garbled and only partially pedagogical, but it still conveys key Dijkstra ideas and gives the correct shortest path S\u2192B\u2192A\u2192C\u2192T with distance 7, whereas Lesson 2 has no available transcript or content to establish any correct explanation."
+    },
+    "polish": {
+      "winner": "dijkstra_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is cleaner and more visually consistent with no recording artifacts, while Lesson 1, despite larger readable slide content, is repeatedly marred by visible cursor, playback controls, footer clutter, and subtitle overlays that overlap the slide area."
+    }
+  },
+  "aggregator": {
+    "winner": "dijkstra_paper2video",
+    "confidence": 0.74,
+    "explanation": "Lesson 1 is the clear overall winner: four agents preferred it, including the highest-confidence substantive judgments for concept accuracy (0.86) and visual accuracy (0.78). These found that Lesson 1, despite garbled narration and presentation flaws, preserves the correct Dijkstra logic and final shortest path, while Lesson 2 lacks sufficient transcript/content and has misleading or incomplete visuals. Narration and sync also favored Lesson 1 at lower confidence because it at least provides assessable narration content, unlike Lesson 2. Lesson 2 won polish with solid confidence due to cleaner visuals and fewer artifacts, and interactivity was a high-confidence tie because neither lesson showed functional checkpoints. Overall, the weighted evidence favors Lesson 1, with some confidence reduction due to Lesson 1\u2019s polish/narration issues and the interactivity tie."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:39:06.080904+00:00",
+  "videoMeta": {
+    "dijkstra_code2video": {},
+    "dijkstra_paper2video": {}
+  }
+}

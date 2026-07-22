@@ -1,0 +1,50 @@
+{
+  "setupA": "toposort_v7",
+  "setupB": "toposort_code2video",
+  "subject": "toposort",
+  "lesson1Setup": "toposort_code2video",
+  "lesson2Setup": "toposort_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "toposort_v7",
+      "confidence": 0.88,
+      "rationale": "Lesson 2 consistently draws the prerequisite DAG with correct arrows A/B\u2192C, C\u2192D, and B/D\u2192E, while Lesson 1 contains sustained visual correctness errors such as the Section 3 graph showing wrong dependencies and the step-by-step frame labeling C with in-degree 1 immediately after A and B are removed when it should be 0."
+    },
+    "interactivity": {
+      "winner": "toposort_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed quiz gate wired after act_rule with a real question, plausible options, and a correct answer, whereas Lesson 1 has no available gate specs or plan and therefore no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "toposort_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides clear, natural narration with appropriate pacing cues and no raw LaTeX or garbled text, while Lesson 1 has no transcript available and therefore cannot demonstrate any narration quality."
+    },
+    "sync": {
+      "winner": "toposort_v7",
+      "confidence": 0.82,
+      "rationale": "Lesson 2 at least provides visual cues that generally coincide with the narrated actions, despite several early/batched cues firing before the specific referenced words, whereas Lesson 1 has no transcript or cue timing at all to demonstrate synchronization."
+    },
+    "concept_accuracy": {
+      "winner": "toposort_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 accurately explains the prerequisite graph, zero-in-degree rule, valid topological order, and why E must always be last, while Lesson 1 has no available transcript or lesson content to verify correctness or pedagogical clarity."
+    },
+    "polish": {
+      "winner": "toposort_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has a more polished, consistent, legible modern layout with clearer spacing and typography, while Lesson 1 is much sparser with smaller serif text, uneven use of empty space, and diagrams/text often feeling pushed to separate corners despite Lesson 2 having some minor edge/cropping artifacts."
+    }
+  },
+  "aggregator": {
+    "winner": "toposort_v7",
+    "confidence": 0.96,
+    "explanation": "All six dimension agents favor Lesson 2, with generally high confidence. Lesson 2 is judged substantially better in visual accuracy, interactivity, narration quality, synchronization, concept accuracy, and polish. The strongest factors are that Lesson 2 has correct prerequisite-graph content, functional quiz interactivity, clear narration, and accurate conceptual explanations, while Lesson 1 lacks key available materials and contains visual/dependency errors. Minor issues in Lesson 2, such as imperfect cue timing and small polish artifacts, do not outweigh its consistent advantages across every dimension."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:33:28.747477+00:00",
+  "videoMeta": {
+    "toposort_v7": {},
+    "toposort_code2video": {}
+  }
+}

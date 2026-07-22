@@ -1,0 +1,50 @@
+{
+  "setupA": "circuit_v7",
+  "setupB": "circuit_code2video",
+  "subject": "circuit",
+  "lesson1Setup": "circuit_v7",
+  "lesson2Setup": "circuit_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circuit_v7",
+      "confidence": 0.88,
+      "rationale": "Lesson 1 consistently shows the actual series circuit with the 4\u03a9 and 8\u03a9 resistors, correct current path, and voltmeters/labels placed across the correct resistors, whereas Lesson 2 relies on more abstract or simplified visuals and has a visibly incomplete/clipped summary diagram around t=60s."
+    },
+    "interactivity": {
+      "winner": "circuit_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired fill-in gate with a real prompt, accepted answers, hint, success message, and remediation path after a specific act, while Lesson 2 has no gate specs or plan available and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "circuit_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, natural, well-paced narration with correctly spoken units and no raw markup or garbling, while Lesson 2 has no available narration transcript and therefore cannot demonstrate any audio quality."
+    },
+    "sync": {
+      "winner": "circuit_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 provides timed cues that are mostly aligned with the referenced narration despite a few slightly early transitions, while Lesson 2 has no transcript or cue timing available at all, making its sync effectively unevaluable and worse."
+    },
+    "concept_accuracy": {
+      "winner": "circuit_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly and clearly teaches series resistance, total current via Ohm\u2019s law, and the 8 \u03a9 voltage drop with a useful conservation check, while Lesson 2 has no available script or plan to demonstrate any correct or pedagogically clear explanation."
+    },
+    "polish": {
+      "winner": "circuit_v7",
+      "confidence": 0.82,
+      "rationale": "Lesson 1 has a much cleaner, more consistent modern split-screen layout with legible diagrams and typography, whereas Lesson 2 feels sparse and off-center with small serif text, inconsistent color usage, and a visible truncated label bug around the summary frame."
+    }
+  },
+  "aggregator": {
+    "winner": "circuit_v7",
+    "confidence": 0.95,
+    "explanation": "All six dimension agents favor Lesson 1, most with very high confidence. Lesson 1 is judged superior in visual accuracy, interactivity, narration quality, synchronization, concept accuracy, and polish. The strongest factors are that Lesson 1 provides complete, correct circuit visuals, a functioning interactive gate, clear narration, aligned timing cues, and accurate conceptual instruction, while Lesson 2 is often missing key materials such as transcript, timing, gate specs, or complete diagrams. With unanimous and high-confidence support, Lesson 1 is the clear overall winner."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:26:38.289034+00:00",
+  "videoMeta": {
+    "circuit_v7": {},
+    "circuit_code2video": {}
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "setupA": "hydrostatic_v7",
+  "setupB": "hydrostatic_code2video",
+  "subject": "hydrostatic",
+  "lesson1Setup": "hydrostatic_code2video",
+  "lesson2Setup": "hydrostatic_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "hydrostatic_code2video",
+      "confidence": 0.66,
+      "rationale": "Lesson 1 is sparse and even incorrectly depicts the circular window as a square during the force step, but Lesson 2 has a more serious sustained visual failure where the circular window, depth marker, and pressure arrows disappear for most of the lesson while those exact concepts are being discussed, leaving the main object of the problem absent from the diagram."
+    },
+    "interactivity": {
+      "winner": "hydrostatic_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_insight with a real question, plausible options, and a marked correct answer, whereas Lesson 1 has no available gate specs or plan and must be treated as having no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "hydrostatic_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 provides clear, natural narration with spoken math and no raw LaTeX or garbling, while Lesson 1 has no available transcript at all and therefore cannot demonstrate acceptable narration quality."
+    },
+    "sync": {
+      "winner": "hydrostatic_v7",
+      "confidence": 0.82,
+      "rationale": "Lesson 2 provides timed visual cues that mostly align with the referenced narration, while Lesson 1 has no transcript or cue timing available at all, making it impossible to verify any synchronization and therefore worse on this dimension."
+    },
+    "concept_accuracy": {
+      "winner": "hydrostatic_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly explains hydrostatic gauge pressure, why the linear pressure variation over a symmetric circular window averages to the centroid pressure, and computes 616 N, whereas Lesson 1 has no available transcript or plan and therefore provides no assessable or pedagogically useful content."
+    },
+    "polish": {
+      "winner": "hydrostatic_code2video",
+      "confidence": 0.68,
+      "rationale": "Lesson 1 is sparse and somewhat small but remains clean and consistently rendered, while Lesson 2 has a more modern layout but repeatedly shows raw unrendered LaTeX/backslash notation and some UI artifacts that are more serious polish defects."
+    }
+  },
+  "aggregator": {
+    "winner": "hydrostatic_v7",
+    "confidence": 0.88,
+    "explanation": "Lesson 2 is the clear overall winner. Four dimensions favor Lesson 2 with high confidence: it has functional interactivity, clear narration, mostly aligned synchronization, and strong conceptual accuracy, including the correct hydrostatic pressure reasoning and 616 N result. Lesson 1 wins visual accuracy and polish only by moderate margins, mainly because Lesson 2 has notable diagram omissions and raw LaTeX/UI artifacts. However, those shortcomings are outweighed by Lesson 2's substantial strengths in the core instructional dimensions, while Lesson 1 lacks available transcript, plan, timing, and interactivity evidence."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:33:18.080923+00:00",
+  "videoMeta": {
+    "hydrostatic_v7": {},
+    "hydrostatic_code2video": {}
+  }
+}

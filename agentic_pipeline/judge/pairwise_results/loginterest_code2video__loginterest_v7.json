@@ -1,0 +1,50 @@
+{
+  "setupA": "loginterest_v7",
+  "setupB": "loginterest_code2video",
+  "subject": "loginterest",
+  "lesson1Setup": "loginterest_v7",
+  "lesson2Setup": "loginterest_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "loginterest_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 keeps the compound-interest setup, logarithm step, and final formula visually intact and correctly positioned, whereas Lesson 1\u2019s main animated equation is repeatedly clipped/misaligned with missing terms across much of the timeline despite the sidebar math being mostly correct."
+    },
+    "interactivity": {
+      "winner": "loginterest_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed quiz gate with a real question, plausible options, a correct answer, and wiring after act_setup, while Lesson 2 has no available gate specs or plan and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "loginterest_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 has clear, natural narration with spoken math and no raw LaTeX or garbling, while Lesson 2 has no available narration transcript at all, making its audio quality absent and therefore worse."
+    },
+    "sync": {
+      "winner": "loginterest_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 provides visual cues that are mostly aligned with the referenced narration, while Lesson 2 has no available transcript or cue data at all, making its synchronization impossible to verify and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "loginterest_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly sets up compound growth, cancels the principal, uses the logarithm power rule, solves t = ln(2)/ln(1.08) \u2248 9.006 and explains each step pedagogically, whereas Lesson 2 has no available transcript or script to verify any mathematical accuracy or instructional clarity."
+    },
+    "polish": {
+      "winner": "loginterest_code2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 is simpler and sometimes sparse, but it stays legible and uncluttered, whereas Lesson 1 repeatedly has clipped/off-screen equation elements, floating stray symbols, crowded side panels, and partially cut boxes that create clear visual bugs."
+    }
+  },
+  "aggregator": {
+    "winner": "loginterest_v7",
+    "confidence": 0.9,
+    "explanation": "Lesson 1 is the clear overall winner. Four high-confidence agents favor it: interactivity, narration quality, synchronization, and concept accuracy all strongly prefer Lesson 1, with confidences around 0.98\u20130.99. These dimensions indicate that Lesson 1 has a functioning quiz gate, clear narration, mostly aligned visual timing, and mathematically correct/pedagogically sound treatment of compound interest. Lesson 2 wins visual accuracy and polish with moderate-to-high confidence because it is more legible and avoids Lesson 1\u2019s clipping, misalignment, and layout bugs. However, Lesson 2 lacks available narration, sync data, interactivity, and verifiable instructional script, so its strengths are mostly visual while Lesson 1 is substantially stronger instructionally. The weighted evidence strongly favors Lesson 1 despite its visual polish problems."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:28:06.101895+00:00",
+  "videoMeta": {
+    "loginterest_v7": {},
+    "loginterest_code2video": {}
+  }
+}

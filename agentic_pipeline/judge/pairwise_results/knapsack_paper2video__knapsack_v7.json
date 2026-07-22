@@ -1,0 +1,50 @@
+{
+  "setupA": "knapsack_v7",
+  "setupB": "knapsack_paper2video",
+  "subject": "knapsack",
+  "lesson1Setup": "knapsack_v7",
+  "lesson2Setup": "knapsack_paper2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "knapsack_paper2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 2\u2019s tables and highlighted A+B optimum are visually and mathematically consistent with the knapsack instance, whereas Lesson 1\u2019s DP table is dimensionally/value-wise incomplete or wrong and its final selection panel remains empty/total 0 despite claiming optimal items A and B."
+    },
+    "interactivity": {
+      "winner": "knapsack_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired fill-in gate after a specific act with a real prompt, accepted answer, hint, and remediation path, whereas Lesson 2 has no available gate specs or plan, so it provides no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "knapsack_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 is clear, coherent, and paced appropriately with only minor awkward spoken math phrasing, while Lesson 2 is overwhelmingly garbled and unnatural with many nonsensical words that would make the narration difficult to understand."
+    },
+    "sync": {
+      "winner": "knapsack_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 at least provides timed cues that mostly coincide with narrated references to the knapsack, table, options, updates, and traceback, whereas Lesson 2 has no beat or visual cue timing data at all despite mentioning tables, combinations, and conclusions, making synchronization impossible to verify and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "knapsack_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 correctly and clearly teaches the 0/1 knapsack DP recurrence, table meaning, example values, and backtracking to A+B=7, whereas Lesson 2 is largely incoherent/gibberish despite mentioning exhaustive enumeration and the final answer, so it would not reliably build learner understanding."
+    },
+    "polish": {
+      "winner": "knapsack_paper2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 has a consistent, spacious slide layout with large readable text and centered tables, whereas Lesson 1 becomes cluttered with small dense panels, overlapping labels, partially cut-off item cards, and raw/unrendered LaTeX-style text visible in multiple frames."
+    }
+  },
+  "aggregator": {
+    "winner": "knapsack_v7",
+    "confidence": 0.82,
+    "explanation": "Lesson 1 is the clear overall winner: four of six agents favor it with very high confidence, especially on core learning dimensions\u2014interactivity, narration quality, synchronization, and conceptual accuracy. Lesson 2 is stronger visually and more polished, with consistent layout and cleaner tables, but its advantages are outweighed by severe weaknesses in narration, lack of interactivity and timing data, and incoherent conceptual presentation. Although Lesson 1 has notable visual/table errors and clutter, the higher-confidence judgments indicate it would teach the material more reliably overall."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:37:07.939483+00:00",
+  "videoMeta": {
+    "knapsack_v7": {},
+    "knapsack_paper2video": {}
+  }
+}

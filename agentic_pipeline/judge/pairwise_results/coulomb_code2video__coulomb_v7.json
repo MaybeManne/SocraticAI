@@ -1,0 +1,50 @@
+{
+  "setupA": "coulomb_v7",
+  "setupB": "coulomb_code2video",
+  "subject": "coulomb",
+  "lesson1Setup": "coulomb_code2video",
+  "lesson2Setup": "coulomb_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "coulomb_code2video",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 consistently shows the correct two positive charges, outward repulsion, distance, formula, substitution, and answer, while Lesson 2 repeatedly depicts only one charge with the second charge and distance label/formula elements clipped or offscreen, making the core two-charge geometry visually incomplete despite correct calculations."
+    },
+    "interactivity": {
+      "winner": "coulomb_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_formula with a real question, plausible options, and marked correct answer, while Lesson 1 has no available gate specs or plan and must be treated as having no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "coulomb_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 has clear, natural narration with no raw LaTeX or garbled phrasing, while Lesson 1 has no available narration transcript and therefore cannot demonstrate any audio clarity, pacing, or defect-free delivery."
+    },
+    "sync": {
+      "winner": "coulomb_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 provides generally well-timed cues that occur near the narrated references, while Lesson 1 has no transcript or cue timing available, making its sync impossible to verify and effectively worse on this dimension."
+    },
+    "concept_accuracy": {
+      "winner": "coulomb_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 correctly applies Coulomb\u2019s law, converts microcoulombs to coulombs, computes about 0.599 N, and explains repulsion/equal forces pedagogically, whereas Lesson 1 has no transcript or lesson content available to demonstrate any conceptual accuracy or learner support."
+    },
+    "polish": {
+      "winner": "coulomb_code2video",
+      "confidence": 0.82,
+      "rationale": "Lesson 1 is sparse and somewhat plain with small text and lots of empty space, but it stays clean, centered enough, and free of major visual bugs, whereas Lesson 2 has a more modern style but repeatedly suffers from cropped/partially hidden labels and formulas, cut-off bottom cards, and cluttered panel layout."
+    }
+  },
+  "aggregator": {
+    "winner": "coulomb_v7",
+    "confidence": 0.78,
+    "explanation": "Lesson 2 wins four of six dimensions, all with very high confidence: interactivity, narration quality, synchronization, and conceptual accuracy. These agents report that Lesson 2 has a functioning quiz gate, clear narration, well-timed cues, and correct Coulomb\u2019s law instruction. Lesson 1 wins visual accuracy and polish, with strong but slightly lower combined weight, because Lesson 2 has serious cropping and layout issues that obscure parts of the two-charge diagram and labels. Overall, despite Lesson 2\u2019s notable visual/polish problems, its strong performance on content, narration, sync, and interactivity gives it the clear overall advantage."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:32:35.198234+00:00",
+  "videoMeta": {
+    "coulomb_v7": {},
+    "coulomb_code2video": {}
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "setupA": "stddev_notebooklm",
+  "setupB": "stddev_v7",
+  "subject": "stddev",
+  "lesson1Setup": "stddev_notebooklm",
+  "lesson2Setup": "stddev_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "stddev_v7",
+      "confidence": 0.97,
+      "rationale": "Lesson 2 accurately visualizes the given dataset on a number line, marks the mean at 5, shows squared deviations, variance 4, and SD 2 in consistent positions, while Lesson 1 is mostly off-topic with unrelated quadratic/GCD visuals and only briefly shows the dataset/final 2 without a correct sustained standard-deviation diagram."
+    },
+    "interactivity": {
+      "winner": "stddev_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed quiz gate wired after act_deviations with a real question, plausible options, and a marked correct answer, while Lesson 1 has no available gate specs or plan and therefore no functioning checkpoints."
+    },
+    "narration_quality": {
+      "winner": "stddev_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is clearer and better paced with concise, natural narration, while Lesson 1 is understandable but much more rambling and filler-heavy, which makes the pacing feel less controlled."
+    },
+    "sync": {
+      "winner": "stddev_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 provides visual cues that generally occur near the narration references, while Lesson 1 has no beat/timing cue data at all, making its on-screen synchronization unsupported and effectively unverifiable."
+    },
+    "concept_accuracy": {
+      "winner": "stddev_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 2 gives a correct, step-by-step population standard deviation explanation with mean, deviations, squared deviations, variance divided by all 8 data points, and square root, while Lesson 1 is correct only in its final claims but skips the actual computation and is diluted by unrelated problems, making it much less pedagogically clear."
+    },
+    "polish": {
+      "winner": "stddev_notebooklm",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 has a more polished, consistently styled, legible notebook-themed presentation despite some decorative clutter, while Lesson 2 suffers from raw LaTeX text, off-center/empty layouts, small header text, UI artifacts, and clipped content near the end."
+    }
+  },
+  "aggregator": {
+    "winner": "stddev_v7",
+    "confidence": 0.94,
+    "explanation": "Lesson 2 is the clear overall winner: five of six agents favored it, most with high confidence. It was judged far stronger in visual accuracy, interactivity, synchronization, and concept accuracy, with especially high-confidence verdicts noting that it correctly represents the dataset, mean, squared deviations, variance, and standard deviation, and includes a functioning quiz checkpoint. Narration also favored Lesson 2 for clearer pacing. Lesson 1 only won polish, with high confidence, due to a more visually consistent notebook style, but that advantage is outweighed by Lesson 2's much stronger mathematical correctness, instructional structure, and interactive support."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:39:37.222567+00:00",
+  "videoMeta": {
+    "stddev_notebooklm": {},
+    "stddev_v7": {}
+  }
+}

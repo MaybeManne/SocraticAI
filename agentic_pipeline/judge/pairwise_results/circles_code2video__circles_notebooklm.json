@@ -1,0 +1,60 @@
+{
+  "setupA": "circles_notebooklm",
+  "setupB": "circles_code2video",
+  "subject": "circles",
+  "lesson1Setup": "circles_code2video",
+  "lesson2Setup": "circles_notebooklm",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_notebooklm",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 more consistently represents the shaded regions as concentric annuli with the correct alternating pattern and final 64-circle interpretation, while Lesson 1 has misleading non-concentric/tangent circle diagrams and a bite-shaped subtraction visual that do not accurately match the annular nested-circle concept."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have absent gate specs and absent plan JSON, so neither shows any functional checkpoints or input-accepting questions."
+    },
+    "narration_quality": {
+      "winner": "circles_notebooklm",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides clear, natural narration with spoken math rendered appropriately and no obvious TTS defects, while Lesson 1 has no transcript at all, making its narration absent and therefore worse on this dimension."
+    },
+    "sync": {
+      "winner": "circles_notebooklm",
+      "confidence": 0.65,
+      "rationale": "Lesson 2 at least provides a narration sequence that suggests when visuals should appear, whereas Lesson 1 has no transcript or timing data at all, making its sync impossible to verify and therefore worse."
+    },
+    "concept_accuracy": {
+      "winner": "circles_notebooklm",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 reaches the correct formula and answer and mostly explains the alternating-area sum clearly, despite incorrectly describing the circles as concentric/common-center rather than sharing a common point, whereas Lesson 1 has no available transcript or content to verify any correct conceptual teaching."
+    },
+    "polish": {
+      "winner": "circles_notebooklm",
+      "confidence": 0.88,
+      "rationale": "Lesson 2 has a much more polished, legible, consistently styled notebook layout with large centered text and clean visuals, while Lesson 1 often uses tiny left-side text, sparse off-center compositions, inconsistent color emphasis, and even a partially drawn/awkward visual at the summary stage."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_notebooklm",
+    "confidence": 0.89,
+    "explanation": "Lesson 2 is the clear overall winner: five of the six dimensions favor it, many with high confidence. It is judged stronger in visual accuracy, narration quality, sync, concept accuracy, and polish. The only non-Lesson-2 result is interactivity, which is a high-confidence tie because neither lesson includes functional checkpoints or input-based interaction. Lesson 2\u2019s main weakness is a conceptual/visual imprecision about the circles being concentric/common-center rather than sharing a common point, but it still reaches the correct formula and answer and is substantially more complete, legible, and polished than Lesson 1, which lacks transcript/content evidence and has weaker visuals."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:40:05.399675+00:00",
+  "videoMeta": {
+    "circles_notebooklm": {
+      "durationSeconds": 466.1,
+      "solved": true,
+      "explained": true,
+      "visualCount": 12
+    },
+    "circles_code2video": {
+      "durationSeconds": 89.8,
+      "solved": null,
+      "explained": null,
+      "visualCount": 0
+    }
+  }
+}

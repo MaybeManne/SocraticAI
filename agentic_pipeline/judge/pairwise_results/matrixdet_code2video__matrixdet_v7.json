@@ -1,0 +1,50 @@
+{
+  "setupA": "matrixdet_v7",
+  "setupB": "matrixdet_code2video",
+  "subject": "matrixdet",
+  "lesson1Setup": "matrixdet_v7",
+  "lesson2Setup": "matrixdet_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "matrixdet_code2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 2 consistently shows the correct coefficient highlighting, determinant setup, k=6 result, and nonzero-determinant crossing-lines contrast, while Lesson 1 has raw/unrendered LaTeX, an awkward/inaccurate matrix display, and especially later line graphics that do not actually overlap when explaining infinite solutions."
+    },
+    "interactivity": {
+      "winner": "matrixdet_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed quiz gate with a real question, plausible options, correct answer, and matching wired node after act_determinant, while Lesson 2 provides no gate specs or plan at all, so it has no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "matrixdet_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 has clear, natural, well-paced narration with spoken math rendered appropriately, while Lesson 2 has no available narration transcript and therefore provides no evidence of clear or usable audio."
+    },
+    "sync": {
+      "winner": "matrixdet_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 provides timed visual cues that generally align with the narrated references, whereas Lesson 2 has no transcript or cue timing at all, making its visual-narration synchronization absent and unevaluable."
+    },
+    "concept_accuracy": {
+      "winner": "matrixdet_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly computes the determinant 2k-12, identifies k=6, verifies the equations become identical and notes nonzero determinant gives a unique solution, whereas Lesson 2 has no available content to establish any mathematical accuracy or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "matrixdet_code2video",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 is cleaner and more consistently composed with rendered math and uncluttered layouts, while Lesson 1 repeatedly shows raw unrendered LaTeX strings, a crowded split-screen panel, awkward off-center elements, and even a partially empty/broken box near the end."
+    }
+  },
+  "aggregator": {
+    "winner": "matrixdet_v7",
+    "confidence": 0.86,
+    "explanation": "Lesson 1 wins four of six dimensions, all with very high confidence: interactivity, narration quality, synchronization, and concept accuracy. These are core instructional dimensions, and the agents report that Lesson 1 has a functional quiz gate, clear narration, aligned timed cues, and correct mathematical reasoning. Lesson 2 wins visual accuracy and polish with high confidence, mainly due to cleaner rendering and layout, while Lesson 1 has notable visual/raw-LaTeX issues. However, Lesson 2 lacks evidence for narration, sync, interactivity, and broader conceptual presentation, so the overall weighted judgment clearly favors Lesson 1 despite Lesson 2's stronger visual presentation."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:28:47.633007+00:00",
+  "videoMeta": {
+    "matrixdet_v7": {},
+    "matrixdet_code2video": {}
+  }
+}

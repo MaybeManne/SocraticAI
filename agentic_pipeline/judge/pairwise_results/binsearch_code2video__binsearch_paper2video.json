@@ -1,0 +1,55 @@
+{
+  "setupA": "binsearch_code2video",
+  "setupB": "binsearch_paper2video",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_paper2video",
+  "lesson2Setup": "binsearch_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_paper2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 1\u2019s binary-search trace and complexity visuals are largely positionally and mathematically correct, while Lesson 2\u2019s trace diagram misplaces/combines the mid, low, and high markers around the 56/38/45 step, creating an inconsistent representation of the algorithm state."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have absent gate specs and absent plan JSON, so neither provides any functioning checkpoints or interactive questions."
+    },
+    "narration_quality": {
+      "winner": "binsearch_paper2video",
+      "confidence": 0.67,
+      "rationale": "Lesson 1 has severe garbled and unnatural phrasing throughout, but Lesson 2 has no available narration transcript at all, so Lesson 1 is marginally better because it at least contains some intelligible narration while Lesson 2 is absent."
+    },
+    "sync": {
+      "winner": "binsearch_paper2video",
+      "confidence": 0.55,
+      "rationale": "Lesson 1 at least provides a narration sequence that could potentially be aligned, while Lesson 2 has no transcript or timing data at all, though Lesson 1 also lacks the beat/cue timing needed to verify sync reliably."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_paper2video",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 is garbled and incomplete in places but still conveys the core binary-search idea, example trace, halving intuition, and O(log n) comparison, whereas Lesson 2 has no transcript or teaching content to evaluate and therefore provides no conceptual explanation."
+    },
+    "polish": {
+      "winner": "binsearch_paper2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is much more legible, consistently styled, and slide-composed despite the distracting cursor/subtitle/player overlays, whereas Lesson 2 has tiny low-contrast text, dim/unclear diagrams, awkward off-center sparse layouts, and a visible text glitch around the binary-search label."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_paper2video",
+    "confidence": 0.89,
+    "explanation": "Lesson 1 is the clear overall winner: five of the six dimension agents favored it, including high-confidence wins in visual accuracy (0.86), concept accuracy (0.95), and polish (0.78). The only non-win was interactivity, where both lessons tied because neither included functioning checkpoints or plan/gate specs. Lesson 1 has notable issues\u2014garbled narration, incomplete sync evidence, and some distracting overlays\u2014but it still provides usable binary-search visuals, some intelligible narration, and a core conceptual explanation. Lesson 2 is substantially weaker due to an incorrect/inconsistent trace diagram, absent narration/transcript, no teaching content to evaluate, and poor visual polish."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:38:06.816710+00:00",
+  "videoMeta": {
+    "binsearch_code2video": {
+      "durationSeconds": 26.8,
+      "solved": null,
+      "explained": null,
+      "visualCount": 2
+    },
+    "binsearch_paper2video": {}
+  }
+}

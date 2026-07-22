@@ -1,0 +1,50 @@
+{
+  "setupA": "torque_v7",
+  "setupB": "torque_code2video",
+  "subject": "torque",
+  "lesson1Setup": "torque_code2video",
+  "lesson2Setup": "torque_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "torque_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 more accurately shows the physics progression from unequal equal-distance imbalance to the final balanced 30kg-at-2m/40kg-at-1.5m configuration, whereas Lesson 1\u2019s core solving diagram places the 40kg child visually farther from the pivot than the 30kg child and shows a tilted seesaw despite presenting the balance solution."
+    },
+    "interactivity": {
+      "winner": "torque_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 has a well-formed quiz gate with a real question, plausible options, a marked correct answer, and matching wiring after act_torque in the plan, whereas Lesson 1 has no available gate specs or plan and must be treated as having no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "torque_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides clear, natural narration with spoken math rendered intelligibly and no raw LaTeX defects, whereas Lesson 1 has no available transcript and therefore cannot demonstrate any narration quality."
+    },
+    "sync": {
+      "winner": "torque_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 has concrete visual cues that mostly fire near the narrated references, while Lesson 1 has no transcript or timing data at all, making synchronization absent and unevaluable."
+    },
+    "concept_accuracy": {
+      "winner": "torque_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly and clearly teaches torque balance, cancels gravity appropriately, shows the inverse mass-distance relationship, and computes 1.5 m, whereas Lesson 1 has no available transcript or lesson content to verify or learn from."
+    },
+    "polish": {
+      "winner": "torque_code2video",
+      "confidence": 0.62,
+      "rationale": "Lesson 1 is simpler and somewhat plain, but it stays uncluttered and avoids major clipping, whereas Lesson 2 has a more modern style but suffers from visible edge artifacts, cropped/partially cut-off content near the bottom, and repeated off-frame/cropped diagrams in the right panel."
+    }
+  },
+  "aggregator": {
+    "winner": "torque_v7",
+    "confidence": 0.96,
+    "explanation": "Lesson 2 is the clear overall winner: five of six agents favored it, and those votes carried very high confidence across visual accuracy, interactivity, narration quality, synchronization, and concept accuracy. The agents found Lesson 2 accurately teaches torque balance, includes functional quiz interactivity, provides clear narration, and aligns visuals with narration. The only dissent was polish, where Lesson 1 was preferred with moderate confidence due to Lesson 2's cropping and edge artifacts. That issue lowers confidence slightly but is outweighed by Lesson 2's strong advantages in the core instructional dimensions."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:32:42.405439+00:00",
+  "videoMeta": {
+    "torque_v7": {},
+    "torque_code2video": {}
+  }
+}

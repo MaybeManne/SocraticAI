@@ -1,0 +1,50 @@
+{
+  "setupA": "rpn_v7",
+  "setupB": "rpn_code2video",
+  "subject": "rpn",
+  "lesson1Setup": "rpn_v7",
+  "lesson2Setup": "rpn_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "rpn_code2video",
+      "confidence": 0.93,
+      "rationale": "Lesson 2 mostly shows the correct postfix stack evolution and arithmetic in the right order, while Lesson 1 has sustained visual inaccuracies such as highlighting tokens out of sync, showing the wrong/empty stack contents during operations, and relying on text equations while the stack diagram fails to represent the computation."
+    },
+    "interactivity": {
+      "winner": "rpn_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate with a real question, plausible options, and a marked correct answer after a specific act, whereas Lesson 2 provides no gate specs or plan at all, so it has no functioning checkpoint."
+    },
+    "narration_quality": {
+      "winner": "rpn_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 provides clear, natural, correctly paced narration with no raw LaTeX or garbled phrasing, while Lesson 2 has no available narration transcript at all, so its narration quality cannot be verified and is effectively absent."
+    },
+    "sync": {
+      "winner": "rpn_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 provides visual cues that generally fire near the narrated references, while Lesson 2 has no transcript or cue timing available and therefore cannot demonstrate any narration-visual synchronization."
+    },
+    "concept_accuracy": {
+      "winner": "rpn_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 correctly and clearly teaches postfix stack evaluation step by step, including operand order for subtraction, while Lesson 2 has no available transcript or lesson content to verify or support learner understanding."
+    },
+    "polish": {
+      "winner": "rpn_code2video",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 is simpler and somewhat old-fashioned with small text and occasional overlaps, but Lesson 1 has more severe polish problems including cropped/off-screen elements, recursive inset clutter, dimmed/cut layouts, and apparent overlapping animation artifacts despite its more modern styling."
+    }
+  },
+  "aggregator": {
+    "winner": "rpn_v7",
+    "confidence": 0.82,
+    "explanation": "Lesson 1 is the overall winner. Although Lesson 2 was judged better on visual accuracy with high confidence and somewhat better on polish, Lesson 1 won four of the six dimensions with very high confidence: interactivity, narration quality, synchronization, and concept accuracy. The strongest Lesson 1 advantages are that it has a functioning quiz checkpoint, clear narration, timed visual cues, and verified instructional correctness for postfix stack evaluation. Lesson 2\u2019s visual execution is stronger, but the absence of transcript, cue timing, and interactivity makes its overall instructional quality less complete."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:27:27.677067+00:00",
+  "videoMeta": {
+    "rpn_v7": {},
+    "rpn_code2video": {}
+  }
+}

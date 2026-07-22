@@ -1,0 +1,55 @@
+{
+  "setupA": "archer_v7",
+  "setupB": "archer_paper2video",
+  "subject": "archer",
+  "lesson1Setup": "archer_v7",
+  "lesson2Setup": "archer_paper2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "archer_paper2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2\u2019s displayed equations, substitutions, and final value are visually/textually correct throughout, whereas Lesson 1 includes a misleading projectile diagram whose dashed path never descends to the ground or clearly marks the actual landing/range point despite teaching horizontal range."
+    },
+    "interactivity": {
+      "winner": "archer_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate after act_vertical with a real question, plausible options, and a marked correct answer, while Lesson 2 has no available gate specs or plan and therefore no functional interactivity to evaluate."
+    },
+    "narration_quality": {
+      "winner": "archer_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, natural narration with appropriate pacing and spoken math, while Lesson 2 is heavily garbled with nonsensical phrases, repeated lines, and narration defects that make it difficult to follow."
+    },
+    "sync": {
+      "winner": "archer_v7",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 provides timed visual cues that mostly align with the narration\u2019s referenced concepts, whereas Lesson 2 provides no beat/timing or cue data at all, making its visual synchronization absent or unverifiable."
+    },
+    "concept_accuracy": {
+      "winner": "archer_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 correctly decomposes velocity, uses vertical motion to find time of flight, and multiplies by constant horizontal speed to get 141.4 m, while Lesson 2 is largely incoherent and gives incorrect numerical results such as about 100.4 m/40.4 m."
+    },
+    "polish": {
+      "winner": "archer_v7",
+      "confidence": 0.86,
+      "rationale": "Lesson 1 has a cleaner, consistent dark layout with legible equations and minimal visual artifacts, while Lesson 2 is undermined throughout by visible presentation controls/footer, persistent red cursor, garbled subtitle overlays, and more cluttered slide compositions."
+    }
+  },
+  "aggregator": {
+    "winner": "archer_v7",
+    "confidence": 0.96,
+    "explanation": "Five of six dimension agents favor Lesson 1, most with very high confidence. Lesson 1 is strongly preferred for interactivity, narration quality, synchronization, concept accuracy, and polish, with especially decisive confidence on interactivity, narration, and conceptual correctness. Lesson 2 only wins visual accuracy at moderate-high confidence because Lesson 1 has a misleading projectile diagram, but this single advantage is outweighed by Lesson 2\u2019s lack of interactivity/timing data, garbled narration, incoherent or incorrect calculations, and presentation artifacts. Overall, Lesson 1 is the clear winner."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:36:10.091128+00:00",
+  "videoMeta": {
+    "archer_v7": {
+      "durationSeconds": 172.0,
+      "solved": true,
+      "explained": true,
+      "visualCount": 5
+    },
+    "archer_paper2video": {}
+  }
+}

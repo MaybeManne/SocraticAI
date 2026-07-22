@@ -1,0 +1,55 @@
+{
+  "setupA": "circles_notebooklm",
+  "setupB": "circles_paper2video",
+  "subject": "circles",
+  "lesson1Setup": "circles_paper2video",
+  "lesson2Setup": "circles_notebooklm",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_paper2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 has mostly text/formulas and avoids major positional diagram errors while preserving the correct area computation, whereas Lesson 2 repeatedly depicts the circles as concentric annuli/bullseyes rather than nested circles sharing a common point, making its central visuals conceptually and positionally misleading."
+    },
+    "interactivity": {
+      "winner": "tie",
+      "confidence": 1.0,
+      "rationale": "Both lessons have no available gate specs or plan JSON, so neither shows any functional checkpoints or input-accepting questions and they are indistinguishable on interactivity."
+    },
+    "narration_quality": {
+      "winner": "circles_notebooklm",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 has clear, coherent, naturally paced narration with math spoken intelligibly, while Lesson 1 is severely garbled with many nonsensical phrases and pronunciation defects that make the audio essentially incomprehensible."
+    },
+    "sync": {
+      "winner": "tie",
+      "confidence": 0.9,
+      "rationale": "Both lessons lack any beat/timing visual cue data, making their visual-narration synchronization indistinguishable and impossible to compare on this dimension."
+    },
+    "concept_accuracy": {
+      "winner": "circles_notebooklm",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 gives a coherent, mostly correct derivation of the shaded area sum and final answer 64, whereas Lesson 1 is essentially unintelligible and fails to explain the mathematics, though Lesson 2 does inaccurately describe the circles as concentric/common-center instead of merely sharing a common point."
+    },
+    "polish": {
+      "winner": "circles_notebooklm",
+      "confidence": 0.96,
+      "rationale": "Lesson 2 has a clean, centered, consistent visual style with legible text and no major UI artifacts, while Lesson 1 is repeatedly marred by persistent subtitle/control overlays, a visible red cursor, crowded footers, and clutter despite otherwise readable slides."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_notebooklm",
+    "confidence": 0.86,
+    "explanation": "Lesson 2 is the clear overall winner. Although Lesson 1 is preferred on visual accuracy because Lesson 2 misleadingly depicts the circles as concentric/bullseye-like rather than sharing a common point, Lesson 2 wins the higher-impact dimensions of narration quality, concept accuracy, and polish with very high confidence. The interactivity and sync agents found no meaningful difference because both lessons lacked relevant checkpoint/timing data. Overall, the strong high-confidence advantages for Lesson 2 in comprehensibility, mathematical explanation, and presentation outweigh its visual-diagram flaw."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:40:43.670116+00:00",
+  "videoMeta": {
+    "circles_notebooklm": {
+      "durationSeconds": 466.1,
+      "solved": true,
+      "explained": true,
+      "visualCount": 12
+    },
+    "circles_paper2video": {}
+  }
+}

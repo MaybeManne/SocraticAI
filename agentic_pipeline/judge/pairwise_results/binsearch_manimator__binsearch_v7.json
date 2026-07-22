@@ -1,0 +1,60 @@
+{
+  "setupA": "binsearch_manimator",
+  "setupB": "binsearch_v7",
+  "subject": "binsearch",
+  "lesson1Setup": "binsearch_v7",
+  "lesson2Setup": "binsearch_manimator",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "binsearch_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 accurately shows the full sorted array, correct index 7 target, initial mid/high/low and search-space narrowing despite some skipped/overlapped intermediate labels, whereas Lesson 2 mostly displays a single box with mispositioned overlapping low/high/mid markers and lacks a correct array/index visualization for the binary search."
+    },
+    "interactivity": {
+      "winner": "binsearch_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate with a real question, plausible options, and a correct answer after act_found, whereas Lesson 2 has no available gate specs or plan and therefore no functioning checkpoint."
+    },
+    "narration_quality": {
+      "winner": "binsearch_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 has clear, well-paced narration with spoken math rendered naturally, while Lesson 2 has no narration transcript available, making its audio quality absent and unevaluable."
+    },
+    "sync": {
+      "winner": "binsearch_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 provides timed cues that are mostly aligned with the narrated references, while Lesson 2 has no transcript or cue timing available at all, making its sync impossible to verify and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "binsearch_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 correctly traces the binary search steps and explains the halving-to-logarithm idea clearly, with only a minor plan/script inconsistency about linear-search step count, while Lesson 2 provides no available teaching content to verify or learn from."
+    },
+    "polish": {
+      "winner": "binsearch_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 is far more polished with consistent styling, readable text, and a structured two-column layout despite some minor label overlaps and a literal \\implies artifact, whereas Lesson 2 has tiny illegible elements, severe clipping/off-screen text, overlapping titles/labels, excessive empty space, and multiple broken-looking frames."
+    }
+  },
+  "aggregator": {
+    "winner": "binsearch_v7",
+    "confidence": 0.98,
+    "explanation": "All six dimension agents strongly favor Lesson 1 with very high confidence. Lesson 1 has accurate binary search visuals, a functioning quiz checkpoint, clear narration, mostly aligned timing cues, correct conceptual explanation, and substantially better polish. Lesson 2 is consistently described as missing or unusable across key areas: no available narration, cue timing, interactivity, or verifiable teaching content, plus severe visual and layout issues. Minor imperfections in Lesson 1 do not offset its clear superiority."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-16T18:47:02.645431+00:00",
+  "videoMeta": {
+    "binsearch_manimator": {
+      "durationSeconds": 118.9,
+      "solved": null,
+      "explained": null,
+      "visualCount": 2
+    },
+    "binsearch_v7": {
+      "durationSeconds": 152.0,
+      "solved": true,
+      "explained": true,
+      "visualCount": 2
+    }
+  }
+}

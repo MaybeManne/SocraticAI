@@ -1,0 +1,55 @@
+{
+  "setupA": "circles_v7",
+  "setupB": "circles_paper2video",
+  "subject": "circles",
+  "lesson1Setup": "circles_paper2video",
+  "lesson2Setup": "circles_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "circles_paper2video",
+      "confidence": 0.86,
+      "rationale": "Lesson 1\u2019s visuals are mostly text and correct equations/tables, whereas Lesson 2 repeatedly shows a clipped, filled disk-like circle diagram that does not accurately depict alternating shaded annuli between nested tangent circles, making its main visual representation conceptually wrong despite correct algebra."
+    },
+    "interactivity": {
+      "winner": "circles_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a functional fill-in checkpoint wired after act_pattern with a real prompt, accepted answers, hint, and remediation path, whereas Lesson 1 has no available gate specs or plan and thus no evidence of any functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "circles_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 has clear, well-paced narration with understandable spoken math, while Lesson 1 is almost entirely garbled and unintelligible with many unnatural phrases and pronunciation defects."
+    },
+    "sync": {
+      "winner": "circles_v7",
+      "confidence": 0.91,
+      "rationale": "Lesson 2 provides mostly relevant visual cues with only some early offsets, while Lesson 1 has no usable beat/cue timing data and thus offers no evidence of synchronized visual changes despite narration that appears to reference visuals."
+    },
+    "concept_accuracy": {
+      "winner": "circles_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 correctly and clearly derives the shaded-region area, sums it, solves the threshold inequality, and explains the final doubling to 64 circles, while Lesson 1 is essentially incoherent and does not provide a usable or pedagogically accurate explanation."
+    },
+    "polish": {
+      "winner": "circles_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has a cleaner, more consistent modern visual style with no persistent player/subtitle/cursor overlays, while Lesson 1 is repeatedly marred by visible presentation UI, intrusive black caption bars, a red cursor, and cluttered footer elements despite its otherwise readable slide layout."
+    }
+  },
+  "aggregator": {
+    "winner": "circles_v7",
+    "confidence": 0.95,
+    "explanation": "Lesson 2 is the clear overall winner: five of six dimension agents preferred it, including very high-confidence wins for interactivity, narration quality, sync, and concept accuracy, plus a polish win. These dimensions strongly indicate Lesson 2 is more functional, intelligible, pedagogically correct, synchronized, and professionally presented. Lesson 1\u2019s only win was visual accuracy, where Lesson 2\u2019s main diagram was judged conceptually wrong; however, this single drawback is outweighed by Lesson 2\u2019s strong advantages across the other dimensions, especially the near-unanimous high-confidence findings that Lesson 1 is incoherent, lacks working interactivity, and has poor narration/synchronization evidence."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:36:01.837418+00:00",
+  "videoMeta": {
+    "circles_v7": {
+      "durationSeconds": 175.0,
+      "solved": true,
+      "explained": true,
+      "visualCount": 3
+    },
+    "circles_paper2video": {}
+  }
+}

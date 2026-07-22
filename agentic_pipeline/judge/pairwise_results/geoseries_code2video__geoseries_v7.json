@@ -1,0 +1,50 @@
+{
+  "setupA": "geoseries_v7",
+  "setupB": "geoseries_code2video",
+  "subject": "geoseries",
+  "lesson1Setup": "geoseries_code2video",
+  "lesson2Setup": "geoseries_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "geoseries_code2video",
+      "confidence": 0.93,
+      "rationale": "Lesson 1 consistently shows the bounce heights, separated down/up series, and final sums in conceptually correct positions, while Lesson 2 sustains a major visual mismatch by labeling 'Upward Paths' but drawing downward arrows for a long section and even includes confusing/mislabeled total-distance algebra."
+    },
+    "interactivity": {
+      "winner": "geoseries_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after a specific act with a real question, plausible options, and a marked correct answer, whereas Lesson 1 has no available gate specs or plan and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "geoseries_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 has clear, natural narration with spoken math and no raw LaTeX or garbling, while Lesson 1\u2019s transcript is absent so its narration quality cannot be evaluated and provides no evidence of clear audio or pacing."
+    },
+    "sync": {
+      "winner": "geoseries_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 2 provides timed visual cues that generally align with the narration\u2019s references, while Lesson 1 has no transcript or cue timing available at all, making it impossible to verify any synchronization and therefore much worse on this dimension."
+    },
+    "concept_accuracy": {
+      "winner": "geoseries_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 correctly decomposes the motion into the initial 12m drop plus matching upward and subsequent downward geometric series with first term 8 and ratio 2/3, while Lesson 1 provides no transcript or lesson content to verify any mathematical accuracy or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "geoseries_code2video",
+      "confidence": 0.84,
+      "rationale": "Lesson 1 is plainer and sometimes has small text, but it stays mostly clean and readable, whereas Lesson 2 suffers from major polish defects including raw LaTeX displayed literally, cropped/scrolling content, and empty placeholder boxes despite its more modern styling."
+    }
+  },
+  "aggregator": {
+    "winner": "geoseries_v7",
+    "confidence": 0.86,
+    "explanation": "Lesson 2 wins four of six dimensions, all with very high confidence: interactivity, narration quality, synchronization, and concept accuracy. These wins are especially weighty because Lesson 2 provides a functioning quiz gate, clear narration, timed cues, and a mathematically correct decomposition of the bouncing-ball distance, while Lesson 1 lacks transcript, timing, interactivity, and verifiable conceptual explanation for several dimensions. Lesson 1 does win visual accuracy with high confidence and polish with moderate-high confidence, mainly because Lesson 2 has notable visual/presentation issues such as mismatched arrow directions, raw LaTeX, cropped content, and placeholders. However, the overall evidence strongly favors Lesson 2 due to its stronger instructional completeness and high-confidence wins across the core pedagogical dimensions."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:27:56.997568+00:00",
+  "videoMeta": {
+    "geoseries_v7": {},
+    "geoseries_code2video": {}
+  }
+}

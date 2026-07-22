@@ -1,0 +1,50 @@
+{
+  "setupA": "boxopt_v7",
+  "setupB": "boxopt_code2video",
+  "subject": "boxopt",
+  "lesson1Setup": "boxopt_code2video",
+  "lesson2Setup": "boxopt_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "boxopt_code2video",
+      "confidence": 0.91,
+      "rationale": "Lesson 1 consistently shows the relevant open-top box setup, formulas, calculus step, and final optimized result in roughly correct positions, while Lesson 2 leaves the main diagram/net area blank for most of the lesson despite referencing it and never visually presents the final dimensions or minimum area in the sampled timeline."
+    },
+    "interactivity": {
+      "winner": "boxopt_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed, wired quiz checkpoint after act_setup with a real question, plausible options, and a marked correct answer, whereas Lesson 1 has no available gate specs or plan and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "boxopt_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides clear, natural narration with spoken math and no raw LaTeX or garbling, while Lesson 1 has no available narration transcript and therefore cannot demonstrate any audio quality."
+    },
+    "sync": {
+      "winner": "boxopt_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 has mostly narration-aligned visual cues despite a likely early final-box cue, whereas Lesson 1 has no transcript or cue timing at all, making its sync effectively absent and worse."
+    },
+    "concept_accuracy": {
+      "winner": "boxopt_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 correctly derives the open-top surface area, uses the volume constraint to form A(x)=x^2+128/x, differentiates to find x=4 and area 48 with a clear pedagogical sequence, whereas Lesson 1 has no available transcript or script to demonstrate any accurate or explanatory content."
+    },
+    "polish": {
+      "winner": "boxopt_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is simpler and somewhat sparse but generally readable and consistently composed, while Lesson 2\u2019s sleeker styling is undermined by a persistently empty left half, content pushed to the right, scrolling/clipped material at the top and bottom, and occasional subtitle/UI overlays."
+    }
+  },
+  "aggregator": {
+    "winner": "boxopt_v7",
+    "confidence": 0.78,
+    "explanation": "Lesson 2 is the clear overall winner: four agents strongly favored it with very high confidence for interactivity, narration quality, sync, and concept accuracy. These areas indicate Lesson 2 has a functioning quiz, clear narration, aligned cues, and a correct mathematical derivation. Lesson 1 was favored for visual accuracy and polish, but with lower combined weight; its advantages were mainly that it displayed the box setup more consistently and avoided some of Lesson 2\u2019s layout/clipping issues. Overall, the high-confidence strengths of Lesson 2 outweigh its visual presentation problems."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:23:57.482046+00:00",
+  "videoMeta": {
+    "boxopt_v7": {},
+    "boxopt_code2video": {}
+  }
+}

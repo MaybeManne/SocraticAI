@@ -1,0 +1,50 @@
+{
+  "setupA": "pendulum_v7",
+  "setupB": "pendulum_paper2video",
+  "subject": "pendulum",
+  "lesson1Setup": "pendulum_v7",
+  "lesson2Setup": "pendulum_paper2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "pendulum_v7",
+      "confidence": 0.68,
+      "rationale": "Lesson 1 more accurately visualizes the actual pendulum with length and gravity annotations tied to the calculation, whereas Lesson 2 is mostly text/formula slides with no pendulum or oscillation diagram despite otherwise correct equations."
+    },
+    "interactivity": {
+      "winner": "pendulum_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate with a real question, options, correct answer, and remediation path after a specific act, while Lesson 2 has no available gate specs or plan and therefore no functioning interactivity to evaluate."
+    },
+    "narration_quality": {
+      "winner": "pendulum_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, natural narration with correctly spoken math and appropriate pacing, while Lesson 2 is heavily garbled with nonsensical phrases, pronunciation defects, and confusing inconsistent statements."
+    },
+    "sync": {
+      "winner": "pendulum_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 1 provides timed cues that generally occur as the narration introduces the pendulum, forces, equations, approximation, and final answer, while Lesson 2 has no beat/timing cues at all, so its referenced formulas, calculations, and tables cannot be shown to change in sync with the narration."
+    },
+    "concept_accuracy": {
+      "winner": "pendulum_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 is mathematically correct and pedagogically builds from forces to the small-angle SHM formula and calculation, while Lesson 2 is largely incoherent, contains a wrong stated length of 0.45 m, and gives only a garbled formula-based explanation despite arriving at the right final value."
+    },
+    "polish": {
+      "winner": "pendulum_paper2video",
+      "confidence": 0.72,
+      "rationale": "Lesson 2 has a much more consistent, legible, slide-like layout with large text and clean spacing, whereas Lesson 1 is frequently off-center, uses tiny labels, has cramped/scrolling calculation panels and some overlapping/clipped equation elements, despite Lesson 2\u2019s distracting cursor/footer/subtitle overlays."
+    }
+  },
+  "aggregator": {
+    "winner": "pendulum_v7",
+    "confidence": 0.94,
+    "explanation": "Lesson 1 is the clear overall winner: five of six agents preferred it, including very high-confidence wins for interactivity, narration quality, synchronization, and concept accuracy, plus a moderate win for visual accuracy. These dimensions indicate Lesson 1 is more pedagogically coherent, mathematically accurate, better narrated, timed, and interactive. Lesson 2 only won polish with moderate confidence due to cleaner slide layout, but this is outweighed by its lack of interactivity and timing, garbled narration, weak visuals, and conceptual issues."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-22T00:22:48.201550+00:00",
+  "videoMeta": {
+    "pendulum_v7": {},
+    "pendulum_paper2video": {}
+  }
+}

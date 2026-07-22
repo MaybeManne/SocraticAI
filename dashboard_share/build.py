@@ -25,7 +25,9 @@ import app  # noqa: E402  the live dashboard server module (catalog/stats/rankin
 sys.path.insert(0, str(REPO / "agentic_pipeline" / "judge"))
 import bradley_terry  # noqa: E402
 
-PRIMARY = re.compile(r"_(v[1-7]|veo3|mathgpt|notebooklm|videotutor)$")
+# vN variants + every tool in the manifest registry (benchmark/problems.json).
+_tools = [t["id"] for t in json.loads(app.PROBLEMS_MANIFEST.read_text()).get("tools", [])]
+PRIMARY = re.compile(r"_(v[1-7]|" + "|".join(map(re.escape, _tools)) + r")$")
 DIMS = app.DIMENSIONS
 
 

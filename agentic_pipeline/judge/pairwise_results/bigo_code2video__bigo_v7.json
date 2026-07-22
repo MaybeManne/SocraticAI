@@ -1,0 +1,50 @@
+{
+  "setupA": "bigo_v7",
+  "setupB": "bigo_code2video",
+  "subject": "bigo",
+  "lesson1Setup": "bigo_v7",
+  "lesson2Setup": "bigo_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "bigo_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 uses simpler but mostly correct diagrams for the recurrences and growth comparison, while Lesson 1 has several sustained visual/content mismatches such as incomplete or malformed recursion trees and a mislabeled Algorithm A prompt paired with Algorithm B c-level work calculations."
+    },
+    "interactivity": {
+      "winner": "bigo_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 includes a concrete, wired quiz gate after act_a_conclusion with a real question, options, and correct answer, while Lesson 2 has no available gate specs or plan and therefore provides no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "bigo_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 has clear, natural narration with spoken math and reasonable pacing cues, while Lesson 2 has no available narration transcript at all, making it absent rather than assessable audio."
+    },
+    "sync": {
+      "winner": "bigo_v7",
+      "confidence": 0.97,
+      "rationale": "Lesson 1 provides timed visual cues that are generally aligned with the narration's references despite a few imperfect offsets, whereas Lesson 2 has no transcript or cue timing at all, making synchronization unevaluable and effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "bigo_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly explains both recursion trees and derives A as O(n log n) and B as O(n), with only minor simplification about log n versus log n+1 levels, while Lesson 2 provides no transcript or lesson content to verify accuracy or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "bigo_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is visually plain but clean, consistently styled, legible, and uncluttered, whereas Lesson 1 has a more polished theme but suffers from crowded split layouts, tiny diagram labels, empty/dashed placeholder boxes, dimmed overlapping content, and several later frames where panels are cropped/off-center with large wasted space."
+    }
+  },
+  "aggregator": {
+    "winner": "bigo_v7",
+    "confidence": 0.88,
+    "explanation": "Lesson 1 is the clear overall winner: four high-confidence agents favored it for functional interactivity, narration quality, synchronization, and concept accuracy, each with confidence around 0.97\u20130.98. Lesson 2 won visual accuracy and polish, but those wins were lower confidence at 0.78 and mainly reflected Lesson 1's visual/layout issues versus Lesson 2's cleaner static presentation. Since Lesson 2 lacks available narration, timing, interactivity, and verifiable instructional content, Lesson 1's strong advantages in core lesson delivery outweigh its visual shortcomings."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:34:56.908628+00:00",
+  "videoMeta": {
+    "bigo_v7": {},
+    "bigo_code2video": {}
+  }
+}

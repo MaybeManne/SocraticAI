@@ -1,0 +1,50 @@
+{
+  "setupA": "buoyancy_v7",
+  "setupB": "buoyancy_code2video",
+  "subject": "buoyancy",
+  "lesson1Setup": "buoyancy_code2video",
+  "lesson2Setup": "buoyancy_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "buoyancy_code2video",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 has several inaccurate or incomplete diagrams, but Lesson 2 repeatedly and explicitly shows the cube with only about 40% of its height submerged\u2014even highlighting that wrong portion while deriving 0.6\u2014so its central visual representation contradicts the actual answer more severely."
+    },
+    "interactivity": {
+      "winner": "buoyancy_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 has a well-formed, wired quiz gate after act_payoff with a real question, plausible options, and a marked correct answer, whereas Lesson 1 provides no gate specs or plan JSON so its interactivity is absent."
+    },
+    "narration_quality": {
+      "winner": "buoyancy_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 has clear, natural, well-paced narration with spoken math rendered appropriately, while Lesson 1 has no available narration transcript and therefore cannot demonstrate any audio clarity or pacing quality."
+    },
+    "sync": {
+      "winner": "buoyancy_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 at least provides timed cues that often align with the referenced visuals, despite several cues firing too early for later-mentioned concepts, whereas Lesson 1 has no transcript or cue data at all and therefore cannot demonstrate any narration-visual synchronization."
+    },
+    "concept_accuracy": {
+      "winner": "buoyancy_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly and clearly derives the submerged fraction from Archimedes' principle as the density ratio 600/1000 = 0.6 with helpful cancellation and scale-independence explanations, whereas Lesson 1 has no available transcript or lesson content to verify accuracy or pedagogical clarity."
+    },
+    "polish": {
+      "winner": "buoyancy_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 is sparse and somewhat plain with small left-side text, but it remains visually coherent and free of major rendering bugs, whereas Lesson 2 has a prominent raw unrendered LaTeX string visible for much of the lesson and later becomes more crowded/clipped despite its otherwise cleaner modern layout."
+    }
+  },
+  "aggregator": {
+    "winner": "buoyancy_v7",
+    "confidence": 0.86,
+    "explanation": "Lesson 2 wins clearly overall: four high-confidence agents favored it, including interactivity, narration quality, synchronization, and concept accuracy, all around 0.95\u20130.99 confidence. These are core lesson-quality dimensions, and Lesson 1 lacked transcript, cue, gate, or content evidence in several of them. Lesson 1 was favored on visual accuracy and polish, with moderate confidence, because Lesson 2 had a serious misleading submerged-cube visual and visible rendering/crowding issues. However, those drawbacks do not outweigh Lesson 2\u2019s strong advantages in correctness of explanation, narration, timing support, and actual interactive structure."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:27:06.055883+00:00",
+  "videoMeta": {
+    "buoyancy_v7": {},
+    "buoyancy_code2video": {}
+  }
+}

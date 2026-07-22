@@ -1,0 +1,50 @@
+{
+  "setupA": "defintegral_v7",
+  "setupB": "defintegral_code2video",
+  "subject": "defintegral",
+  "lesson1Setup": "defintegral_code2video",
+  "lesson2Setup": "defintegral_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "defintegral_v7",
+      "confidence": 0.82,
+      "rationale": "Lesson 2 consistently shows the correct y=x^2 and y=2x graph with the enclosed region, slice, limits, and final area in the right places, while Lesson 1 is mostly correct but uses less precise/generic visuals at the start and switches to an unrelated summary graph at the end."
+    },
+    "interactivity": {
+      "winner": "defintegral_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 has a functional, wired quiz gate after act_setup with a real question, plausible options, and a marked correct answer, whereas Lesson 1 has no available gate specs or plan and therefore no evidence of any functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "defintegral_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides clear, natural narration with correctly spoken math and no obvious pacing or LaTeX-readout defects, while Lesson 1 has no available narration transcript at all and therefore cannot demonstrate acceptable narration quality."
+    },
+    "sync": {
+      "winner": "defintegral_v7",
+      "confidence": 0.9,
+      "rationale": "Lesson 2 provides timed visual cues that mostly align with the referenced narration despite a few cues firing early, whereas Lesson 1 has no transcript or cue timing at all, making it unable to demonstrate synchronization."
+    },
+    "concept_accuracy": {
+      "winner": "defintegral_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 correctly finds intersections, identifies the top-minus-bottom integrand over x=0 to 2, and evaluates the integral to 4/3 with a clear pedagogical sequence, while Lesson 1 has no available transcript or script to demonstrate any correct or comprehensible teaching content."
+    },
+    "polish": {
+      "winner": "defintegral_code2video",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 is less modern but generally readable, centered, and consistently composed with rendered math, while Lesson 2 has a cleaner UI overall but repeatedly shows raw unrendered LaTeX strings and some awkward empty/right-panel space, which are major polish defects."
+    }
+  },
+  "aggregator": {
+    "winner": "defintegral_v7",
+    "confidence": 0.95,
+    "explanation": "Lesson 2 is the clear overall winner: five of six dimension agents chose it, all with high confidence, including visual accuracy, interactivity, narration quality, synchronization, and concept accuracy. These cover the core instructional effectiveness of the lesson, and the rationales indicate Lesson 2 has correct graphs, a functioning quiz gate, clear narration, aligned timing cues, and mathematically correct area setup and evaluation. Lesson 1 only won polish, also with high confidence, because Lesson 2 has notable raw LaTeX and layout issues. However, that single polish advantage is outweighed by Lesson 2's strong performance across the substantive teaching, interaction, and correctness dimensions."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:29:52.003384+00:00",
+  "videoMeta": {
+    "defintegral_v7": {},
+    "defintegral_code2video": {}
+  }
+}

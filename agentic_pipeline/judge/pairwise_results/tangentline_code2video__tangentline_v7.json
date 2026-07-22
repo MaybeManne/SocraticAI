@@ -1,0 +1,50 @@
+{
+  "setupA": "tangentline_v7",
+  "setupB": "tangentline_code2video",
+  "subject": "tangentline",
+  "lesson1Setup": "tangentline_v7",
+  "lesson2Setup": "tangentline_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "tangentline_v7",
+      "confidence": 0.73,
+      "rationale": "Lesson 1 has a serious temporary error where the tangent line is drawn with negative slope before being corrected, but Lesson 2\u2019s final visual represents the tangent-line equation with a curved graph and has garbled slope substitution, making its culminating diagram less visually accurate overall."
+    },
+    "interactivity": {
+      "winner": "tangentline_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a functional, well-wired quiz gate with a real question, answer options, correct index, and remediation path after a specific act, while Lesson 2 has no gate specs or plan at all, so it provides no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "tangentline_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 has clear, naturally paced narration with correctly spoken math and no raw LaTeX or garbling, while Lesson 2 has no available transcript and therefore provides no assessable narration quality."
+    },
+    "sync": {
+      "winner": "tangentline_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 provides mostly well-timed cues that occur near the narrated references, while Lesson 2 has no transcript or timing data available, making it unable to demonstrate any sync alignment."
+    },
+    "concept_accuracy": {
+      "winner": "tangentline_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 correctly and clearly builds the tangent-line solution by finding the point, using the derivative as slope, and applying point-slope form, while Lesson 2 has no available transcript or content to verify any mathematical accuracy or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "tangentline_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 1 has a more consistent, legible, modern split-screen layout despite some clipping/overflow near the end, while Lesson 2 uses tiny sparse text, feels less centered/composed, and has a clear overlapping formula/box visual bug around t=60s."
+    }
+  },
+  "aggregator": {
+    "winner": "tangentline_v7",
+    "confidence": 0.95,
+    "explanation": "All six dimension agents favor Lesson 1, with especially high-confidence wins in interactivity, narration quality, sync, and concept accuracy. Lesson 1 has a functional quiz gate, clear narration, mostly aligned timing, and a correct tangent-line solution process. Its weaker areas include a temporary incorrect tangent slope and some final layout clipping, but Lesson 2 performs worse overall: it lacks transcript/timing/interactivity evidence, has less reliable final visuals, sparse composition, and visible formula overlap/garbling. The unanimous vote and strong confidence across core instructional dimensions make Lesson 1 the clear winner."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:29:25.018831+00:00",
+  "videoMeta": {
+    "tangentline_v7": {},
+    "tangentline_code2video": {}
+  }
+}

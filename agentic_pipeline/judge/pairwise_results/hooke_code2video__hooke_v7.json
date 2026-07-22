@@ -1,0 +1,50 @@
+{
+  "setupA": "hooke_v7",
+  "setupB": "hooke_code2video",
+  "subject": "hooke",
+  "lesson1Setup": "hooke_v7",
+  "lesson2Setup": "hooke_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "hooke_v7",
+      "confidence": 0.75,
+      "rationale": "Lesson 1 more accurately depicts the physical setup with a wall, compressed spring, ball, surface, and energy transfer, whereas Lesson 2 is mostly text with no actual launcher/ball diagram and includes a visually displayed incorrect claim that the initial spring energy is 4.5 J despite the correct value being 2.25 J."
+    },
+    "interactivity": {
+      "winner": "hooke_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a functional quiz gate with a real question, plausible options, marked correct answer, and wiring after act_launch in the plan, whereas Lesson 2 has no gate specs or plan available and therefore no demonstrable interactive checkpoint."
+    },
+    "narration_quality": {
+      "winner": "hooke_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 has clear, well-paced narration with spoken math rendered naturally and no defects, while Lesson 2 provides no narration transcript at all, making its audio quality absent and unevaluable."
+    },
+    "sync": {
+      "winner": "hooke_v7",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 provides timed cues that generally align with the narration's references to drawing, compressing, releasing, equations, and substitutions, whereas Lesson 2 has no transcript or cue timing available, making its visual-narration synchronization absent and unevaluable."
+    },
+    "concept_accuracy": {
+      "winner": "hooke_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly and clearly teaches the energy-conservation setup, algebra, and numerical result, while Lesson 2 has no available transcript or lesson content to verify accuracy or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "hooke_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 has a more polished, consistent modern layout with legible text, clear panels, and visual diagrams, whereas Lesson 2 is very sparse with tiny serif text pushed to the left, excessive empty space, and a less cohesive slide composition despite fewer complex elements."
+    }
+  },
+  "aggregator": {
+    "winner": "hooke_v7",
+    "confidence": 0.97,
+    "explanation": "All six dimension agents favored Lesson 1, most with high confidence. Lesson 1 was judged superior in visual accuracy, interactivity, narration quality, synchronization, concept accuracy, and polish. The strongest factors were that Lesson 1 includes a correct physical diagram, functional quiz gate, clear narration, aligned cues, and accurate energy-conservation explanation, while Lesson 2 lacks key lesson materials such as narration, timing, interactivity specs, and in one visible case shows an incorrect spring-energy value. With unanimous votes and generally high confidence, Lesson 1 is the clear overall winner."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:31:48.314167+00:00",
+  "videoMeta": {
+    "hooke_v7": {},
+    "hooke_code2video": {}
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "setupA": "lawcosines_v7",
+  "setupB": "lawcosines_code2video",
+  "subject": "lawcosines",
+  "lesson1Setup": "lawcosines_v7",
+  "lesson2Setup": "lawcosines_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "lawcosines_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 consistently draws the SAS triangle with the 5 and 7 sides enclosing the 60\u00b0 angle and highlights the opposite side as \u221a39, while Lesson 2 has variable-label inconsistencies, omits/unclearly places the included angle in key diagrams, and its final diagram appears to mark the unknown distance on the wrong segment."
+    },
+    "interactivity": {
+      "winner": "lawcosines_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz checkpoint with a real question, plausible options, and a marked correct answer after act_formula, while Lesson 2 provides no gate specs or plan at all, so it has no functional interactivity."
+    },
+    "narration_quality": {
+      "winner": "lawcosines_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 provides clear, well-paced narration with correctly spoken math and no raw LaTeX defects, while Lesson 2 has no available narration transcript at all, making it impossible to verify any audio quality."
+    },
+    "sync": {
+      "winner": "lawcosines_v7",
+      "confidence": 0.9,
+      "rationale": "Lesson 1 at least provides timed visual cues that mostly align with the narrated references, though a few are early or sparse, while Lesson 2 has no available transcript or cues to verify any synchronization at all."
+    },
+    "concept_accuracy": {
+      "winner": "lawcosines_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 correctly applies the Law of Cosines with the included 60\u00b0 angle, clearly explains the side-angle relationship and simplification to c=\u221a39, whereas Lesson 2 has no available transcript or lesson content to verify correctness or pedagogical clarity."
+    },
+    "polish": {
+      "winner": "lawcosines_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is less modern and somewhat sparse, but it maintains clean rendered typography and consistent readable layouts, whereas Lesson 1 has serious polish issues including raw unrendered LaTeX/backslash text, an initially empty formula box, and occasional cramped split-panel clutter."
+    }
+  },
+  "aggregator": {
+    "winner": "lawcosines_v7",
+    "confidence": 0.97,
+    "explanation": "Lesson 1 is the clear overall winner: five of six dimension agents favored it, all with very high confidence, across the most substantive areas\u2014visual accuracy, interactivity, narration quality, synchronization, and concept accuracy. The agents found Lesson 1 correctly represents the SAS triangle, applies the Law of Cosines accurately, includes functional quiz interactivity, and provides usable narration and timing cues. Lesson 2 only won polish, with lower confidence, due to cleaner typography/layout, but it lacked or failed to provide sufficient content for several core instructional dimensions. The single polish advantage is not enough to overcome Lesson 1's strong, high-confidence wins in the primary learning-quality categories."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:28:26.854791+00:00",
+  "videoMeta": {
+    "lawcosines_v7": {},
+    "lawcosines_code2video": {}
+  }
+}

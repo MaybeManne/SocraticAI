@@ -1,0 +1,50 @@
+{
+  "setupA": "calorimetry_v7",
+  "setupB": "calorimetry_code2video",
+  "subject": "calorimetry",
+  "lesson1Setup": "calorimetry_code2video",
+  "lesson2Setup": "calorimetry_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "calorimetry_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 1 consistently shows the correct heat-transfer decomposition, conservation setup, algebra, and final temperature, whereas Lesson 2 only accurately depicts the initial container state and even has a visible formula-rendering artifact while never visually developing the actual energy-balance solution."
+    },
+    "interactivity": {
+      "winner": "calorimetry_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a well-formed, wired quiz gate after act_ice_journey with a real question, plausible options, and a marked correct answer, while Lesson 1 provides no gate specs or plan JSON, so its interactivity is absent."
+    },
+    "narration_quality": {
+      "winner": "calorimetry_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 2 provides clear, naturally paced narration with spoken math handled properly and no raw LaTeX or garbling, while Lesson 1 has no available narration transcript and therefore cannot demonstrate any narration quality."
+    },
+    "sync": {
+      "winner": "calorimetry_v7",
+      "confidence": 0.92,
+      "rationale": "Lesson 2 provides visual cues that generally occur when the narration references the container, ice, energy flow, equations, and final answer, whereas Lesson 1 has no transcript or cue timing at all, making its sync effectively unevaluable and absent."
+    },
+    "concept_accuracy": {
+      "winner": "calorimetry_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 correctly derives the energy balance including both latent heat and warming of the melted ice and explains the sequence clearly, whereas Lesson 1 has no available transcript or plan, so it provides no assessable or demonstrable conceptual teaching."
+    },
+    "polish": {
+      "winner": "calorimetry_code2video",
+      "confidence": 0.88,
+      "rationale": "Lesson 1 is visually consistent, uncluttered, and mostly well-centered with readable rendered math, whereas Lesson 2 has obvious polish defects including raw unrendered LaTeX text, a stray artifact dot, crowded top text, and an unbalanced layout with large empty areas."
+    }
+  },
+  "aggregator": {
+    "winner": "calorimetry_v7",
+    "confidence": 0.86,
+    "explanation": "Lesson 2 wins four of six dimensions with very high confidence, including interactivity, narration quality, synchronization, and conceptual accuracy. These are central instructional dimensions, and the confidence scores for Lesson 2 are consistently strong. Lesson 1 is favored for visual accuracy and polish, reflecting better rendered visuals and fewer layout artifacts, but those two advantages do not outweigh Lesson 2's stronger overall teaching, narration, timing, and interactive structure."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:42:31.421110+00:00",
+  "videoMeta": {
+    "calorimetry_v7": {},
+    "calorimetry_code2video": {}
+  }
+}

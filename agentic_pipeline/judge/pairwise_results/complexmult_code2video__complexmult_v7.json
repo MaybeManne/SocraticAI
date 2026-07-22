@@ -1,0 +1,50 @@
+{
+  "setupA": "complexmult_v7",
+  "setupB": "complexmult_code2video",
+  "subject": "complexmult",
+  "lesson1Setup": "complexmult_v7",
+  "lesson2Setup": "complexmult_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "complexmult_v7",
+      "confidence": 0.72,
+      "rationale": "Lesson 1, despite some overlapping/garbled transition text and cluttered axes, consistently shows the correct algebraic reduction and complex-plane directions, whereas Lesson 2 is visually cleaner but includes a substantive wrong title saying \u201cSquaring (1 + 1)\u201d instead of \u201c(1 + i)\u201d and offers fewer conceptually precise visual cues."
+    },
+    "interactivity": {
+      "winner": "complexmult_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate with a real question, options, correct answer, and matching plan node after a specific act, while Lesson 2 has no available gate specs or plan and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "complexmult_v7",
+      "confidence": 0.91,
+      "rationale": "Lesson 1 provides coherent, well-paced narration with only minor phrasing/notation issues like 'two-i,' whereas Lesson 2 has no available narration transcript at all and therefore cannot demonstrate clear or defect-free audio."
+    },
+    "sync": {
+      "winner": "complexmult_v7",
+      "confidence": 0.96,
+      "rationale": "Lesson 1 provides mostly relevant visual cues near the narration points that reference them despite a few imperfect offsets and a missing derivation cue, while Lesson 2 has no transcript or cue timing at all, making its sync effectively absent."
+    },
+    "concept_accuracy": {
+      "winner": "complexmult_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 is mathematically correct and pedagogically builds the shortcut through algebra, an intermediate check, and geometric intuition, while Lesson 2 has no available script or plan, so it provides no verifiable concept explanation at all."
+    },
+    "polish": {
+      "winner": "complexmult_code2video",
+      "confidence": 0.82,
+      "rationale": "Lesson 2 is visually simple but consistently clean, centered, and free of overlaps, whereas Lesson 1 has a more modern style but suffers from cluttered split panels, empty boxes, mangled/overlapping formulas, axes cutting through elements, and clipped content near the top in later frames."
+    }
+  },
+  "aggregator": {
+    "winner": "complexmult_v7",
+    "confidence": 0.94,
+    "explanation": "Lesson 1 is the clear overall winner: five of six dimension agents favored it, most with very high confidence. It substantially outperforms Lesson 2 on interactivity, narration quality, synchronization, and concept accuracy because it has a functioning quiz, coherent narration, timed visual cues, and a verifiable mathematically correct explanation. It also wins visual accuracy despite some clutter because its visuals support the correct algebra and complex-plane interpretation, while Lesson 2 contains a substantive title error and lacks key instructional evidence. Lesson 2 only wins polish, with clean and uncluttered visuals, but that single advantage is outweighed by Lesson 1's much stronger instructional completeness and accuracy."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:29:13.596810+00:00",
+  "videoMeta": {
+    "complexmult_v7": {},
+    "complexmult_code2video": {}
+  }
+}

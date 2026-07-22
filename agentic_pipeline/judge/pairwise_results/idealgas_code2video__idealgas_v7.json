@@ -1,0 +1,50 @@
+{
+  "setupA": "idealgas_v7",
+  "setupB": "idealgas_code2video",
+  "subject": "idealgas",
+  "lesson1Setup": "idealgas_v7",
+  "lesson2Setup": "idealgas_code2video",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "idealgas_v7",
+      "confidence": 0.87,
+      "rationale": "Lesson 1 consistently shows the correct gas container, thermometer, volume/amount labels, pressure target, and correct PV=nRT rearrangement/substitution, while Lesson 2 has a visibly broken/incomplete calculation frame and a confusing final container label that appears to use the wrong unit/meaning despite reaching the right numeric answer."
+    },
+    "interactivity": {
+      "winner": "idealgas_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 1 includes a well-formed, wired quiz gate after act_setup with a real question, plausible options, and a correct answer, whereas Lesson 2 has no available gate specs or plan and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "idealgas_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 has clear, natural narration with correctly spoken math and appropriate pacing, while Lesson 2 has no transcript/narration available to evaluate, making it worse on narration quality."
+    },
+    "sync": {
+      "winner": "idealgas_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 provides timed cues that generally coincide with the referenced narration, whereas Lesson 2 has no transcript or cue timing available at all, making its visual-narration sync absent and unevaluable."
+    },
+    "concept_accuracy": {
+      "winner": "idealgas_v7",
+      "confidence": 0.98,
+      "rationale": "Lesson 1 correctly applies and explains the ideal gas law step by step, including isolating P, substituting values, units, and arithmetic, while Lesson 2 has no available transcript or content to verify any conceptual accuracy or pedagogical explanation."
+    },
+    "polish": {
+      "winner": "idealgas_code2video",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 is simpler but generally legible, centered, and uncluttered, whereas Lesson 1 has persistent tiny/clipped top text, off-frame/cropped elements, and increasingly crowded panels that hurt presentation polish."
+    }
+  },
+  "aggregator": {
+    "winner": "idealgas_v7",
+    "confidence": 0.98,
+    "explanation": "Lesson 1 is the clear overall winner: five of six agents preferred it, all with very high confidence, across the most substantive dimensions\u2014visual accuracy, interactivity, narration quality, synchronization, and concept accuracy. These agents found that Lesson 1 correctly presents and explains the ideal gas law, includes functioning interactivity, has clear narration, and aligns visuals with narration. Lesson 2 only won polish, with lower confidence, because it appeared cleaner and less cluttered, but this was outweighed by missing or incomplete narration, sync, interactivity, and verifiable instructional content."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:32:00.387158+00:00",
+  "videoMeta": {
+    "idealgas_v7": {},
+    "idealgas_code2video": {}
+  }
+}

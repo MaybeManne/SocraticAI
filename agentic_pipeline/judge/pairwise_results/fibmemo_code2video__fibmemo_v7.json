@@ -1,0 +1,50 @@
+{
+  "setupA": "fibmemo_v7",
+  "setupB": "fibmemo_code2video",
+  "subject": "fibmemo",
+  "lesson1Setup": "fibmemo_code2video",
+  "lesson2Setup": "fibmemo_v7",
+  "dimensions": {
+    "visual_accuracy": {
+      "winner": "fibmemo_v7",
+      "confidence": 0.78,
+      "rationale": "Lesson 2 has some early partial/misleading tree construction, but it later shows the correct F(10) decomposition, repeated subproblems, and memoization table with correct values, whereas Lesson 1 contains more sustained visual inaccuracies including a malformed/overlapping recursive tree and an unrealistic fan-out of generic F(x) nodes that misrepresents Fibonacci recursion."
+    },
+    "interactivity": {
+      "winner": "fibmemo_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 includes a wired quiz gate after act_exponential_explosion with a real question, plausible options, and a marked correct answer, while Lesson 1 has no available gate specs or plan and therefore no functioning interactivity."
+    },
+    "narration_quality": {
+      "winner": "fibmemo_v7",
+      "confidence": 0.99,
+      "rationale": "Lesson 2 provides clear, naturally paced narration with no raw LaTeX or garbled phrasing, while Lesson 1 has no available narration transcript at all and therefore cannot demonstrate acceptable audio quality."
+    },
+    "sync": {
+      "winner": "fibmemo_v7",
+      "confidence": 0.95,
+      "rationale": "Lesson 2 provides mostly well-timed visual cues that align with the narration despite a few early fade cues, while Lesson 1 has no transcript or cue timing available at all, making its sync effectively unevaluable and worse."
+    },
+    "concept_accuracy": {
+      "winner": "fibmemo_v7",
+      "confidence": 0.97,
+      "rationale": "Lesson 2 correctly computes F(10)=55 and clearly explains overlapping subproblems and caching reducing work to one computation per Fibonacci index, while Lesson 1 has no available transcript or script to verify any conceptual accuracy or pedagogy."
+    },
+    "polish": {
+      "winner": "fibmemo_v7",
+      "confidence": 0.84,
+      "rationale": "Lesson 2 has a more consistent modern layout, readable typography, and cleaner visual styling across frames, whereas Lesson 1 uses smaller serif text, has more empty/off-balanced compositions, and includes a notable overlap/near-collision between the recursive tree and the title around t=30s."
+    }
+  },
+  "aggregator": {
+    "winner": "fibmemo_v7",
+    "confidence": 0.96,
+    "explanation": "All six dimension agents prefer Lesson 2, with high confidence across interactivity, narration, sync, conceptual accuracy, visual accuracy, and polish. Lesson 2 is credited with a functioning quiz gate, clear narration, mostly aligned visual timing, correct Fibonacci/memoization explanation, and cleaner visuals. Lesson 1 is repeatedly penalized for missing transcript/gate/timing evidence, weaker or inaccurate visuals, and less polished layout. Given unanimous votes and generally strong confidence, Lesson 2 is the clear overall winner."
+  },
+  "evalModel": "gpt-5.5",
+  "evaluatedAt": "2026-07-21T23:34:55.779121+00:00",
+  "videoMeta": {
+    "fibmemo_v7": {},
+    "fibmemo_code2video": {}
+  }
+}
